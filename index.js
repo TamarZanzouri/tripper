@@ -19,17 +19,11 @@ app.use(bodyParser());
 app.get('/',function(req,res){
 	// Connect to the db
 	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
-	  if(err) { return console.dir(err);
-	 	 res.render('index.ejs',{
-			titel:'Tripper',
-			character:'Character',
-			trips:[]
-
-		});
+	  if(err) { 
+	  	return console.dir(err);
 	 }
 	 else{
 		var collection = db.collection('TDB');
-		
 		collection.find({ }).toArray(function (err, docs) {
 		    res.render('index.ejs',{
 				titel:'Tripper',
