@@ -92,8 +92,9 @@ app.get('/*',function(req,res){
 
 	res.send(404,"aaaaaaaa")
 });
-app.listen(1337,function(){
-	console.log("port 1337");
+port = app.get('port') || 1337
+app.listen(port,function(){
+	console.log("port "+port);
 });
 
 
