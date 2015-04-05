@@ -1,0 +1,19 @@
+{
+    "trips": [
+        {
+            "id": 0,
+            "name": "tel_aviv",
+            "description": "breave"
+        },
+        {
+            "id": 1,
+            "name": "haifa",
+            "description": "lazy"
+        },
+        {
+            "id": 2,
+            "name": "or_yehuda",
+            "description": "smokers"
+        }
+    ]
+}

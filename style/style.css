@@ -1,0 +1,48 @@
+.selected{
+	font-size: 28px;
+	color:#a2c739;
+}
+form{
+	margin: 40px 10% 0 0;
+}
+li{
+	 list-style-type: none;
+ 	 margin: 20px 0 0 -37px;
+  	 font-family: Arial;
+	 font-size: 18px;
+	 padding-right: 7%;
+}
+.nav > li{
+	  width: 20%;
+  text-align: center;
+}
+#groupButton{
+  position: relative;
+  width: 45%;
+  left: 25%;
+}
+.btn {
+  color: #ffffff;
+  background: #3366CC;
+  width: 17%;
+  margin: 24px 38px 0px 0px;
+}
+.selectedChar{
+	background: #49495A;
+	color:#ffffff;
+}
+.selected{
+	font-size:18px;
+}
+h1{
+  font-size: 50px;
+  color: #337AB7;
+}
+#addTripSec{
+	direction: rtl;
+	display:none;
+}
+#showTripsSec{
+	direction: rtl;
+	display:none;
+}
