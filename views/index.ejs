@@ -23,31 +23,45 @@
 				<button class="btn"><%=character[j] %></button>
 				<% } %>
 			</div>	
-		</section>	
 		
+			<section id="resultTrip">
+				<% for (var i =0; i<trips.length; i++) {%>
+					<li class="listResultTrip"> <%= "שם הטיול: "+trips[i].name + " תיאור-הטיול:  " + trips[i].description + "מיקום: "+ trips[i].location + "תכונות: " + trips[i].character1+" "+trips[i].character2 %></li>
+					<% } %>
+			</section>
+			<section id="myChoose">
+			</section>
+		</section>	
+
 		<section id="showTripsSec">
 			<ul id="displayTrip">
-				<% for (var i =0; i<trips.length; i++) {%>
-				<li> <%= "שם הטיול: "+trips[i].name + " תיאור-הטיול:  " + trips[i].description %></li>
+				<% for ( i =0; i<trips.length; i++) {%>
+				<li> <%= "שם הטיול: "+trips[i].name + " תיאור-הטיול:  " + trips[i].description + "מיקום: "+ trips[i].location + "תכונות: " + trips[i].character1+" "+trips[i].character2 %></li>
 				<% } %>
 			</ul>
 		</section>
+
 		<section id="addTripSec">
 			<form action="/add" method="post">
-				<label>שם או אזור הטיול 
-					<br>
-				<input type="text" name="newTrip">
-				</label>
-				<br>
-				<label>תאור הטיול
-				<br>
-				<textarea type="text" name="des"></textarea>
+				<label>שם או אזור הטיול <br>
+					<input type="text" name="nameTrip">
+				</label><br>
+				<label>תאור הטיול<br>
+					<textarea type="text" name="des"></textarea>
+				</label><br>
+				<label>מיקום הטיול: <br>
+					<input type="text" name="locationTrip">
+				</label><br>
+				<label>תכונות הטיול: <br>
+					<input type="text" name="char1">
+					<input type="text" name="char2">
 				</label>
 				<br>
 				<input type="submit">
 			</form>
 		</section>
 	</div>
+	
 	<script src="jquery/dist/jquery.js"></script>
 	<script type="text/javascript" src="bootsrtap/dist/js/bootstrap.js"></script>
 	<script type="text/javascript" src="../functionTrip.js"></script>

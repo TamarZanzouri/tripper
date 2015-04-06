@@ -1,4 +1,4 @@
-var listSection=['homeSec','addTripSec','showTripsSec','myFavoritesSec']
+var listSection=['homeSec','addTripSec','showTripsSec','myFavoritesSec'];
 
 $(document).ready(function(){
 	
@@ -47,12 +47,30 @@ $(document).ready(function(){
 	var me;
 	$('.btn').click(function(){
 		me=this;
-		$('.btn').each(function(value){
-			if (count<2) {
-					count++;
-					$(me).addClass('selectedChar');
+		if (count<2) {
+			console.log("haim");
+				count++;
+				$(me).addClass('selectedChar');
+			if(count==1)
+			{
+				$('#homeSec').append("<a class='continue' href='index.ejs#resultTrip'> המשך </a>");
 			}
-		});
+			if(count==2)
+			{
+				$('#groupButton').hide();
+				$('#resultTrip').show();
+				$('#resultTrip').prepend("<h3>תוצאות החיפוש</h3>");
+			}
+		}
+		else{
+			console.log("no more then 2");
+		}
+	});
+	$('.listResultTrip').click(function(){
+			$('#resultTrip').hide();
+			$('#myChoose').show();
+			$('#myChoose').append(this);
+			$('#myChoose').prepend("<h3>הטיול הנבחר</h3>");
 	});
 /*
 	$('form').submit(function(e){

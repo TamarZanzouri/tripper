@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var app=express();
 var Character = ['char1','char2','char3','char4','char1','char2','char3','char4','char1','char2','char3','char4'];
+
 app.set('view engine' ,'ejs');
 app.set('views',path.join(__dirname , 'views'));
 app.use(express.static(path.join(__dirname,'node_modules/bower_components')));
@@ -43,12 +44,20 @@ app.post('/add', function (req,res) {
 	  if(err) { return console.dir(err);}
 	 else{
 		var collection = db.collection('TDB');
-		var newTrip = req.body.newTrip;
+		var nameTrip = req.body.nameTrip;
 		var des = req.body.des;
+		var location = req.body.locationTrip;
+		var char1 = req.body.char1;
+		var char2 = req.body.char2;
+		var privte =req.body.privte;
 		var temp = {
 			id: new Date().getTime(),
-			name:newTrip,
-			description:des
+			name:nameTrip,
+			description:des,
+			location:location,
+			character1:char1,
+			character2:char2,
+			ifPrivte:privte
 		};
 		//console.log(temp);
 		collection.insert(temp,function(){

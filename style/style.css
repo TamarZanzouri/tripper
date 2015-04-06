@@ -24,7 +24,6 @@ li{
 .btn {
   color: #ffffff;
   background: #3366CC;
-  width: 17%;
   margin: 24px 38px 0px 0px;
 }
 .selectedChar{
@@ -45,4 +44,26 @@ h1{
 #showTripsSec{
 	direction: rtl;
 	display:none;
+}
+.continue{
+	  color: #337ab7;
+  text-decoration: none;
+  position: relative;
+  float: right;
+  right: 9%;
+  font-size: x-large;
+}
+.listResultTrip{}
+#resultTrip{
+	display: none;
+	  text-align: -webkit-right;
+}
+#myChoose{
+	display: none;
+	  text-align: -webkit-right;
+}
+h3{
+color: #337ab7;
+  position: relative;
+  right: 7%;
 }
