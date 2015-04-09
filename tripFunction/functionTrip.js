@@ -72,22 +72,22 @@ $(document).ready(function(){
 			$('#myChoose').append(this);
 			$('#myChoose').prepend("<h3>הטיול הנבחר</h3>");
 	});
-/*
-	$('form').submit(function(e){
-			e.preventDefault();
-			console.log(this.newTrip, this.des)
-			$.ajax({
-			  url: "http://localhost:1337/add",
-			  method: "POST",
-			  data:{newTrip: this.newTrip, des:this.des}
-			})
-			  .done(function( data ) {
+
+	// $('form').submit(function(e){
+	// 		e.preventDefault();
+	// 		console.log(this.newTrip, this.des)
+	// 		$.ajax({
+	// 		  url: "http://localhost:1337/add",
+	// 		  method: "POST",
+	// 		  data:{newTrip: this.newTrip, des:this.des}
+	// 		})
+	// 		  .done(function( data ) {
 			    
-			      console.log( data );
-			  })
-			  .fail(function(err){
- 				console.log( err );
-			  });
-			  return false;
-	});*/
+	// 		      console.log( data );
+	// 		  })
+	// 		  .fail(function(err){
+ // 				console.log( err );
+	// 		  });
+	// 		  return false;
+	// });
 });

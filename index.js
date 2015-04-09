@@ -25,10 +25,11 @@ app.get('/',function(req,res){
 	  	return console.dir(err);
 	 }
 	 else{
-		var collection = db.collection('TDB');
-		collection.find({ }).toArray(function (err, docs) {
+		var tripper_collection = db.collection('tripper_playlist');
+		console.log(tripper_collection);
+		tripper_collection.find({ }).toArray(function (err, docs) {
 		    res.render('index.ejs',{
-				titel:'Tripper',
+				title:'Tripper',
 				character:Character,
 				trips:docs
 			});
@@ -43,29 +44,53 @@ app.post('/add', function (req,res) {
 	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
 	  if(err) { return console.dir(err);}
 	 else{
-		var collection = db.collection('TDB');
+		var tripper_collection = db.collection('tripper_playlist');
 		var nameTrip = req.body.nameTrip;
 		var des = req.body.des;
 		var location = req.body.locationTrip;
 		var char1 = req.body.char1;
 		var char2 = req.body.char2;
 		var privte =req.body.privte;
-		var temp = {
-			id: new Date().getTime(),
-			name:nameTrip,
-			description:des,
-			location:location,
-			character1:char1,
-			character2:char2,
-			ifPrivte:privte
-		};
+		// var temp = {
+		// 	id: new Date().getTime(),
+		// 	name:nameTrip,
+		// 	description:des,
+		// 	location:location,
+		// 	character1:char1,
+		// 	character2:char2,
+		// 	ifPrivte:privte
+		// };
 		//console.log(temp);
-		collection.insert(temp,function(){
+		tripper_collection.insert({
+			trip_name : nameTrip,
+			trip_description : des,
+			address : location,
+			trip_charachters : [{
+				charachter : char1
+			},
+			{ 
+				charachter : char2
+			}],
+			trip_isPrivate : privte
+		}, function(err, docs){
+			if(err){
+				console.log("found error inserting");
+				db.close();
+				return console.error(err);
+			}
+			console.log("inserted:");
+			for(var i in docs){
+				console.log(docs[i]);
+			}
 			
-		})
-		 
-		//console.log(collection);
-		
+			console.log("inserted " + docs.length + documents);
+
+			tripper_collection.findOne({ _id : new ObjectId()}, function(err, doc){
+				if(err)
+					return console.error(err);
+				console.log("read 1 item" + doc);
+			});
+		});
 	}
 	  // var doc1 = {'hello':'doc1'};
 	  // var doc2 = {'hello':'doc2'};
@@ -100,13 +125,3 @@ port = app.get('port') || 1337
 app.listen(port,function(){
 	console.log("port "+port);
 });
-
-
-/*
-var http = require('http');
-http.createServer(function (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/plain'});
-  res.end('Hello World\n');
-}).listen(1337, '127.0.0.1');
-console.log('Server running at http://127.0.0.1:1337/');
-*/
