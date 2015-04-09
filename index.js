@@ -26,14 +26,16 @@ app.get('/',function(req,res){
 	 }
 	 else{
 		var tripper_collection = db.collection('tripper_playlist');
-		console.log(tripper_collection);
 		tripper_collection.find({ }).toArray(function (err, docs) {
+			console.log(docs);
+			console.log(docs.trip_charachters);
 		    res.render('index.ejs',{
 				title:'Tripper',
 				character:Character,
 				trips:docs
+				// charachters : docs.trip_charachters
 			});
-		 });	
+		 });
 		}
 	});
 	
