@@ -5,14 +5,17 @@
 	<title>Tripper</title>
 	<link rel="stylesheet" href="bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
+	   <link rel="stylesheet" href="jquerymobile.css">
 </head>
 <body >
-	<div class="container">
+
+
+	<div id="wrapper">
 			<h1>Tripper</h1>
 			<ul class="nav nav-pills">
 				<li id="home"><a href="#">חיפוש טיול</a></li>
 				<li id="showTrips"><a href="#">החשבון שלי</a></li>
-				<li ><a href="#">המועדפים שלי</a></li>
+				<li ><a href="#indexMobile">המועדפים שלי</a></li>
 				<li><a href="#">המסלול שלי</a></li>
 				<li id="addTrip"><a href="#">הוספת טיול</a></li>
 			</ul>
@@ -25,18 +28,20 @@
 			</div>	
 		
 			<section id="resultTrip">
+				<ul class="displayTrip">
 				<% for (var i in trips) {%>
-					<li class="listResultTrip"> <%= "שם הטיול: "+trips[i].trip_name + " תיאור-הטיול:  " + trips[i].trip_description + "מיקום: "+ trips[i].location + "תכונות: " + trips[i].trip_charachters[0].charachter+" "+trips[i].trip_charachters[1].charachter %></li>
+					<li class="listResultTrip"><span class="titelName"> <%= "שם הטיול: "+trips[i].trip_name %></span><%= " תיאור-הטיול:  " + trips[i].trip_description + "מיקום: "+ trips[i].location + "תכונות: " + trips[i].trip_charachters[0].charachter+" "+trips[i].trip_charachters[1].charachter %></li>
 					<% } %>
+				</ul>
 			</section>
 			<section id="myChoose">
 			</section>
 		</section>	
 
 		<section id="showTripsSec">
-			<ul id="displayTrip">
+			<ul class="displayTrip">
 				<% for ( i =0; i<trips.length; i++) {%>
-				<li> <%= "שם הטיול: "+trips[i].trip_name + " תיאור-הטיול:  " + trips[i].trip_description + "מיקום: "+ trips[i].location + "תכונות: " + trips[i].trip_charachters[0].charachter+" "+trips[i].trip_charachters[1].charachter %></li>
+				<li> <span class="titelName"> <%= "שם הטיול: "+trips[i].trip_name %></span><%= " תיאור-הטיול:  " + trips[i].trip_description + "מיקום: "+ trips[i].location + "תכונות: " + trips[i].trip_charachters[0].charachter+" "+trips[i].trip_charachters[1].charachter %></li>
 				<% } %>
 			</ul>
 		</section>
@@ -61,7 +66,8 @@
 			</form>
 		</section>
 	</div>
-	
+	 
+        <script src="../jquerymobile.js"></script> 
 	<script src="jquery/dist/jquery.js"></script>
 	<script type="text/javascript" src="bootsrtap/dist/js/bootstrap.js"></script>
 	<script type="text/javascript" src="../functionTrip.js"></script>

@@ -34,7 +34,6 @@ app.get('/', function(req, res) {
 			});
 		}
 	});
-
 });
 
 app.post('/add', function(req, res) {
@@ -115,6 +114,9 @@ app.post('/add', function(req, res) {
 app.get('/click', function(req, res) {
 
 	res.render('click.ejs')
+});
+app.get('indexMobile', function(req, res) {
+
 });
 
 app.get('/*', function(req, res) {

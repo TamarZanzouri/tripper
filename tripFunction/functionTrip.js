@@ -60,6 +60,17 @@ $(document).ready(function(){
 				$('#groupButton').hide();
 				$('#resultTrip').show();
 				$('#resultTrip').prepend("<h3>תוצאות החיפוש</h3>");
+					$.ajax({
+						url : "http://imcook.herokuapp.com/icook/updateFavorite",
+						type : 'post',
+						data : {
+							email : user.email,
+							recipeId : recipeId
+						},
+						dataType : 'json',
+						success : setFavoriteCallback,
+						error : errorCallback
+					});
 			}
 		}
 		else{
@@ -67,6 +78,7 @@ $(document).ready(function(){
 		}
 	});
 	$('.listResultTrip').click(function(){
+		$('#myChoose').empty();
 			$('#resultTrip').hide();
 			$('#myChoose').show();
 			$('#myChoose').append(this);

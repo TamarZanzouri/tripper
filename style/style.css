@@ -2,29 +2,41 @@
 	font-size: 28px;
 	color:#a2c739;
 }
+#wrapper{
+	margin: 0 auto;
+	  width: 90%;
+}
 form{
 	margin: 40px 10% 0 0;
 }
 li{
 	 list-style-type: none;
- 	 margin: 20px 0 0 -37px;
+ 	 margin: 20px 0 0 0;
   	 font-family: Arial;
 	 font-size: 18px;
-	 padding-right: 7%;
+}
+.nav{
+	  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  position: relative;
 }
 .nav > li{
-	  width: 20%;
   text-align: center;
+  width: 19.5%;
+  float: right;
 }
 #groupButton{
-  position: relative;
-  width: 45%;
-  left: 25%;
+position: relative;
+  width: 474px;
+  margin: 0 auto;
+  text-align: center;
 }
 .btn {
   color: #ffffff;
   background: #3366CC;
   margin: 24px 38px 0px 0px;
+  border-radius: 30px;
 }
 .selectedChar{
 	background: #49495A;
@@ -36,6 +48,7 @@ li{
 h1{
   font-size: 50px;
   color: #337AB7;
+    margin: 20px 10px 20px 20px;
 }
 #addTripSec{
 	direction: rtl;
@@ -50,13 +63,25 @@ h1{
   text-decoration: none;
   position: relative;
   float: right;
-  right: 9%;
   font-size: x-large;
 }
 .listResultTrip{}
 #resultTrip{
 	display: none;
 	  text-align: -webkit-right;
+}
+.displayTrip > li{
+	  font-size: 16px;
+  border: 1px solid #494949;
+  color: #494949;
+  padding: 10px 10px 10px 0;
+  border-radius: 10px;
+}
+.titelName{
+	display: -webkit-box;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: underline;
 }
 #myChoose{
 	display: none;
@@ -65,5 +90,4 @@ h1{
 h3{
 color: #337ab7;
   position: relative;
-  right: 7%;
 }
