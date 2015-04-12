@@ -22,16 +22,36 @@ app.get('/', function(req, res) {
 			return console.dir(err);
 		} else {
 			var tripper_collection = db.collection('tripper_playlist');
-			tripper_collection.find({ }).toArray(function(err, docs) {
-				console.log(docs);
-				console.log(docs.trip_charachters);
-				res.render('index.ejs', {
-					title : 'Tripper',
-					character : Character,
-					trips : docs
-					// charachters : docs.trip_charachters
-				});
-			});
+				tripper_collection.find( { trip_charachters:  { $elemMatch : { charachter: {$ne : ""} }}}, { trip_charachters: true, _id : false}).toArray(function (err, docs)
+				            { 
+				                // failure while connecting to sessions collection
+				                if (err) 
+				                {
+				                    console.log( err);
+				                    
+				                    return;
+				                }
+				                
+				                else
+				                {
+				                	var tripperCharachters =[]
+				                    console.log( docs);
+				                    (docs).forEach(function(t){
+										(t.trip_charachters).forEach(function(tt){
+											tripperCharachters.push(tt)
+					                    })
+				                    	
+				                    })
+										console.log(docs);
+										res.render('index.ejs', {
+											title : 'Tripper',
+											character : tripperCharachters,
+											trips : docs
+										});
+				                    db.close();
+				                }
+				            });
+
 		}
 	});
 });
@@ -49,16 +69,6 @@ app.post('/add', function(req, res) {
 			var char1 = req.body.char1;
 			var char2 = req.body.char2;
 			var privte = req.body.privte;
-			// var temp = {
-			// 	id: new Date().getTime(),
-			// 	name:nameTrip,
-			// 	description:des,
-			// 	location:location,
-			// 	character1:char1,
-			// 	character2:char2,
-			// 	ifPrivte:privte
-			// };
-			//console.log(temp);
 			tripper_collection.insert({
 				trip_name : nameTrip,
 				trip_description : des,

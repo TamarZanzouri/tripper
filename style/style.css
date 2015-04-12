@@ -16,27 +16,35 @@ li{
 	 font-size: 18px;
 }
 .nav{
-	  padding-left: 0;
+  padding-left: 0;
   margin-bottom: 0;
   list-style: none;
   position: relative;
+  float: left;
+  width: 100%;
 }
 .nav > li{
   text-align: center;
   width: 19.5%;
   float: right;
 }
-#groupButton{
-position: relative;
-  width: 474px;
+#homePage{
+  position: relative;
+  width: 100%;
   margin: 0 auto;
-  text-align: center;
+  text-align: center
 }
-.btn {
-  color: #ffffff;
-  background: #3366CC;
-  margin: 24px 38px 0px 0px;
-  border-radius: 30px;
+#groupButton{
+	  width: 45%;
+  margin: 0 auto;
+}
+.btnChar {
+	width: 100px !important;
+  color: #ffffff !important;
+  background: #3366CC !important;
+  margin: 24px 38px 0px 0px !important;
+  border-radius: 30px !important;
+  float: left;
 }
 .selectedChar{
 	background: #49495A;
@@ -46,17 +54,21 @@ position: relative;
 	font-size:18px;
 }
 h1{
-  font-size: 50px;
+  font-size: 50px !important;
   color: #337AB7;
-    margin: 20px 10px 20px 20px;
+  margin: 0 10px 0 20px !important;
+  position: relative;
+  float: left;
+  padding: 0 0 0 0 !important;
+}
+h1 > a:hover{
+	text-decoration: none;
 }
 #addTripSec{
 	direction: rtl;
-	display:none;
 }
 #showTripsSec{
 	direction: rtl;
-	display:none;
 }
 .continue{
 	  color: #337ab7;
@@ -67,7 +79,6 @@ h1{
 }
 .listResultTrip{}
 #resultTrip{
-	display: none;
 	  text-align: -webkit-right;
 }
 .displayTrip > li{
@@ -84,8 +95,8 @@ h1{
   text-decoration: underline;
 }
 #myChoose{
-	display: none;
-	  text-align: -webkit-right;
+	text-align: -webkit-right;
+	 margin: 0 20px 0 0px;
 }
 h3{
 color: #337ab7;

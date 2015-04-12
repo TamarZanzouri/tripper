@@ -1,7 +1,9 @@
 var listSection=['homeSec','addTripSec','showTripsSec','myFavoritesSec'];
 
 $(document).ready(function(){
-	
+
+
+
 	$('#displayTrip li').click(function(){
 		$('#displayTrip li').each(function(index,value){
 			if ($(value).hasClass('selected')) {
@@ -19,19 +21,15 @@ $(document).ready(function(){
 		})
 		$(this).addClass('active');
 	});
-	$('#addTrip').click(function(){
+	/*$('#addTrip').click(function(){
 		$.each(listSection,function(index,value){
 			$('#'+value).hide();
 		});
 		$('#addTripSec').show();
-	});
-	$('#showTrips').click(function(){
-		$.each(listSection,function(index,value){
-			console.log(value);
-			$('#'+value).hide();
-		});
-		$('#showTripsSec').show();
-	});
+	});*/
+	/*$('#showTrips').click(function(){
+		moveToAccountPage();
+	});*/
 	$('#home').click(function(){
 		$.each(listSection,function(index,value){
 			console.log(value);
@@ -45,7 +43,7 @@ $(document).ready(function(){
 	});*/
 	var count=0;
 	var me;
-	$('.btn').click(function(){
+	$('.btnChar').click(function(){
 		me=this;
 		if (count<2) {
 			console.log("haim");
@@ -53,24 +51,16 @@ $(document).ready(function(){
 				$(me).addClass('selectedChar');
 			if(count==1)
 			{
-				$('#homeSec').append("<a class='continue' href='index.ejs#resultTrip'> המשך </a>");
+				$('#homePage #content').append("<a class='continue' href='index.ejs#resultTripPqge'> המשך </a>");
 			}
 			if(count==2)
 			{
-				$('#groupButton').hide();
+
+				moveTofilterPage();
+				/*$('#groupButton').hide();
 				$('#resultTrip').show();
 				$('#resultTrip').prepend("<h3>תוצאות החיפוש</h3>");
-					$.ajax({
-						url : "http://imcook.herokuapp.com/icook/updateFavorite",
-						type : 'post',
-						data : {
-							email : user.email,
-							recipeId : recipeId
-						},
-						dataType : 'json',
-						success : setFavoriteCallback,
-						error : errorCallback
-					});
+				*/	
 			}
 		}
 		else{
@@ -84,7 +74,21 @@ $(document).ready(function(){
 			$('#myChoose').append(this);
 			$('#myChoose').prepend("<h3>הטיול הנבחר</h3>");
 	});
+});
+function moveTofilterPage() {
+	$.mobile.changePage("#resultTripPqge", {
+		transition : "none",
+		changeHash : true
+	});
+}
+function moveToAccountPage() {
+	$.mobile.changePage("#accountPage", {
+		transition : "none",
+		changeHash : true
+	});
+}
 
+	
 	// $('form').submit(function(e){
 	// 		e.preventDefault();
 	// 		console.log(this.newTrip, this.des)
@@ -102,4 +106,5 @@ $(document).ready(function(){
 	// 		  });
 	// 		  return false;
 	// });
-});
+
+

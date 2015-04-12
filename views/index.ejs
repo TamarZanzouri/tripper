@@ -1,17 +1,121 @@
 <!doctype html>
 <html lsng="en">
 <head>
-	<meta charse="UTF-8">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Tripper</title>
 	<link rel="stylesheet" href="bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	   <link rel="stylesheet" href="jquerymobile.css">
+	   <script src="jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="bootsrtap/dist/js/bootstrap.js"></script>
+	
+	<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <script type="text/javascript" src="../functionTrip.js"></script>
 </head>
 <body >
+	<div data-role="page" id="homePage" >
+        <header data-role="header" data-position="fixed" data-tap-toggle="false">     
+        	<h1><a href="#">Tripper</a></h1>
+			<ul class="nav nav-pills">
+				<li id="home"><a href="#homePage">חיפוש טיול</a></li>
+				<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
+				<li ><a href="#indexMobile">המועדפים שלי</a></li>
+				<li><a href="#">המסלול שלי</a></li>
+				<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
+			</ul>
+        </header>
+        <div data-role="content" class="ui-content" id="content">
+            <!-- application data will goes here -->
+            <div id="groupButton">
+				
+				<% for (var j =0; j<character.length; j++) {%>
+				<button class="btnChar"><%=character[j].charachter %></button>
+				<% } %>
+			</div>	
+		</div>
+    </div>
 
 
+    <div data-role="page" id="resultTripPqge" >
+    	<header data-role="header" data-position="fixed" data-tap-toggle="false">     
+        	<h1><a href="#">Tripper</a></h1>
+			<ul class="nav nav-pills">
+				<li id="home"><a href="#homePage">חיפוש טיול</a></li>
+				<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
+				<li ><a href="#indexMobile">המועדפים שלי</a></li>
+				<li><a href="#">המסלול שלי</a></li>
+				<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
+			</ul>
+        </header>
+	    <div data-role="content" class="ui-content" id="content">
+	            <!-- application data will goes here -->
+			<section id="resultTrip">
+				<ul class="displayTrip">
+					<% for (var i in trips) {%>
+						<li class="listResultTrip"><span class="titelName"> <%= "שם הטיול: "+trips[i].trip_name %></span><%= " תיאור-הטיול:  " + trips[i].trip_description + "מיקום: "+ trips[i].location + "תכונות: " + trips[i].trip_charachters[0].charachter+" "+trips[i].trip_charachters[1].charachter %></li>
+						<% } %>
+					</ul>
+				</section>
+			<section id="myChoose">
+			</section>
+		</div>
+	</div>
+
+	<div data-role="page" id="addTripPage" >
+    	<header data-role="header" data-position="fixed" data-tap-toggle="false">     
+        	<h1><a href="#">Tripper</a></h1>
+			<ul class="nav nav-pills">
+				<li id="home"><a href="#homePage">חיפוש טיול</a></li>
+				<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
+				<li ><a href="#indexMobile">המועדפים שלי</a></li>
+				<li><a href="#">המסלול שלי</a></li>
+				<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
+			</ul>
+		</header>
+		<section id="addTripSec">
+			<form action="/add" method="post">
+				<label>שם או אזור הטיול <br>
+					<input type="text" name="nameTrip">
+				</label><br>
+				<label>תאור הטיול<br>
+					<textarea type="text" name="des"></textarea>
+				</label><br>
+				<label>מיקום הטיול: <br>
+					<input type="text" name="locationTrip">
+				</label><br>
+				<label>תכונות הטיול: <br>
+					<input type="text" name="char1">
+					<input type="text" name="char2">
+				</label>
+				<br>
+				<input type="submit">
+			</form>
+		</section>
+	</div>
+	<div data-role="page" id="accountPage" >
+		<header data-role="header" data-position="fixed" data-tap-toggle="false">     
+        	<h1><a href="#">Tripper</a></h1>
+			<ul class="nav nav-pills">
+				<li id="home"><a href="#homePage">חיפוש טיול</a></li>
+				<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
+				<li ><a href="#indexMobile">המועדפים שלי</a></li>
+				<li><a href="#">המסלול שלי</a></li>
+				<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
+			</ul>
+		</header>
+		<section id="showTripsSec">
+			<ul class="displayTrip">
+				<% for ( i =0; i<trips.length; i++) {%>
+				<li> <span class="titelName"> <%= "שם הטיול: "+trips[i].trip_name %></span><%= " תיאור-הטיול:  " + trips[i].trip_description + "מיקום: "+ trips[i].location + "תכונות: " + trips[i].trip_charachters[0].charachter+" "+trips[i].trip_charachters[1].charachter %></li>
+				<% } %>
+			</ul>
+		</section>
+	</div>
+<!--
 	<div id="wrapper">
-			<h1>Tripper</h1>
+			<h1><a href="#">Tripper</a></h1>
 			<ul class="nav nav-pills">
 				<li id="home"><a href="#">חיפוש טיול</a></li>
 				<li id="showTrips"><a href="#">החשבון שלי</a></li>
@@ -67,9 +171,7 @@
 		</section>
 	</div>
 	 
-        <script src="../jquerymobile.js"></script> 
-	<script src="jquery/dist/jquery.js"></script>
-	<script type="text/javascript" src="bootsrtap/dist/js/bootstrap.js"></script>
-	<script type="text/javascript" src="../functionTrip.js"></script>
+        <script src="../jquerymobile.js"></script> -->
+	
 </body>
 </html>
