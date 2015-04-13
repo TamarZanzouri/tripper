@@ -102,7 +102,7 @@ function signinCallback(authResult) {
 				user.name=resp.displayName;
 				user.mail=resp.emails[0].value;
 				console.log(user);
-				create_user(user);
+				/*create_user(user);*/
 			});
 		});
 	} else {
@@ -119,7 +119,7 @@ $(document).on( "click", "#signOut", function() {
   console.log("signOut")
   gapi.auth.signOut();
 });	
-
+/*
 function create_user(user){
 	$.ajax({
 		type : "post",
@@ -133,7 +133,7 @@ function create_user(user){
 		}
 	});
 }
-
+*/
 
 	// $('form').submit(function(e){
 	// 		e.preventDefault();
