@@ -141,7 +141,7 @@ app.get('/*', function(req, res) {
 	res.send(404, "aaaaaaaa")
 });
 
-var port = app.get('port') || 1337;
+var port = process.env.PORT || 1337;
 app.listen(port, function() {
 	console.log("port " + port);
 });
