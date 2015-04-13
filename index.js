@@ -14,6 +14,7 @@ app.use(express.static(path.join(__dirname, 'style')));
 
 app.use(bodyParser());
 
+
 //view in data base
 app.get('/', function(req, res) {
 	// Connect to the db
