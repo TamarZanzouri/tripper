@@ -6,15 +6,23 @@
 	<title>Tripper</title>
 	<link rel="stylesheet" href="bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
-	   <link rel="stylesheet" href="jquerymobile.css">
-	   <script src="jquery/dist/jquery.js"></script>
+	<link rel="stylesheet" href="jquerymobile.css">
+	<script src="jquery/dist/jquery.js"></script>
 	<script type="text/javascript" src="bootsrtap/dist/js/bootstrap.js"></script>
-	<script type="text/javascript" src="../functionTrip.js"></script>
+
+	
 	<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+
   <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
   <!--  google login  -->
 	 <script src="https://apis.google.com/js/client:platform.js" async defer></script>
   <!-- ens google login -->
+
+	<script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script type="text/javascript" src="../functionTrip.js"></script>
+
 </head>
 <body >
 	<script>
@@ -53,8 +61,8 @@ function signinCallback(authResult) {
 
 	</script>
 	<div data-role="page" id="homePage" >
-        <header data-role="header" data-position="fixed" data-tap-toggle="false">     
-        	<h1><a href="#">Tripper</a></h1>
+		<header data-role="header" data-position="fixed" data-tap-toggle="false">     
+			<h1><a href="#">Tripper</a></h1>
 			<ul class="nav nav-pills">
 				<li id="home"><a href="#homePage">חיפוש טיול</a></li>
 				<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
@@ -62,16 +70,19 @@ function signinCallback(authResult) {
 				<li><a href="#">המסלול שלי</a></li>
 				<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
 			</ul>
-        </header>
-        <div data-role="content" class="ui-content" id="content">
-            <!-- application data will goes here -->
-            <div id="groupButton">
+		</header>
+		<div data-role="content" class="ui-content" id="content">
+			<!-- application data will goes here -->
+			<div id="groupButton">
 				
 				<% for (var j =0; j<character.length; j++) {%>
-				<button class="btnChar"><%=character[j] %></button>
+
+				<button class="btnChar"><%=character[j].charachter %></button>
+
 				<% } %>
 			</div>	
 		</div>
+
 
 		<section>
 			<span id="signinButton"> <span
@@ -86,9 +97,11 @@ function signinCallback(authResult) {
     </div>
 
 
-    <div data-role="page" id="resultTripPqge" >
-    	<header data-role="header" data-position="fixed" data-tap-toggle="false">     
-        	<h1><a href="#">Tripper</a></h1>
+
+
+	<div data-role="page" id="resultTripPqge" >
+		<header data-role="header" data-position="fixed" data-tap-toggle="false">     
+			<h1><a href="#">Tripper</a></h1>
 			<ul class="nav nav-pills">
 				<li id="home"><a href="#homePage">חיפוש טיול</a></li>
 				<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
@@ -96,24 +109,24 @@ function signinCallback(authResult) {
 				<li><a href="#">המסלול שלי</a></li>
 				<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
 			</ul>
-        </header>
-	    <div data-role="content" class="ui-content" id="content">
-	            <!-- application data will goes here -->
+		</header>
+		<div data-role="content" class="ui-content" id="content">
+			<!-- application data will goes here -->
 			<section id="resultTrip">
 				<ul class="displayTrip">
 					<% for (var i in trips) {%>
-						<li class="listResultTrip"><span class="titelName"> <%= "שם הטיול: "+trips[i].trip_name %></span><%= " תיאור-הטיול:  " + trips[i].trip_description + "מיקום: "+ trips[i].location + "תכונות: " + trips[i].trip_charachters[0].charachter+" "+trips[i].trip_charachters[1].charachter %></li>
-						<% } %>
-					</ul>
-				</section>
+					<li class="listResultTrip"><span class="titelName"> <%= "שם הטיול: "+trips[i].trip_name %></span><%= " תיאור-הטיול:  " + trips[i].trip_description + "מיקום: "+ trips[i].location + "תכונות: " + trips[i].trip_charachters[0].charachter+" "+trips[i].trip_charachters[1].charachter %></li>
+					<% } %>
+				</ul>
+			</section>
 			<section id="myChoose">
 			</section>
 		</div>
 	</div>
 
 	<div data-role="page" id="addTripPage" >
-    	<header data-role="header" data-position="fixed" data-tap-toggle="false">     
-        	<h1><a href="#">Tripper</a></h1>
+		<header data-role="header" data-position="fixed" data-tap-toggle="false">     
+			<h1><a href="#">Tripper</a></h1>
 			<ul class="nav nav-pills">
 				<li id="home"><a href="#homePage">חיפוש טיול</a></li>
 				<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
@@ -144,7 +157,7 @@ function signinCallback(authResult) {
 	</div>
 	<div data-role="page" id="accountPage" >
 		<header data-role="header" data-position="fixed" data-tap-toggle="false">     
-        	<h1><a href="#">Tripper</a></h1>
+			<h1><a href="#">Tripper</a></h1>
 			<ul class="nav nav-pills">
 				<li id="home"><a href="#homePage">חיפוש טיול</a></li>
 				<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
@@ -219,7 +232,7 @@ function signinCallback(authResult) {
 		</section>
 	</div>
 	 
-        <script src="../jquerymobile.js"></script> -->
+	<script src="../jquerymobile.js"></script> -->
 	
 </body>
 </html>
