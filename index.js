@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var app = express();
 var Character = ['char1', 'char2', 'char3', 'char4', 'char1', 'char2', 'char3', 'char4', 'char1', 'char2', 'char3', 'char4'];
+var router = express.Router();
+
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -127,6 +129,73 @@ res.redirect('/');
 });*/
 });
 
+router.post("/index/insertUser",function(req, res) 
+{
+    var userip = req.connection.remoteAddress.replace(/\./g , '');
+    var uniqueid = parseInt( new Date().getTime()+userip,10);
+    var data;
+    var r = {};
+    console.log(req)
+    try
+    {
+        // try to parse the json data
+        data = req.body;
+    }
+    catch(err)
+    {
+        console.log("failure while parsing the request, the error:", err);
+        r.status = 0;
+        r.desc = "failure while parsing the request";
+        res.json(r);
+        return;
+    }
+    console.log(JSON.stringify(data))
+
+    
+    if ( data && data != "" )   // if data property exists in the request is not empty
+    {
+        data.favorites=[];
+        data.recipes=[];
+
+        console.log("data is: " + JSON.stringify(data));
+
+        db.model('users').find({ email:data.email }, { _id : false }, function (err, result)
+        {
+            if (err) 
+            {
+                console.log("--> Err <-- : " + err);
+                r.status = 0;
+                r.desc = "--> Err <-- : " + err;
+                res.json(r);
+            }
+            
+            if (result)
+            {
+                if (!result.length)
+                new users(data).save(function (e) {
+                    if (e) res.json({status:0});
+                    res.json({status:1});
+                    
+                  });
+            else  res.json({status:1});
+            }
+        });
+
+          
+       
+
+    }
+    else
+    {
+        console.log("data propery does not exist in the query or it is empty");
+        r.status = 0;
+        r.desc = "data propery does not exist in the query or it is empty";
+        res.json(r);  
+        return;     
+    }   
+});
+
+
 //view in data base
 app.get('/click', function(req, res) {
 
@@ -140,6 +209,8 @@ app.get('/*', function(req, res) {
 
 	res.send(404, "aaaaaaaa")
 });
+
+
 
 var port = process.env.PORT || 1337;
 app.listen(port, function() {
