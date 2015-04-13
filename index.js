@@ -18,7 +18,8 @@ app.use(bodyParser());
 //view in data base
 app.get('/', function(req, res) {
 	// Connect to the db
-	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
+	try{
+		MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
 		if (err) {
 			return console.dir(err);
 		} else {
@@ -56,6 +57,9 @@ app.get('/', function(req, res) {
 		}
 		
 	});
+}catch(err){
+	console.log("mongodb connection failed")
+}
 	
 });
 
@@ -136,7 +140,8 @@ app.get('/*', function(req, res) {
 
 	res.send(404, "aaaaaaaa")
 });
-port = app.get('port') || 1337
+
+var port = app.get('port') || 1337;
 app.listen(port, function() {
 	console.log("port " + port);
 });
