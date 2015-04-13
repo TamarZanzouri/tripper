@@ -22,38 +22,40 @@ app.get('/', function(req, res) {
 			return console.dir(err);
 		} else {
 			var tripper_collection = db.collection('tripper_playlist');
-				tripper_collection.find( { trip_charachters:  { $elemMatch : { charachter: {$ne : ""} }}}, { trip_charachters: true, _id : false}).toArray(function (err, docs)
-				            { 
+			tripper_collection.find( { trip_charachters:  { $elemMatch : { charachter: {$ne : ""} }}}, { trip_charachters: true, _id : false}).toArray(function (err, docs)
+			{ 
 				                // failure while connecting to sessions collection
 				                if (err) 
 				                {
-				                    console.log( err);
-				                    
-				                    return;
+				                	console.log( err);
+
+				                	return;
 				                }
 				                
 				                else
 				                {
 				                	var tripperCharachters =[]
-				                    console.log( docs);
-				                    (docs).forEach(function(t){
-										(t.trip_charachters).forEach(function(tt){
-											tripperCharachters.push(tt)
-					                    })
-				                    	
-				                    })
-										console.log(docs);
-										res.render('index.ejs', {
-											title : 'Tripper',
-											character : tripperCharachters,
-											trips : docs
-										});
-				                    db.close();
+				                	console.log( docs);
+				                	(docs).forEach(function(t){
+				                		(t.trip_charachters).forEach(function(tt){
+				                			tripperCharachters.push(tt)
+				                		})
+
+				                	})
+				                	console.log(docs);
+				                	res.render('index.ejs', {
+				                		title : 'Tripper',
+				                		character : tripperCharachters,
+				                		trips : docs
+				                	});
+				                	db.close();
 				                }
 				            });
 
 		}
+		
 	});
+	
 });
 
 app.post('/add', function(req, res) {
@@ -111,13 +113,13 @@ app.post('/add', function(req, res) {
 
 		// collection.insert(lotsOfDocs, {w:1}, function(err, result) {});
 	});
-	res.redirect('/');
+res.redirect('/');
 	/*
 	 res.render('add.ejs',{
 	 titel:'Tripper',
 	 trips:docs
 	 });
-	 });*/
+});*/
 });
 
 //view in data base

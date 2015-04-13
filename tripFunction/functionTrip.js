@@ -30,50 +30,45 @@ $(document).ready(function(){
 	/*$('#showTrips').click(function(){
 		moveToAccountPage();
 	});*/
-	$('#home').click(function(){
-		$.each(listSection,function(index,value){
-			console.log(value);
-			$('#'+value).hide();
-		});
-		$('#homeSec').show();
+$('#home').click(function(){
+	$.each(listSection,function(index,value){
+		console.log(value);
+		$('#'+value).hide();
 	});
+	$('#homeSec').show();
+});
 	/*$('.btn').click(function(){
 		noMore2();
 		$(this).addClass('selectedChar');
 	});*/
-	var count=0;
-	var me;
-	$('.btnChar').click(function(){
-		me=this;
-		if (count<2) {
-			console.log("haim");
-				count++;
-				$(me).addClass('selectedChar');
-			if(count==1)
-			{
-				$('#homePage #content').append("<a class='continue' href='index.ejs#resultTripPqge'> המשך </a>");
-			}
-			if(count==2)
-			{
-
-				moveTofilterPage();
-				/*$('#groupButton').hide();
-				$('#resultTrip').show();
-				$('#resultTrip').prepend("<h3>תוצאות החיפוש</h3>");
-				*/	
-			}
+var count=0;
+var me;
+var clickedCharachters = [];
+$('.btnChar').click(function(){
+	me=this;
+	if (count<2) {
+		count++;
+		$(me).addClass('selectedChar');
+		if(count==1)
+		{
+			clickedCharachters.push($(this).text());
+			$('#homePage #content').append("<a class='continue' href='index.ejs#resultTripPqge'> המשך </a>");
 		}
-		else{
-			console.log("no more then 2");
+		if(count==2)
+		{
+			clickedCharachters.push($(this).text());
+			console.log(clickedCharachters[0] + " " + clickedCharachters[1]);
+			moveTofilterPage();
 		}
-	});
-	$('.listResultTrip').click(function(){
-		$('#myChoose').empty();
-			$('#resultTrip').hide();
-			$('#myChoose').show();
-			$('#myChoose').append(this);
-			$('#myChoose').prepend("<h3>הטיול הנבחר</h3>");
-	});
+	}
+});
+$('.listResultTrip').click(function(){
+	$('#myChoose').empty();
+	$('#resultTrip').hide();
+	$('#myChoose').show();
+	$('#myChoose').append(this);
+	$('#myChoose').prepend("<h3>הטיול הנבחר</h3>");
+});
 });
 function moveTofilterPage() {
 	$.mobile.changePage("#resultTripPqge", {
@@ -88,7 +83,7 @@ function moveToAccountPage() {
 	});
 }
 
-	
+
 	// $('form').submit(function(e){
 	// 		e.preventDefault();
 	// 		console.log(this.newTrip, this.des)
@@ -98,7 +93,7 @@ function moveToAccountPage() {
 	// 		  data:{newTrip: this.newTrip, des:this.des}
 	// 		})
 	// 		  .done(function( data ) {
-			    
+
 	// 		      console.log( data );
 	// 		  })
 	// 		  .fail(function(err){
