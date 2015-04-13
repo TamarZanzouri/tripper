@@ -28,23 +28,24 @@
 	<script>
 		// Signin Google-plus
 function signinCallback(authResult) {
-	console.log('signinCallback ', authResult);
 	if (authResult['status']['signed_in']) {
 		// Update the app to reflect a signed in user
-		// Hide the sign-in button now that the user is authorized, for example:
-		//document.getElementById('signinButton').setAttribute('style', 'display: none');
+		//Hide the sign-in button now that the user is authorized, for example:
+		document.getElementById('signinButton').setAttribute('style', 'display: none');
 
 		gapi.client.load('plus', 'v1', function() {
+
 			var request = gapi.client.plus.people.get({
 				'userId' : 'me'
 			});
 			request.execute(function(resp) {
-				//console.log(resp);
+
+				console.log(resp);
 				// find the primary email of user's account
-				console.log('ID: ' + resp.id);
-			  console.log('Display Name: ' + resp.displayName);
-			  console.log('Image URL: ' + resp.image.url);
-			  console.log('Profile URL: ' + resp.url);
+				//console.log('ID: ' + resp.id);
+			  //console.log('Display Name: ' + resp.displayName);
+			  //console.log('Image URL: ' + resp.image.url);
+			  //console.log('Profile URL: ' + resp.url);
 				
 			});
 		});
@@ -58,6 +59,11 @@ function signinCallback(authResult) {
 
 	}
 }
+$(document).on( "click", "#signOut", function() {
+  console.log("signOut")
+  gapi.auth.signOut();
+});
+
 
 	</script>
 	<div data-role="page" id="homePage" >
@@ -93,7 +99,9 @@ function signinCallback(authResult) {
 				data-requestvisibleactions="http://schema.org/AddAction"
 				data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"> </span> </span>
 		</section>
-
+		<li id="signOut" role="presentation">
+			<a role="menuitem" tabindex="-1" href="#">Sign out</a>
+		</li>
     </div>
 
 
