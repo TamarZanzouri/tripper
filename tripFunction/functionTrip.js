@@ -3,6 +3,8 @@ User={
 	name:"",
 	mail:""
 };
+var clickedCharachters = [];
+
 $(document).ready(function(){
 
 
@@ -46,7 +48,6 @@ $('#home').click(function(){
 	});*/
 var count=1;
 var me;
-var clickedCharachters = [];
 $('.btnChar').click(function(){
 	//me=this;
 
@@ -76,8 +77,35 @@ $('.listResultTrip').click(function(){
 });
 
 function changedArea(){
-	alert($('#selectArea').val());
+	clickedCharachters.push($('#selectArea').val());
+	console.log(clickedCharachters);
+		$.ajax({
+        type: "get",
+        url: "http://127.0.0.1:1337/filterByCharsAndLocation",// where you wanna post
+        data:  {chars:clickedCharachters},
+        dataType: "json",
+        contentType: "application/json",
+        error: function(jqXHR, textStatus, errorMessage) {
+          console.log(errorMessage)
+
+				  
+        },
+        success: function(data) {
+        	console.log(data);
+        	$('#resultTrip ul').empty();
+        	for (i in data) {
+        		var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
+        							+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  +  '</li>';
+        		$('#resultTrip ul').append(tripResult);
+        		console.log(data[i].trip_name)
+        	};
+			// moveTofilterPage();	      
+		} 
+	});
 }
+
+
+
 function moveTofilterPage() {
 	$.mobile.changePage("#resultTripPqge", {
 		transition : "none",
