@@ -1,5 +1,5 @@
 var listSection=['homeSec','addTripSec','showTripsSec','myFavoritesSec'];
-user={
+User={
 	name:"",
 	mail:""
 };
@@ -104,10 +104,10 @@ function signinCallback(authResult) {
 			request.execute(function(resp) {
 
 				console.log(resp);
-				user.name=resp.displayName;
-				user.mail=resp.emails[0].value;
-				console.log(user);
-				/*create_user(user);*/
+				User.name=resp.displayName;
+				User.mail=resp.emails[0].value;
+				console.log(User);
+				create_user(User);
 			});
 		});
 	} else {
@@ -151,21 +151,19 @@ $(document).on( "click", "#signOut", function() {
   console.log("signOut")
   gapi.auth.signOut();
 });	
-/*
+
 function create_user(user){
 	$.ajax({
-		type : "post",
-		url : "https://shenkartripper.herokuapp.com/index/insertUser",
-		data : user,
-		//contentType : "applecation/json",
-		dataType : 'json',
+		type : "get",
+		url : "http://127.0.0.1:1337/insertUser?email="+user.mail,
+       // contentType: "application/json",
 		success : function(data) {console.log(data); 
 		},
 		error : function(objRequest, errortype) {
 		}
 	});
 }
-*/
+
 
 	// $('form').submit(function(e){
 	// 		e.preventDefault();
