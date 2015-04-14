@@ -35,6 +35,45 @@ $(document).ready(function(){
 	/*$('#showTrips').click(function(){
 		moveToAccountPage();
 	});*/
+	
+
+	//adding site!
+	var max_fields = 20;
+	//maximum input boxes allowed
+	var outer_wrapper = $(".ingredients_wrap");
+	var wrapper = $(".ingredients_i");
+	var firstIngredient = $(".firstIngredient");
+	
+	var x = 1;
+	$(firstIngredient).focus(function(e){ //on add input button click
+		e.preventDefault();
+		console.log("focus " + x);
+		if (x < max_fields) { //max input box allowed
+			x++;
+			$(this).off('focus');
+					$(outer_wrapper).append('<div style="text-align: center;margin: auto;position: relative;align-content: center;"><input id="newChild' + x + '" class="ingredients_i gapper ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset newChild" style="text-align:center;margin:auto;width:80%" type="text" placeholder="מצרך" name="ingredients[]"><input type="text" name="amount[]" style="width:75%;padding:5px 0 5px 0" placeholder="כמות" class="firstAmount amounts_i" id="firstAmount"><a href="#" class="remove_field"> X </a></div>');	
+		}
+	});
+	
+	$(outer_wrapper).on("focus", ".newChild", function(e) {//on add input button click
+		wrapper = $(".ingredients_i");
+		console.log(wrapper[wrapper.length-1]);
+		console.log(wrapper[wrapper.length-1].id);
+		if (this.id == wrapper[wrapper.length-1].id){				
+			 console.log("focus " + x);
+			 x++;
+			 
+			$(outer_wrapper).append('<div style="text-align: center;margin: auto;position: relative;align-content: center;"><input id="newChild' + x + '" class="ingredients_i gapper ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset newChild" style="text-align:center;margin:auto;width:80%" type="text" placeholder="מצרך" name="ingredients[]"><input type="text" name="amount[]" style="width:75%;padding:5px 0 5px 0" placeholder="כמות" class="firstAmount amounts_i" id="firstAmount"><a href="#" class="remove_field"> X </a></div>');	
+		}
+	});		
+
+	$(outer_wrapper).on("click", ".remove_field", function(e) {//on add input button click			
+		e.preventDefault(); 
+		$(this).parent('div').remove(); 
+	});
+
+
+
 $('#home').click(function(){
 	$.each(listSection,function(index,value){
 		console.log(value);

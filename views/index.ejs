@@ -118,11 +118,24 @@
 						<input type="text" name="char1">
 						<input type="text" name="char2">
 					</label>
+
+					<label for="ingredients"> <span class="testRight" id="ingredientsT">מצרכים</span>
+						<span class="formField">
+								<div class="ingredients_wrap">
+
+									<div style="text-align: center;margin: auto;position: relative;align-content: center;">
+										<input type="text" name="ingredients[]" placeholder="מוצר" class="firstIngredient ingredients_i" id="firstIngredient">
+										<input type="text" name="amount[]" placeholder="כמות" class="firstAmount amounts_i" id="firstAmount">
+									</div>
+								</div> 
+						</span> 
+					</label>
 					<br>
 					<input type="submit">
 				</form>
 			</section>
 		</div>
+
 		<div data-role="page" id="accountPage" >
 			<header data-role="header" data-position="fixed" data-tap-toggle="false">     
 				<h1><a href="#">Tripper</a></h1>
