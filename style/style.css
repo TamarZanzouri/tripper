@@ -76,6 +76,7 @@ h1 > a:hover{
   position: relative;
   float: right;
   font-size: x-large;
+  display: none;
 }
 .listResultTrip{}
 #resultTrip{

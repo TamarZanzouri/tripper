@@ -41,6 +41,7 @@
 				<button class="btnChar"><%=character[j].charachter %></button>
 
 				<% } %>
+				<a class='continue' href='index.ejs#resultTripPqge'> המשך </a>
 			</div>	
 		</div>
 	</div>
@@ -61,9 +62,9 @@
 			<!-- application data will goes here -->
 			<section id="resultTrip">
 				<ul class="displayTrip">
-					<% for (var i in trips) {%>
+<!-- 					<% for (var i in trips) {%>
 					<li class="listResultTrip"><span class="titelName"> <%= "שם הטיול: "+trips[i].trip_name %></span><%= " תיאור-הטיול:  " + trips[i].trip_description + "מיקום: "+ trips[i].location + "תכונות: " + trips[i].trip_charachters[0].charachter+" "+trips[i].trip_charachters[1].charachter %></li>
-					<% } %>
+					<% } %> -->
 				</ul>
 			</section>
 			<section id="myChoose">
