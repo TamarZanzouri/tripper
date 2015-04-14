@@ -58,14 +58,12 @@ app.get('/', function(req, res) {
 
 		}
 	});
-<<<<<<< HEAD
 
-=======
 }catch(err){
 	console.log("mongodb connection failed")
 }
 	
->>>>>>> origin/master
+
 });
 app.get('/filterByChars/:chars?', function(req, res) {
 	var charachters = req.query.chars;

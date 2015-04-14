@@ -74,6 +74,10 @@ $('.listResultTrip').click(function(){
 	$('#myChoose').prepend("<h3>הטיול הנבחר</h3>");
 });
 });
+
+function changedArea(){
+	alert($('#selectArea').val());
+}
 function moveTofilterPage() {
 	$.mobile.changePage("#resultTripPqge", {
 		transition : "none",
@@ -114,7 +118,9 @@ function signinCallback(authResult) {
 		 "immediate_failed" - Could not automatically log in the user */
 		console.log('Sign-in state: ' + authResult['error']);
 
-<<<<<<< HEAD
+	}
+}
+
 function updateTripFromCharchters(tc){
 	 $.ajax({
         type: "get",
@@ -140,9 +146,7 @@ function updateTripFromCharchters(tc){
     });
 }
 
-=======
-	}
-}
+
 $(document).on( "click", "#signOut", function() {
   console.log("signOut")
   gapi.auth.signOut();
@@ -162,7 +166,6 @@ function create_user(user){
 	});
 }
 */
->>>>>>> origin/master
 
 	// $('form').submit(function(e){
 	// 		e.preventDefault();

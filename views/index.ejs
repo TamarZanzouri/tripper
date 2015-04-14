@@ -15,10 +15,10 @@
 	<script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 
-  <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-  <!--  google login  -->
-	 <script src="https://apis.google.com/js/client:platform.js" async defer></script>
-  <!-- ens google login -->
+	<script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<!--  google login  -->
+	<script src="https://apis.google.com/js/client:platform.js" async defer></script>
+	<!-- ens google login -->
 
 	<script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script type="text/javascript" src="../functionTrip.js"></script>
@@ -58,90 +58,92 @@
 				data-clientid="573156814655-734l8cl9gau167f6p4h59d9m00f48roc.apps.googleusercontent.com"
 				data-cookiepolicy="single_host_origin"
 				data-scope="profile"> </span> </span>
-		</section>
-		<li id="signOut" role="presentation">
-			<a role="menuitem" tabindex="-1" href="#">Sign out</a>
-		</li>
-    </div>
-
-
-
-
-	<div data-role="page" id="resultTripPqge" >
-		<header data-role="header" data-position="fixed" data-tap-toggle="false">     
-			<h1><a href="#">Tripper</a></h1>
-			<ul class="nav nav-pills">
-				<li id="home"><a href="#homePage">חיפוש טיול</a></li>
-				<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
-				<li ><a href="#indexMobile">המועדפים שלי</a></li>
-				<li><a href="#">המסלול שלי</a></li>
-				<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
-			</ul>
-		</header>
-		<div data-role="content" class="ui-content" id="content">
-			<!-- application data will goes here -->
-			<section id="resultTrip">
-				<ul class="displayTrip">
-<!-- 					<% for (var i in trips) {%>
-					<li class="listResultTrip"><span class="titelName"> <%= "שם הטיול: "+trips[i].trip_name %></span><%= " תיאור-הטיול:  " + trips[i].trip_description + "מיקום: "+ trips[i].location + "תכונות: " + trips[i].trip_charachters[0].charachter+" "+trips[i].trip_charachters[1].charachter %></li>
-					<% } %> -->
-				</ul>
 			</section>
-			<section id="myChoose">
+			<li id="signOut" role="presentation">
+				<a role="menuitem" tabindex="-1" href="#">Sign out</a>
+			</li>
+		</div>
+
+
+
+
+		<div data-role="page" id="resultTripPqge" >
+			<header data-role="header" data-position="fixed" data-tap-toggle="false">     
+				<h1><a href="#">Tripper</a></h1>
+				<ul class="nav nav-pills">
+					<li id="home"><a href="#homePage">חיפוש טיול</a></li>
+					<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
+					<li ><a href="#indexMobile">המועדפים שלי</a></li>
+					<li><a href="#">המסלול שלי</a></li>
+					<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
+				</ul>
+			</header>
+			<div data-role="content" class="ui-content" id="content">
+				<select id="selectArea" onchange="changedArea()">
+					<option value=""></option>
+					<option value="מרכז">איזור מרכז וגוש דן</option>
+					<option value="דרום">איזור דרום</option>
+					<option value="צפון">איזור צפון</option>
+				</select>
+				<section id="resultTrip">
+					<ul class="displayTrip">
+					</ul>
+				</section>
+				<section id="myChoose">
+				</section>
+			</div>
+		</div>
+
+		<div data-role="page" id="addTripPage" >
+			<header data-role="header" data-position="fixed" data-tap-toggle="false">     
+				<h1><a href="#">Tripper</a></h1>
+				<ul class="nav nav-pills">
+					<li id="home"><a href="#homePage">חיפוש טיול</a></li>
+					<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
+					<li ><a href="#indexMobile">המועדפים שלי</a></li>
+					<li><a href="#">המסלול שלי</a></li>
+					<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
+				</ul>
+			</header>
+			<section id="addTripSec">
+				<form action="/add" method="post">
+					<label>שם או אזור הטיול <br>
+						<input type="text" name="nameTrip">
+					</label><br>
+					<label>תאור הטיול<br>
+						<textarea type="text" name="des"></textarea>
+					</label><br>
+					<label>מיקום הטיול: <br>
+						<input type="text" name="locationTrip">
+					</label><br>
+					<label>תכונות הטיול: <br>
+						<input type="text" name="char1">
+						<input type="text" name="char2">
+					</label>
+					<br>
+					<input type="submit">
+				</form>
 			</section>
 		</div>
-	</div>
-
-	<div data-role="page" id="addTripPage" >
-		<header data-role="header" data-position="fixed" data-tap-toggle="false">     
-			<h1><a href="#">Tripper</a></h1>
-			<ul class="nav nav-pills">
-				<li id="home"><a href="#homePage">חיפוש טיול</a></li>
-				<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
-				<li ><a href="#indexMobile">המועדפים שלי</a></li>
-				<li><a href="#">המסלול שלי</a></li>
-				<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
-			</ul>
-		</header>
-		<section id="addTripSec">
-			<form action="/add" method="post">
-				<label>שם או אזור הטיול <br>
-					<input type="text" name="nameTrip">
-				</label><br>
-				<label>תאור הטיול<br>
-					<textarea type="text" name="des"></textarea>
-				</label><br>
-				<label>מיקום הטיול: <br>
-					<input type="text" name="locationTrip">
-				</label><br>
-				<label>תכונות הטיול: <br>
-					<input type="text" name="char1">
-					<input type="text" name="char2">
-				</label>
-				<br>
-				<input type="submit">
-			</form>
-		</section>
-	</div>
-	<div data-role="page" id="accountPage" >
-		<header data-role="header" data-position="fixed" data-tap-toggle="false">     
-			<h1><a href="#">Tripper</a></h1>
-			<ul class="nav nav-pills">
-				<li id="home"><a href="#homePage">חיפוש טיול</a></li>
-				<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
-				<li ><a href="#indexMobile">המועדפים שלי</a></li>
-				<li><a href="#">המסלול שלי</a></li>
-				<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
-			</ul>
-		</header>
-		<section id="showTripsSec">
-			<ul class="displayTrip">
-				<% for ( i =0; i<trips.length; i++) {%>
-				<li> <span class="titelName"> <%= "שם הטיול: "+trips[i].trip_name %></span><%= " תיאור-הטיול:  " + trips[i].trip_description + "מיקום: "+ trips[i].location + "תכונות: " + trips[i].trip_charachters[0].charachter+" "+trips[i].trip_charachters[1].charachter %></li>
-				<% } %>
-			</ul>
-		</section>
-	</div>
+		<div data-role="page" id="accountPage" >
+			<header data-role="header" data-position="fixed" data-tap-toggle="false">     
+				<h1><a href="#">Tripper</a></h1>
+				<ul class="nav nav-pills">
+					<li id="home"><a href="#homePage">חיפוש טיול</a></li>
+					<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
+					<li ><a href="#indexMobile">המועדפים שלי</a></li>
+					<li><a href="#">המסלול שלי</a></li>
+					<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
+				</ul>
+			</header>
+			<section id="showTripsSec">
+				<ul class="displayTrip">
+					<% for ( i =0; i<trips.length; i++) {%>
+					<li> <span class="titelName"> <%= "שם הטיול: "+trips[i].trip_name %></span><%= " תיאור-הטיול:  " + trips[i].trip_description + "מיקום: "+ trips[i].location + "תכונות: " + trips[i].trip_charachters[0].charachter+" "+trips[i].trip_charachters[1].charachter %></li>
+					<% } %>
+				</ul>
+			</section>
+		</div>
 <!--
 	<div id="wrapper">
 			<h1><a href="#">Tripper</a></h1>
