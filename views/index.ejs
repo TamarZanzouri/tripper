@@ -13,14 +13,19 @@
 	
 	<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-	<script type="text/javascript" src="../functionTrip.js"></script>
 	<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+
+  <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <!--  google login  -->
+	 <script src="https://apis.google.com/js/client:platform.js" async defer></script>
+  <!-- ens google login -->
+
 	<script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 	<script type="text/javascript" src="../functionTrip.js"></script>
 
-
 </head>
 <body >
+
 	<div data-role="page" id="homePage" >
 		<header data-role="header" data-position="fixed" data-tap-toggle="false">     
 			<h1><a href="#">Tripper</a></h1>
@@ -44,7 +49,22 @@
 				<a class='continue' href='index.ejs#resultTripPqge'> המשך </a>
 			</div>	
 		</div>
-	</div>
+
+
+		<section>
+			<span id="signinButton"> <span
+				class="g-signin"
+				data-callback="signinCallback"
+				data-clientid="573156814655-734l8cl9gau167f6p4h59d9m00f48roc.apps.googleusercontent.com"
+				data-cookiepolicy="single_host_origin"
+				data-scope="profile"> </span> </span>
+		</section>
+		<li id="signOut" role="presentation">
+			<a role="menuitem" tabindex="-1" href="#">Sign out</a>
+		</li>
+    </div>
+
+
 
 
 	<div data-role="page" id="resultTripPqge" >
