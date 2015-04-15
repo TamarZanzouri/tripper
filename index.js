@@ -68,7 +68,35 @@ app.get('/', function(req, res) {
 app.get('/insertUser/:email?', function(req, res) {
 	 userEmail = req.query.email;
 	 console.log(userEmail);
+
+	 	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
+		if (err) {
+			return console.dir(err);
+		} else {
+			var tripper_collection = db.collection('tripper_playlist');
+			tripper_collection.find({ email : userEmail }).toArray(function (err, docs)
+			{ 
+                // failure while connecting to sessions collection
+                if (err) 
+                {
+                	console.log( err);
+
+                	return;
+                }
+                
+                else
+                {
+                	console.log(docs);
+                	res.json(docs)
+                	db.close();
+                }
+            });
+
+		}
+
+	});
 });
+
 app.get('/filterByChars/:chars?', function(req, res) {
 	var charachters = req.query.chars;
 	// req.body.chars will get post request without chars 
