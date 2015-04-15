@@ -21,12 +21,12 @@ app.get('/', function(req, res) {
 	// Connect to the db
 	try{
 		MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
-		if (err) {
-			return console.dir(err);
-		} else {
-			var tripper_collection = db.collection('tripper_playlist');
-			tripper_collection.find( { trip_charachters:  { $elemMatch : { charachter: {$ne : ""} }}}, { trip_charachters: true, _id : false}).toArray(function (err, docs)
-			{ 
+			if (err) {
+				return console.dir(err);
+			} else {
+				var tripper_collection = db.collection('tripper_playlist');
+				tripper_collection.find( { trip_charachters:  { $elemMatch : { charachter: {$ne : ""} }}}, { trip_charachters: true, _id : false}).toArray(function (err, docs)
+				{ 
 				                // failure while connecting to sessions collection
 				                if (err) 
 				                {
@@ -55,17 +55,17 @@ app.get('/', function(req, res) {
 				                }
 				            });
 
-		}
-	});
+			}
+		});
 
 }catch(err){
 	console.log("mongodb connection failed")
 }
-	
+
 
 });
-
 app.get('/insertUser/:email?', function(req, res) {
+<<<<<<< HEAD
 	 userEmail = req.query.email;
 	 console.log(userEmail);
 
@@ -95,6 +95,10 @@ app.get('/insertUser/:email?', function(req, res) {
 		}
 
 	});
+=======
+	userEmail = req.query.email;
+	console.log(userEmail);
+>>>>>>> origin/master
 });
 
 app.get('/filterByChars/:chars?', function(req, res) {
