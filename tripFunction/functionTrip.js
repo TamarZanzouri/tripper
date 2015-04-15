@@ -7,7 +7,9 @@ var clickedCharachters = [];
 
 $(document).ready(function(){
 
-
+	if (e.originalEvent.newURL.indexOf('#addTripPage') != -1) {
+		$('li #addTrip').addClass('active');
+	}
 
 	$('#displayTrip li').click(function(){
 		$('#displayTrip li').each(function(index,value){
@@ -51,7 +53,7 @@ $(document).ready(function(){
 		if (x < max_fields) { //max input box allowed
 			x++;
 			$(this).off('focus');
-					$(outer_wrapper).append('<div style="text-align: center;margin: auto;position: relative;align-content: center;"><input id="newChild' + x + '" class="ingredients_i gapper ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset newChild" style="text-align:center;margin:auto;width:80%" type="text" placeholder="אתר" name="ingredients[]"><input type="text" name="amount[]" style="width:75%;padding:5px 0 5px 0" placeholder="מיקום" class="firstAmount amounts_i" id="firstAmount"><a href="#" class="remove_field"> X </a></div>');	
+					$(outer_wrapper).append('<div style="text-align: center;margin: auto;position: relative;align-content: center;"><input id="newChild' + x + '" class="ingredients_i gapper ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset newChild" style="text-align:center;margin:auto;width:100%" type="text" placeholder="אתר" name="ingredients[]"><input type="text" name="amount[]" style="width:100%;padding:5px 0 5px 0" placeholder="מיקום" class="firstAmount amounts_i" id="firstAmount"><a href="#" class="remove_field"> X </a></div>');	
 		}
 	});
 	
@@ -63,7 +65,7 @@ $(document).ready(function(){
 			 console.log("focus " + x);
 			 x++;
 			 
-			$(outer_wrapper).append('<div style="text-align: center;margin: auto;position: relative;align-content: center;"><input id="newChild' + x + '" class="ingredients_i gapper ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset newChild" style="text-align:center;margin:auto;width:80%" type="text" placeholder="אתר" name="ingredients[]"><input type="text" name="amount[]" style="width:75%;padding:5px 0 5px 0" placeholder="מיקום" class="firstAmount amounts_i" id="firstAmount"><a href="#" class="remove_field"> X </a></div>');	
+			$(outer_wrapper).append('<div style="text-align: center;margin: auto;position: relative;align-content: center;"><input id="newChild' + x + '" class="ingredients_i gapper ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset newChild" style="text-align:center;margin:auto;width:100%" type="text" placeholder="אתר" name="ingredients[]"><input type="text" name="amount[]" style="width:100%;padding:5px 0 5px 0" placeholder="מיקום" class="firstAmount amounts_i" id="firstAmount"><a href="#" class="remove_field"> X </a></div>');	
 		}
 	});		
 

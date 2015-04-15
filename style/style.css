@@ -9,6 +9,16 @@
 form{
 	margin: 40px 10% 0 0;
 }
+form > button{
+    background: #38c !important;
+  border: none !important;
+}
+input{
+    text-align: -webkit-right !important;
+}
+label{
+  font-size: 20px !important;
+}
 li{
 	 list-style-type: none;
  	 margin: 20px 0 0 0;
@@ -102,4 +112,12 @@ h1 > a:hover{
 h3{
 color: #337ab7;
   position: relative;
+}
+fieldset > div{
+    float: right !important;
+  margin: 0 0 20px 0 !important;
+  width: 100% !important;
+}
+.ui-radio{
+  float: right !important;
 }

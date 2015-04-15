@@ -11,10 +11,9 @@
 	<script src="jquery/dist/jquery.js"></script>
 	<script type="text/javascript" src="bootsrtap/dist/js/bootstrap.js"></script>
 
-	
 	<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-
+	
 	<!--  google login  -->
 	<script src="https://apis.google.com/js/client:platform.js" async defer></script>
 	<!-- ens google login -->
@@ -30,7 +29,7 @@
 			<ul class="nav nav-pills">
 				<li id="home"><a href="#homePage">חיפוש טיול</a></li>
 				<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
-				<li ><a href="#indexMobile">המועדפים שלי</a></li>
+				<li ><a href="#">המועדפים שלי</a></li>
 				<li><a href="#">המסלול שלי</a></li>
 				<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
 			</ul>
@@ -111,6 +110,22 @@
 					<label>תאור הטיול<br>
 						<textarea type="text" name="des"></textarea>
 					</label><br>
+
+						<div data-role="fieldcontain">
+						    <fieldset data-role="controlgroup" data-type="horizontal" data-role="fieldcontain">
+						    	<legend>אזור הטיול:</legend>
+						         	<input type="radio" name="area" id="radio-choice-1" value="tel-aviv" checked="checked" />
+						         	<label for="radio-choice-1">אזור המרכז</label>
+
+						         	<input type="radio" name="area" id="radio-choice-2" value="south"  />
+						         	<label for="radio-choice-2">אזור הדרום</label>
+
+						         	<input type="radio" name="area" id="radio-choice-3" value="north"  />
+						         	<label for="radio-choice-3">אזור הצפון</label>
+
+						    </fieldset>
+						</div>	
+
 					<label>מיקום הטיול: <br>
 						<input type="text" name="locationTrip">
 					</label><br>
@@ -131,7 +146,7 @@
 						</span> 
 					</label>
 					<br>
-					<input type="submit">
+					<button type="submit" data-theme="b" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false">שלח טיול</button>
 				</form>
 			</section>
 		</div>

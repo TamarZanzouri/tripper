@@ -57,7 +57,6 @@ app.get('/', function(req, res) {
 
 			}
 		});
-
 }catch(err){
 	console.log("mongodb connection failed")
 }
@@ -65,7 +64,6 @@ app.get('/', function(req, res) {
 
 });
 app.get('/insertUser/:email?', function(req, res) {
-<<<<<<< HEAD
 	 userEmail = req.query.email;
 	 console.log(userEmail);
 
@@ -95,10 +93,6 @@ app.get('/insertUser/:email?', function(req, res) {
 		}
 
 	});
-=======
-	userEmail = req.query.email;
-	console.log(userEmail);
->>>>>>> origin/master
 });
 
 app.get('/filterByChars/:chars?', function(req, res) {
@@ -182,6 +176,7 @@ app.post('/add', function(req, res) {
 			var char1 = req.body.char1;
 			var char2 = req.body.char2;
 			var privte = req.body.privte;
+			var areaLocition = req.body.area;
 			tripper_collection.insert({
 				trip_name : nameTrip,
 				trip_description : des,
@@ -193,7 +188,7 @@ app.post('/add', function(req, res) {
 					charachter : char2
 				}],
 				trip_isPrivate : privte,
-				area : "tel-aviv"
+				area : areaLocition
 			}, function(err, docs) {
 				if (err) {
 					console.log("found error inserting");
