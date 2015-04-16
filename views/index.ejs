@@ -103,7 +103,7 @@
 				</ul>
 			</header>
 			<section id="addTripSec">
-				<form action="/add" method="post">
+				<form action="/add" method="post" onsubmit="return validateMyForm(this);">
 					<label>שם או אזור הטיול <br>
 						<input type="text" name="nameTrip">
 					</label><br>
@@ -147,6 +147,7 @@
 					</label>
 					<br>
 					<button type="submit" data-theme="b" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false">שלח טיול</button>
+					<input type="hidden" name="commodities" id="commodities" value=""/>
 				</form>
 			</section>
 		</div>

@@ -7,10 +7,6 @@ var clickedCharachters = [];
 
 $(document).ready(function(){
 
-	if (e.originalEvent.newURL.indexOf('#addTripPage') != -1) {
-		$('li #addTrip').addClass('active');
-	}
-
 	$('#displayTrip li').click(function(){
 		$('#displayTrip li').each(function(index,value){
 			if ($(value).hasClass('selected')) {
@@ -145,7 +141,24 @@ function changedArea(){
 	});
 }
 
+function validateMyForm(obj){
+		var wrapper = $(".ingredients_i");
+		var amounts = $(".amounts_i");
+		var comms = new Array();
+		for (var i = 0; i < wrapper.length; i++){
+			console.log(i);
+			
+			var comm = {};
+			if (wrapper[i].value.trim() != ''){
+				comm['siteName'] = wrapper[i].value;
+				comm["location"] = amounts[i].value;
+				comms.push(comm);
+			}
+		}
+		console.log(comms);
+		sendSites(comms);
 
+	}
 
 function moveTofilterPage() {
 	$.mobile.changePage("#resultTripPqge", {
@@ -220,7 +233,20 @@ $(document).on( "click", "#signOut", function() {
   console.log("signOut")
   gapi.auth.signOut();
 });	
-
+function sendSites(data){
+	$.ajax({
+		type: "get",
+        url: "http://127.0.0.1:1337/sendSites",// where you wanna post
+        data:  {sites:data},
+        dataType: "json",
+        contentType: "application/json",
+       // contentType: "application/json",
+		success : function(data) {console.log(data); 
+		},
+		error : function(objRequest, errortype) {
+		}
+	});
+}
 function create_user(user){
 	$.ajax({
 		type : "get",

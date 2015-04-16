@@ -5,6 +5,7 @@ var MongoClient = require('mongodb').MongoClient;
 var app = express();
 var Character = ['char1', 'char2', 'char3', 'char4', 'char1', 'char2', 'char3', 'char4', 'char1', 'char2', 'char3', 'char4'];
 var userEmail;
+var sites;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -57,12 +58,16 @@ app.get('/', function(req, res) {
 
 			}
 		});
-}catch(err){
-	console.log("mongodb connection failed")
-}
-
-
+	}catch(err){
+		console.log("mongodb connection failed")
+	}
 });
+
+app.get('/sendSites/:sites?', function(req, res) {
+	sites = req.query.sites;
+	console.log(sites);
+});
+
 app.get('/insertUser/:email?', function(req, res) {
 	 userEmail = req.query.email;
 	 console.log(userEmail);
@@ -177,6 +182,8 @@ app.post('/add', function(req, res) {
 			var char2 = req.body.char2;
 			var privte = req.body.privte;
 			var areaLocition = req.body.area;
+			/*var sites = req.body.ingredients;
+			var sitesLocation = req.body.amount;*/
 			tripper_collection.insert({
 				trip_name : nameTrip,
 				trip_description : des,
@@ -188,6 +195,7 @@ app.post('/add', function(req, res) {
 					charachter : char2
 				}],
 				trip_isPrivate : privte,
+				tripSites : sites,
 				area : areaLocition
 			}, function(err, docs) {
 				if (err) {
@@ -200,15 +208,15 @@ app.post('/add', function(req, res) {
 					console.log(docs[i]);
 				}
 
-				console.log("inserted " + docs.length + documents);
+				// console.log("inserted " + docs.length);
 
-				tripper_collection.findOne({
-					_id : new ObjectId()
-				}, function(err, doc) {
-					if (err)
-						return console.error(err);
-					console.log("read 1 item" + doc);
-				});
+				// tripper_collection.findOne({
+				// 	_id : new ObjectId()
+				// }, function(err, doc) {
+				// 	if (err)
+				// 		return console.error(err);
+				// 	console.log("read 1 item" + doc);
+				// });
 			});
 		}
 		// var doc1 = {'hello':'doc1'};
