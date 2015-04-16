@@ -4,7 +4,8 @@ var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var app = express();
 var userEmail;
-var tripsAfterCharachters;
+var sites;
+
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -57,12 +58,17 @@ app.get('/', function(req, res) {
 
 			}
 		});
-}catch(err){
-	console.log("mongodb connection failed")
-}
-
-
+	}catch(err){
+		console.log("mongodb connection failed")
+	}
 });
+
+app.get('/sendSites/:sites?', function(req, res) {
+	sites = req.query.sites;
+	console.log(sites);
+});
+
+
 app.get('/insertUser/:email?', function(req, res) {
 	 userEmail = req.query.email;
 	 console.log(userEmail);
@@ -130,42 +136,6 @@ app.get('/filterByChars/:chars?', function(req, res) {
 	
 });
 
-// app.get('/filterByCharsAndLocation/:chars?', function(req, res) {
-// 	var charachters = req.query.chars;
-// 	// req.body.chars will get post request without chars 
-// 	console.log(charachters)
-// 	// Connect to the db
-// 	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
-// 		if (err) {
-// 			return console.dir(err);
-// 		} else {
-// 			var tripper_collection = db.collection('tripper_playlist');
-// 			tripper_collection.find( { $and: [ {"area" : charachters[2]}, {trip_charachters:  { $elemMatch : { "charachter": {"$in" : [charachters[0], charachters[1]]} }}}]}).toArray(function (err, docs)
-// 			// tripsAfterCharachters.find( { "area" : charachters[2] }).toArray(function (err, docs)
-// 			{ 
-//                 // failure while connecting to sessions collection
-//                 if (err) 
-//                 {
-//                 	console.log( err);
-
-//                 	return;
-//                 }
-                
-//                 else
-//                 {
-//                 	// console.log(tripsAfterCharachters);
-//                 	console.log(docs);
-//                 	res.json(docs)
-//                 	db.close();
-//                 }
-//             });
-
-// 		}
-
-// 	});
-	
-// });
-
 app.post('/add', function(req, res) {
 	console.log("haim" + req.body.newTrip + " " + req.body.des);
 	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
@@ -191,6 +161,7 @@ app.post('/add', function(req, res) {
 					charachter : char2
 				}],
 				trip_isPrivate : privte,
+				tripSites : sites,
 				area : areaLocition
 			}, function(err, docs) {
 				if (err) {
@@ -203,34 +174,12 @@ app.post('/add', function(req, res) {
 					console.log(docs[i]);
 				}
 
-				console.log("inserted " + docs.length + documents);
-
-				tripper_collection.findOne({
-					_id : new ObjectId()
-				}, function(err, doc) {
-					if (err)
-						return console.error(err);
-					console.log("read 1 item" + doc);
-				});
 			});
 		}
-		// var doc1 = {'hello':'doc1'};
-		// var doc2 = {'hello':'doc2'};
-		// var lotsOfDocs = [{'hello':'doc3'}, {'hello':'doc4'}];
 
-		// collection.insert(doc1);
-
-		// collection.insert(doc2, {w:1}, function(err, result) {});
-
-		// collection.insert(lotsOfDocs, {w:1}, function(err, result) {});
 	});
 res.redirect('/');
-	/*
-	 res.render('add.ejs',{
-	 titel:'Tripper',
-	 trips:docs
-	 });
-});*/
+
 });
 
 
