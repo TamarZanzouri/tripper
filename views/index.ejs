@@ -26,13 +26,13 @@
 	<div data-role="page" id="homePage" >
 		<header data-role="header" data-position="fixed" data-tap-toggle="false">     
 			<h1><a href="#">Tripper</a></h1>
-			<ul class="nav nav-pills" onhashchanged="blabla()">
-				<li id="home"><a href="#homePage">חיפוש טיול</a></li>
+			<nav class="nav nav-pills" data-role="navbar" >
+				<li id="home" class="selected"><a href="#homePage">חיפוש טיול</a></li>
 				<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
 				<li ><a href="#">המועדפים שלי</a></li>
 				<li><a href="#">המסלול שלי</a></li>
 				<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
-			</ul>
+			</nav>
 		</header>
 		<div data-role="content" class="ui-content" id="content">
 			<!-- application data will goes here -->
@@ -67,13 +67,13 @@
 		<div data-role="page" id="resultTripPqge" >
 			<header data-role="header" data-position="fixed" data-tap-toggle="false">     
 				<h1><a href="#">Tripper</a></h1>
-				<ul class="nav nav-pills">
-					<li id="home"><a href="#homePage">חיפוש טיול</a></li>
+				<nav class="nav nav-pills" data-role="navbar">
+					<li id="home" class="selected"><a href="#homePage">חיפוש טיול</a></li>
 					<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
-					<li ><a href="#indexMobile">המועדפים שלי</a></li>
+					<li ><a href="#">המועדפים שלי</a></li>
 					<li><a href="#">המסלול שלי</a></li>
 					<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
-				</ul>
+				</nav>
 			</header>
 			<div data-role="content" class="ui-content" id="content">
 				<select id="selectArea" onchange="changedArea()">
@@ -94,13 +94,13 @@
 		<div data-role="page" id="addTripPage" >
 			<header data-role="header" data-position="fixed" data-tap-toggle="false">     
 				<h1><a href="#">Tripper</a></h1>
-				<ul class="nav nav-pills">
+				<nav class="nav nav-pills" data-role="navbar">
 					<li id="home"><a href="#homePage">חיפוש טיול</a></li>
 					<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
-					<li ><a href="#indexMobile">המועדפים שלי</a></li>
+					<li ><a href="#">המועדפים שלי</a></li>
 					<li><a href="#">המסלול שלי</a></li>
-					<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
-				</ul>
+					<li id="addTrip" class="selected"><a href="#addTripPage">הוספת טיול</a></li>
+				</nav>
 			</header>
 			<section id="addTripSec">
 				<form action="/add" method="post" onsubmit="return validateMyForm(this);">
@@ -155,13 +155,13 @@
 		<div data-role="page" id="accountPage" >
 			<header data-role="header" data-position="fixed" data-tap-toggle="false">     
 				<h1><a href="#">Tripper</a></h1>
-				<ul class="nav nav-pills">
+				<nav class="nav nav-pills" data-role="navbar">
 					<li id="home"><a href="#homePage">חיפוש טיול</a></li>
-					<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
-					<li ><a href="#indexMobile">המועדפים שלי</a></li>
+					<li id="showTrips" class="selected"><a href="#accountPage">החשבון שלי</a></li>
+					<li ><a href="#">המועדפים שלי</a></li>
 					<li><a href="#">המסלול שלי</a></li>
 					<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
-				</ul>
+				</nav>
 			</header>
 			<section id="showTripsSec">
 				<ul class="displayTrip">

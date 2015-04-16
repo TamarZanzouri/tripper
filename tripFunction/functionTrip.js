@@ -8,28 +8,6 @@ var tripsAfterCharachters;
 
 $(document).ready(function(){
 
-	$('#displayTrip li').click(function(){
-		$('#displayTrip li').each(function(index,value){
-			if ($(value).hasClass('selected')) {
-				$(value).removeClass('selected');
-			};
-		})
-		$(this).addClass('selected');
-	});
-
-	$('.nav-pills li').click(function(){
-		// alert($(this));
-				$(this).addClass('active');
-
-		$('.nav-pills li').each(function(index,value){
-			if ($(this).hasClass('active')) {
-				$(this).removeClass('active');
-			};
-		})
-	});
-
-
-
 	//adding site!
 	var max_fields = 20;
 	//maximum input boxes allowed
@@ -67,14 +45,7 @@ $(document).ready(function(){
 
 
 
-	$('#home').click(function(){
-		$.each(listSection,function(index,value){
-			console.log(value);
-			$('#'+value).hide();
-		});
-		$('#homeSec').show();
-		$(this).addClass('active')
-	});
+
 	/*$('.btn').click(function(){
 		noMore2();
 		$(this).addClass('selectedChar');
