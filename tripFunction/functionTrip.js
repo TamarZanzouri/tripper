@@ -23,22 +23,15 @@ $(document).ready(function(){
 
 	$('.nav-pills li').click(function(){
 		// alert($(this));
+				$(this).addClass('active');
+
 		$('.nav-pills li').each(function(index,value){
 			if ($(this).hasClass('active')) {
 				$(this).removeClass('active');
 			};
 		})
-		$(this).addClass('active');
 	});
-	/*$('#addTrip').click(function(){
-		$.each(listSection,function(index,value){
-			$('#'+value).hide();
-		});
-		$('#addTripSec').show();
-	});*/
-	/*$('#showTrips').click(function(){
-		moveToAccountPage();
-	});*/
+
 
 
 	//adding site!
@@ -123,7 +116,7 @@ $('.listResultTrip').click(function(){
 function changedArea(){
 	$('#resultTrip ul').empty();
 	if($('#selectArea').val() === ""){
-	for(i in tripsAfterCharachters){
+		for(i in tripsAfterCharachters){
 			var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + tripsAfterCharachters[i].trip_name + '</span>' + ' תיאור-הטיול: ' + tripsAfterCharachters[i].trip_description + ' מיקום: ' + tripsAfterCharachters[i].address +
 			+ 'תכונות: ' + tripsAfterCharachters[i].trip_charachters[0].charachter + ' ' + tripsAfterCharachters[i].trip_charachters[1].charachter  +  '</li>';
 			$('#resultTrip ul').append(tripResult);
@@ -185,6 +178,7 @@ function signinCallback(authResult) {
 	}
 
 	function updateTripFromCharchters(tc){
+
 		$.ajax({
 			type: "get",
         url: "http://127.0.0.1:1337/filterByChars",// where you wanna post
@@ -200,6 +194,7 @@ function signinCallback(authResult) {
         	console.log(data);
         	tripsAfterCharachters = data;
         	for (i in data) {
+        		debugger;
         		var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
         		+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  +  '</li>';
         		$('#resultTrip ul').append(tripResult);
@@ -221,7 +216,14 @@ function signinCallback(authResult) {
 			type : "get",
 			url : "http://127.0.0.1:1337/insertUser?email="+user.mail,
        // contentType: "application/json",
-       success : function(data) {console.log(data); 
+       success : function(data) {
+       	console.log(data);
+       	for (i in data) {
+       		var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
+       		+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  +  '</li>';
+       		$('#showTripsSec ul').append(tripResult);
+       		console.log(data[i].trip_name)
+       	};
        },
        error : function(objRequest, errortype) {
        }

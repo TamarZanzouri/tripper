@@ -164,71 +164,9 @@
 			</header>
 			<section id="showTripsSec">
 				<ul class="displayTrip">
-					<% for ( i =0; i<trips.length; i++) {%>
-					<li> <span class="titelName"> <%= "שם הטיול: "+trips[i].trip_name %></span><%= " תיאור-הטיול:  " + trips[i].trip_description + "מיקום: "+ trips[i].location + "תכונות: " + trips[i].trip_charachters[0].charachter+" "+trips[i].trip_charachters[1].charachter %></li>
-					<% } %>
 				</ul>
 			</section>
 		</div>
-<!--
-	<div id="wrapper">
-			<h1><a href="#">Tripper</a></h1>
-			<ul class="nav nav-pills">
-				<li id="home"><a href="#">חיפוש טיול</a></li>
-				<li id="showTrips"><a href="#">החשבון שלי</a></li>
-				<li ><a href="#indexMobile">המועדפים שלי</a></li>
-				<li><a href="#">המסלול שלי</a></li>
-				<li id="addTrip"><a href="#">הוספת טיול</a></li>
-			</ul>
-		<section id="homeSec">
-			<div id="groupButton">
-				
-				<% for (var j =0; j<character.length; j++) {%>
-				<button class="btn"><%=character[j] %></button>
-				<% } %>
-			</div>	
-		
-			<section id="resultTrip">
-				<ul class="displayTrip">
-				<% for (var i in trips) {%>
-					<li class="listResultTrip"><span class="titelName"> <%= "שם הטיול: "+trips[i].trip_name %></span><%= " תיאור-הטיול:  " + trips[i].trip_description + "מיקום: "+ trips[i].location + "תכונות: " + trips[i].trip_charachters[0].charachter+" "+trips[i].trip_charachters[1].charachter %></li>
-					<% } %>
-				</ul>
-			</section>
-			<section id="myChoose">
-			</section>
-		</section>	
-
-		<section id="showTripsSec">
-			<ul class="displayTrip">
-				<% for ( i =0; i<trips.length; i++) {%>
-				<li> <span class="titelName"> <%= "שם הטיול: "+trips[i].trip_name %></span><%= " תיאור-הטיול:  " + trips[i].trip_description + "מיקום: "+ trips[i].location + "תכונות: " + trips[i].trip_charachters[0].charachter+" "+trips[i].trip_charachters[1].charachter %></li>
-				<% } %>
-			</ul>
-		</section>
-
-		<section id="addTripSec">
-			<form action="/add" method="post">
-				<label>שם או אזור הטיול <br>
-					<input type="text" name="nameTrip">
-				</label><br>
-				<label>תאור הטיול<br>
-					<textarea type="text" name="des"></textarea>
-				</label><br>
-				<label>מיקום הטיול: <br>
-					<input type="text" name="locationTrip">
-				</label><br>
-				<label>תכונות הטיול: <br>
-					<input type="text" name="char1">
-					<input type="text" name="char2">
-				</label>
-				<br>
-				<input type="submit">
-			</form>
-		</section>
-	</div>
-	 
-	<script src="../jquerymobile.js"></script> -->
 	
 </body>
 </html>
