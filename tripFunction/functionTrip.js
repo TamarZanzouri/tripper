@@ -4,12 +4,13 @@ User={
 	mail:""
 };
 var clickedCharachters = [];
+var tripsAfterCharachters;
 
 $(document).ready(function(){
 
-	if (e.originalEvent.newURL.indexOf('#addTripPage') != -1) {
-		$('li #addTrip').addClass('active');
-	}
+	// if (e.originalEvent.newURL.indexOf('#addTripPage') != -1) {
+	// 	$('li #addTrip').addClass('active');
+	// }
 
 	$('#displayTrip li').click(function(){
 		$('#displayTrip li').each(function(index,value){
@@ -21,9 +22,10 @@ $(document).ready(function(){
 	});
 
 	$('.nav-pills li').click(function(){
+		// alert($(this));
 		$('.nav-pills li').each(function(index,value){
-			if ($(value).hasClass('active')) {
-				$(value).removeClass('active');
+			if ($(this).hasClass('active')) {
+				$(this).removeClass('active');
 			};
 		})
 		$(this).addClass('active');
@@ -37,7 +39,7 @@ $(document).ready(function(){
 	/*$('#showTrips').click(function(){
 		moveToAccountPage();
 	});*/
-	
+
 
 	//adding site!
 	var max_fields = 20;
@@ -53,7 +55,7 @@ $(document).ready(function(){
 		if (x < max_fields) { //max input box allowed
 			x++;
 			$(this).off('focus');
-					$(outer_wrapper).append('<div style="text-align: center;margin: auto;position: relative;align-content: center;"><input id="newChild' + x + '" class="ingredients_i gapper ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset newChild" style="text-align:center;margin:auto;width:100%" type="text" placeholder="אתר" name="ingredients[]"><input type="text" name="amount[]" style="width:100%;padding:5px 0 5px 0" placeholder="מיקום" class="firstAmount amounts_i" id="firstAmount"><a href="#" class="remove_field"> X </a></div>');	
+			$(outer_wrapper).append('<div style="text-align: center;margin: auto;position: relative;align-content: center;"><input id="newChild' + x + '" class="ingredients_i gapper ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset newChild" style="text-align:center;margin:auto;width:100%" type="text" placeholder="אתר" name="ingredients[]"><input type="text" name="amount[]" style="width:100%;padding:5px 0 5px 0" placeholder="מיקום" class="firstAmount amounts_i" id="firstAmount"><a href="#" class="remove_field"> X </a></div>');	
 		}
 	});
 	
@@ -62,9 +64,9 @@ $(document).ready(function(){
 		console.log(wrapper[wrapper.length-1]);
 		console.log(wrapper[wrapper.length-1].id);
 		if (this.id == wrapper[wrapper.length-1].id){				
-			 console.log("focus " + x);
-			 x++;
-			 
+			console.log("focus " + x);
+			x++;
+
 			$(outer_wrapper).append('<div style="text-align: center;margin: auto;position: relative;align-content: center;"><input id="newChild' + x + '" class="ingredients_i gapper ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset newChild" style="text-align:center;margin:auto;width:100%" type="text" placeholder="אתר" name="ingredients[]"><input type="text" name="amount[]" style="width:100%;padding:5px 0 5px 0" placeholder="מיקום" class="firstAmount amounts_i" id="firstAmount"><a href="#" class="remove_field"> X </a></div>');	
 		}
 	});		
@@ -76,13 +78,14 @@ $(document).ready(function(){
 
 
 
-$('#home').click(function(){
-	$.each(listSection,function(index,value){
-		console.log(value);
-		$('#'+value).hide();
+	$('#home').click(function(){
+		$.each(listSection,function(index,value){
+			console.log(value);
+			$('#'+value).hide();
+		});
+		$('#homeSec').show();
+		$(this).addClass('active')
 	});
-	$('#homeSec').show();
-});
 	/*$('.btn').click(function(){
 		noMore2();
 		$(this).addClass('selectedChar');
@@ -92,20 +95,20 @@ var me;
 $('.btnChar').click(function(){
 	//me=this;
 
-		
-		$(this).addClass('selectedChar');
-		if(count==1)
-		{
-			count++;
-			clickedCharachters.push($(this).text());
-			$('.continue').css('display','block');
-		}
-		else if(count==2)
-		{
-			clickedCharachters.push($(this).text());
-			console.log(clickedCharachters[0] + " " + clickedCharachters[1]);
-			updateTripFromCharchters(clickedCharachters);
-		}
+
+	$(this).addClass('selectedChar');
+	if(count==1)
+	{
+		count++;
+		clickedCharachters.push($(this).text());
+		$('.continue').css('display','block');
+	}
+	else if(count==2)
+	{
+		clickedCharachters.push($(this).text());
+		console.log(clickedCharachters[0] + " " + clickedCharachters[1]);
+		updateTripFromCharchters(clickedCharachters);
+	}
 	
 });
 $('.listResultTrip').click(function(){
@@ -118,34 +121,23 @@ $('.listResultTrip').click(function(){
 });
 
 function changedArea(){
-	clickedCharachters.push($('#selectArea').val());
-	console.log(clickedCharachters);
-		$.ajax({
-        type: "get",
-        url: "http://127.0.0.1:1337/filterByCharsAndLocation",// where you wanna post
-        data:  {chars:clickedCharachters},
-        dataType: "json",
-        contentType: "application/json",
-        error: function(jqXHR, textStatus, errorMessage) {
-          console.log(errorMessage)
-
-				  
-        },
-        success: function(data) {
-        	console.log(data);
-        	$('#resultTrip ul').empty();
-        	for (i in data) {
-        		var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
-        							+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  +  '</li>';
-        		$('#resultTrip ul').append(tripResult);
-        		console.log(data[i].trip_name)
-        	};
-			// moveTofilterPage();	      
-		} 
-	});
+	$('#resultTrip ul').empty();
+	if($('#selectArea').val() === ""){
+	for(i in tripsAfterCharachters){
+			var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + tripsAfterCharachters[i].trip_name + '</span>' + ' תיאור-הטיול: ' + tripsAfterCharachters[i].trip_description + ' מיקום: ' + tripsAfterCharachters[i].address +
+			+ 'תכונות: ' + tripsAfterCharachters[i].trip_charachters[0].charachter + ' ' + tripsAfterCharachters[i].trip_charachters[1].charachter  +  '</li>';
+			$('#resultTrip ul').append(tripResult);
+		}
+		return
+	}
+	for(i in tripsAfterCharachters){
+		if($('#selectArea').val() === tripsAfterCharachters[i].area){
+			var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + tripsAfterCharachters[i].trip_name + '</span>' + ' תיאור-הטיול: ' + tripsAfterCharachters[i].trip_description + ' מיקום: ' + tripsAfterCharachters[i].address +
+			+ 'תכונות: ' + tripsAfterCharachters[i].trip_charachters[0].charachter + ' ' + tripsAfterCharachters[i].trip_charachters[1].charachter  +  '</li>';
+			$('#resultTrip ul').append(tripResult);
+		}
+	}
 }
-
-
 
 function moveTofilterPage() {
 	$.mobile.changePage("#resultTripPqge", {
@@ -159,6 +151,8 @@ function moveToAccountPage() {
 		changeHash : true
 	});
 }
+
+
 function signinCallback(authResult) {
 	if (authResult['status']['signed_in']) {
 		// Update the app to reflect a signed in user
@@ -185,53 +179,54 @@ function signinCallback(authResult) {
 		 "user_signed_out" - User is signed-out
 		 "access_denied" - User denied access to your app
 		 "immediate_failed" - Could not automatically log in the user */
-		console.log('Sign-in state: ' + authResult['error']);
+		 console.log('Sign-in state: ' + authResult['error']);
 
+		}
 	}
-}
 
-function updateTripFromCharchters(tc){
-	 $.ajax({
-        type: "get",
+	function updateTripFromCharchters(tc){
+		$.ajax({
+			type: "get",
         url: "http://127.0.0.1:1337/filterByChars",// where you wanna post
         data:  {chars:tc},
         dataType: "json",
         contentType: "application/json",
         error: function(jqXHR, textStatus, errorMessage) {
-          console.log(errorMessage)
+        	console.log(errorMessage)
 
-				  
+
         },
         success: function(data) {
         	console.log(data);
+        	tripsAfterCharachters = data;
         	for (i in data) {
         		var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
-        							+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  +  '</li>';
+        		+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  +  '</li>';
         		$('#resultTrip ul').append(tripResult);
         		console.log(data[i].trip_name)
         	};
-			moveTofilterPage();	      
-		} 
+        	moveTofilterPage();	      
+        } 
     });
-}
+	}
 
 
-$(document).on( "click", "#signOut", function() {
-  console.log("signOut")
-  gapi.auth.signOut();
-});	
+	$(document).on( "click", "#signOut", function() {
+		console.log("signOut")
+		gapi.auth.signOut();
+	});	
 
-function create_user(user){
-	$.ajax({
-		type : "get",
-		url : "http://127.0.0.1:1337/insertUser?email="+user.mail,
+	function create_user(user){
+		$.ajax({
+			type : "get",
+			url : "http://127.0.0.1:1337/insertUser?email="+user.mail,
        // contentType: "application/json",
-		success : function(data) {console.log(data); 
-		},
-		error : function(objRequest, errortype) {
-		}
-	});
-}
+       success : function(data) {console.log(data); 
+       },
+       error : function(objRequest, errortype) {
+       }
+   });
+	}
 
 
 	// $('form').submit(function(e){
