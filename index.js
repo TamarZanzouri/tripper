@@ -6,7 +6,6 @@ var app = express();
 var userEmail;
 var sites;
 
-
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'node_modules/bower_components')));

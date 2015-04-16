@@ -46,27 +46,22 @@ $(document).ready(function(){
 
 
 
-	/*$('.btn').click(function(){
-		noMore2();
-		$(this).addClass('selectedChar');
-	});*/
 var count=1;
 var me;
 $('.btnChar').click(function(){
-	//me=this;
-
 
 	$(this).addClass('selectedChar');
 	if(count==1)
 	{
 		count++;
-		clickedCharachters.push($(this).text());
+		clickedCharachters[0] = $(this).text();
 		$('.continue').css('display','block');
 	}
 	else if(count==2)
 	{
-		clickedCharachters.push($(this).text());
+		clickedCharachters[1] = $(this).text();
 		console.log(clickedCharachters[0] + " " + clickedCharachters[1]);
+		count=1;
 		updateTripFromCharchters(clickedCharachters);
 	}
 	
@@ -84,39 +79,57 @@ function changedArea(){
 	$('#resultTrip ul').empty();
 	if($('#selectArea').val() === ""){
 		for(i in tripsAfterCharachters){
-			var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + tripsAfterCharachters[i].trip_name + '</span>' + ' תיאור-הטיול: ' + tripsAfterCharachters[i].trip_description + ' מיקום: ' + tripsAfterCharachters[i].address +
-			+ 'תכונות: ' + tripsAfterCharachters[i].trip_charachters[0].charachter + ' ' + tripsAfterCharachters[i].trip_charachters[1].charachter  +  '</li>';
-			$('#resultTrip ul').append(tripResult);
+       		if(tripsAfterCharachters[i].tripSites){
+      			
+       			var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + tripsAfterCharachters[i].trip_name + '</span>' + ' תיאור-הטיול: ' + tripsAfterCharachters[i].trip_description + ' מיקום: ' + tripsAfterCharachters[i].address +
+       			+ 'תכונות: ' + tripsAfterCharachters[i].trip_charachters[0].charachter + ' ' + tripsAfterCharachters[i].trip_charachters[1].charachter  + '<br>אתרי הטיול<br>' + tripsAfterCharachters[i].tripSites[0].siteName + ' ' + tripsAfterCharachters[i].tripSites[0].location + '<br>' + tripsAfterCharachters[i].tripSites[1].siteName + ' ' + tripsAfterCharachters[i].tripSites[0].location + '</li>';
+       			$('#resultTrip ul').append(tripResult);
+       		}
+       		else{
+       			var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + tripsAfterCharachters[i].trip_name + '</span>' + ' תיאור-הטיול: ' + tripsAfterCharachters[i].trip_description + ' מיקום: ' + tripsAfterCharachters[i].address +
+       			+ 'תכונות: ' + tripsAfterCharachters[i].trip_charachters[0].charachter + ' ' + tripsAfterCharachters[i].trip_charachters[1].charachter  +  '</li>';
+       			$('#resultTrip ul').append(tripResult);
+       		}
 		}
 		return
 	}
 	for(i in tripsAfterCharachters){
 		if($('#selectArea').val() === tripsAfterCharachters[i].area){
-			var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + tripsAfterCharachters[i].trip_name + '</span>' + ' תיאור-הטיול: ' + tripsAfterCharachters[i].trip_description + ' מיקום: ' + tripsAfterCharachters[i].address +
-			+ 'תכונות: ' + tripsAfterCharachters[i].trip_charachters[0].charachter + ' ' + tripsAfterCharachters[i].trip_charachters[1].charachter  +  '</li>';
-			$('#resultTrip ul').append(tripResult);
+       		if(tripsAfterCharachters[i].tripSites){
+      			
+       			var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + tripsAfterCharachters[i].trip_name + '</span>' + ' תיאור-הטיול: ' + tripsAfterCharachters[i].trip_description + ' מיקום: ' + tripsAfterCharachters[i].address +
+       			+ 'תכונות: ' + tripsAfterCharachters[i].trip_charachters[0].charachter + ' ' + tripsAfterCharachters[i].trip_charachters[1].charachter  + '<br>אתרי הטיול<br>' + tripsAfterCharachters[i].tripSites[0].siteName + ' ' + tripsAfterCharachters[i].tripSites[0].location + '<br>' + tripsAfterCharachters[i].tripSites[1].siteName + ' ' + tripsAfterCharachters[i].tripSites[0].location + '</li>';
+       			$('#resultTrip ul').append(tripResult);
+       		}
+       		else{
+       			var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + tripsAfterCharachters[i].trip_name + '</span>' + ' תיאור-הטיול: ' + tripsAfterCharachters[i].trip_description + ' מיקום: ' + tripsAfterCharachters[i].address +
+       			+ 'תכונות: ' + tripsAfterCharachters[i].trip_charachters[0].charachter + ' ' + tripsAfterCharachters[i].trip_charachters[1].charachter  +  '</li>';
+       			$('#resultTrip ul').append(tripResult);
+       		}
+		}
+
 		}
 	}
-}
+
 
 function validateMyForm(obj){
-		var wrapper = $(".ingredients_i");
-		var amounts = $(".amounts_i");
-		var comms = new Array();
-		for (var i = 0; i < wrapper.length; i++){
-			console.log(i);
-			
-			var comm = {};
-			if (wrapper[i].value.trim() != ''){
-				comm['siteName'] = wrapper[i].value;
-				comm["location"] = amounts[i].value;
-				comms.push(comm);
-			}
-		}
-		console.log(comms);
-		sendSites(comms);
+	var wrapper = $(".ingredients_i");
+	var amounts = $(".amounts_i");
+	var comms = new Array();
+	for (var i = 0; i < wrapper.length; i++){
+		console.log(i);
 
+		var comm = {};
+		if (wrapper[i].value.trim() != ''){
+			comm['siteName'] = wrapper[i].value;
+			comm["location"] = amounts[i].value;
+			comms.push(comm);
+		}
 	}
+	console.log(comms);
+	sendSites(comms);
+
+}
 
 function moveTofilterPage() {
 	$.mobile.changePage("#resultTripPqge", {
@@ -177,74 +190,70 @@ function signinCallback(authResult) {
 
         },
         success: function(data) {
+        	$('#resultTrip ul').empty();
         	console.log(data);
+        	tripsAfterCharachters = {};
         	tripsAfterCharachters = data;
-        	for (i in data) {
-        		debugger;
-        		var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
-        		+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  +  '</li>';
-        		$('#resultTrip ul').append(tripResult);
-        		console.log(data[i].trip_name)
-        	};
+       	for (i in data) {
+       		// debugger;
+       		if(data[i].tripSites){
+      			
+       			var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
+       			+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  + '<br>אתרי הטיול<br>' + data[i].tripSites[0].siteName + ' ' + data[i].tripSites[0].location + '<br>' + data[i].tripSites[1].siteName + ' ' + data[i].tripSites[0].location + '</li>';
+       			$('#resultTrip ul').append(tripResult);
+       		}
+       		else{
+       			var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
+       			+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  +  '</li>';
+       			$('#resultTrip ul').append(tripResult);
+       		}
+       		console.log(tripResult)
+       	};
         	moveTofilterPage();	      
         } 
     });
 	}
 
-$(document).on( "click", "#signOut", function() {
-  console.log("signOut")
-  gapi.auth.signOut();
-});	
-function sendSites(data){
-	$.ajax({
-		type: "get",
+	$(document).on( "click", "#signOut", function() {
+		console.log("signOut")
+		gapi.auth.signOut();
+	});	
+	function sendSites(data){
+		$.ajax({
+			type: "get",
         url: "http://127.0.0.1:1337/sendSites",// where you wanna post
         data:  {sites:data},
         dataType: "json",
         contentType: "application/json",
        // contentType: "application/json",
-		success : function(data) {console.log(data); 
-		},
-		error : function(objRequest, errortype) {
-		}
-	});
-}
-function create_user(user){
-	$.ajax({
-		type : "get",
-		url : "http://127.0.0.1:1337/insertUser?email="+user.mail,
-       // contentType: "application/json",
-       success : function(data) {
-       	console.log(data);
-       	for (i in data) {
-       		var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
-       		+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  +  '</li>';
-       		$('#showTripsSec ul').append(tripResult);
-       		console.log(data[i].trip_name)
-       	};
+       success : function(data) {console.log(data); 
        },
        error : function(objRequest, errortype) {
        }
    });
 	}
-
-
-	// $('form').submit(function(e){
-	// 		e.preventDefault();
-	// 		console.log(this.newTrip, this.des)
-	// 		$.ajax({
-	// 		  url: "http://localhost:1337/add",
-	// 		  method: "POST",
-	// 		  data:{newTrip: this.newTrip, des:this.des}
-	// 		})
-	// 		  .done(function( data ) {
-
-	// 		      console.log( data );
-	// 		  })
-	// 		  .fail(function(err){
- // 				console.log( err );
-	// 		  });
-	// 		  return false;
-	// });
-
-
+	function create_user(user){
+		$.ajax({
+			type : "get",
+			url : "http://127.0.0.1:1337/insertUser?email="+user.mail,
+       // contentType: "application/json",
+       success : function(data) {
+       	console.log(data);
+       	for (i in data) {debugger;
+       		if(data[i].tripSites){
+       			var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
+       			+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  + '<br>אתרי הטיול<br>' + data[i].tripSites[0].siteName + ' ' + data[i].tripSites[0].location + '<br>' + data[i].tripSites[1].siteName + ' ' + data[i].tripSites[0].location + '</li>';
+       			$('#showTripsSec ul').append(tripResult);
+       		}
+       		else{
+       			var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
+       			+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  +  '</li>';
+       			$('#showTripsSec ul').append(tripResult);
+       		}
+       		console.log(tripResult)
+       	};
+       },
+       error : function(objRequest, errortype) {
+       }
+   });
+}
