@@ -189,7 +189,7 @@ function signinCallback(authResult) {
 
 				console.log(resp);
 				User.name=resp.displayName;
-				User.mail=resp.emails[0].value;
+				User.mail=(resp.emails)? resp.emails[0].value : "zanzouritamar@gmail.com";
 				console.log(User);
 				create_user(User);
 			});
