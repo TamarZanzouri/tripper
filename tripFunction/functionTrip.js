@@ -8,28 +8,6 @@ var tripsAfterCharachters;
 
 $(document).ready(function(){
 
-	$('#displayTrip li').click(function(){
-		$('#displayTrip li').each(function(index,value){
-			if ($(value).hasClass('selected')) {
-				$(value).removeClass('selected');
-			};
-		})
-		$(this).addClass('selected');
-	});
-
-	$('.nav-pills li').click(function(){
-		// alert($(this));
-		$(this).addClass('active');
-
-		$('.nav-pills li').each(function(index,value){
-			if ($(this).hasClass('active')) {
-				$(this).removeClass('active');
-			};
-		})
-	});
-
-
-
 	//adding site!
 	var max_fields = 20;
 	//maximum input boxes allowed
@@ -67,14 +45,7 @@ $(document).ready(function(){
 
 
 
-	$('#home').click(function(){
-		$.each(listSection,function(index,value){
-			console.log(value);
-			$('#'+value).hide();
-		});
-		$('#homeSec').show();
-		$(this).addClass('active')
-	});
+
 var count=1;
 var me;
 $('.btnChar').click(function(){
@@ -189,7 +160,8 @@ function signinCallback(authResult) {
 
 				console.log(resp);
 				User.name=resp.displayName;
-				User.mail=(resp.emails)? resp.emails[0].value : "zanzouritamar@gmail.com";
+				User.mail=resp.emails[0].value
+				// (resp.emails)? resp.emails[0].value : "zanzouritamar@gmail.com";
 				console.log(User);
 				create_user(User);
 			});
@@ -268,7 +240,7 @@ function signinCallback(authResult) {
        // contentType: "application/json",
        success : function(data) {
        	console.log(data);
-       	for (i in data) {debugger;
+       	for (i in data) {
        		if(data[i].tripSites){
        			var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
        			+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  + '<br>אתרי הטיול<br>' + data[i].tripSites[0].siteName + ' ' + data[i].tripSites[0].location + '<br>' + data[i].tripSites[1].siteName + ' ' + data[i].tripSites[0].location + '</li>';
@@ -286,24 +258,3 @@ function signinCallback(authResult) {
        }
    });
 }
-
-
-	// $('form').submit(function(e){
-	// 		e.preventDefault();
-	// 		console.log(this.newTrip, this.des)
-	// 		$.ajax({
-	// 		  url: "http://localhost:1337/add",
-	// 		  method: "POST",
-	// 		  data:{newTrip: this.newTrip, des:this.des}
-	// 		})
-	// 		  .done(function( data ) {
-
-	// 		      console.log( data );
-	// 		  })
-	// 		  .fail(function(err){
- // 				console.log( err );
-	// 		  });
-	// 		  return false;
-	// });
-
-
