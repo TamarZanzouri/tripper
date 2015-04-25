@@ -142,7 +142,7 @@ app.get('/filterByChars/:chars?', function(req, res) {
 			return console.dir(err);
 		} else {
 			var tripper_collection = db.collection('tripper_playlist');
-			tripper_collection.find( { trip_charachters:  { $elemMatch : { "charachter": {"$in" : [charachters[0], charachters[1]]} }}}).toArray(function (err, docs)
+			tripper_collection.find( { $and: [ {trip_charachters:  { $elemMatch : { "charachter": {"$in" : [charachters[0], charachters[1]]} }}}, { "trip_isPrivate" : false }] }).toArray(function (err, docs)
 			{ 
                 // failure while connecting to sessions collection
                 if (err) 
