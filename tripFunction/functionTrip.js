@@ -3,21 +3,21 @@ User={
 	mail:""
 };
 
-g_trip={
-	id:"",
-	trip_name :"nameTrip",
-	trip_description : "des",
-	address : "location",
-	email : "userEmail",
-	trip_charachters : [{
-		charachter : "char1"
-	}, {
-		charachter : "char2"
-	}],
-	trip_isPrivate : "privte",
-	tripSites : [],
-	area : "areaLocition"
-};
+g_trip=[]//{
+	// id:"",
+	// trip_name :"nameTrip",
+	// trip_description : "des",
+	// address : "location",
+	// email : "userEmail",
+	// trip_charachters : [{
+	// 	charachter : "char1"
+	// }, {
+	// 	charachter : "char2"
+	// }],
+	// trip_isPrivate : "privte",
+	// tripSites : [],
+	// area : "areaLocition"
+//};
 
 var clickedCharachters = [];
 var tripsAfterCharachters;
@@ -93,14 +93,28 @@ $(document).ready(function(){
 $(document).on('click','.listResultTrip',function(){
 	moveToTripPage();
 
-	var result = $(this);
+	var result = $(this).attr('id');
+	$.ajax({
+		type: "post",
+        url: "http://127.0.0.1:1337/getTripById",// where you wanna post
+        data:  {id:result},
+        dataType: "json",
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+
+
+        },
+        success: function(data) {
+       	console.log(data);
+    }
+/*
 	$('.Trip').empty();
 	$('.Trip').append("<h3>הטיול הנבחר </h3>");
 	$('.Trip').append(result);
 	console.log(result[0].hasClass);
-
+*/
 });
-
+});
 
 
 function changedArea(){
@@ -229,13 +243,13 @@ function signinCallback(authResult) {
         	tripsAfterCharachters = data;
        	for (i in data) {
        		if(data[i].tripSites){
-      			
-       			var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
+      			//debugger;
+       			var tripResult = '<li id='+data[i]._id+' class="listResultTrip"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
        			+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  + '<br>אתרי הטיול<br>' + data[i].tripSites[0].siteName + ' ' + data[i].tripSites[0].location + '<br>' + data[i].tripSites[1].siteName + ' ' + data[i].tripSites[0].location + '</li>';
        			$('#resultTrip ul').append(tripResult);
        		}
        		else{
-       			var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
+       			var tripResult = '<li id='+data[i]._id+' class="listResultTrip"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
        			+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  +  '</li>';
        			$('#resultTrip ul').append(tripResult);
        		}
@@ -266,14 +280,14 @@ function signinCallback(authResult) {
 	function create_user(user){
 		$.ajax({
 			type : "get",
-			url : "http://127.0.0.1:1337/insertUser?email="+user.mail,
+			url : "http://127.0.0.1:1337/findTripByUser?email="+user.mail,
        // contentType: "application/json",
        success : function(data) {
        	console.log(data);
-       	trip=data;
+       	g_trip=data;
 
        	for (i in data) {
-       		if(data[i].tripSites){
+       		/*if(data[i].tripSites){
        			var tripResult = '<li class="listResultTrip trip'+ i +'"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
        			+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  + '<br>אתרי הטיול<br>' + data[i].tripSites[0].siteName + ' ' + data[i].tripSites[0].location + '<br>' + data[i].tripSites[1].siteName + ' ' + data[i].tripSites[0].location + '</li>';
        			$('#showTripsSec .displayTrip').append(tripResult);
@@ -282,8 +296,9 @@ function signinCallback(authResult) {
        			var tripResult = '<li class="listResultTrip trip'+ i +' "><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
        			+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  +  '</li>';
        			$('#showTripsSec .displayTrip').append(tripResult);
-       		}
-
+       		}*/
+       		var tripResult = '<li id='+data[i]._id+' class="listResultTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
+       		$('#showTripsSec .displayTrip').append(tripResult);
        	};
        },
        error : function(objRequest, errortype) {

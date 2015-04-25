@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
 var app = express();
 var userEmail;
 var sites;
@@ -67,8 +68,39 @@ app.get('/sendSites/:sites?', function(req, res) {
 	console.log(sites);
 });
 
+app.post('/getTripById', function(req, res) {
+	var tripId = req.body.id;
+	
 
-app.get('/insertUser/:email?', function(req, res) {
+	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
+		if (err) {
+			return console.dir(err);
+		} else {
+			var tripper_collection = db.collection('tripper_playlist');
+			tripper_collection.findOne({ _id : new ObjectId(tripId) },function (err, docs)
+			{ 
+                // failure while connecting to sessions collection
+                if (err) 
+                {
+                	console.log( err);
+
+                	return;
+                }
+                
+                else
+                {
+                	console.log(docs);
+                	res.json(docs);
+                	db.close();
+                }
+            });
+
+		}
+
+	});
+});
+
+app.get('/findTripByUser/:email?', function(req, res) {
 	 userEmail = req.query.email;
 	 console.log(userEmail);
 
@@ -77,7 +109,7 @@ app.get('/insertUser/:email?', function(req, res) {
 			return console.dir(err);
 		} else {
 			var tripper_collection = db.collection('tripper_playlist');
-			tripper_collection.find({ email : userEmail }).toArray(function (err, docs)
+			tripper_collection.find({ email : userEmail },{_id:true, trip_name:true, location:true }).toArray(function (err, docs)
 			{ 
                 // failure while connecting to sessions collection
                 if (err) 
