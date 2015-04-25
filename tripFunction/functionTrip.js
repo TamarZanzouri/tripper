@@ -106,14 +106,11 @@ $(document).on('click','.listResultTrip',function(){
         },
         success: function(data) {
        	console.log(data);
-    }
-/*
-	$('.Trip').empty();
-	$('.Trip').append("<h3>הטיול הנבחר </h3>");
-	$('.Trip').append(result);
-	console.log(result[0].hasClass);
-*/
-});
+       	$('.Trip').empty();
+		$('.Trip').append("<h3>הטיול הנבחר </h3>");
+
+	    }
+	});
 });
 
 
