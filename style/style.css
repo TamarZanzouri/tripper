@@ -93,7 +93,9 @@ background-color: #337AB7 !important;
   font-size: x-large;
   display: none;
 }
-.listResultTrip{}
+.listResultTrip{
+  display: block;
+}
 #resultTrip{
 	  text-align: -webkit-right;
 }

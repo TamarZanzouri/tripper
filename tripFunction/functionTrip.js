@@ -1,8 +1,24 @@
-var listSection=['homeSec','addTripSec','showTripsSec','myFavoritesSec'];
 User={
 	name:"",
 	mail:""
 };
+
+g_trip={
+	id:"",
+	trip_name :"nameTrip",
+	trip_description : "des",
+	address : "location",
+	email : "userEmail",
+	trip_charachters : [{
+		charachter : "char1"
+	}, {
+		charachter : "char2"
+	}],
+	trip_isPrivate : "privte",
+	tripSites : [],
+	area : "areaLocition"
+};
+
 var clickedCharachters = [];
 var tripsAfterCharachters;
 
@@ -44,36 +60,48 @@ $(document).ready(function(){
 	});
 
 
-
-
-var count=1;
-var me;
-$('.btnChar').click(function(){
-
-	$(this).addClass('selectedChar');
-	if(count==1)
-	{
-		count++;
-		clickedCharachters[0] = $(this).text();
-		$('.continue').css('display','block');
-	}
-	else if(count==2)
-	{
-		clickedCharachters[1] = $(this).text();
-		console.log(clickedCharachters[0] + " " + clickedCharachters[1]);
-		count=1;
-		updateTripFromCharchters(clickedCharachters);
-	}
 	
+
+
+	var count=1;
+	var me;
+	$('.btnChar').click(function(){
+
+		$(this).addClass('selectedChar');
+		if(count==1)
+		{
+			count++;
+			clickedCharachters[0] = $(this).text();
+			$('.continue').css('display','block');
+		}
+		else if(count==2)
+		{
+			clickedCharachters[1] = $(this).text();
+			console.log(clickedCharachters[0] + " " + clickedCharachters[1]);
+			count=1;
+			updateTripFromCharchters(clickedCharachters);
+		}
+		
+	});
+
+
+
+
+
 });
-$('.listResultTrip').click(function(){
-	$('#myChoose').empty();
-	$('#resultTrip').hide();
-	$('#myChoose').show();
-	$('#myChoose').append(this);
-	$('#myChoose').prepend("<h3>הטיול הנבחר</h3>");
+
+$(document).on('click','.listResultTrip',function(){
+	moveToTripPage();
+
+	var result = $(this);
+	$('.Trip').empty();
+	$('.Trip').append("<h3>הטיול הנבחר </h3>");
+	$('.Trip').append(result);
+	console.log(result[0].hasClass);
+
 });
-});
+
+
 
 function changedArea(){
 	$('#resultTrip ul').empty();
@@ -97,7 +125,7 @@ function changedArea(){
 		if($('#selectArea').val() === tripsAfterCharachters[i].area){
        		if(tripsAfterCharachters[i].tripSites){
       			
-       			var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + tripsAfterCharachters[i].trip_name + '</span>' + ' תיאור-הטיול: ' + tripsAfterCharachters[i].trip_description + ' מיקום: ' + tripsAfterCharachters[i].address +
+       			var tripResult = '<li class="listResultTrip "><span class="titelName"> שם הטיול:' + tripsAfterCharachters[i].trip_name + '</span>' + ' תיאור-הטיול: ' + tripsAfterCharachters[i].trip_description + ' מיקום: ' + tripsAfterCharachters[i].address +
        			+ 'תכונות: ' + tripsAfterCharachters[i].trip_charachters[0].charachter + ' ' + tripsAfterCharachters[i].trip_charachters[1].charachter  + '<br>אתרי הטיול<br>' + tripsAfterCharachters[i].tripSites[0].siteName + ' ' + tripsAfterCharachters[i].tripSites[0].location + '<br>' + tripsAfterCharachters[i].tripSites[1].siteName + ' ' + tripsAfterCharachters[i].tripSites[0].location + '</li>';
        			$('#resultTrip ul').append(tripResult);
        		}
@@ -143,8 +171,12 @@ function moveToAccountPage() {
 		changeHash : true
 	});
 }
-
-
+function moveToTripPage() {
+	$.mobile.changePage("#theTrip", {
+		transition : "none",
+		changeHash : true
+	});
+}
 function signinCallback(authResult) {
 	if (authResult['status']['signed_in']) {
 		// Update the app to reflect a signed in user
@@ -192,11 +224,10 @@ function signinCallback(authResult) {
         },
         success: function(data) {
         	$('#resultTrip ul').empty();
-        	console.log(data);
+        	trip=data;
         	tripsAfterCharachters = {};
         	tripsAfterCharachters = data;
        	for (i in data) {
-       		// debugger;
        		if(data[i].tripSites){
       			
        			var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
@@ -208,7 +239,6 @@ function signinCallback(authResult) {
        			+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  +  '</li>';
        			$('#resultTrip ul').append(tripResult);
        		}
-       		console.log(tripResult)
        	};
         	moveTofilterPage();	      
         } 
@@ -240,18 +270,20 @@ function signinCallback(authResult) {
        // contentType: "application/json",
        success : function(data) {
        	console.log(data);
+       	trip=data;
+
        	for (i in data) {
        		if(data[i].tripSites){
-       			var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
+       			var tripResult = '<li class="listResultTrip trip'+ i +'"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
        			+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  + '<br>אתרי הטיול<br>' + data[i].tripSites[0].siteName + ' ' + data[i].tripSites[0].location + '<br>' + data[i].tripSites[1].siteName + ' ' + data[i].tripSites[0].location + '</li>';
-       			$('#showTripsSec ul').append(tripResult);
+       			$('#showTripsSec .displayTrip').append(tripResult);
        		}
        		else{
-       			var tripResult = '<li class="listResultTrip"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
+       			var tripResult = '<li class="listResultTrip trip'+ i +' "><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
        			+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  +  '</li>';
-       			$('#showTripsSec ul').append(tripResult);
+       			$('#showTripsSec .displayTrip').append(tripResult);
        		}
-       		console.log(tripResult)
+
        	};
        },
        error : function(objRequest, errortype) {
