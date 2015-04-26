@@ -57,9 +57,12 @@ $(document).ready(function(){
 		$(this).parent('div').remove(); 
 	});
 
+	$('#filter').click(function(){
+		$(this).toggle("slow", function(){
+			
+		});
 
-	
-
+	});
 
 	var count=1;
 	var me;

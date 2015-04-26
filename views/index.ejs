@@ -55,7 +55,7 @@
 				data-clientid="573156814655-734l8cl9gau167f6p4h59d9m00f48roc.apps.googleusercontent.com"
 				data-cookiepolicy="single_host_origin"
 				data-scope="profile"> </span> </span>
-<!-- 								data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"> </span> </span> -->
+				<!-- 								data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"> </span> </span> -->
 
 			</section>
 			<li id="signOut" role="presentation">
@@ -77,34 +77,76 @@
 					<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
 				</ul>
 			</header>
-			<div data-role="content" class="ui-content" id="content">
-				<select id="selectArea" onchange="changedArea()">
-					<option value=""></option>
-					<option value="tel-aviv">איזור מרכז וגוש דן</option>
-					<option value="south">איזור דרום</option>
-					<option value="north">איזור צפון</option>
-				</select>
-				<section id="resultTrip">
-					<ul class="displayTrip">
-					</ul>
+			<input type="button" id="filter" value="filter">
+			<section id = "filter_options">
+				<label for="slider-1">בחר תקציב:</label>
+				<input type="range" name="slider-1" id="slider-1" value="60" min="0" max="100" />	
+				<div data-role="fieldcontain">
+    				<fieldset data-role="controlgroup" data-type="horizontal">
+	   				<legend>עם מי הולכים לטייל?</legend>
+	  				<input type="checkbox" name="checkbox-2" id="checkbox-2" class="custom" />
+	   				<label for="checkbox-2">בע"ח</label>
+	   				<input type="checkbox" name="checkbox-3" id="checkbox-3" class="custom" />
+	   				<label for="checkbox-3">מסלול סלול לאנשים עם מוגבליות או עגלות לתינוקות</label>
+	   				<input type="checkbox" name="checkbox-4" id="checkbox-4" class="custom" />
+	   				<label for="checkbox-4">מותאם לילדים</label>
+   					</fieldset>
+				</div>
+				<div data-role="fieldcontain">
+    				<fieldset data-role="controlgroup" data-type="horizontal">
+	   				<legend>סוג טיול</legend>
+	  				<input type="checkbox" name="checkbox-5" id="checkbox-5" class="custom" />
+	   				<label for="checkbox-5">טיול עם מקורות מים</label>
+	   				<input type="checkbox" name="checkbox-6" id="checkbox-6" class="custom" />
+	   				<label for="checkbox-6">טיול עם לילה</label>
+	   				<input type="checkbox" name="checkbox-7" id="checkbox-7" class="custom" />
+	   				<label for="checkbox-7">טיול יומי</label>
+	   				<input type="checkbox" name="checkbox-8" id="checkbox-8" class="custom" />
+	   				<label for="checkbox-8">טיול עם אופניים</label>
+	   				<input type="checkbox" name="checkbox-9" id="checkbox-9" class="custom" />
+	   				<label for="checkbox-9">טיול יומי</label>
+   					</fieldset>
+				</div>
+				<div data-role="fieldcontain">
+    				<fieldset data-role="controlgroup" data-type="horizontal">
+	   				<legend>בחר רמת קושי</legend>
+	  				<input type="checkbox" name="checkbox-10" id="checkbox-10" class="custom" />
+	   				<label for="checkbox-10">קל</label>
+	   				<input type="checkbox" name="checkbox-11" id="checkbox-11" class="custom" />
+	   				<label for="checkbox-11">בינוני</label>
+	   				<input type="checkbox" name="checkbox-12" id="checkbox-12" class="custom" />
+	   				<label for="checkbox-12">קשה</label>
+   					</fieldset>
+				</div>
+			</section
+				<div data-role="content" class="ui-content" id="content">
+					<select id="selectArea" onchange="changedArea()">
+						<option value=""></option>
+						<option value="tel-aviv">איזור מרכז וגוש דן</option>
+						<option value="south">איזור דרום</option>
+						<option value="north">איזור צפון</option>
+					</select>
+					<section id="resultTrip">
+						<ul class="displayTrip">
+						</ul>
 
-				</section>
+					</section>
+				</div>
 			</div>
-		</div>
 
 
-		<div data-role="page" id="theTrip" >
-			<header data-role="header" data-position="fixed" data-tap-toggle="false">     
-				<h1><a href="#">Tripper</a></h1>
-				<ul class="nav nav-pills">
-					<li id="home"><a href="#homePage">חיפוש טיול</a></li>
-					<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
-					<li ><a href="#indexMobile">המועדפים שלי</a></li>
-					<li><a href="#">המסלול שלי</a></li>
-					<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
-				</ul>
-			</header>
-			<div data-role="content" class="ui-content" id="content">
+			<div data-role="page" id="theTrip" >
+				<header data-role="header" data-position="fixed" data-tap-toggle="false">     
+					<h1><a href="#">Tripper</a></h1>
+					<ul class="nav nav-pills">
+						<li id="home"><a href="#homePage">חיפוש טיול</a></li>
+						<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
+						<li ><a href="#indexMobile">המועדפים שלי</a></li>
+						<li><a href="#">המסלול שלי</a></li>
+						<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
+					</ul>
+				</header>
+				<div data-role="content" class="ui-content" id="content">
 					<section class="Trip">
 					</section>
 				</section>
@@ -133,20 +175,20 @@
 						<textarea type="text" name="des"></textarea>
 					</label><br>
 
-						<div data-role="fieldcontain">
-						    <fieldset data-role="controlgroup" data-type="horizontal" data-role="fieldcontain">
-						    	<legend>אזור הטיול:</legend>
-						         	<input type="radio" name="area" id="radio-choice-1" value="tel-aviv" checked="checked" />
-						         	<label for="radio-choice-1">אזור המרכז</label>
+					<div data-role="fieldcontain">
+						<fieldset data-role="controlgroup" data-type="horizontal" data-role="fieldcontain">
+							<legend>אזור הטיול:</legend>
+							<input type="radio" name="area" id="radio-choice-1" value="tel-aviv" checked="checked" />
+							<label for="radio-choice-1">אזור המרכז</label>
 
-						         	<input type="radio" name="area" id="radio-choice-2" value="south"  />
-						         	<label for="radio-choice-2">אזור הדרום</label>
+							<input type="radio" name="area" id="radio-choice-2" value="south"  />
+							<label for="radio-choice-2">אזור הדרום</label>
 
-						         	<input type="radio" name="area" id="radio-choice-3" value="north"  />
-						         	<label for="radio-choice-3">אזור הצפון</label>
+							<input type="radio" name="area" id="radio-choice-3" value="north"  />
+							<label for="radio-choice-3">אזור הצפון</label>
 
-						    </fieldset>
-						</div>	
+						</fieldset>
+					</div>	
 
 					<label>מיקום הטיול: <br>
 						<input type="text" name="locationTrip">
@@ -158,13 +200,13 @@
 
 					<label for="ingredients"> <span class="testRight" id="ingredientsT">אתרי תיירות</span>
 						<span class="formField">
-								<div class="ingredients_wrap">
+							<div class="ingredients_wrap">
 
-									<div style="text-align: center;margin: auto;position: relative;align-content: center;">
-										<input type="text" name="ingredients[]" placeholder="אתר" class="firstIngredient ingredients_i" id="firstIngredient">
-										<input type="text" name="amount[]" placeholder="מיקום" class="firstAmount amounts_i" id="firstAmount">
-									</div>
-								</div> 
+								<div style="text-align: center;margin: auto;position: relative;align-content: center;">
+									<input type="text" name="ingredients[]" placeholder="אתר" class="firstIngredient ingredients_i" id="firstIngredient">
+									<input type="text" name="amount[]" placeholder="מיקום" class="firstAmount amounts_i" id="firstAmount">
+								</div>
+							</div> 
 						</span> 
 					</label>
 					<br>
@@ -192,5 +234,5 @@
 			</section>
 		</div>
 
-</body>
-</html>
+	</body>
+	</html>
