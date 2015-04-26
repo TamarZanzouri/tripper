@@ -1,5 +1,5 @@
 User={};
-g_domain="tripper.herokuapp.com/";
+g_domain="shenkartripper.herokuapp.com/";
 g_trip={};
 g_ListTrip=[];//{
 	// id:"",
