@@ -1,9 +1,7 @@
-User={
-	name:"",
-	mail:""
-};
-
-g_trip=[]//{
+User={};
+g_domain="tripper.herokuapp.com/";
+g_trip={};
+g_ListTrip=[];//{
 	// id:"",
 	// trip_name :"nameTrip",
 	// trip_description : "des",
@@ -20,7 +18,7 @@ g_trip=[]//{
 //};
 
 var clickedCharachters = [];
-var tripsAfterCharachters;
+var tripsAfteCharachters;
 
 $(document).ready(function(){
 
@@ -96,7 +94,7 @@ $(document).on('click','.listResultTrip',function(){
 	var result = $(this).attr('id');
 	$.ajax({
 		type: "post",
-        url: "http://127.0.0.1:1337/getTripById",// where you wanna post
+        url: g_domain+"getTripById",// where you wanna post
         data:  {id:result},
         dataType: "json",
         error: function(jqXHR, textStatus, errorMessage) {
@@ -105,15 +103,58 @@ $(document).on('click','.listResultTrip',function(){
 
         },
         success: function(data) {
-       	console.log(data);
-       	$('.Trip').empty();
+       	displayFullTrip(data);
+       	g_trip=data;
+	    }
+	});
+});
+function displayFullTrip(data){
+	$('.Trip').empty();
 		$('.Trip').append("<h3>הטיול הנבחר </h3>");
+		$('.Trip').append("<a id='favorite'>הוסף למועדפים</a>");
 
+}
+$(document).on('click' ,'#favorite',function(){
+	
+	$.ajax({
+		type: "post",
+        url: g_domain+"updateFavoirte",// where you wanna post
+        data:  {trip:{
+        	id:g_trip._id,
+			name:g_trip.trip_name,
+			location:g_trip.address        	
+        }
+        	,userId:User.mail},
+        dataType: "json",
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+
+
+        },
+        success: function(data) {
+        	console.log("update success");
 	    }
 	});
 });
 
+$(document).on('click','#viewFavorite',function(){
+		
 
+		$.ajax({
+		type: "post",
+        url: g_domain+"getUserFavorites",// where you wanna post
+        data:  {mail:User.mail},
+        dataType: "json",
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+
+
+        },
+        success: function(data) {
+       		console.log(data)
+	    }
+	});
+});
 function changedArea(){
 	$('#resultTrip ul').empty();
 	if($('#selectArea').val() === ""){
@@ -204,9 +245,12 @@ function signinCallback(authResult) {
 				console.log(resp);
 				User.name=resp.displayName;
 				User.mail=resp.emails[0].value
+				User.image = resp.image.url;
+
 				// (resp.emails)? resp.emails[0].value : "zanzouritamar@gmail.com";
 				console.log(User);
 				create_user(User);
+
 			});
 		});
 	} else {
@@ -224,7 +268,7 @@ function signinCallback(authResult) {
 
 		$.ajax({
 			type: "get",
-        url: "http://127.0.0.1:1337/filterByChars",// where you wanna post
+        url: g_domain+"filterByChars",// where you wanna post
         data:  {chars:tc},
         dataType: "json",
         contentType: "application/json",
@@ -263,7 +307,7 @@ function signinCallback(authResult) {
 	function sendSites(data){
 		$.ajax({
 			type: "get",
-        url: "http://127.0.0.1:1337/sendSites",// where you wanna post
+        url:g_domain+"sendSites",// where you wanna post
         data:  {sites:data},
         dataType: "json",
         contentType: "application/json",
@@ -274,14 +318,29 @@ function signinCallback(authResult) {
        }
    });
 	}
-	function create_user(user){
+function create_user(user){
 		$.ajax({
-			type : "get",
-			url : "http://127.0.0.1:1337/findTripByUser?email="+user.mail,
+			type : "post",
+			url : g_domain+"registerUser",
+			data : user,
        // contentType: "application/json",
        success : function(data) {
        	console.log(data);
-       	g_trip=data;
+       getUserTrip();
+       	
+       },
+       error : function(objRequest, errortype) {
+       }
+   });
+}
+function getUserTrip(){
+	$.ajax({
+			type : "get",
+			url : g_domain+"findTripByUser?email="+User.mail,
+       // contentType: "application/json",
+       success : function(data) {
+       	console.log(data);
+       	g_ListTrip=data;
 
        	for (i in data) {
        		/*if(data[i].tripSites){

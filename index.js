@@ -58,15 +58,94 @@ app.get('/', function(req, res) {
 
 			}
 		});
-	}catch(err){
-		console.log("mongodb connection failed")
-	}
+}catch(err){
+	console.log("mongodb connection failed")
+}
 });
 
 app.get('/sendSites/:sites?', function(req, res) {
 	sites = req.query.sites;
 	console.log(sites);
 });
+
+
+app.post('/updateFavoirte', function(req, res) {
+	var user = req.body.userId;
+	var trip = req.body.trip;
+	//console.log(trip)
+	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
+		if (err) {
+			return console.dir(err);
+		} else {
+			var user_collection = db.collection('users');
+			user_collection.findOne({mail:user}, function(err, docs) {
+				if (err) {
+					console.log("found error inserting");
+					res.json({status:0})
+					db.close();
+					return console.error(err);
+				}
+				if (docs) {
+					console.log(docs)
+					var check=0;
+					if (docs.favorites)
+					(docs.favorites).forEach(function(val){
+						if(val.id==trip.id)
+							check=1;
+						//console.log('haim',val)
+					})
+					else {
+						docs.favorites=[];
+					}
+					if (check!=1 ) {
+					docs.favorites.push(trip);
+
+					user_collection.update({mail:user}, { $set: {favorites:docs.favorites}}, function(err, docs) {
+						if (err) {
+							console.log("found error inserting");
+							res.json({status:0})
+							db.close();
+							return console.error(err);
+						}
+						res.json({status:1})
+					});
+					}
+					else res.json({status:1});
+				}
+				else res.json({status:1})
+
+			});
+		}
+
+	});
+
+});
+
+app.post('/registerUser', function(req, res) {
+	var user = req.body;
+
+	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
+		if (err) {
+			return console.dir(err);
+		} else {
+			var user_collection = db.collection('users');
+
+			user_collection.update({email:user.email},{$set:user},{upsert:true}, function(err, docs) {
+				if (err) {
+					console.log("found error inserting");
+					res.json({status:0})
+					db.close();
+					return console.error(err);
+				}
+				res.json({status:1})
+
+			});
+		}
+
+	});
+	
+});
+
 
 app.post('/getTripById', function(req, res) {
 	var tripId = req.body.id;
@@ -100,11 +179,44 @@ app.post('/getTripById', function(req, res) {
 	});
 });
 
-app.get('/findTripByUser/:email?', function(req, res) {
-	 userEmail = req.query.email;
-	 console.log(userEmail);
+app.post('/getUserFavorites', function(req, res) {
+	var userEmail = req.body.mail;
+	console.log(userEmail);
 
-	 	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
+	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
+		if (err) {
+			return console.dir(err);
+		} else {
+			var users_collection = db.collection('users');
+			users_collection.findOne({ mail : userEmail },{_id:false,favorites:true},function (err, docs)
+			{ 
+                // failure while connecting to sessions collection
+                if (err) 
+                {
+                	console.log( err);
+
+                	return;
+                }
+                
+                else
+                {
+                	console.log(docs);
+                	res.json(docs)
+                	db.close();
+                }
+            });
+
+		}
+
+	});
+});
+
+
+app.get('/findTripByUser/:email?', function(req, res) {
+	userEmail = req.query.email;
+	console.log(userEmail);
+
+	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
 		if (err) {
 			return console.dir(err);
 		} else {
@@ -209,7 +321,7 @@ app.post('/add', function(req, res) {
 		}
 
 	});
-res.redirect('/');
+	res.redirect('/');
 
 });
 
