@@ -212,11 +212,12 @@ function updateResultByFilter(){
 	console.log("in update result");
 	$('#resultTrip ul').empty();
 	for(i in filter){
+		console.log(i + "i ");
 		for(j in tripsAfterCharachters){
-			console.log("in first for " + i);
-			console.log(tripsAfterCharachters[i].trip_filter);
+			console.log("j " + j);
+			// console.log(tripsAfterCharachters[i].trip_filter);
 			tripsAfterCharachters[j].trip_filter.forEach(function(t){
-				console.log(tripsAfterCharachters[j].trip_name);
+				console.log("filter " + filter[i] + "trip filter: " +(t.tags));
 			// console.log(t);
 			// console.log(filter[i]);
 			if(filter[i] === t.tags){
