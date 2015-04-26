@@ -78,47 +78,47 @@
 				</ul>
 			</header>
 			<input type="button" id="filter" value="filter">
-			<section id = "filter_options">
+			<div id="filteroptions" class="hidden">
 				<label for="slider-1">בחר תקציב:</label>
 				<input type="range" name="slider-1" id="slider-1" value="60" min="0" max="100" />	
 				<div data-role="fieldcontain">
     				<fieldset data-role="controlgroup" data-type="horizontal">
 	   				<legend>עם מי הולכים לטייל?</legend>
-	  				<input type="checkbox" name="checkbox-2" id="checkbox-2" class="custom" />
-	   				<label for="checkbox-2">בע"ח</label>
-	   				<input type="checkbox" name="checkbox-3" id="checkbox-3" class="custom" />
-	   				<label for="checkbox-3">מסלול סלול לאנשים עם מוגבליות או עגלות לתינוקות</label>
-	   				<input type="checkbox" name="checkbox-4" id="checkbox-4" class="custom" />
-	   				<label for="checkbox-4">מותאם לילדים</label>
+	  				<input type="checkbox" name="trip_with_animals" id="trip_with_animals" class="custom" />
+	   				<label for="trip_with_animals">בע"ח</label>
+	   				<input type="checkbox" name="trip_with_road" id="trip_with_road" class="custom" />
+	   				<label for="trip_with_road">מסלול סלול לאנשים עם מוגבליות או עגלות לתינוקות</label>
+	   				<input type="checkbox" name="trip_for_children" id="trip_for_children" class="custom" />
+	   				<label for="trip_for_children">מותאם לילדים</label>
    					</fieldset>
 				</div>
 				<div data-role="fieldcontain">
     				<fieldset data-role="controlgroup" data-type="horizontal">
 	   				<legend>סוג טיול</legend>
-	  				<input type="checkbox" name="checkbox-5" id="checkbox-5" class="custom" />
-	   				<label for="checkbox-5">טיול עם מקורות מים</label>
-	   				<input type="checkbox" name="checkbox-6" id="checkbox-6" class="custom" />
-	   				<label for="checkbox-6">טיול עם לילה</label>
-	   				<input type="checkbox" name="checkbox-7" id="checkbox-7" class="custom" />
-	   				<label for="checkbox-7">טיול יומי</label>
-	   				<input type="checkbox" name="checkbox-8" id="checkbox-8" class="custom" />
-	   				<label for="checkbox-8">טיול עם אופניים</label>
-	   				<input type="checkbox" name="checkbox-9" id="checkbox-9" class="custom" />
-	   				<label for="checkbox-9">טיול יומי</label>
+	  				<input type="checkbox" name="trip_with_watter" id="trip_with_watter" class="custom" />
+	   				<label for="trip_with_watter">טיול עם מקורות מים</label>
+	   				<input type="checkbox" name="trip_for_night" id="trip_for_night" class="custom" />
+	   				<label for="trip_for_night">טיול עם לילה</label>
+	   				<input type="checkbox" name="trip_for_day" id="trip_for_day" class="custom" />
+	   				<label for="trip_for_day">טיול יומי</label>
+	   				<input type="checkbox" name="trip_with_bicycle" id="trip_with_bicycle" class="custom" />
+	   				<label for="trip_with_bicycle">טיול עם אופניים</label>
+	   				<input type="checkbox" name="trip_with_jeep" id="trip_with_jeep" class="custom" />
+	   				<label for="trip_with_jeep">טיול ג'יפים</label>
    					</fieldset>
 				</div>
 				<div data-role="fieldcontain">
     				<fieldset data-role="controlgroup" data-type="horizontal">
 	   				<legend>בחר רמת קושי</legend>
-	  				<input type="checkbox" name="checkbox-10" id="checkbox-10" class="custom" />
-	   				<label for="checkbox-10">קל</label>
-	   				<input type="checkbox" name="checkbox-11" id="checkbox-11" class="custom" />
-	   				<label for="checkbox-11">בינוני</label>
-	   				<input type="checkbox" name="checkbox-12" id="checkbox-12" class="custom" />
-	   				<label for="checkbox-12">קשה</label>
+	  				<input type="checkbox" name="light_trip" id="light_trip" class="custom" />
+	   				<label for="light_trip">קל</label>
+	   				<input type="checkbox" name="medium_trip" id="medium_trip" class="custom" />
+	   				<label for="medium_trip">בינוני</label>
+	   				<input type="checkbox" name="hard_trip" id="hard_trip" class="custom" />
+	   				<label for="hard_trip">קשה</label>
    					</fieldset>
 				</div>
-			</section
+			</div>
 				<div data-role="content" class="ui-content" id="content">
 					<select id="selectArea" onchange="changedArea()">
 						<option value=""></option>

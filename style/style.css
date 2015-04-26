@@ -128,3 +128,17 @@ fieldset > div{
 .ui-radio{
   float: right !important;
 }
+
+#filter_options{
+  background: goldenrod;
+  width: 100%;
+  height: auto;
+  margin: 30px auto;
+  transition: all 2s linear;
+  display: block;
+}
+
+.hidden {
+  display: none;
+  opacity: 0;
+}}
