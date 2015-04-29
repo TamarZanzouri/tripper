@@ -68,7 +68,7 @@ app.get('/sendSites/:sites?', function(req, res) {
 	console.log(sites);
 });
 
-
+/*
 app.post('/updateMyWaze', function(req, res) {
 	var user = req.body.userId;
 	var trip = req.body.trip;
@@ -120,7 +120,7 @@ app.post('/updateMyWaze', function(req, res) {
 	});
 
 });
-
+*/
 app.post('/updateFavoirte', function(req, res) {
 	var user = req.body.userId;
 	var trip = req.body.trip;
@@ -230,6 +230,39 @@ app.post('/getTripById', function(req, res) {
 
 	});
 });
+/*
+app.post('/getUserWaze', function(req, res) {
+	var userEmail = req.body.email;
+	console.log(userEmail);
+
+	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
+		if (err) {
+			return console.dir(err);
+		} else {
+			var users_collection = db.collection('users');
+			users_collection.findOne({ email : userEmail },{_id:false,favorites:true},function (err, docs)
+			{ 
+                // failure while connecting to sessions collection
+                if (err) 
+                {
+                	console.log( err);
+
+                	return;
+                }
+                
+                else
+                {
+                	console.log(docs);
+                	res.json(docs)
+                	db.close();
+                }
+            });
+
+		}
+
+	});
+});
+*/
 
 app.post('/getUserFavorites', function(req, res) {
 	var userEmail = req.body.email;
