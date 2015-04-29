@@ -127,9 +127,12 @@ $(document).on('click','.listResultTrip',function(){
     moveToTripPage();
 });
 function displayFullTrip(data){
+	console.log(data)
 	$('.Trip').empty();
 	$('.Trip').append("<h3>הטיול הנבחר </h3>");
-	$('.Trip').append("<a id='favorite'>הוסף למועדפים</a>");
+	$('.Trip').append("<h2>"+data.trip_name+"</h2>");
+	$('.Trip').append("<a id='favorite'>הוסף למועדפים</a> </br>");
+	$('.Trip').append("<a id='myWaze'>בחר כמסלול ראשי</a>");
 
 }
 $(document).on('click' ,'#favorite',function(){
@@ -142,7 +145,7 @@ $(document).on('click' ,'#favorite',function(){
         	name:g_trip.trip_name,
         	location:g_trip.address        	
         }
-        ,userId:User.mail},
+        ,userId:User.email},
         dataType: "json",
         error: function(jqXHR, textStatus, errorMessage) {
         	console.log(errorMessage)
@@ -155,13 +158,37 @@ $(document).on('click' ,'#favorite',function(){
     });
 });
 
+$(document).on('click' ,'#myWaze',function(){
+	
+	$.ajax({
+		type: "post",
+        url: g_domain+"updateMyWaze",// where you wanna post
+        data:  {trip:{
+        	id:g_trip._id,
+        	name:g_trip.trip_name,
+        	location:g_trip.address        	
+        }
+        ,userId:User.email},
+        dataType: "json",
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+
+
+        },
+        success: function(data) {
+        	console.log("update success");
+        }
+    });
+});
+
+
 $(document).on('click','#moveToFavorite',function(){
 	
 
 	$.ajax({
 		type: "post",
         url: g_domain+"getUserFavorites",// where you wanna post
-        data:  {mail:User.mail},
+        data:  {email:User.email},
         dataType: "json",
         error: function(jqXHR, textStatus, errorMessage) {
         	console.log(errorMessage)
@@ -293,7 +320,7 @@ function signinCallback(authResult) {
 
 				console.log(resp);
 				User.name=resp.displayName;
-				User.mail=resp.emails[0].value
+				User.email=resp.emails[0].value
 				User.image = resp.image.url;
 
 				// (resp.emails)? resp.emails[0].value : "zanzouritamar@gmail.com";
@@ -403,7 +430,7 @@ function create_user(user){
 function getUserTrip(){
 	$.ajax({
 		type : "get",
-		url : g_domain+"findTripByUser?email="+User.mail,
+		url : g_domain+"findTripByUser?email="+User.email,
        // contentType: "application/json",
        success : function(data) {
        	console.log(data);
