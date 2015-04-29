@@ -221,7 +221,7 @@ app.get('/findTripByUser/:email?', function(req, res) {
 			return console.dir(err);
 		} else {
 			var tripper_collection = db.collection('tripper_playlist');
-			tripper_collection.find({ email : userEmail },{_id:true, trip_name:true, location:true }).toArray(function (err, docs)
+			tripper_collection.find({ email : userEmail },{_id:true, trip_name:true, address:true }).toArray(function (err, docs)
 			{ 
                 // failure while connecting to sessions collection
                 if (err) 
