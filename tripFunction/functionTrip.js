@@ -141,9 +141,9 @@ $(document).on('click' ,'#favorite',function(){
 		type: "post",
         url: g_domain+"updateFavoirte",// where you wanna post
         data:  {trip:{
-        	id:g_trip._id,
-        	name:g_trip.trip_name,
-        	location:g_trip.address        	
+        	_id:g_trip._id,
+        	trip_name:g_trip.trip_name,
+        	address:g_trip.address        	
         }
         ,userId:User.email},
         dataType: "json",
@@ -157,7 +157,7 @@ $(document).on('click' ,'#favorite',function(){
         }
     });
 });
-
+/*
 $(document).on('click' ,'#myWaze',function(){
 	
 	$.ajax({
@@ -180,7 +180,7 @@ $(document).on('click' ,'#myWaze',function(){
         }
     });
 });
-
+*/
 
 $(document).on('click','#moveToFavorite',function(){
 	

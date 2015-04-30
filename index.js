@@ -124,7 +124,7 @@ app.post('/updateMyWaze', function(req, res) {
 app.post('/updateFavoirte', function(req, res) {
 	var user = req.body.userId;
 	var trip = req.body.trip;
-	//console.log(trip)
+	console.log(" update trip",trip)
 	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
 		if (err) {
 			return console.dir(err);
@@ -142,7 +142,7 @@ app.post('/updateFavoirte', function(req, res) {
 					var check=0;
 					if (docs.favorites)
 					(docs.favorites).forEach(function(val){
-						if(val.id==trip.id)
+						if(val._id==trip._id)
 							check=1;
 						//console.log('haim',val)
 					})
@@ -201,7 +201,7 @@ app.post('/registerUser', function(req, res) {
 
 app.post('/getTripById', function(req, res) {
 	var tripId = req.body.id;
-	
+	console.log(tripId);
 
 	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
 		if (err) {
