@@ -68,11 +68,11 @@ app.get('/sendSites/:sites?', function(req, res) {
 	console.log(sites);
 });
 
-/*
-app.post('/updateMyWaze', function(req, res) {
+
+app.post('/updateMySchedule', function(req, res) {
 	var user = req.body.userId;
 	var trip = req.body.trip;
-	//console.log(trip)
+	console.log("update the schedule",trip)
 	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
 		if (err) {
 			return console.dir(err);
@@ -87,30 +87,27 @@ app.post('/updateMyWaze', function(req, res) {
 				}
 				if (docs) {
 					console.log(docs)
-					var check=0;
-					if (docs.favorites)
-					(docs.favorites).forEach(function(val){
-						if(val.id==trip.id)
-							check=1;
-						//console.log('haim',val)
-					})
-					else {
-						docs.favorites=[];
+					if (docs.schedule){
+						var check=1
 					}
-					if (check!=1 ) {
-					docs.favorites.push(trip);
+					else {
+						docs.schedule={};
+					}
+					
+					docs.schedule=trip;
 
-					user_collection.update({email:user}, { $set: {favorites:docs.favorites}}, function(err, docs) {
+					user_collection.update({email:user}, { $set: {schedule:docs.schedule}}, function(err, docs) {
 						if (err) {
 							console.log("found error inserting");
 							res.json({status:0})
 							db.close();
 							return console.error(err);
 						}
+						console.log(check);
 						res.json({status:1})
 					});
-					}
-					else res.json({status:1});
+					
+				
 				}
 				else res.json({status:1})
 
@@ -120,7 +117,7 @@ app.post('/updateMyWaze', function(req, res) {
 	});
 
 });
-*/
+
 app.post('/updateFavoirte', function(req, res) {
 	var user = req.body.userId;
 	var trip = req.body.trip;
@@ -230,8 +227,8 @@ app.post('/getTripById', function(req, res) {
 
 	});
 });
-/*
-app.post('/getUserWaze', function(req, res) {
+
+app.post('/getUseSchedule', function(req, res) {
 	var userEmail = req.body.email;
 	console.log(userEmail);
 
@@ -240,7 +237,7 @@ app.post('/getUserWaze', function(req, res) {
 			return console.dir(err);
 		} else {
 			var users_collection = db.collection('users');
-			users_collection.findOne({ email : userEmail },{_id:false,favorites:true},function (err, docs)
+			users_collection.findOne({ email : userEmail },{_id:false, schedule:true},function (err, docs)
 			{ 
                 // failure while connecting to sessions collection
                 if (err) 
@@ -262,7 +259,7 @@ app.post('/getUserWaze', function(req, res) {
 
 	});
 });
-*/
+
 
 app.post('/getUserFavorites', function(req, res) {
 	var userEmail = req.body.email;
