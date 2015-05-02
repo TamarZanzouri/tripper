@@ -3,24 +3,10 @@ g_domain="http://127.0.0.1:1337/"//"http://shenkartripper.herokuapp.com/";//
 g_trip={};
 g_ListTrip=[];
 var filter = [];
-//{
-	// id:"",
-	// trip_name :"nameTrip",
-	// trip_description : "des",
-	// address : "location",
-	// email : "userEmail",
-	// trip_charachters : [{
-	// 	charachter : "char1"
-	// }, {
-	// 	charachter : "char2"
-	// }],
-	// trip_isPrivate : "privte",
-	// tripSites : [],
-	// area : "areaLocition"
-//};
-
 var clickedCharachters = [];
 var tripsAfteCharachters;
+
+
 
 $(document).ready(function(){
 
@@ -124,7 +110,7 @@ $(document).on('click','.listResultTrip',function(){
         	g_trip=data;
         }
     });
-    moveToTripPage();
+	moveToTripPage();
 });
 function displayFullTrip(data){
 	console.log(data)
@@ -196,11 +182,12 @@ $(document).on('click','#moveToFavorite',function(){
 
         },
         success: function(data) {
-        	console.log(data.favorites)
+        	console.log(data.favorites);
+        	g_ListTrip=data.favorites;
         	displayListTrip(data.favorites);
         }
     });
-    moveToFavorite();
+	moveToFavorite();
 });
 
 function changedArea(){
@@ -241,23 +228,31 @@ function changedArea(){
 
 function updateResultByFilter(){
 	console.log("in update result");
+	var findEqeivalent = [];
+	var tripsAfterFilter = [];
+
 	$('#resultTrip ul').empty();
-	for(i in filter){
-		console.log(i + "i ");
-		for(j in tripsAfterCharachters){
+	for(j in tripsAfterCharachters){
+		findEqeivalent[j] = 0;
+		for(z in tripsAfterCharachters[j].trip_filter){
 			console.log("j " + j);
-			// console.log(tripsAfterCharachters[i].trip_filter);
-			tripsAfterCharachters[j].trip_filter.forEach(function(t){
-				console.log("filter " + filter[i] + "trip filter: " +(t.tags));
-			// console.log(t);
-			// console.log(filter[i]);
-			if(filter[i] === t.tags){
-				console.log("found tag: " + t.tags);
+			for(i in filter){
+				if(filter[i] === tripsAfterCharachters[j].trip_filter[z].tags){ 
+					// debugger;
+					findEqeivalent[j]++;
+					if(findEqeivalent[j] == filter.length){
+						console.log("found enough " + findEqeivalent[j] + "in trip: " + tripsAfterCharachters[j].trip_name + " filter: " + tripsAfterCharachters[j].trip_filter[z].tags);
+						tripsAfterFilter.push(tripsAfterCharachters[j]);
+						console.log(tripsAfterFilter);
+						break;
+					}
+				}
 			}
-		});
 		}
 
 	}
+	displayListTrip(tripsAfterFilter);
+
 }
 
 
@@ -383,10 +378,10 @@ function displayListTrip(data){
 	trip=data;
 	tripsAfterCharachters = {};
 	tripsAfterCharachters = data;
-    for (i in data) {
-   		var tripResult = '<li id='+data[i]._id+' class="listResultTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
-   		$('#resultTrip .displayTrip').append(tripResult);
-   	};
+	for (i in data) {
+		var tripResult = '<li id='+data[i]._id+' class="listResultTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
+		$('#resultTrip .displayTrip').append(tripResult);
+	};
 
 }
 $(document).on( "click", "#signOut", function() {
