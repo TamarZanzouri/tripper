@@ -154,6 +154,7 @@ function displayFullTrip(data){
 	$('.Trip').append("<a id='updateSchedule'>בחר כמסלול ראשי</a>");
 	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
 	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
+
 }
 
 $(document).on('click','#submitComment', function(){
@@ -207,7 +208,8 @@ $(document).on('click' ,'#favorite',function(){
 
 
 $(document).on('click' ,'#updateSchedule',function(){
-	
+	chooseDate();
+
 	$.ajax({
 		type: "post",
         url: g_domain+"updateMySchedule",// where you wanna post
@@ -223,9 +225,43 @@ $(document).on('click' ,'#updateSchedule',function(){
         	console.log("update schedule success");
         }
     });
-    moveToTripPage
+    
 });
+function chooseDate(){
+	$('.Trip').append("<input type='text' data-role='date' data-inline='true' id='calander'>");
+	$('.Trip').append('<<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy"><input class="span2" size="16" type="text" value="12-02-2012"><span class="add-on"><i class="icon-th"></i></span></div>>');
+	$('.datepicker').datepicker();
 
+	var nowTemp = new Date();
+	var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+	 
+	var checkin = $('#dpd1').datepicker({
+	  onRender: function(date) {
+	    return date.valueOf() < now.valueOf() ? 'disabled' : '';
+	  }
+	}).on('changeDate', function(ev) {
+	  if (ev.date.valueOf() > checkout.date.valueOf()) {
+	    var newDate = new Date(ev.date)
+	    newDate.setDate(newDate.getDate() + 1);
+	    checkout.setValue(newDate);
+	  }
+	  checkin.hide();
+	  $('#dpd2')[0].focus();
+	}).data('datepicker');
+	var checkout = $('#dpd2').datepicker({
+	  onRender: function(date) {
+	    return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+	  }
+	}).on('changeDate', function(ev) {
+	  checkout.hide();
+	}).data('datepicker');
+}
+
+/*
+ $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+*/
 //move to Schedule page !!! 
 
 $(document).on('click','#mySchedule',function(){

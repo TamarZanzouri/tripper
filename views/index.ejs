@@ -8,6 +8,9 @@
 	
 	<link rel="stylesheet" href="jquerymobile.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
+	
+	
+	
 	<script src="jquery/dist/jquery.js"></script>
 	<script type="text/javascript" src="bootsrtap/dist/js/bootstrap.js"></script>
 
@@ -17,6 +20,10 @@
 	<!--  google login  -->
 	<script src="https://apis.google.com/js/client:platform.js" async defer></script>
 	<!-- ens google login -->
+	<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
+	<link rel="stylesheet" href="css/datepicker.css">
+
+
 
 	<script type="text/javascript" src="../functionTrip.js"></script>
 
@@ -278,10 +285,24 @@
 				</ul>
 			</header>
 			<div data-role="content" class="ui-content" id="content">
+				
+
+				<label for="date">Date Input:</label>
+				<input type="date" name="date" id="date" value=""  />
+
+				<!--
+				<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
+				  <input class="span2" size="16" type="text" value="12-02-2012">
+				  <span class="add-on"><i class="icon-th"></i></span>
+				</div>	
+				<input type="text" data-role="date">
+				<input type="text" data-role="date" data-inline="true">
+				<input type='text' id='datepicker'>-->
 				<section class="Trip">
 					</section>
 			</div>
 		</div>
 
 	</body>
+
 </html>

@@ -11,6 +11,8 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'node_modules/bower_components')));
 
+app.use(express.static(path.join(__dirname, 'datepicker')));
+
 app.use(express.static(path.join(__dirname, 'tripFunction')));
 app.use(express.static(path.join(__dirname, 'style')));
 
