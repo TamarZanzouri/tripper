@@ -44,12 +44,6 @@
 		<div data-role="content" class="ui-content" id="content">
 			<!-- application data will goes here -->
 			<div id="groupButton">
-				
-<!-- 				<% for (var j =0; j<character.length; j++) {%>
-
-				<button class="btnChar"><%=character[j].charachter %></button>
-
-				<% } %> -->
 				<a class='continue' href='index.ejs#resultTripPqge'> המשך </a>
 			</div>	
 		</div>
@@ -220,11 +214,60 @@
 					<label>מיקום הטיול: <br>
 						<input type="text" name="locationTrip">
 					</label><br>
-					<label>תכונות הטיול: <br>
-						<input type="text" name="char1">
-						<input type="text" name="char2">
-					</label>
+					<div data-role="fieldcontain">
+						<fieldset data-role="controlgroup" data-type="horizontal">
+							<legend>בחר את ג'אנר הפלייליסט שלך</legend>
 
+							<label for="firstcharachter">בחר ג'אנר</label>
+							<select name="firstcharachter" id="firstcharachter">
+								<option>בחר ג'אנר</option>
+							</select>
+
+							<label for="secondcharachter">בחר ג'אנר נוסף</label>
+							<select name="secondcharachter" id="secondcharachter">
+								<option>בחר ג'אנר נוסף</option>
+							</select>
+						</fieldset>
+					</div>
+				<div data-role="fieldcontain">
+						<fieldset data-role="controlgroup" data-type="horizontal">
+							<legend>עם מי הולכים לטייל?</legend>
+							<input type="checkbox" name="trip_with_animals" id="trip_with_animals" class="custom" />
+							<label for="trip_with_animals">בע"ח</label>
+							<input type="checkbox" name="trip_with_road" id="trip_with_road" class="custom" />
+							<label for="trip_with_road">מסלול סלול לאנשים עם מוגבליות או עגלות לתינוקות</label>
+							<input type="checkbox" name="trip_for_children" id="trip_for_children" class="custom" />
+							<label for="trip_for_children">מותאם לילדים</label>
+						</fieldset>
+					</div>
+					<div data-role="fieldcontain">
+						<fieldset data-role="controlgroup" data-type="horizontal">
+							<legend>סוג טיול</legend>
+							<input type="checkbox" name="trip_with_watter" id="trip_with_watter" class="custom" />
+							<label for="trip_with_watter">טיול עם מקורות מים</label>
+							<input type="checkbox" name="trip_for_night" id="trip_for_night" class="custom" />
+							<label for="trip_for_night">טיול עם לילה</label>
+							<input type="checkbox" name="trip_for_day" id="trip_for_day" class="custom" />
+							<label for="trip_for_day">טיול יומי</label>
+							<input type="checkbox" name="trip_with_bicycle" id="trip_with_bicycle" class="custom" />
+							<label for="trip_with_bicycle">טיול עם אופניים</label>
+							<input type="checkbox" name="trip_with_jeep" id="trip_with_jeep" class="custom" />
+							<label for="trip_with_jeep">טיול ג'יפים</label>
+						</fieldset>
+					</div>
+					<div data-role="fieldcontain">
+						<fieldset data-role="controlgroup" data-type="horizontal" data-role="fieldcontain">
+							<legend>בחר רמת קושי</legend>
+							<input type="radio" name="difficulty" id="light_trip" value="light_trip" checked="checked" />
+							<label for="light_trip">קל</label>
+
+							<input type="radio" name="difficulty" id="medium_trip" value="medium_trip"  />
+							<label for="medium_trip">בינוני</label>
+
+							<input type="radio" name="difficulty" id="hard_trip" value="hard_trip"  />
+							<label for="hard_trip">קשה</label>
+						</fieldset>
+					</div>	
 					<label for="ingredients"> <span class="testRight" id="ingredientsT">אתרי תיירות</span>
 						<span class="formField">
 							<div class="ingredients_wrap">
@@ -237,17 +280,6 @@
 						</span> 
 					</label>
 					<br>
-					<!--<input name="image_file" id="imageInput" type="file" />
-					<img src="images/ajax-loader.gif" id="loading-img" style="display:none;" alt="Please Wait"/>
-					<div id="output"></div>-->
-
-					<!--	<input type='file' id="imgInp" />
-   					<img id="blah" src="#" alt="your image" />-->
-
-   					<input type="file" accept="image/*"  onchange="showMyImage(this)" />
-					 <br/>
-					<img id="thumbnil" style="width:20%; margin-top:10px;"  src="" alt="image"/>
-
 					<button type="submit" data-theme="b" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false">שלח טיול</button>
 					<input type="hidden" name="commodities" id="commodities" value=""/>
 				</form>

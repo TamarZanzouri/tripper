@@ -5,7 +5,7 @@ g_ListTrip=[];
 var filter = [];
 var clickedCharachters = [];
 var tripsAfterCharachters;
-var tripCharacters = ["סטלנים", "עצלנים", "אקסטרים", "משפחות", "רגוע" , "ספורטיבי" , "רומנטי", "עירוניים", "בעלי חיים" , "כלבים", ""];
+var tripCharacters = ["סטלנים", "עצלנים", "אקסטרים", "משפחות", "רגוע" , "ספורטיבי" , "רומנטי", "עירוניים", "בעלי חיים" , "כלבים"];
 
 
 $(document).ready(function(){
@@ -13,10 +13,12 @@ $(document).ready(function(){
 	//adding site!
 	var max_fields = 20;
 	// debugger;
-		$.each(tripCharacters, function(i, val){
-		var buttonAppend = '<button class="btnChar">' + val + '</button>';
-		console.log(buttonAppend);
-		$("#homePage#groupButton").append(buttonAppend);
+	$.each(tripCharacters, function(i, val){
+		var buttonAppendCharachters = '<button class="btnChar">' + val + '</button>';
+		var selectAppendCharachters = '<option value=' + val + '>' + val + '</option>';
+		$("#groupButton").append(buttonAppendCharachters);
+		$("#firstcharachter").append(selectAppendCharachters);
+		$("#secondcharachter").append(selectAppendCharachters);		
 	});
 	//maximum input boxes allowed
 	var outer_wrapper = $(".ingredients_wrap");
