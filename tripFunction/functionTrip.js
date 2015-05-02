@@ -88,8 +88,41 @@ $(document).ready(function(){
 		}
 
 	});
+/*
+    var options = { 
+            target:   '#output',   // target element(s) to be updated with server response 
+            beforeSubmit:  beforeSubmit,  // pre-submit callback 
+            resetForm: true        // reset the form after successful submit 
+        }; 
+        
+     $('#MyUploadForm').submit(function() { 
+            $(this).ajaxSubmit(options);  //Ajax Submit form            
+            // return false to prevent standard browser submit and page navigation 
+            return false; 
+        }); */
+	
 
 });
+
+ function showMyImage(fileInput) {
+        var files = fileInput.files;
+        for (var i = 0; i < files.length; i++) {           
+            var file = files[i];
+            var imageType = /image.*/;     
+            if (!file.type.match(imageType)) {
+                continue;
+            }           
+            var img=document.getElementById("thumbnil");            
+            img.file = file;    
+            var reader = new FileReader();
+            reader.onload = (function(aImg) { 
+                return function(e) { 
+                    aImg.src = e.target.result; 
+                }; 
+            })(img);
+            reader.readAsDataURL(file);
+        }    
+    }
 
 $(document).on('click','.listResultTrip',function(){
 	
