@@ -5,13 +5,19 @@ g_ListTrip=[];
 var filter = [];
 var clickedCharachters = [];
 var tripsAfterCharachters;
-var tripCharacters = ["סטלנים", "עצלנים", "אקסטרים", "משפחות", "רגוע" , "ספורטיבי" , "רומנטי", "עירוניים"];
+var tripCharacters = ["סטלנים", "עצלנים", "אקסטרים", "משפחות", "רגוע" , "ספורטיבי" , "רומנטי", "עירוניים", "בעלי חיים" , "כלבים", ""];
 
 
 $(document).ready(function(){
 
 	//adding site!
 	var max_fields = 20;
+	// debugger;
+		$.each(tripCharacters, function(i, val){
+		var buttonAppend = '<button class="btnChar">' + val + '</button>';
+		console.log(buttonAppend);
+		$("#homePage#groupButton").append(buttonAppend);
+	});
 	//maximum input boxes allowed
 	var outer_wrapper = $(".ingredients_wrap");
 	var wrapper = $(".ingredients_i");
