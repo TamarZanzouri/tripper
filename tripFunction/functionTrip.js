@@ -152,8 +152,36 @@ function displayFullTrip(data){
 	$('.Trip').append("<h2>"+data.trip_name+"</h2>");
 	$('.Trip').append("<a id='favorite'>הוסף למועדפים</a> </br>");
 	$('.Trip').append("<a id='updateSchedule'>בחר כמסלול ראשי</a>");
-
+	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
+	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
 }
+
+$(document).on('click','#submitComment', function(){
+	var comment = $('#comment').val();
+	$('#comment').html("");
+	console.log(comment, User, g_trip);
+
+	$.ajax({
+		type: "post",
+        url: g_domain+"addComment",// where you wanna post
+        data:  {user:User,
+        	trip_id:g_trip._id,
+        	comment:comment
+        },
+        dataType: "json",
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+
+
+        },
+        success: function(data) {
+        	console.log("add comment success");
+        
+        }
+    });
+
+});
+
 $(document).on('click' ,'#favorite',function(){
 	
 	$.ajax({

@@ -118,6 +118,58 @@ app.post('/updateMySchedule', function(req, res) {
 
 });
 
+//addComment
+
+app.post('/addComment', function(req, res) {
+	var user = req.body.user;
+	var trip_id = req.body.trip_id;
+	var comment = req.body.comment;
+	var objComment = user.name+":"+comment;
+	console.log(" update comment",comment);
+	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
+		if (err) {
+			return console.dir(err);
+		} else {
+			var trip_collection = db.collection('tripper_playlist');
+			trip_collection.findOne({ _id : new ObjectId(trip_id)},function (err, docs){
+				if (err) {
+					console.log("found error inserting");
+					res.json({status:0})
+					db.close();
+					return console.error(err);
+				}
+				if (docs) {
+					console.log(docs)
+					var check=0;
+					if (docs.comments)
+					{console.log(check);}
+					else {
+						docs.comments=[];
+					}
+					console.log(" update comment 2",objComment);
+					docs.comments.push(objComment);
+
+					trip_collection.update({_id : new ObjectId(trip_id)}, { $set: {comments:docs.comments}}, function(err, docs) {
+						if (err) {
+							console.log("found error inserting");
+							res.json({status:0})
+							db.close();
+							return console.error(err);
+						}
+						res.json({status:1})
+					});
+					}
+					else res.json({status:1});
+				
+
+			});
+		}
+
+	});
+
+});
+
+
 app.post('/updateFavoirte', function(req, res) {
 	var user = req.body.userId;
 	var trip = req.body.trip;
