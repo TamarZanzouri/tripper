@@ -3,13 +3,9 @@ g_domain="http://127.0.0.1:1337/"//"http://shenkartripper.herokuapp.com/";//
 g_trip={};
 g_ListTrip=[];
 var filter = [];
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 var clickedCharachters = [];
-var tripsAfteCharachters;
-
+var tripsAfterCharachters;
+var tripCharacters = ["סטלנים", "עצלנים", "אקסטרים", "משפחות", "רגוע" , "ספורטיבי" , "רומנטי", "עירוניים"];
 
 
 $(document).ready(function(){
