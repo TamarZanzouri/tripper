@@ -3,6 +3,10 @@ g_domain="http://127.0.0.1:1337/"//"http://shenkartripper.herokuapp.com/";//
 g_trip={};
 g_ListTrip=[];
 var filter = [];
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 var clickedCharachters = [];
 var tripsAfteCharachters;
 
@@ -118,7 +122,7 @@ function displayFullTrip(data){
 	$('.Trip').append("<h3>הטיול הנבחר </h3>");
 	$('.Trip').append("<h2>"+data.trip_name+"</h2>");
 	$('.Trip').append("<a id='favorite'>הוסף למועדפים</a> </br>");
-	$('.Trip').append("<a id='myWaze'>בחר כמסלול ראשי</a>");
+	$('.Trip').append("<a id='updateSchedule'>בחר כמסלול ראשי</a>");
 
 }
 $(document).on('click' ,'#favorite',function(){
@@ -143,17 +147,14 @@ $(document).on('click' ,'#favorite',function(){
         }
     });
 });
-/*
-$(document).on('click' ,'#myWaze',function(){
+
+
+$(document).on('click' ,'#updateSchedule',function(){
 	
 	$.ajax({
 		type: "post",
-        url: g_domain+"updateMyWaze",// where you wanna post
-        data:  {trip:{
-        	id:g_trip._id,
-        	name:g_trip.trip_name,
-        	location:g_trip.address        	
-        }
+        url: g_domain+"updateMySchedule",// where you wanna post
+        data:  {trip: g_trip
         ,userId:User.email},
         dataType: "json",
         error: function(jqXHR, textStatus, errorMessage) {
@@ -162,11 +163,43 @@ $(document).on('click' ,'#myWaze',function(){
 
         },
         success: function(data) {
-        	console.log("update success");
+        	console.log("update schedule success");
         }
     });
+    moveToTripPage
 });
-*/
+
+//move to Schedule page !!! 
+
+$(document).on('click','#mySchedule',function(){
+	
+
+	$.ajax({
+		type: "post",
+        url: g_domain+"getUseSchedule",// where you wanna post
+        data:  {email:User.email},
+        dataType: "json",
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+
+
+        },
+        success: function(data) {
+        	console.log(data.schedule)
+        	displayScheduleTrip(data.schedule);
+        }
+    });
+    moveToSchedule();
+});
+
+function displayScheduleTrip(data){
+	$('.Trip').empty();
+	$('.Trip').append("<h3>הטיול הנבחר </h3>");
+	$('.Trip').append("<h2>"+data.trip_name+"</h2>");
+	$('.Trip').append("<a id='favorite'>הוסף למועדפים</a> </br>");
+	$('.Trip').append("<a id='updateSchedule'>בחר כמסלול ראשי</a>");
+
+}
 
 $(document).on('click','#moveToFavorite',function(){
 	
@@ -300,6 +333,13 @@ function moveToFavorite() {
 		changeHash : true
 	});
 }
+function moveToSchedule() {
+	$.mobile.changePage("#myPageSchedule", {
+		transition : "none",
+		changeHash : true
+	});
+}
+
 function signinCallback(authResult) {
 	if (authResult['status']['signed_in']) {
 		// Update the app to reflect a signed in user
