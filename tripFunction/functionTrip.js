@@ -351,24 +351,7 @@ function signinCallback(authResult) {
         success: function(data) {
         	displayListTrip(data);
         	console.log("listResultTrip")
-       //  	$('#resultTrip ul').empty();
-       //  	trip=data;
-       //  	tripsAfterCharachters = {};
-       //  	tripsAfterCharachters = data;
-       //  	for (i in data) {
-       //  		if(data[i].tripSites){
-      	// 		//debugger;
-      	// 		var tripResult = '<li id='+data[i]._id+' class="listResultTrip"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
-      	// 		+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  + '<br>אתרי הטיול<br>' + data[i].tripSites[0].siteName + ' ' + data[i].tripSites[0].location + '<br>' + data[i].tripSites[1].siteName + ' ' + data[i].tripSites[0].location + '</li>';
-      	// 		$('#resultTrip ul').append(tripResult);
-      	// 	}
-      	// 	else{
-      	// 		var tripResult = '<li id='+data[i]._id+' class="listResultTrip"><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' תיאור-הטיול: ' + data[i].trip_description + ' מיקום: ' + data[i].address +
-      	// 		+ 'תכונות: ' + data[i].trip_charachters[0].charachter + ' ' + data[i].trip_charachters[1].charachter  +  '</li>';
-      	// 		$('#resultTrip ul').append(tripResult);
-      	// 	}
-      	// };
-      	moveTofilterPage();	      
+	      	moveTofilterPage();	      
       } 
   });
 }
