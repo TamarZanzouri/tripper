@@ -416,7 +416,8 @@ app.get('/filterByChars/:chars?', function(req, res) {
 });
 
 app.post('/add', function(req, res) {
-	console.log("haim" + req.body.newTrip + " " + req.body.des);
+	console.log(req.body)
+	//console.log("haim" + req.body.newTrip + " " + req.body.des);
 	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
 		if (err) {
 			return console.dir(err);
@@ -425,23 +426,29 @@ app.post('/add', function(req, res) {
 			var nameTrip = req.body.nameTrip;
 			var des = req.body.des;
 			var location = req.body.locationTrip;
-			var char1 = req.body.char1;
-			var char2 = req.body.char2;
-			var privte = req.body.privte;
+			var tripCharachters = [];
+			tripCharachters.push(req.body.firstcharachter);
+			tripCharachters.push(req.body.secondcharachter);
+			var privte = req.body.isTripPrivate;
 			var areaLocition = req.body.area;
+			var tripFilter =[];
+			(req.body.who_are_you_going_with).forEach(function(val){
+				tripFilter.push(val);
+			});
+			(req.body.trip_kind).forEach(function(val){
+				tripFilter.push(val);
+			});
+			tripFilter.push(req.body.difficulty);
 			tripper_collection.insert({
 				trip_name : nameTrip,
 				trip_description : des,
 				address : location,
 				email : userEmail,
-				trip_charachters : [{
-					charachter : char1
-				}, {
-					charachter : char2
-				}],
+				trip_charachters : tripCharachters,
 				trip_isPrivate : privte,
 				tripSites : sites,
-				area : areaLocition
+				area : areaLocition,
+				trip_filter : tripFilter
 			}, function(err, docs) {
 				if (err) {
 					console.log("found error inserting");

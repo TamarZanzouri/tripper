@@ -5,7 +5,7 @@ g_ListTrip=[];
 var filter = [];
 var clickedCharachters = [];
 var tripsAfterCharachters;
-var tripCharacters = ["סטלנים", "עצלנים", "אקסטרים", "משפחות", "רגוע" , "ספורטיבי" , "רומנטי", "עירוניים", "בעלי חיים" , "כלבים"];
+var tripCharacters = ["סטלנים", "עצלנים", "אקסטרים", "משפחות", "רגוע" , "ספורטיבי" , "רומנטי", "עירוניים", "בע\"ח" , "כלבים"];
 
 
 $(document).ready(function(){
