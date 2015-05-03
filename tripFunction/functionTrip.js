@@ -1,5 +1,5 @@
 User={};
-g_domain="http://127.0.0.1:1337/"//"http://shenkartripper.herokuapp.com/";//
+g_domain="http://shenkartripper.herokuapp.com/";//"http://127.0.0.1:1337/"//
 g_trip={};
 g_ListTrip=[];
 var filter = [];
@@ -147,8 +147,9 @@ $(document).on('click','.listResultTrip',function(){
 
         },
         success: function(data) {
-        	displayFullTrip(data);
         	g_trip=data;
+        	displayFullTrip(data);
+        	
         }
     });
 	moveToTripPage();
@@ -455,7 +456,7 @@ function signinCallback(authResult) {
 			request.execute(function(resp) {
 
 				console.log(resp);
-				User.name=resp.displayName;
+				User.name=decodeURI(resp.displayName);
 				User.email=resp.emails[0].value
 				User.image = resp.image.url;
 
@@ -534,9 +535,10 @@ $(document).on('click','#showTrips',function(){
 
 function create_user(user){
 	$.ajax({
-		type : "post",
+		type : "POST",
 		url : g_domain+"registerUser",
 		data : user,
+       	dataType:"json",
        // contentType: "application/json",
        success : function(data) {
        	console.log(data);

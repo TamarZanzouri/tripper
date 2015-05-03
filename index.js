@@ -16,8 +16,12 @@ app.use(express.static(path.join(__dirname, 'datepicker')));
 app.use(express.static(path.join(__dirname, 'tripFunction')));
 app.use(express.static(path.join(__dirname, 'style')));
 
-app.use(bodyParser());
 
+app.use(bodyParser());
+// parse application/x-www-form-urlencoded 
+app.use(bodyParser.urlencoded({extended: false}));
+// parse application/json 
+app.use(bodyParser.json());
 
 //view in data base
 app.get('/', function(req, res) {
@@ -227,12 +231,12 @@ app.post('/updateFavoirte', function(req, res) {
 app.post('/registerUser', function(req, res) {
 	var user = req.body;
 
-	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
+	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd",{native_parser:true}, function(err, db) {
 		if (err) {
 			return console.dir(err);
 		} else {
 			var user_collection = db.collection('users');
-
+			console.log("try to update " , user.name);
 			user_collection.update({email:user.email},{$set:user},{upsert:true}, function(err, docs) {
 				if (err) {
 					console.log("found error inserting");
@@ -241,7 +245,8 @@ app.post('/registerUser', function(req, res) {
 					return console.error(err);
 				}
 				res.json({status:1})
-
+				db.close();
+				return;
 			});
 		}
 
