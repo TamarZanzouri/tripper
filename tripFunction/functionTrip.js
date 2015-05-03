@@ -1,5 +1,5 @@
 User={};
-g_domain="http://shenkartripper.herokuapp.com/";//"http://127.0.0.1:1337/"//
+g_domain="http://127.0.0.1:1337/";//"http://shenkartripper.herokuapp.com/";//
 g_trip={};
 g_ListTrip=[];
 var filter = [];
@@ -238,7 +238,7 @@ $(document).on('click' ,'#updateSchedule',function(){
 });
 function chooseDate(){
 	$('.Trip').append("<input type='text' data-role='date' data-inline='true' id='calander'>");
-	$('.Trip').append('<<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy"><input class="span2" size="16" type="text" value="12-02-2012"><span class="add-on"><i class="icon-th"></i></span></div>>');
+	$('.Trip').append('<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy"><input class="span2" size="16" type="text" value="12-02-2012"><span class="add-on"><i class="icon-th"></i></span></div>');
 	$('.datepicker').datepicker();
 
 	var nowTemp = new Date();
