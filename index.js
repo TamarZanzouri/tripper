@@ -430,9 +430,37 @@ app.get('/filterByChars/:chars?', function(req, res) {
 });
 
 app.post('/add', function(req, res) {
-	console.log(req.body)
+	//console.log(req.body)
 	//console.log("haim" + req.body.newTrip + " " + req.body.des);
-	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
+	var form = new formidable.IncomingForm();
+
+	  form.parse(req, function(error, fields, files) 
+	  {
+	    console.log('-->PARSE<--');
+	        //logs the file information 
+	        console.log("files", JSON.stringify(files));
+	        console.log("fields", JSON.stringify(fields));
+	      
+	      });
+
+	  form.on('progress', function(bytesReceived, bytesExpected) 
+	  {
+	    var percent_complete = (bytesReceived / bytesExpected) * 100;
+	    console.log(percent_complete.toFixed(2));
+	  });
+
+	  form.on('error', function(err) 
+	  {
+	   console.log("-->ERROR<--");
+	   console.error(err);
+	 });
+
+	  form.on('end', function(error, fields, files) {
+	  	     console.log("end files", JSON.stringify(files));
+	        console.log("end fields", JSON.stringify(fields));
+	  })
+
+	/*MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
 		if (err) {
 			return console.dir(err);
 		} else {
@@ -477,7 +505,7 @@ app.post('/add', function(req, res) {
 			});
 		}
 
-	});
+	});*/
 	res.redirect('/');
 
 });
