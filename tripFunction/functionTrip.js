@@ -1,5 +1,5 @@
 User={};
-g_domain="http://127.0.0.1:1337/"//"http://shenkartripper.herokuapp.com/";//
+g_domain="http://127.0.0.1:1337/";//"http://shenkartripper.herokuapp.com/";//
 g_trip={};
 g_ListTrip=[];
 var filter = [];
@@ -147,8 +147,9 @@ $(document).on('click','.listResultTrip',function(){
 
         },
         success: function(data) {
-        	displayFullTrip(data);
         	g_trip=data;
+        	displayFullTrip(data);
+        	
         }
     });
 	moveToTripPage();
@@ -237,7 +238,7 @@ $(document).on('click' ,'#updateSchedule',function(){
 });
 function chooseDate(){
 	$('.Trip').append("<input type='text' data-role='date' data-inline='true' id='calander'>");
-	$('.Trip').append('<<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy"><input class="span2" size="16" type="text" value="12-02-2012"><span class="add-on"><i class="icon-th"></i></span></div>>');
+	$('.Trip').append('<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy"><input class="span2" size="16" type="text" value="12-02-2012"><span class="add-on"><i class="icon-th"></i></span></div>');
 	$('.datepicker').datepicker();
 
 	var nowTemp = new Date();
@@ -365,6 +366,22 @@ function updateResultByFilter(){
 	var findEqeivalent = [];
 	var tripsAfterFilter = [];
 
+	var temp;
+	var tempList=[];/*
+	$.each(tripsAfterCharachters, function(index,trip){
+		$.each(filter, function(index,val){
+			temp=_.contains(trip.trip_filter, val);
+			if(temp==false)
+				return;
+		})
+		if(temp==true)
+		{
+			tempList.push(trip);
+
+		}
+		temp=true;
+	})
+	console.log(tempList);*/
 	$('#resultTrip ul').empty();
 	for(j in tripsAfterCharachters){
 		findEqeivalent[j] = 0;
@@ -455,7 +472,7 @@ function signinCallback(authResult) {
 			request.execute(function(resp) {
 
 				console.log(resp);
-				User.name=resp.displayName;
+				User.name=decodeURI(resp.displayName);
 				User.email=resp.emails[0].value
 				User.image = resp.image.url;
 
@@ -534,9 +551,10 @@ $(document).on('click','#showTrips',function(){
 
 function create_user(user){
 	$.ajax({
-		type : "post",
+		type : "POST",
 		url : g_domain+"registerUser",
 		data : user,
+       	dataType:"json",
        // contentType: "application/json",
        success : function(data) {
        	console.log(data);
