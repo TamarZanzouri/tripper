@@ -458,7 +458,7 @@ app.post('/add', function(req, res) {
 	  form.on('end', function(error, fields, files) {
 	  	     console.log("end files", JSON.stringify(files));
 	        console.log("end fields", JSON.stringify(fields));
-	  })
+	  });
 
 	/*MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
 		if (err) {
