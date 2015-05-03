@@ -23,6 +23,13 @@ app.use(bodyParser.urlencoded({extended: false}));
 // parse application/json 
 app.use(bodyParser.json());
 
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 //view in data base
 app.get('/', function(req, res) {
 	// Connect to the db
