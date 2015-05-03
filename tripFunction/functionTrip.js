@@ -1,5 +1,6 @@
 User={};
-g_domain="http://127.0.0.1:1337/";//"http://shenkartripper.herokuapp.com/";//
+g_domain="http://shenkartripper.herokuapp.com/";
+// "http://127.0.0.1:1337/";
 g_trip={};
 g_ListTrip=[];
 var filter = [];
