@@ -347,52 +347,27 @@ function changedArea(){
 
 
 function updateResultByFilter(){
-	console.log("in update result");
-	var findEqeivalent = [];
-	var tripsAfterFilter = [];
 
-	var temp = true;
-	// var tempList=[];
+	var tripsAfterFilter = [];
+	var donsentContainFlag = false;
+
 	$.each(tripsAfterCharachters, function(index,trip){
 		$.each(filter, function(index,val){
-			// debugger;
-			temp=_.contains(trip.trip_filter, val);
-			if(!temp){
-								// debugger;
-				console.log("donsent contain " + val);
+
+			if(!(_.contains(trip.trip_filter, val))){								
+				donsentContainFlag = true;
 				return;
 			}
 
 		})
 
-		console.log("at the trip " + trip.trip_name + "temp value " + temp);
-		if(temp)
+		if(!donsentContainFlag)
 		{
-			console.log("containas " +trip);
 			tripsAfterFilter.push(trip);
 		}
+		donsentContainFlag = false;
 	})
-console.log(tripsAfterFilter);
-// $('#resultTrip ul').empty();
-// for(j in tripsAfterCharachters){
-// 	findEqeivalent[j] = 0;
-// 	for(z in tripsAfterCharachters[j].trip_filter){
-// 		console.log("j " + j);
-// 		for(i in filter){
-// 			if(filter[i] === tripsAfterCharachters[j].trip_filter[z].tags){ 
-// 					// debugger;
-// 					findEqeivalent[j]++;
-// 					if(findEqeivalent[j] == filter.length){
-// 						console.log("found enough " + findEqeivalent[j] + "in trip: " + tripsAfterCharachters[j].trip_name + " filter: " + tripsAfterCharachters[j].trip_filter[z].tags);
-// 						tripsAfterFilter.push(tripsAfterCharachters[j]);
-// 						console.log(tripsAfterFilter);
-// 						break;
-// 					}
-// 				}
-// 			}
-// 		}
-
-// 	}
+	console.log(tripsAfterFilter);
 	displayListTrip(tripsAfterFilter);
 
 }
