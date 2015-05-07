@@ -320,7 +320,7 @@ $(document).on('click','#moveToFavorite',function(){
         success: function(data) {
         	console.log(data.favorites);
         	g_ListTrip=data.favorites;
-        	displayListTrip(data.favorites);
+        	favoriteDisplayListTrip(data.favorites);
         }
     });
 	moveToFavorite();
@@ -471,7 +471,12 @@ function validateMyForm(obj){
   });
 	return false;
 }
-
+function moveToAddPage() {
+	$.mobile.changePage("#addTripPage", {
+		transition : "none",
+		changeHash : true
+	});
+}
 function moveTofilterPage() {
 	$.mobile.changePage("#resultTripPqge", {
 		transition : "none",
@@ -568,6 +573,7 @@ function signinCallback(authResult) {
 			$('#resultTrip .displayTrip').append(tripResult);
 		};
 
+
 }
 $(document).on( "click", "#signOut", function() {
 	console.log("signOut")
@@ -623,3 +629,50 @@ $(document).on('click','#showTrips',function(){
        }
    });
 	}
+$(document).on('click','.favoriteListResultTrip',function(){
+	
+
+	var result = $(this).attr('id');
+	$.ajax({
+		type: "post",
+        url: g_domain+"getTripById",// where you wanna post
+        data:  {id:result},
+        dataType: "json",
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+
+
+        },
+        success: function(data) {
+        	g_trip=data;
+        	favoriteDisplayFullTrip(data);
+        	
+        }
+    });
+	moveToTripPage();
+});
+
+function favoriteDisplayListTrip(data){
+	console.log(data)
+	$('#resultTrip ul').empty();
+	trip=data;
+	for (i in data) {
+		var tripResult = '<li id='+data[i]._id+' class="favoriteListResultTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
+		$('#resultTrip .displayTrip').append(tripResult);
+	};
+}
+function favoriteDisplayFullTrip(data){
+	g_trip=data;
+	console.log(data)
+	$('.Trip').empty();
+	$('.Trip').append("<h3>הטיול הנבחר </h3>");
+	$('.Trip').append("<h2>"+data.trip_name+"</h2>");
+	$('.Trip').append("<a id='editFavorite'>ערוך טיול כרצונך</a> </br>");
+	$('.Trip').append("<a id='updateSchedule'>בחר כמסלול ראשי</a>");
+	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
+	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
+
+}
+$(document).on('click','#editFavorite',function(){
+	moveToAddPage();
+});
