@@ -1,6 +1,6 @@
 User={};
-g_domain="http://shenkartripper.herokuapp.com/";
-// "http://127.0.0.1:1337/";
+g_domain="http://127.0.0.1:1337/";//"http://shenkartripper.herokuapp.com/";
+// 
 g_trip={};
 g_ListTrip=[];
 var filter = [];
@@ -372,7 +372,45 @@ function updateResultByFilter(){
 
 }
 
+$(document).on('submit','#addform',function(e){
+	e.preventDefault();
+		var form = new FormData(this); 
 
+	var wrapper = $(".ingredients_i");
+	var amounts = $(".amounts_i");
+	var comms = new Array();
+	for (var i = 0; i < wrapper.length; i++){
+		console.log(i);
+
+		var comm = {};
+		if (wrapper[i].value.trim() != ''){
+			comm['siteName'] = wrapper[i].value;
+			comm["location"] = amounts[i].value;
+			comms.push(comm);
+		}
+	}
+	console.log(comms);
+	if (comms != 0)
+		form.append("sites", comms);	
+	else form.append("sites", []);	
+//console.log($(this))
+	form.append("email",User.email);
+
+	$.ajax({
+		type: "post",
+        url: g_domain+"add",// where you wanna post
+        data:  form,
+        //dataType: "json",
+        contentType: false,
+        processData:false,
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+        },
+        success: function(data) {
+        	console.log(data)	      
+      } 
+  });
+})
 
 function validateMyForm(obj){
 	var wrapper = $(".ingredients_i");
@@ -389,8 +427,24 @@ function validateMyForm(obj){
 		}
 	}
 	console.log(comms);
-	sendSites(comms);
+	if (comms != 0)
+		sendSites(comms);
 
+	$.ajax({
+		type: "post",
+        url: g_domain+"add",// where you wanna post
+        data:  obj,
+        dataType: "json",
+        //contentType: false,
+        //processData:false,
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+        },
+        success: function(data) {
+        	console.log(data)	      
+      } 
+  });
+	return false;
 }
 
 function moveTofilterPage() {
@@ -489,29 +543,29 @@ function signinCallback(authResult) {
 			$('#resultTrip .displayTrip').append(tripResult);
 		};
 
-	}
-	$(document).on( "click", "#signOut", function() {
-		console.log("signOut")
-		gapi.auth.signOut();
-	});	
-	function sendSites(data){
-		$.ajax({
-			type: "get",
-        url:g_domain+"sendSites",// where you wanna post
-        data:  {sites:data},
-        dataType: "json",
-        contentType: "application/json",
-       // contentType: "application/json",
-       success : function(data) {console.log(data); 
-       },
-       error : function(objRequest, errortype) {
-       }
-   });
-	}
-	$(document).on('click','#showTrips',function(){
-		moveToAccountPage();
-		getUserTrip();
-	});
+}
+$(document).on( "click", "#signOut", function() {
+	console.log("signOut")
+	gapi.auth.signOut();
+});	
+// function sendSites(data){
+// 	$.ajax({
+// 		type: "get",
+//         url:g_domain+"sendSites",// where you wanna post
+//         data:  {sites:data},
+//         dataType: "json",
+//         contentType: "application/json",
+//        success : function(data) {console.log(data); 
+//        },
+//        error : function(objRequest, errortype) {
+//        }
+//    });
+// }
+$(document).on('click','#showTrips',function(){
+	moveToAccountPage();
+	getUserTrip();
+});
+
 
 
 	function create_user(user){

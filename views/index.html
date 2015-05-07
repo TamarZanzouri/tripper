@@ -192,7 +192,7 @@
 			</header>
 
 			<section id="addTripSec">
-				<form action="/add" method="post" onsubmit="return validateMyForm(this);">
+				<form action="#" method="post" id="addform" >
 					<label>שם או אזור הטיול <br>
 						<input type="text" name="nameTrip">
 					</label><br>
@@ -297,8 +297,9 @@
 					<input type="file" accept="image/*"  onchange="showMyImage(this)" name="file" />
 					 <br/>
 					<img id="thumbnil" style="width:20%; margin-top:10px;"  src="" alt="image"/>
-					<button type="submit" data-theme="b" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false">שלח טיול</button>
 					<input type="hidden" name="commodities" id="commodities" value=""/>
+					<button type="submit" data-theme="b" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false">שלח טיול</button>
+					
 				</form>
 			</section>
 		</div>

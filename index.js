@@ -5,9 +5,11 @@ var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 var formidable = require('formidable');
+var multipart = require('multipart');
+var connectMultiparty = require('connect-multiparty');
+var multipartMiddleware = connectMultiparty();
 var app = express();
 var userEmail;
-var sites;
 
 //app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'views')));
@@ -78,10 +80,10 @@ app.use(function(req, res, next) {
 // }
 // });
 
-app.get('/sendSites/:sites?', function(req, res) {
-	sites = req.query.sites;
-	console.log(sites);
-});
+// app.get('/sendSites/:sites?', function(req, res) {
+// 	sites = req.body.sites;
+// 	console.log(sites);
+// });
 
 
 app.post('/updateMySchedule', function(req, res) {
@@ -429,40 +431,39 @@ app.get('/filterByChars/:chars?', function(req, res) {
 	
 });
 
-app.post('/add', function(req, res) {
-	//console.log(req.body)
+app.post('/add',multipartMiddleware, function(req, res) {
+	//console.log(req.files,req.body)
 	//console.log("haim" + req.body.newTrip + " " + req.body.des);
-	var form = new formidable.IncomingForm();
+	// var form = new formidable.IncomingForm();
 
-	  form.parse(req, function(error, fields, files) 
-	  {
-	    console.log('-->PARSE<--');
-	        //logs the file information 
-	        console.log("files", JSON.stringify(files));
-	        console.log("fields", JSON.stringify(fields));
+	//   form.parse(req, function(error, fields, files) 
+	//   {
+	//     console.log('-->PARSE<--');
+	//         //logs the file information 
+	//         console.log("files", JSON.stringify(files));
+	//         console.log("fields", JSON.stringify(fields));
 	      
-	      });
+	//       });
 
-	  form.on('progress', function(bytesReceived, bytesExpected) 
-	  {
-	    var percent_complete = (bytesReceived / bytesExpected) * 100;
-	    console.log(percent_complete.toFixed(2));
-	  });
+	//   form.on('progress', function(bytesReceived, bytesExpected) 
+	//   {
+	//     var percent_complete = (bytesReceived / bytesExpected) * 100;
+	//     console.log(percent_complete.toFixed(2));
+	//   });
 
-	  form.on('error', function(err) 
-	  {
-	   console.log("-->ERROR<--");
-	   console.error(err);
-	 });
+	//   form.on('error', function(err) 
+	//   {
+	//    console.log("-->ERROR<--");
+	//    console.error(err);
+	//  });
 
-	  form.on('end', function(error, fields, files) {
-	  	     console.log("end files", JSON.stringify(files));
-	        console.log("end fields", JSON.stringify(fields));
-	  });
-
-	/*MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
+	//   form.on('end', function(error, fields, files) {
+	  console.log("end files",req.body);
+	   
+	   MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
 		if (err) {
-			return console.dir(err);
+			res.json({status:0})
+			return ;
 		} else {
 			var tripper_collection = db.collection('tripper_playlist');
 			var nameTrip = req.body.nameTrip;
@@ -471,15 +472,27 @@ app.post('/add', function(req, res) {
 			var tripCharachters = [];
 			tripCharachters.push(req.body.firstcharachter);
 			tripCharachters.push(req.body.secondcharachter);
+			var sitesName = req.body.ingredients;
+			var loc= req.body.amount;
+			var sites=[];
+			if(sitesName)
+			for (val in sitesName){
+				sites.push({sitesName:sitesName[val],loc:loc[val]});
+			}
 			var privte = req.body.isTripPrivate;
 			var areaLocition = req.body.area;
 			var tripFilter =[];
+			userEmail =req.body.email;
+			if(req.body.who_are_you_going_with)
 			(req.body.who_are_you_going_with).forEach(function(val){
 				tripFilter.push(val);
 			});
+			
+			if(req.body.trip_kind)
 			(req.body.trip_kind).forEach(function(val){
 				tripFilter.push(val);
 			});
+
 			tripFilter.push(req.body.difficulty);
 			tripper_collection.insert({
 				trip_name : nameTrip,
@@ -494,19 +507,25 @@ app.post('/add', function(req, res) {
 			}, function(err, docs) {
 				if (err) {
 					console.log("found error inserting");
+					res.json({status:0,err:err})
 					db.close();
-					return console.error(err);
+					return;
 				}
-				console.log("inserted:");
-				for (i in docs) {
-					console.log(docs[i]);
+				if(docs){
+					//console.log(docs)
+					res.json({status:1})
+					db.close();
+					return ;
 				}
-
 			});
 		}
 
-	});*/
-	res.redirect('/');
+	//});
+	        //res.json({status:1})
+	  });
+
+	
+	//res.redirect('/');
 
 });
 
