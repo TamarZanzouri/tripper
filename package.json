@@ -12,6 +12,7 @@
     "adb": "^0.2.0",
     "body-parser": "^1.12.2",
     "bower": "^1.4.1",
+    "cloudinary": "^1.2.1",
     "connect-multiparty": "^1.2.5",
     "daemon": "^1.1.0",
     "ejs": "^2.3.1",
@@ -21,6 +22,7 @@
     "mongodb": "^2.0.25",
     "mongos": "0.0.0",
     "multipart": "^0.1.5",
+    "multiparty": "^4.1.1",
     "nodemon": "^1.3.7",
     "path": "^0.11.14"
   }
