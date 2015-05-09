@@ -1,8 +1,9 @@
 <!doctype html>
 <html lsng="en">
 <head>
-	<meta charset="utf-8">
+	
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
 	<title>Tripper</title>
 	<!--<link rel="stylesheet" href="bootstrap/dist/css/bootstrap.css">-->
 	
@@ -26,8 +27,8 @@
 	<!-- ens google login -->
 	<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
 	<link rel="stylesheet" href="css/datepicker.css">
-
-
+	<!-- google map -->
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
 
 	<script type="text/javascript" src="../functionTrip.js"></script>
 
@@ -297,6 +298,9 @@
 					<input type="file" accept="image/*"  onchange="showMyImage(this)" name="file" />
 					 <br/>
 					<img id="thumbnil" style="width:20%; margin-top:10px;"  src="" alt="image"/>
+
+					<div id="dvMap" style="width: 500px; height: 500px"></div>
+
 					<input type="hidden" name="commodities" id="commodities" value=""/>
 					<button type="submit" data-theme="b" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false">שלח טיול</button>
 					
@@ -350,6 +354,11 @@
 				<input type='text' id='datepicker'>-->
 				<section class="Trip">
 				</section>
+				<div id="panel">
+			      <input id="address" type="textbox" value="Sydney, NSW">
+			      <input type="button" value="Geocode" onclick="codeAddress()">
+			    </div>
+			    
 			</div>
 		</div>
 

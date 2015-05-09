@@ -1,6 +1,6 @@
 User={};
 g_domain="http://127.0.0.1:1337/";//"http://shenkartripper.herokuapp.com/";
-// 
+mapPoint={};
 g_trip={};
 g_ListTrip=[];
 var filter = [];
@@ -10,6 +10,22 @@ var tripCharacters = ["סטלנים", "עצלנים", "אקסטרים", "משפ�
 
 
 $(document).ready(function(){
+
+
+ var mapOptions = {
+        center: new google.maps.LatLng(	 32.03952466510527, 34.83763210941106),
+        zoom: 8,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var infoWindow = new google.maps.InfoWindow();
+    var latlngbounds = new google.maps.LatLngBounds();
+    var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+    google.maps.event.addListener(map, 'click', function (e) {
+        alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
+    	console.log("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng())
+    	mapPoint.lat=e.latLng.lat();
+    	mapPoint.lng=e.latLng.lng();
+    });
 
 	//adding site!
 	var max_fields = 20;
@@ -395,7 +411,7 @@ $(document).on('submit','#addform',function(e){
 	else form.append("sites", []);	
 //console.log($(this))
 	form.append("email",User.email);
-
+	form.append("mapPoint",mapPoint)
 	$.ajax({
 		type: "post",
         url: g_domain+"add",// where you wanna post
@@ -650,4 +666,5 @@ function favoriteDisplayFullTrip(data){
 }
 $(document).on('click','#editFavorite',function(){
 	moveToAddPage();
+	$('#trip_name').append(g_trip.trip_name);
 });

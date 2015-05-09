@@ -175,7 +175,7 @@ app.post('/addComment', function(req, res) {
 					}
 					console.log(" update comment 2",objComment);
 					docs.comments.push(objComment);
-
+					console.log(docs.comments)
 					trip_collection.update({_id : new ObjectId(trip_id)}, { $set: {comments:docs.comments}}, function(err, docs) {
 						if (err) {
 							console.log("found error inserting");
@@ -183,6 +183,7 @@ app.post('/addComment', function(req, res) {
 							db.close();
 							return console.error(err);
 						}
+						console.log(docs)
 						res.json({status:1})
 					});
 				}
@@ -449,12 +450,19 @@ app.post('/add', function(req, res) {
 	form.parse(req, function(error, fields, files) 
 	{
 		console.log('-->PARSE<--');
-	        //logs the file information 
-	        console.log("files", JSON.stringify(files));
-	        console.log("fields", JSON.stringify(fields));
-	        console.log("11",this.uplaodDir)
-	        console.log( files.upload.path, "/tmp/" + files.upload.name )
-	    });
+        //logs the file information 
+        console.log("files", JSON.stringify(files));
+        console.log("fields", JSON.stringify(fields));
+      //  console.log("11",this.uplaodDir)
+  //       console.log( files.upload.path, "/tmp/" + files.upload.name )
+  //       fs.readFile(files.upload.path + '.' + fields.format, function (err, data) {
+	 //    if (err) {
+	 //        res.end('Error: ' + err);
+	 //    } else {
+	 //        res.end(data);
+	 //    }
+		// });
+    });
 
 	form.on('progress', function(bytesReceived, bytesExpected) 
 	{
@@ -467,11 +475,10 @@ app.post('/add', function(req, res) {
 		console.log("-->ERROR<--");
 		console.error(err);
 	});
-	console.log("22",this.uplaodDir)
 	form.on('end', function(error, fields, files) {
 		//console.log("end", this.openedFiles[0].path);
-		console.log( files.upload.path, "/tmp/" + files.upload.name )
-		console.log(this.uplaodDir)
+		// console.log( files.upload.path, "/tmp/" + files.upload.name )
+		// console.log(this.uplaodDir)
 		console.log(fields)
 		console.log(files)
 		 var temp_path = this.openedFiles[0].path;
@@ -503,19 +510,26 @@ app.post('/add', function(req, res) {
 		  	console.log('end',data);
 
 		});*/
+		var urlImg="";
+		var stream = cloudinary.uploader.upload_stream(function(result) {
+		 console.log(result) 
+		 urlImg=result.url;
+		});
+		var file_reader = fs.createReadStream(temp_path).pipe(stream)
 
 
-		cloudinary.uploader.upload(file_name,function(result) { console.log(result) });
+		// cloudinary.uploader.upload(file_name,function(result) { console.log(result) });
 		// var file_reader = fs.createReadStream('file_name').pipe(stream)
 
 
-		/*
+		
 
 		  MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
 		  	if (err) {
 		  		res.json({status:0})
 		  		return ;
 		  	} else {
+		  		console.log("######",req.body)
 		  		var tripper_collection = db.collection('tripper_playlist');
 		  		var nameTrip = req.body.nameTrip;
 		  		var des = req.body.des;
@@ -554,6 +568,7 @@ app.post('/add', function(req, res) {
 		  				trip_isPrivate : privte,
 		  				tripSites : sites,
 		  				area : areaLocition,
+		  				imageUrl:urlImg,
 		  				trip_filter : tripFilter
 		  			}, function(err, docs) {
 		  				if (err) {
@@ -572,7 +587,7 @@ app.post('/add', function(req, res) {
 		  		}
 
 
-		  	});*/
+		  	});
 });
 
 });
