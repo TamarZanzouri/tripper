@@ -112,6 +112,10 @@ $(document).ready(function(){
 			updateTripFromCharchters(clickedCharachters);
 		}
 
+		$('.continue').click(function(){
+			updateTripFromCharchters(clickedCharachters);
+		});
+
 	});
 /*
     var options = { 
@@ -203,7 +207,7 @@ $(document).on('click','#submitComment', function(){
         },
         success: function(data) {
         	console.log("add comment success");
-
+        	console.log(data)
         }
     });
 
@@ -295,7 +299,7 @@ $(document).on('click','#mySchedule',function(){
 
 	$.ajax({
 		type: "post",
-        url: g_domain+"getUseSchedule",// where you wanna post
+        url: g_domain+"getUserSchedule",// where you wanna post
         data:  {email:User.email},
         dataType: "json",
         error: function(jqXHR, textStatus, errorMessage) {

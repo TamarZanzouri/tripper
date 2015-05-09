@@ -3,16 +3,18 @@ var path = require('path');
 var fs = require('fs');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
-var ObjectId = require('mongodb').ObjectID;
+ObjectId = require('mongodb').ObjectID;
 
 var multiparty = require('multiparty');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
 var formidable = require('formidable');
 
-var app = express();
+app = express();
 var userEmail;
 var cloudinary = require('cloudinary');
+var mongoose = require('mongoose');
+Schema = mongoose.Schema;
 
 cloudinary.config({ 
   cloud_name: 'dxgyixsmg', 
@@ -21,6 +23,8 @@ cloudinary.config({
   //cdn_subdomain: true
 });
 
+var sites;
+var mongopath = 'mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd';
 //app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(express.static(path.join(__dirname, 'node_modules/bower_components')));
@@ -37,409 +41,83 @@ app.use(bodyParser.urlencoded({extended: false}));
 // parse application/json 
 app.use(bodyParser.json());
 
+var usersWS = require('./users_ws'); 
+app.use(usersWS); 
+var tripsWS = require('./trips_ws'); 
+app.use(tripsWS); 
+
+//connection to mongo
+mongoose.connect(mongopath);
+
+db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error:'));
+
+db.once('open', function (callback) {
+  console.log("connected through mongoose");
+});
+
+db.on('disconnected', function()
+{
+  	console.log("you are disconnected, reconnecting");
+	mongoose.connect(mongopath);
+});
 
 app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	next();
 });
-
-// //view in data base
-// app.get('/', function(req, res) {
-// 	// Connect to the db
-// 	try{
-// 		MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
-// 			if (err) {
-// 				return console.dir(err);
-// 			} else {
-// 				var tripper_collection = db.collection('tripper_playlist');
-// 				tripper_collection.find( { trip_charachters:  { $elemMatch : { charachter: {$ne : ""} }}}, { trip_charachters: true, _id : false}).toArray(function (err, docs)
-// 				{ 
-// 				                // failure while connecting to sessions collection
-// 				                if (err) 
-// 				                {
-// 				                	console.log( err);
-
-// 				                	return;
-// 				                }
-
-// 				                else
-// 				                {
-// 				                	var tripperCharachters =[]
-// 				                	console.log( docs);
-// 				                	(docs).forEach(function(t){
-// 				                		(t.trip_charachters).forEach(function(tt){
-// 				                			tripperCharachters.push(tt)
-// 				                		})
-
-// 				                	})
-// 				                	console.log(docs);
-// 				                	res.render('index.ejs', {
-// 				                		title : 'Tripper',
-// 				                		character : tripperCharachters,
-// 				                		trips : docs
-// 				                	});
-// 				                	db.close();
-// 				                }
-// 				            });
-
-// 			}
-// 		});
-// }catch(err){
-// 	console.log("mongodb connection failed")
-// }
-// });
-
-// app.get('/sendSites/:sites?', function(req, res) {
-// 	sites = req.body.sites;
-// 	console.log(sites);
-// });
-
-
-app.post('/updateMySchedule', function(req, res) {
-	var user = req.body.userId;
-	var trip = req.body.trip;
-	console.log("update the schedule",trip)
-	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
-		if (err) {
-			return console.dir(err);
-		} else {
-			var user_collection = db.collection('users');
-			user_collection.findOne({email:user}, function(err, docs) {
-				if (err) {
-					console.log("found error inserting");
-					res.json({status:0})
-					db.close();
-					return console.error(err);
-				}
-				if (docs) {
-					console.log(docs)
-					if (docs.schedule){
-						var check=1
-					}
-					else {
-						docs.schedule={};
-					}
-					
-					docs.schedule=trip;
-
-					user_collection.update({email:user}, { $set: {schedule:docs.schedule}}, function(err, docs) {
-						if (err) {
-							console.log("found error inserting");
-							res.json({status:0})
-							db.close();
-							return console.error(err);
-						}
-						console.log(check);
-						res.json({status:1})
-					});
-					
-
-				}
-				else res.json({status:1})
-
-			});
-		}
-
-	});
-
-});
-
-//addComment
-
-app.post('/addComment', function(req, res) {
-	var user = req.body.user;
-	var trip_id = req.body.trip_id;
-	var comment = req.body.comment;
-	var objComment = user.name+":"+comment;
-	console.log(" update comment",comment);
-	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
-		if (err) {
-			return console.dir(err);
-		} else {
-			var trip_collection = db.collection('tripper_playlist');
-			trip_collection.findOne({ _id : new ObjectId(trip_id)},function (err, docs){
-				if (err) {
-					console.log("found error inserting");
-					res.json({status:0})
-					db.close();
-					return console.error(err);
-				}
-				if (docs) {
-					console.log(docs)
-					var check=0;
-					if (docs.comments)
-						{console.log(check);}
-					else {
-						docs.comments=[];
-					}
-					console.log(" update comment 2",objComment);
-					docs.comments.push(objComment);
-					console.log(docs.comments)
-					trip_collection.update({_id : new ObjectId(trip_id)}, { $set: {comments:docs.comments}}, function(err, docs) {
-						if (err) {
-							console.log("found error inserting");
-							res.json({status:0})
-							db.close();
-							return console.error(err);
-						}
-						console.log(docs)
-						res.json({status:1})
-					});
-				}
-				else res.json({status:1});
-				
-
-			});
-		}
-
-	});
-
-});
-
-
-app.post('/updateFavoirte', function(req, res) {
-	var user = req.body.userId;
-	var trip = req.body.trip;
-	console.log(" update trip",trip)
-	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
-		if (err) {
-			return console.dir(err);
-		} else {
-			var user_collection = db.collection('users');
-			user_collection.findOne({email:user}, function(err, docs) {
-				if (err) {
-					console.log("found error inserting");
-					res.json({status:0})
-					db.close();
-					return console.error(err);
-				}
-				if (docs) {
-					console.log(docs)
-					var check=0;
-					if (docs.favorites)
-						(docs.favorites).forEach(function(val){
-							if(val._id==trip._id)
-								check=1;
-						//console.log('haim',val)
-					})
-					else {
-						docs.favorites=[];
-					}
-					if (check!=1 ) {
-						docs.favorites.push(trip);
-
-						user_collection.update({email:user}, { $set: {favorites:docs.favorites}}, function(err, docs) {
-							if (err) {
-								console.log("found error inserting");
-								res.json({status:0})
-								db.close();
-								return console.error(err);
-							}
-							res.json({status:1})
-						});
-					}
-					else res.json({status:1});
-				}
-				else res.json({status:1})
-
-			});
-		}
-
-	});
-
-});
-
-app.post('/registerUser', function(req, res) {
-	var user = req.body;
-
-	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd",{native_parser:true}, function(err, db) {
-		if (err) {
-			return console.dir(err);
-		} else {
-			var user_collection = db.collection('users');
-			console.log("try to update " , user.name);
-			user_collection.update({email:user.email},{$set:user},{upsert:true}, function(err, docs) {
-				if (err) {
-					console.log("found error inserting");
-					res.json({status:0})
-					db.close();
-					return console.error(err);
-				}
-				res.json({status:1})
-				db.close();
-				return;
-			});
-		}
-
-	});
-	
-});
-
-
-app.post('/getTripById', function(req, res) {
-	var tripId = req.body.id;
-	console.log(tripId);
-
-	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
-		if (err) {
-			return console.dir(err);
-		} else {
-			var tripper_collection = db.collection('tripper_playlist');
-			tripper_collection.findOne({ _id : new ObjectId(tripId) },function (err, docs)
-			{ 
-                // failure while connecting to sessions collection
-                if (err) 
-                {
-                	console.log( err);
-
-                	return;
-                }
-                
-                else
-                {
-                	console.log(docs);
-                	res.json(docs);
-                	db.close();
-                }
-            });
-
-		}
-
-	});
-});
-
-app.post('/getUseSchedule', function(req, res) {
-	var userEmail = req.body.email;
-	console.log(userEmail);
-
-	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
-		if (err) {
-			return console.dir(err);
-		} else {
-			var users_collection = db.collection('users');
-			users_collection.findOne({ email : userEmail },{_id:false, schedule:true},function (err, docs)
-			{ 
-                // failure while connecting to sessions collection
-                if (err) 
-                {
-                	console.log( err);
-
-                	return;
-                }
-                
-                else
-                {
-                	console.log(docs);
-                	res.json(docs)
-                	db.close();
-                }
-            });
-
-		}
-
-	});
-});
-
-
-app.post('/getUserFavorites', function(req, res) {
-	var userEmail = req.body.email;
-	console.log(userEmail);
-
-	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
-		if (err) {
-			return console.dir(err);
-		} else {
-			var users_collection = db.collection('users');
-			users_collection.findOne({ email : userEmail },{_id:false,favorites:true},function (err, docs)
-			{ 
-                // failure while connecting to sessions collection
-                if (err) 
-                {
-                	console.log( err);
-
-                	return;
-                }
-                
-                else
-                {
-                	console.log(docs);
-                	res.json(docs)
-                	db.close();
-                }
-            });
-
-		}
-
-	});
-});
-
-
-app.get('/findTripByUser/:email?', function(req, res) {
-	userEmail = req.query.email;
-	console.log(userEmail);
-
-	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
-		if (err) {
-			return console.dir(err);
-		} else {
-			var tripper_collection = db.collection('tripper_playlist');
-			tripper_collection.find({ email : userEmail },{_id:true, trip_name:true, address:true }).toArray(function (err, docs)
-			{ 
-                // failure while connecting to sessions collection
-                if (err) 
-                {
-                	console.log( err);
-
-                	return;
-                }
-                
-                else
-                {
-                	console.log(docs);
-                	res.json(docs)
-                	db.close();
-                }
-            });
-
-		}
-
-	});
-});
-
-app.get('/filterByChars/:chars?', function(req, res) {
-	var charachters = req.query.chars;
-	// req.body.chars will get post request without chars 
-	console.log(charachters)
+//view in data base
+app.get('/', function(req, res) {
+	console.log("in my function");
 	// Connect to the db
-	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
-		if (err) {
-			return console.dir(err);
-		} else {
-			var tripper_collection = db.collection('tripper_playlist');
-			tripper_collection.find( { $and: [ {trip_charachters:  { $elemMatch : {"$in" : [charachters[0], charachters[1]]} }}, { "trip_isPrivate" : false }] }).toArray(function (err, docs)
-			{ 
-                // failure while connecting to sessions collection
-                if (err) 
-                {
-                	console.log( err);
+	try{
+		MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
+			if (err) {
+				return console.dir(err);
+			} else {
+				var tripper_collection = db.collection('tripper_playlist');
+				tripper_collection.find( { trip_charachters:  { $elemMatch : { charachter: {$ne : ""} }}}, { trip_charachters: true, _id : false}).toArray(function (err, docs)
+				{ 
+				                // failure while connecting to sessions collection
+				                if (err) 
+				                {
+				                	console.log( err);
 
-                	return;
-                }
-                
-                else
-                {
-                	console.log(docs);
-                	tripsAfterCharachters = docs;
-                	res.json(docs)
-                	db.close();
-                }
-            });
+				                	return;
+				                }
 
-		}
+				                else
+				                {
+				                	var tripperCharachters =[]
+				                	console.log(docs);
+				                	(docs).forEach(function(t){
+				                		(t.trip_charachters).forEach(function(tt){
+				                			tripperCharachters.push(tt)
+				                		})
 
-	});
-	
+				                	})
+				                	console.log(docs);
+				                	// res.render('index.ejs', {
+				                	// 	title : 'Tripper',
+				                	// 	character : tripperCharachters,
+				                	// 	trips : docs
+				                	// });
+				                	// db.close();
+				                }
+				            });
+
+			}
+		});
+}catch(err){
+	console.log("mongodb connection failed")
+}
+});
+
+app.get('/sendSites/:sites?', function(req, res) {
+	sites = req.query.sites;
+	console.log(sites);
 });
 
 app.post('/add', function(req, res) {
@@ -453,15 +131,7 @@ app.post('/add', function(req, res) {
         //logs the file information 
         console.log("files", JSON.stringify(files));
         console.log("fields", JSON.stringify(fields));
-      //  console.log("11",this.uplaodDir)
-  //       console.log( files.upload.path, "/tmp/" + files.upload.name )
-  //       fs.readFile(files.upload.path + '.' + fields.format, function (err, data) {
-	 //    if (err) {
-	 //        res.end('Error: ' + err);
-	 //    } else {
-	 //        res.end(data);
-	 //    }
-		// });
+
     });
 
 	form.on('progress', function(bytesReceived, bytesExpected) 
@@ -476,9 +146,7 @@ app.post('/add', function(req, res) {
 		console.error(err);
 	});
 	form.on('end', function(error, fields, files) {
-		//console.log("end", this.openedFiles[0].path);
-		// console.log( files.upload.path, "/tmp/" + files.upload.name )
-		// console.log(this.uplaodDir)
+	
 		console.log(fields)
 		console.log(files)
 		 var temp_path = this.openedFiles[0].path;
@@ -487,29 +155,7 @@ app.post('/add', function(req, res) {
       /* The file name of the uploaded file */
       var file_name = this.openedFiles[0].name;
       console.log("file_name: " + file_name);
-		/*
-		  // This line opens the file as a readable stream
-		var readStream = fs.createReadStream(filename);
-		var data='';
-		  // This will wait until we know the readable stream is actually valid before piping
-		readStream.on('open', function (d) {
-		    // This just pipes the read stream to the response object (which goes to the client)
 
-		});
-		readStream.on('data', function(chunk) {
-			//console.log(chunk)
-			data+= chunk;
-		});
-		  // This catches any errors that happen while creating the readable stream (usually invalid names)
-		readStream.on('error', function(err) {
-		  	console.log("error creating chuncks");
-		  	res.json({status:0,err:err})
-		  	return;
-		  });
-		readStream.on('end', function() {
-		  	console.log('end',data);
-
-		});*/
 		var urlImg="";
 		var stream = cloudinary.uploader.upload_stream(function(result) {
 		 console.log(result) 
@@ -588,7 +234,10 @@ app.post('/add', function(req, res) {
 
 
 		  	});
-});
+	});
+
+	
+
 
 });
 
@@ -605,45 +254,6 @@ app.get('indexMobile', function(req, res) {
 
 });
 
-app.get('/', function(req,res){
-	res.sendFile(__dirname+ '/index.html');
-});
-/*
-app.post('/getImage', function(req,res){
-
-	trip_id='554c635a3232b6c01a0d4cde';
-	MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
-		if (err) {
-			res.json({status:0})
-			return ;
-		} else 
-		{
-			var tripper_collection = db.collection('tripper_playlist');
-			tripper_collection.findOne({ _id : new ObjectId(trip_id) },function (err, doc)
-			{ 
-	                // failure while connecting to sessions collection
-	                if (err) 
-	                {
-	                	console.log( err);
-	                	res.json({status:0,err:err})
-	                	db.close();
-	                	return;
-	                }
-	                
-	                else
-	                {
-	                	res.json({status:1,doc:doc})
-	                	console.log(doc)
-	                	db.close();
-	                	return ;
-	                }
-	            });
-	        };
-
-
-	    });
-});
-*/
 app.get('/*', function(req, res) {
 
 	res.send(404, "aaaaaaaa")
