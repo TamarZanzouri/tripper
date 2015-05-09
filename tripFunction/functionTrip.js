@@ -80,17 +80,17 @@ $(document).ready(function(){
 
 		} else {
 			$("#filteroptions").addClass('hidden');
-			if (filter.length > 0){
+			filter = [];
+				$('input[type="checkbox"]').each(function(value) {
+					if($(this).is(':checked')){
+						console.log($(this).attr('id'));
+						filter.push($(this).attr('id'));
+					}
+					else return;
+				});
+				console.log(filter);
 				updateResultByFilter();
-			} 
-			else return;
 		}
-	});
-
-	$('input[type="checkbox"]').click(function(){
-		// if($(this).is(':checked'))
-		filter.push($(this).attr('id'));
-		console.log(filter);
 	});
 
 	var count=1;
@@ -371,7 +371,7 @@ function updateResultByFilter(){
 	var tripsAfterFilter = [];
 	var donsentContainFlag = false;
 
-	$.each(tripsAfterCharachters, function(index,trip){
+	$.each(g_ListTrip, function(index,trip){
 		$.each(filter, function(index,val){
 
 			if(!(_.contains(trip.trip_filter, val))){								
@@ -388,7 +388,8 @@ function updateResultByFilter(){
 		donsentContainFlag = false;
 	})
 	console.log(tripsAfterFilter);
-	displayListTrip(tripsAfterFilter);
+	g_ListTrip = tripsAfterFilter;
+	displayListTrip(g_ListTrip);
 
 }
 
