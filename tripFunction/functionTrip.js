@@ -545,11 +545,11 @@ function signinCallback(authResult) {
 	function updateTripFromCharchters(tc){
 
 		$.ajax({
-			type: "get",
+			type: "post",
         url: g_domain+"filterByChars",// where you wanna post
         data:  {chars:tc},
         dataType: "json",
-        contentType: "application/json",
+        //contentType: "application/json",
         error: function(jqXHR, textStatus, errorMessage) {
         	console.log(errorMessage)
 
@@ -557,6 +557,7 @@ function signinCallback(authResult) {
         },
         success: function(data) {
         	tripsAfterCharachters = data;
+        	g_ListTrip = data;
         	displayListTrip(data);
         	console.log("listResultTrip")
         	moveTofilterPage();	      

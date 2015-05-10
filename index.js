@@ -14,7 +14,7 @@ app = express();
 var userEmail;
 var cloudinary = require('cloudinary');
 var mongoose = require('mongoose');
-Schema = mongoose.Schema;
+
 
 cloudinary.config({ 
   cloud_name: 'dxgyixsmg', 
@@ -41,26 +41,34 @@ app.use(bodyParser.urlencoded({extended: false}));
 // parse application/json 
 app.use(bodyParser.json());
 
-var usersWS = require('./users_ws'); 
-app.use(usersWS); 
-var tripsWS = require('./trips_ws'); 
-app.use(tripsWS); 
+
+
+var options = {
+	db: { native_parser : true }
+  }
 
 //connection to mongo
-mongoose.connect(mongopath);
+mongoose.connect(mongopath,options);
 
 db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
-db.once('open', function (callback) {
+db.on('open', function () {
   console.log("connected through mongoose");
 });
 
 db.on('disconnected', function()
 {
   	console.log("you are disconnected, reconnecting");
-	mongoose.connect(mongopath);
+	mongoose.connect(mongopath,options);
+});
+
+//load all files in models dir
+
+
+process.on('uncaughtException', function(err) {
+  console.log('Caught exception: ' + err);
 });
 
 app.use(function(req, res, next) {
@@ -68,6 +76,9 @@ app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	next();
 });
+
+
+
 //view in data base
 app.get('/', function(req, res) {
 	console.log("in my function");
@@ -243,6 +254,10 @@ app.post('/add', function(req, res) {
 
 });
 
+var usersWS = require('./users_ws'); 
+app.use(usersWS); 
+var tripsWS = require('./trips_ws'); 
+app.use(tripsWS); 
 
 
 
@@ -265,5 +280,8 @@ app.get('/*', function(req, res) {
 
 var port = process.env.PORT || 1337;
 app.listen(port, function() {
+	// new Playlist().save(function(err,result){
+	// 	console.log(err,result)
+	// })
 	console.log("port " + port);
 });

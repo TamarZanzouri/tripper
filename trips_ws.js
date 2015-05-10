@@ -1,16 +1,18 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/filterByChars/:chars?', function(req, res) {
+router.post('/filterByChars', function(req, res) {
 	try{
-		var charachters = req.query.chars;
+		var charachters = req.body.chars;
 		console.log("trip charachters " + charachters)
 	}
 	catch(err){
 		console.log("cant get charachters")
 	}
-	var tripper_collection = db.model('tripper_playlist', new Schema({ url: String, text: String, id: Number}), 'tripper_playlist');
-	tripper_collection.find( {$and: [ {trip_charachters:  { $elemMatch : {"$in" : [charachters[0], charachters[1]]} }}, { "trip_isPrivate" : false }] },function (err, docs)
+ 	
+	// db.model('tripper_playlist').findOne({ email : user.email }, function(err, result){
+	db.model('tripper_playlists').find( {$and: [ {trip_charachters: { $in : [charachters[0], charachters[1] ] } }, { trip_isPrivate : false } ] },
+		function (err, docs)
 	{ 
                 // failure while connecting to sessions collection
                 if (err) 
@@ -42,8 +44,8 @@ router.post('/addComment', function(req, res) {
 	catch(err){
 		console.log("cant add comment")
 	}
-	var tripper_collection = db.model('tripper_playlist', new Schema({ url: String, text: String, id: Number}), 'tripper_playlist');
-	tripper_collection.findByIdAndUpdate(trip_id, { $push: {comments:objComment}}, function(err, docs) {
+	// var tripper_collection = db.model('tripper_playlist')
+	db.model('tripper_playlists').findByIdAndUpdate(trip_id, { $push: {comments:objComment}}, function(err, docs) {
 		if (err) {
 			console.log("found error inserting");
 			res.json({status:0})
@@ -66,8 +68,8 @@ app.post('/getTripById', function(req, res) {
 	catch(err){
 		console.log("error getting trip id " + err)
 	}
-			var tripper_collection = db.collection('tripper_playlist');
-			tripper_collection.findOne({ _id : new ObjectId(tripId) },function (err, docs)
+			// var tripper_collection = db.collection('tripper_playlist');
+	db.model('tripper_playlists').findOne({ _id : new ObjectId(tripId) },function (err, docs)
 			{ 
                 // failure while connecting to sessions collection
                 if (err) 
@@ -94,8 +96,8 @@ app.get('/findTripByUser/:email?', function(req, res) {
 	catch(err){
 		console.log("couldent get user " + err);
 	}
-	var tripper_collection = db.model('tripper_playlist', new Schema({ url: String, text: String, id: Number}), 'tripper_playlist');
-			tripper_collection.find({ email : userEmail },{_id:true, trip_name:true, address:true }, function (err, docs)
+	// var tripper_collection = db.model('tripper_playlist', new Schema({ url: String, text: String, id: Number}), 'tripper_playlist');
+	db.model('tripper_playlists').find({ email : userEmail },{_id:true, trip_name:true, address:true }, function (err, docs)
 			{ 
                 // failure while connecting to sessions collection
                 if (err) 
