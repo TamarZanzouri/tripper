@@ -341,14 +341,14 @@ function changedArea(){
 	// debugger;
 	var tripsAfterArea = [];
 	if($('#selectArea').val() === ""){
-		displayListTrip(tripsAfterCharachters);	
+		displayListTrip(g_ListTrip);	
 	}
 	else{
 		$('#resultTrip ul').empty();
-		for(i in tripsAfterCharachters){
+		for(i in g_ListTrip){
 			// debugger;
-			if($('#selectArea').val() === tripsAfterCharachters[i].area){
-				tripsAfterArea.push(tripsAfterCharachters[i]);	
+			if($('#selectArea').val() === g_ListTrip[i].area){
+				tripsAfterArea.push(g_ListTrip[i]);	
 			}
 		}
 		g_ListTrip = tripsAfterArea;
