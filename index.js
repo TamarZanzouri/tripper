@@ -65,7 +65,11 @@ db.on('disconnected', function()
 });
 
 //load all files in models dir
-
+//load all files in models dir
+fs.readdirSync(__dirname + '/models').forEach( function( fileName)
+{
+	if (~fileName.indexOf('.js')) require(__dirname + '/models/' + fileName);
+});
 
 process.on('uncaughtException', function(err) {
   console.log('Caught exception: ' + err);
