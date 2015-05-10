@@ -123,6 +123,9 @@ app.get('/sendSites/:sites?', function(req, res) {
 app.post('/add', function(req, res) {
 	//console.log(req.files,req.body)
 	//console.log("haim" + req.body.newTrip + " " + req.body.des);
+
+	var urlImg="";
+	var dataForm={};
 	var form = new formidable.IncomingForm();
 
 	form.parse(req, function(error, fields, files) 
@@ -131,7 +134,7 @@ app.post('/add', function(req, res) {
         //logs the file information 
         console.log("files", JSON.stringify(files));
         console.log("fields", JSON.stringify(fields));
-
+        dataForm=fields;
     });
 
 	form.on('progress', function(bytesReceived, bytesExpected) 
@@ -147,7 +150,7 @@ app.post('/add', function(req, res) {
 	});
 	form.on('end', function(error, fields, files) {
 	
-		console.log(fields)
+		console.log(this)
 		console.log(files)
 		 var temp_path = this.openedFiles[0].path;
       console.log("temp_path: " + temp_path);
@@ -156,7 +159,7 @@ app.post('/add', function(req, res) {
       var file_name = this.openedFiles[0].name;
       console.log("file_name: " + file_name);
 
-		var urlImg="";
+		
 		var stream = cloudinary.uploader.upload_stream(function(result) {
 		 console.log(result) 
 		 urlImg=result.url;
@@ -166,26 +169,26 @@ app.post('/add', function(req, res) {
 
 		// cloudinary.uploader.upload(file_name,function(result) { console.log(result) });
 		// var file_reader = fs.createReadStream('file_name').pipe(stream)
+	
 
-
-		
-
-		  MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
+	  MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
 		  	if (err) {
 		  		res.json({status:0})
 		  		return ;
 		  	} else {
 		  		console.log("######",req.body)
+		  		console.log("******",dataForm)
 		  		var tripper_collection = db.collection('tripper_playlist');
-		  		var nameTrip = req.body.nameTrip;
-		  		var des = req.body.des;
-		  		var location = req.body.locationTrip;
+		  		var nameTrip = dataForm.nameTrip;
+		  		var des = dataForm.des;
+		  		var location = dataForm.locationTrip;
 		  		var tripCharachters = [];
-		  		tripCharachters.push(req.body.firstcharachter);
-		  		tripCharachters.push(req.body.secondcharachter);
-		  		var sitesName = req.body.ingredients;
-		  		var loc= req.body.amount;
-		  		var sites=[];
+		  		tripCharachters.push(dataForm.firstcharachter);
+		  		tripCharachters.push(dataForm.secondcharachter);
+		  		var sitesName = dataForm.ingredients;
+		  		var loc= dataForm.amount;
+		  		var sites=JSON.parse(dataForm.sites);
+		  		var mapPoint=(dataForm.mapPoint)?JSON.parse(dataForm.mapPoint):'';
 		  		if(sitesName)
 		  			for (val in sitesName){
 		  				sites.push({sitesName:sitesName[val],loc:loc[val]});
@@ -194,17 +197,17 @@ app.post('/add', function(req, res) {
 		  			var areaLocition = req.body.area;
 		  			var tripFilter =[];
 		  			userEmail =req.body.email;
-		  			if(req.body.who_are_you_going_with)
-		  				(req.body.who_are_you_going_with).forEach(function(val){
+		  			if(dataForm.who_are_you_going_with)
+		  				(dataForm.who_are_you_going_with).forEach(function(val){
 		  					tripFilter.push(val);
 		  				});
 
-		  			if(req.body.trip_kind)
-		  				(req.body.trip_kind).forEach(function(val){
+		  			if(dataForm.trip_kind)
+		  				(dataForm.trip_kind).forEach(function(val){
 		  					tripFilter.push(val);
 		  				});
 
-		  			tripFilter.push(req.body.difficulty);
+		  			tripFilter.push(dataForm.difficulty);
 		  			tripper_collection.insert({
 		  				trip_name : nameTrip,
 		  				trip_description : des,
@@ -215,6 +218,7 @@ app.post('/add', function(req, res) {
 		  				tripSites : sites,
 		  				area : areaLocition,
 		  				imageUrl:urlImg,
+		  				mapPoint:mapPoint,
 		  				trip_filter : tripFilter
 		  			}, function(err, docs) {
 		  				if (err) {
@@ -234,10 +238,8 @@ app.post('/add', function(req, res) {
 
 
 		  	});
-	});
-
 	
-
+}); 
 
 });
 

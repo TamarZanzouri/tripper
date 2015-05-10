@@ -411,11 +411,14 @@ $(document).on('submit','#addform',function(e){
 	}
 	console.log(comms);
 	if (comms != 0)
-		form.append("sites", comms);	
-	else form.append("sites", []);	
+		form.append("sites", JSON.stringify(comms));	
+	else form.append("sites", JSON.stringify([]));	
 //console.log($(this))
 	form.append("email",User.email);
-	form.append("mapPoint",mapPoint)
+	form.append("mapPoint",JSON.stringify(mapPoint));
+
+	// form.append("mapPoint.");
+	console.log(form)
 	$.ajax({
 		type: "post",
         url: g_domain+"add",// where you wanna post
@@ -670,5 +673,8 @@ function favoriteDisplayFullTrip(data){
 }
 $(document).on('click','#editFavorite',function(){
 	moveToAddPage();
-	$('#trip_name').append(g_trip.trip_name);
+	$('#trip_name').val(g_trip.trip_name);
+	$('#description').val(g_trip.trip_description);
+	$('#trip_address').val(g_trip.address);
+
 });
