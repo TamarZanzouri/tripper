@@ -7,7 +7,7 @@ var filter = [];
 var clickedCharachters = [];
 var tripsAfterCharachters = [];
 var tripCharacters = ["סטלנים", "עצלנים", "אקסטרים", "משפחות", "רגוע" , "ספורטיבי" , "רומנטי", "עירוניים", "בע\"ח" , "כלבים"];
-
+var date={};
 
 $(document).ready(function(){
 
@@ -26,7 +26,7 @@ $(document).ready(function(){
     	mapPoint.lat=e.latLng.lat();
     	mapPoint.lng=e.latLng.lng();
     });
-
+    initDatepicker();
 	//adding site!
 	var max_fields = 20;
 	// debugger;
@@ -117,22 +117,46 @@ $(document).ready(function(){
 		});
 
 	});
-/*
-    var options = { 
-            target:   '#output',   // target element(s) to be updated with server response 
-            beforeSubmit:  beforeSubmit,  // pre-submit callback 
-            resetForm: true        // reset the form after successful submit 
-        }; 
-        
-     $('#MyUploadForm').submit(function() { 
-            $(this).ajaxSubmit(options);  //Ajax Submit form            
-            // return false to prevent standard browser submit and page navigation 
-            return false; 
-        }); */
 
-
+	$("#private_trip").click(function(){
+		console.log("privateTrip")
+		$('#isPrivate').append('<label id="addUsers">הוסף משתמשים אליהם יפורסם הטיול:<br><textarea placeholder="לדוגמא : haimyyy@gmail.com,\nzanzuoritamar@gmail.com" type="text" name="userEmail" >');
+	})
+	$('#public_trip').click(function(){
+		$('#addUsers').hide();
+	})
 });
+//********** date *************
+function initDatepicker(){
+	var nowTemp = new Date();
+	var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+	 
+	var checkin = $('#dpd1').datepicker({
+	  onRender: function(date) {
+	    return date.valueOf() < now.valueOf() ? 'disabled' : '';
 
+	  }
+	}).on('changeDate', function(ev) {
+	  if (ev.date.valueOf() > checkout.date.valueOf()) {
+	    var newDate = new Date(ev.date)
+	    newDate.setDate(newDate.getDate() + 1);
+	    checkout.setValue(newDate);
+	  }
+	  checkin.hide();
+	  $('#dpd2')[0].focus();
+	}).data('datepicker');
+	var checkout = $('#dpd2').datepicker({
+	  onRender: function(date) {
+	    return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+	  }
+	}).on('changeDate', function(ev) {
+	  checkout.hide();
+	  date.checkin=checkin.viewDate;
+	  date.checkout=checkout.viewDate;
+	}).data('datepicker');
+
+
+}
 function showMyImage(fileInput) {
 	var files = fileInput.files;
 	for (var i = 0; i < files.length; i++) {           
@@ -152,7 +176,9 @@ function showMyImage(fileInput) {
 		reader.readAsDataURL(file);
 	}    
 }
+$(document).on('click','.saveSchedule',function(){
 
+});
 $(document).on('click','.listResultTrip',function(){
 	
 
@@ -257,42 +283,7 @@ $(document).on('click' ,'#updateSchedule',function(){
         });
 
 });
-function chooseDate(){
-	$('.Trip').append("<input type='text' data-role='date' data-inline='true' id='calander'>");
-	$('.Trip').append('<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy"><input class="span2" size="16" type="text" value="12-02-2012"><span class="add-on"><i class="icon-th"></i></span></div>');
-	$('.datepicker').datepicker();
 
-	var nowTemp = new Date();
-	var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
-
-	var checkin = $('#dpd1').datepicker({
-		onRender: function(date) {
-			return date.valueOf() < now.valueOf() ? 'disabled' : '';
-		}
-	}).on('changeDate', function(ev) {
-		if (ev.date.valueOf() > checkout.date.valueOf()) {
-			var newDate = new Date(ev.date)
-			newDate.setDate(newDate.getDate() + 1);
-			checkout.setValue(newDate);
-		}
-		checkin.hide();
-		$('#dpd2')[0].focus();
-	}).data('datepicker');
-	var checkout = $('#dpd2').datepicker({
-		onRender: function(date) {
-			return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
-		}
-	}).on('changeDate', function(ev) {
-		checkout.hide();
-	}).data('datepicker');
-}
-
-/*
- $(function() {
-    $( "#datepicker" ).datepicker();
-  });
-*/
-//move to Schedule page !!! 
 
 $(document).on('click','#mySchedule',function(){
 	
@@ -431,7 +422,9 @@ $(document).on('submit','#addform',function(e){
         	console.log(errorMessage)
         },
         success: function(data) {
-        	console.log(data)	      
+        	console.log(data)
+        	$('#addform').empty();
+        	moveToHomePage();	      
       } 
   });
 })
@@ -465,7 +458,8 @@ function validateMyForm(obj){
         	console.log(errorMessage)
         },
         success: function(data) {
-        	console.log(data)	      
+        	console.log(data)	
+
       } 
   });
 	return false;
@@ -502,6 +496,12 @@ function moveToFavorite() {
 }
 function moveToSchedule() {
 	$.mobile.changePage("#myPageSchedule", {
+		transition : "none",
+		changeHash : true
+	});
+}
+function moveToHomePage() {
+	$.mobile.changePage("#homePage", {
 		transition : "none",
 		changeHash : true
 	});
@@ -677,5 +677,22 @@ $(document).on('click','#editFavorite',function(){
 	$('#trip_name').val(g_trip.trip_name);
 	$('#description').val(g_trip.trip_description);
 	$('#trip_address').val(g_trip.address);
+	switch(g_trip.area) {
+	    case 'tel-aviv':
+	        $('#radio-choice-1').click();
+	        break;
+	    case 'south':
+	         $('#radio-choice-2').click();
+	        break;
+		case 'north':
+			 $('#radio-choice-3').click();
+	        break;
+	}
+	$('#firstcharachter').val(g_trip.trip_charachters[0]).change();
+	$('#secondcharachter').val(g_trip.trip_charachters[1]).change();
+	 $('.firstIngredient').val(g_trip.tripSites[0].siteName)
+	  $('.firstAmount').val(g_trip.tripSites[0].location)
+	// $.each(g_trip.sites,function(index,val){
 
+	// });
 });

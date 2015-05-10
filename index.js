@@ -77,7 +77,7 @@ app.get('/', function(req, res) {
 			if (err) {
 				return console.dir(err);
 			} else {
-				var tripper_collection = db.collection('tripper_playlist');
+				var tripper_collection = db.collection('tripper_playlists');
 				tripper_collection.find( { trip_charachters:  { $elemMatch : { charachter: {$ne : ""} }}}, { trip_charachters: true, _id : false}).toArray(function (err, docs)
 				{ 
 				                // failure while connecting to sessions collection
@@ -178,7 +178,7 @@ app.post('/add', function(req, res) {
 		  	} else {
 		  		console.log("######",req.body)
 		  		console.log("******",dataForm)
-		  		var tripper_collection = db.collection('tripper_playlist');
+		  		var tripper_collection = db.collection('tripper_playlists');
 		  		var nameTrip = dataForm.nameTrip;
 		  		var des = dataForm.des;
 		  		var location = dataForm.locationTrip;

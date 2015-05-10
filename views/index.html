@@ -238,11 +238,11 @@
 						<fieldset data-role="controlgroup" data-type="horizontal">
 							<legend>עם מי הולכים לטייל?</legend>
 							<input type="checkbox" name="who_are_you_going_with[]" value="trip_with_animals" id="trip_with_animals" class="custom" />
-							<label for="trip_with_animals">בע"ח</label>
+							<label for="trip_with_animals"  id="trip_with_animalsL">בע"ח</label>
 							<input type="checkbox" name="who_are_you_going_with[]" value="trip_with_road" id="trip_with_road" class="custom" />
-							<label for="trip_with_road">מסלול סלול לאנשים עם מוגבליות או עגלות לתינוקות</label>
+							<label for="trip_with_road"  id="trip_with_road">מסלול סלול לאנשים עם מוגבליות או עגלות לתינוקות</label>
 							<input type="checkbox" name="who_are_you_going_with[]" value="trip_for_children"  id="trip_for_children" class="custom" />
-							<label for="trip_for_children">מותאם לילדים</label>
+							<label for="trip_for_children" id="trip_for_children">מותאם לילדים</label>
 						</fieldset>
 					</div>
 					<div data-role="fieldcontain">
@@ -273,7 +273,7 @@
 							<label for="hard_trip">קשה</label>
 						</fieldset>
 					</div>	
-					<div data-role="fieldcontain">
+					<div data-role="fieldcontain" id="isPrivate">
 						<fieldset data-role="controlgroup" data-type="horizontal" data-role="fieldcontain">
 							<!-- <legend>בחר רמת קושי</legend> -->
 							<input type="radio" name="isTripPrivate" id="public_trip" value="false" checked="checked" />
@@ -341,17 +341,19 @@
 			<div data-role="content" class="ui-content" id="content">
 				
 
-				<label for="date">Date Input:</label>
-				<input type="date" name="date" id="date" value=""  />
-
-				<!--
-				<div class="input-append date" id="dp3" data-date="12-02-2012" data-date-format="dd-mm-yyyy">
-				  <input class="span2" size="16" type="text" value="12-02-2012">
-				  <span class="add-on"><i class="icon-th"></i></span>
-				</div>	
-				<input type="text" data-role="date">
-				<input type="text" data-role="date" data-inline="true">
-				<input type='text' id='datepicker'>-->
+				<div class="well">
+				    <div class="row">
+				        <div class="col-xs-6">
+				            <label class="control-label" for="dpd1">Check in: </label>
+				            <input class="form-control" type="text" id="dpd1" />
+				        </div>
+				        <div class="col-xs-6">
+				            <label class="control-label" for="dpd2">Check out: </label>
+				            <input class="form-control" type="text" id="dpd2" />
+				        </div>
+				    </div>
+				</div>
+				<a href="#" class="saveSchedule">דכון התאריכים בטיול</a>
 				<section class="Trip">
 				</section>
 				<div id="panel">
