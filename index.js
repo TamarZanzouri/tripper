@@ -208,10 +208,12 @@ app.post('/add', function(req, res) {
 		  			for (val in sitesName){
 		  				sites.push({sitesName:sitesName[val],loc:loc[val]});
 		  			}
-		  			var privte = req.body.isTripPrivate;
-		  			var areaLocition = req.body.area;
+		  			var privte = dataForm.isTripPrivate;
+		  			var areaLocition = dataForm.area;
 		  			var tripFilter =[];
-		  			userEmail =req.body.email;
+		  			userEmail =dataForm.email;
+		  			var shareEmail=dataForm.shareEmail;
+		  			shareEmail=shareEmail.split(" ");
 		  			if(dataForm.who_are_you_going_with)
 		  				(dataForm.who_are_you_going_with).forEach(function(val){
 		  					tripFilter.push(val);
@@ -228,6 +230,7 @@ app.post('/add', function(req, res) {
 		  				trip_description : des,
 		  				address : location,
 		  				email : userEmail,
+		  				shareEmail:shareEmail,
 		  				trip_charachters : tripCharachters,
 		  				trip_isPrivate : privte,
 		  				tripSites : sites,

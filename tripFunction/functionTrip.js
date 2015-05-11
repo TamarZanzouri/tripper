@@ -120,7 +120,8 @@ $(document).ready(function(){
 
 	$("#private_trip").click(function(){
 		console.log("privateTrip")
-		$('#isPrivate').append('<label id="addUsers">הוסף משתמשים אליהם יפורסם הטיול:<br><textarea placeholder="לדוגמא : haimyyy@gmail.com,\nzanzuoritamar@gmail.com" type="text" name="userEmail" >');
+		$('#isPrivate').append('<label id="addUsers">הוסף משתמשים אליהם יפורסם הטיול:<br><textarea placeholder="לדוגמא : haimyyy@gmail.com,\nzanzuoritamar@gmail.com" type="text" id="shareEmail" name="shareEmail" >');
+		
 	})
 	$('#public_trip').click(function(){
 		$('#addUsers').hide();
@@ -261,10 +262,29 @@ $(document).on('click' ,'#favorite',function(){
         }
     });
 });
+//#######wait fot tamar
+$(document).on('click' ,'.saveSchedule',function(){
 
+	$.ajax({
+		type: "post",
+        url: g_domain+"saveTimeSchedule",// where you wanna post
+        data:  {trip: g_trip
+        	,userId:User.email,
+        	time:date},
+        	dataType: "json",
+        	error: function(jqXHR, textStatus, errorMessage) {
+        		console.log(errorMessage)
+
+
+        	},
+        	success: function(data) {
+        		console.log("update schedule success");
+        	}
+        });
+
+});
 
 $(document).on('click' ,'#updateSchedule',function(){
-	chooseDate();
 
 	$.ajax({
 		type: "post",
@@ -408,7 +428,6 @@ $(document).on('submit','#addform',function(e){
 //console.log($(this))
 	form.append("email",User.email);
 	form.append("mapPoint",JSON.stringify(mapPoint));
-
 	// form.append("mapPoint.");
 	console.log(form)
 	$.ajax({
@@ -423,7 +442,6 @@ $(document).on('submit','#addform',function(e){
         },
         success: function(data) {
         	console.log(data)
-        	$('#addform').empty();
         	moveToHomePage();	      
       } 
   });
