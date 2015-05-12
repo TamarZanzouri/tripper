@@ -199,10 +199,18 @@ app.post('/add', function(req, res) {
 		  			for (val in sitesName){
 		  				sites.push({sitesName:sitesName[val],loc:loc[val]});
 		  			}
+
 		  			playlistToAdd.trip_isPrivate = dataForm.isTripPrivate;
 		  			playlistToAdd.area = dataForm.area;
 		  			var tripFilter =[];
 		  			playlistToAdd.email =dataForm.email;
+
+		  			var privte = dataForm.isTripPrivate;
+		  			var areaLocition = dataForm.area;
+		  			var tripFilter =[];
+		  			userEmail =dataForm.email;
+		  			var shareEmail=dataForm.shareEmail;
+		  			shareEmail=shareEmail.split(" ");
 		  			if(dataForm.who_are_you_going_with)
 		  				(dataForm.who_are_you_going_with).forEach(function(val){
 		  					tripFilter.push(val);
@@ -214,6 +222,7 @@ app.post('/add', function(req, res) {
 		  				});
 
 		  			tripFilter.push(dataForm.difficulty);
+
 		  			console.log("filters enterd " + tripFilter)
 		  			playlistToAdd.trip_filter = tripFilter;
 		  			playlistToAdd.tripSites = sites;
@@ -233,7 +242,6 @@ app.post('/add', function(req, res) {
 		  					return ;
 		  				}
 		  			});
-
 
 		  	});
 	

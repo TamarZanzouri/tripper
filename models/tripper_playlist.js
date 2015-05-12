@@ -13,6 +13,7 @@ var playlistSchema = new Schema(
 	comments : { type : Array, default : []},
 	imageUrl : { type : String, default : ''},
 	trip_filter : { type : Array, default : [] },
+	shareEmail : { type : Array, default : [] },
 	tripSites : [ {
 					siteName : { type : String, default : ''},
 					location : { type : String, default : ''}
