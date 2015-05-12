@@ -8,10 +8,12 @@ var clickedCharachters = [];
 var tripsAfterCharachters = [];
 var tripCharacters = ["סטלנים", "עצלנים", "אקסטרים", "משפחות", "רגוע" , "ספורטיבי" , "רומנטי", "עירוניים", "בע\"ח" , "כלבים"];
 var date={};
+var point1={},point2={} ;
+     point2.lng = 34;
+     point2.lat = 32;
 
 $(document).ready(function(){
-
-
+	
  var mapOptions = {
         center: new google.maps.LatLng(	 32.03952466510527, 34.83763210941106),
         zoom: 8,
@@ -27,7 +29,40 @@ $(document).ready(function(){
     	mapPoint.lng=e.latLng.lng();
     });
     initDatepicker();
-	//adding site!
+     
+   //   var distKM = 500;
+	  // var formula = distance(point1.lat,point1.lng,point2.lat,point2.lng);
+	  // console.log(formula);
+	 // var t = navigator.geolocation;
+	 // if (t ) {        //Use HTML5 Geolocation API To Get Current Position      
+		// 	navigator.geolocation.getCurrentPosition(function(position){   
+		//      //Get Latitude From Geolocation API    
+		//         point1.lat = position.coords.latitude;       
+		//       //Get Longitude From Geolocation API   
+		//           point1.lng = position.coords.longitude; 
+		//          })
+		// } 
+		// console,log
+		// myLocation();
+	//   $('#us3').locationpicker({
+		
+	//     location: {latitude: point1.lat, longitude: point1.lng},
+	//     radius: 1000,
+	//     inputBinding: {
+	//         // latitudeInput: $('#us3-lat'),
+	//         // longitudeInput: $('#us3-lon'),
+	//         radiusInput: $('#us3-radius'),
+	//         locationNameInput: $('#us3-address')
+	//     },
+	//     enableAutocomplete: true
+	// });
+	// $('#us6-dialog').on('shown.bs.modal', function() {
+	//     $('#us3').locationpicker('autosize');
+	// });
+                   
+
+
+
 	var max_fields = 20;
 	// debugger;
 	$.each(tripCharacters, function(i, val){
@@ -127,6 +162,39 @@ $(document).ready(function(){
 		$('#addUsers').hide();
 	})
 });
+
+// function myLocation() {
+// 	//If HTML5 Geolocation Is Supported In This Browser
+// 	if (navigator.geolocation) {
+// 		//Use HTML5 Geolocation API To Get Current Position
+// 		navigator.geolocation.getCurrentPosition(function(position) {
+// 			//Get Latitude From Geolocation API
+// 			 point1.lat = position.coords.latitude;
+// 			//Get Longitude From Geolocation API
+// 			console.log(point1.lat);
+// 			 point1.lng= position.coords.longitude;
+// 			console.log(point1.lng);
+// 			//Define New Google Map With Lat / Lon
+// 		});
+// 	} else {
+// 		//Otherwise - Gracefully Fall Back If Not Supported... Probably Best Not To Use A JS Alert Though :)
+// 		alert("Geolocation API is not supported in your browser.");
+// 	}
+// }
+
+function distance(lat1,lon1,lat2,lon2) {
+	var R = 6371; // km (change this constant to get miles)
+	var dLat = (lat2-lat1) * Math.PI / 180;
+	var dLon = (lon2-lon1) * Math.PI / 180;
+	var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+		Math.cos(lat1 * Math.PI / 180 ) * Math.cos(lat2 * Math.PI / 180 ) *
+		Math.sin(dLon/2) * Math.sin(dLon/2);
+	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+	var d = R * c;
+	if (d>1) return Math.round(d)+"km";
+	else if (d<=1) return Math.round(d*1000)+"m";
+	return d;
+}
 //********** date *************
 function initDatepicker(){
 	var nowTemp = new Date();
@@ -714,4 +782,8 @@ $(document).on('click','#editFavorite',function(){
 	// $.each(g_trip.sites,function(index,val){
 
 	// });
+});
+$(document).on('click','.btn-primary',function(){
+	var r = $('#us3-radius').val();
+	console.log(r);
 });
