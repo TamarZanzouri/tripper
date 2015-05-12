@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'style')));
 
 app.use(bodyParser());
 // parse application/x-www-form-urlencoded 
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 // parse application/json 
 app.use(bodyParser.json());
 
@@ -87,8 +87,8 @@ app.use(function(req, res, next) {
 app.get('/', function(req, res) {
 	console.log("in my function");
 	// Connect to the db
-	try{
-		MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
+	
+		/*MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
 			if (err) {
 				return console.dir(err);
 			} else {
@@ -124,10 +124,8 @@ app.get('/', function(req, res) {
 				            });
 
 			}
-		});
-}catch(err){
-	console.log("mongodb connection failed")
-}
+		});*/
+	
 });
 
 app.get('/sendSites/:sites?', function(req, res) {
@@ -141,6 +139,7 @@ app.post('/add', function(req, res) {
 
 	var urlImg="";
 	var dataForm={};
+	var playlistToAdd = {};
 	var form = new formidable.IncomingForm();
 
 	form.parse(req, function(error, fields, files) 
@@ -176,7 +175,7 @@ app.post('/add', function(req, res) {
 
 		
 		var stream = cloudinary.uploader.upload_stream(function(result) {
-		 console.log(result) 
+		 console.log("result from cloudinary " + result) 
 		 urlImg=result.url;
 		});
 		var file_reader = fs.createReadStream(temp_path).pipe(stream)
@@ -185,33 +184,25 @@ app.post('/add', function(req, res) {
 		// cloudinary.uploader.upload(file_name,function(result) { console.log(result) });
 		// var file_reader = fs.createReadStream('file_name').pipe(stream)
 	
-
-	  MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
-		  	if (err) {
-		  		res.json({status:0})
-		  		return ;
-		  	} else {
-		  		console.log("######",req.body)
-		  		console.log("******",dataForm)
-		  		var tripper_collection = db.collection('tripper_playlists');
-		  		var nameTrip = dataForm.nameTrip;
-		  		var des = dataForm.des;
-		  		var location = dataForm.locationTrip;
+		  		playlistToAdd.trip_name = dataForm.nameTrip;
+		  		playlistToAdd.trip_description = dataForm.des;
+		  		playlistToAdd.address = dataForm.locationTrip;
 		  		var tripCharachters = [];
 		  		tripCharachters.push(dataForm.firstcharachter);
 		  		tripCharachters.push(dataForm.secondcharachter);
+		  		playlistToAdd.trip_charachters = tripCharachters;
 		  		var sitesName = dataForm.ingredients;
 		  		var loc= dataForm.amount;
 		  		var sites=JSON.parse(dataForm.sites);
-		  		var mapPoint=(dataForm.mapPoint)?JSON.parse(dataForm.mapPoint):'';
+		  		playlistToAdd.mapPoint=(dataForm.mapPoint)?JSON.parse(dataForm.mapPoint):'';
 		  		if(sitesName)
 		  			for (val in sitesName){
 		  				sites.push({sitesName:sitesName[val],loc:loc[val]});
 		  			}
-		  			var privte = req.body.isTripPrivate;
-		  			var areaLocition = req.body.area;
+		  			playlistToAdd.trip_isPrivate = dataForm.isTripPrivate;
+		  			playlistToAdd.area = dataForm.area;
 		  			var tripFilter =[];
-		  			userEmail =req.body.email;
+		  			playlistToAdd.email =dataForm.email;
 		  			if(dataForm.who_are_you_going_with)
 		  				(dataForm.who_are_you_going_with).forEach(function(val){
 		  					tripFilter.push(val);
@@ -223,40 +214,30 @@ app.post('/add', function(req, res) {
 		  				});
 
 		  			tripFilter.push(dataForm.difficulty);
-		  			tripper_collection.insert({
-		  				trip_name : nameTrip,
-		  				trip_description : des,
-		  				address : location,
-		  				email : userEmail,
-		  				trip_charachters : tripCharachters,
-		  				trip_isPrivate : privte,
-		  				tripSites : sites,
-		  				area : areaLocition,
-		  				imageUrl:urlImg,
-		  				mapPoint:mapPoint,
-		  				trip_filter : tripFilter
-		  			}, function(err, docs) {
+		  			console.log("filters enterd " + tripFilter)
+		  			playlistToAdd.trip_filter = tripFilter;
+		  			playlistToAdd.tripSites = sites;
+		  			playlistToAdd.imageUrl = urlImg;
+		  			console.log("inage url on cloudinary " + urlImg)
+		  			var newTrip = new Playlist(playlistToAdd);
+		  			console.log("new trip before insert " + newTrip)
+		  			newTrip.save(function(err, docs) {
 		  				if (err) {
 		  					console.log("found error inserting");
 		  					res.json({status:0,err:err})
-		  					db.close();
 		  					return;
 		  				}
 		  				if(docs){
 		  					console.log('insert seccessfuly')
 		  					res.json({status:1})
-		  					db.close();
 		  					return ;
 		  				}
 		  			});
-		  		}
 
 
 		  	});
 	
 }); 
-
-});
 
 var usersWS = require('./users_ws'); 
 app.use(usersWS); 
@@ -277,7 +258,7 @@ app.get('indexMobile', function(req, res) {
 
 app.get('/*', function(req, res) {
 
-	res.send(404, "aaaaaaaa")
+	res.send(404, "ERROR")
 });
 
 
