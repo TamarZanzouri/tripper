@@ -220,8 +220,9 @@ function initDatepicker(){
 	  }
 	}).on('changeDate', function(ev) {
 	  checkout.hide();
-	  date.checkin=checkin.viewDate;
-	  date.checkout=checkout.viewDate;
+	  date.checkInTime=checkin.viewDate;
+	  date.checkOutTime=checkout.viewDate;
+	  console.log(date);
 	}).data('datepicker');
 
 
@@ -245,9 +246,10 @@ function showMyImage(fileInput) {
 		reader.readAsDataURL(file);
 	}    
 }
+/*
 $(document).on('click','.saveSchedule',function(){
 
-});
+});*/
 $(document).on('click','.listResultTrip',function(){
 	
 
@@ -333,13 +335,18 @@ $(document).on('click' ,'#favorite',function(){
 //#######wait fot tamar
 $(document).on('click' ,'.saveSchedule',function(){
 
+	// var obj = JSON.parse(date);
+	// console.log(obj);
+	// alert(obj)
 	$.ajax({
 		type: "post",
         url: g_domain+"saveTimeSchedule",// where you wanna post
-        data:  {trip: g_trip
-        	,userId:User.email,
-        	time:date},
-        	dataType: "json",
+        data:  {userId:User.email,
+        	tripTime:date},
+        	//	dataType: "json",
+        	ContentType: 'application/json', 
+        	// contentType: "application/json",
+
         	error: function(jqXHR, textStatus, errorMessage) {
         		console.log(errorMessage)
 
@@ -496,6 +503,7 @@ $(document).on('submit','#addform',function(e){
 //console.log($(this))
 	form.append("email",User.email);
 	form.append("mapPoint",JSON.stringify(mapPoint));
+	// console.log("trip filters: " + JSON.stringify(form.trip_kind));
 	// form.append("mapPoint.");
 	console.log(form)
 	$.ajax({
@@ -515,41 +523,42 @@ $(document).on('submit','#addform',function(e){
   });
 })
 
-function validateMyForm(obj){
-	var wrapper = $(".ingredients_i");
-	var amounts = $(".amounts_i");
-	var comms = new Array();
-	for (var i = 0; i < wrapper.length; i++){
-		console.log(i);
+// function validateMyForm(obj){
+// 	var wrapper = $(".ingredients_i");
+// 	var amounts = $(".amounts_i");
+// 	var comms = new Array();
+// 	for (var i = 0; i < wrapper.length; i++){
+// 		console.log(i);
 
-		var comm = {};
-		if (wrapper[i].value.trim() != ''){
-			comm['siteName'] = wrapper[i].value;
-			comm["location"] = amounts[i].value;
-			comms.push(comm);
-		}
-	}
-	console.log(comms);
-	if (comms != 0)
-		sendSites(comms);
+// 		var comm = {};
+// 		if (wrapper[i].value.trim() != ''){
+// 			comm['siteName'] = wrapper[i].value;
+// 			comm["location"] = amounts[i].value;
+// 			comms.push(comm);
+// 		}
+// 	}
+// 	console.log(comms);
+// 	if (comms != 0)
+// 		sendSites(comms);
 
-	$.ajax({
-		type: "post",
-        url: g_domain+"add",// where you wanna post
-        data:  obj,
-        dataType: "json",
-        //contentType: false,
-        //processData:false,
-        error: function(jqXHR, textStatus, errorMessage) {
-        	console.log(errorMessage)
-        },
-        success: function(data) {
-        	console.log(data)	
+// 	$.ajax({
+// 		type: "post",
+//         url: g_domain+"add",// where you wanna post
+//         data:  obj,
+//         dataType: "json",
+//         //contentType: false,
+//         //processData:false,
+//         error: function(jqXHR, textStatus, errorMessage) {
+//         	console.log(errorMessage)
+//         },
+//         success: function(data) {
+//         	console.log(data)	
 
-      } 
-  });
-	return false;
-}
+//       } 
+//   });
+// 	return false;
+// }
+
 function moveToAddPage() {
 	$.mobile.changePage("#addTripPage", {
 		transition : "none",

@@ -55,12 +55,12 @@ router.post('/updateMySchedule', function(req, res) {
 	}
 	console.log("update the schedule",trip)
 
-			db.model('users').findOneAndUpdate({email:user}, { $push: {schedule:trip}}, function(err, docs) {
-				if (err) {
-					console.log("found error inserting");
-					res.json({status:0})
-					return console.error(err);
-				}
+	db.model('users').findOneAndUpdate({email:user}, { $push: {schedule:trip}}, function(err, docs) {
+		if (err) {
+			console.log("found error inserting");
+			res.json({status:0})
+			return console.error(err);
+			}
 				// console.log(check);
 				res.json({status:1})
 			});
@@ -70,6 +70,27 @@ router.post('/updateMySchedule', function(req, res) {
 	// 	else res.json({status:1})
 
 	// });
+});
+
+router.post('/saveTimeSchedule', function(req, res){
+	try{
+		user = req.body.userId;
+		tripDate = req.body.tripTime;
+		console.log("trip date" + tripDate.checkOutTime)
+	}
+	catch(err){
+		console.log("failed to get params " + err);
+	}
+	db.model('users').findOneAndUpdate({email:user}, {$set : {tripScheduleTime : tripDate}}, function(err, docs){
+		if(err){
+			console.log("error updating trip time schedule");
+			res.json({status:0});
+			return console.error(err);
+		}
+		console.log("updated date")
+		res.json({status:1});
+	});
+
 });
 
 router.post('/updateFavoirte', function(req, res) {

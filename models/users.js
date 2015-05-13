@@ -10,6 +10,10 @@ var usersSchema = new Schema(
 			trip_name : String,
 	 		address : String ,  default : [] 
 	 	} ],
+	tripScheduleTime : { 
+		checkInTime : {type : Date, default : ''},
+		checkOutTime : {type : Date, default : ''}
+	},
 	schedule : [ { 
 	trip_name : { type : String, default : ''},
 	trip_description : { type : String, default : ''},
