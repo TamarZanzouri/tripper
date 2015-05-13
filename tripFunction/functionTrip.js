@@ -11,6 +11,22 @@ var date={};
 var point1={},point2={} ;
      point2.lng = 34;
      point2.lat = 32;
+var r=0;
+var isInDdistance;
+var t1 =  32.03952466510527;
+var t2 = 34.83763210941106;
+
+navigator.geolocation.getCurrentPosition(function(position) {
+		//Get Latitude From Geolocation API
+		 point1.lat = position.coords.latitude;
+		//Get Longitude From Geolocation API
+		t1 = parseFloat(point1.lat);
+		console.log(point1.lat);
+		 point1.lng= position.coords.longitude;
+		console.log(point1.lng);
+		t2 = parseFloat(point1.lng)
+		//Define New Google Map With Lat / Lon
+	});
 
 $(document).ready(function(){
 	
@@ -30,6 +46,28 @@ $(document).ready(function(){
     });
     initDatepicker();
      
+    
+			//Use HTML5 Geolocation API To Get Current Position
+	
+
+	$('#us3').locationpicker({
+	    location: {latitude: t1, longitude: t2 },
+	    radius: 3000,
+	    inputBinding: {
+	        // latitudeInput: $('#us3-lat'),
+	        // longitudeInput: $('#us3-lon'),
+	        radiusInput: $('#us3-radius'),
+	        //locationNameInput: $('#us3-address')
+	    },
+	    enableAutocomplete: true,
+	    
+	});
+    console.log(t1 + t2)
+ 	$('#us6-dialog').on('shown.bs.modal', function() {
+        $('#us3').locationpicker('autosize');
+    });
+
+
    //   var distKM = 500;
 	  // var formula = distance(point1.lat,point1.lng,point2.lat,point2.lng);
 	  // console.log(formula);
@@ -191,8 +229,8 @@ function distance(lat1,lon1,lat2,lon2) {
 		Math.sin(dLon/2) * Math.sin(dLon/2);
 	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 	var d = R * c;
-	if (d>1) return Math.round(d)+"km";
-	else if (d<=1) return Math.round(d*1000)+"m";
+	if (d>1) return Math.round(d);
+	else if (d<=1) return Math.round(d*1000);
 	return d;
 }
 //********** date *************
@@ -784,6 +822,33 @@ $(document).on('click','#editFavorite',function(){
 	// });
 });
 $(document).on('click','.btn-primary',function(){
-	var r = $('#us3-radius').val();
-	console.log(r);
+	 r = $('#us3-radius').val();
+	 r = r;
+	// console.log(r,t1,t2,point2.lat,point2.lng);
+	// isInDdistance = distance(t1,t2,point2.lat,point2.lng);
+	// console.log(isInDdistance);
+	// if(r>isInDdistance){
+	// 	console.log("trip is in the redius")
+	// }
+	// else{
+	// 	console.log("trip is in the redius")	
+	// }
+	console.log(g_ListTrip)
+	var tempList=[];
+	$.each(g_ListTrip,function(index,val){
+		isInDdistance = distance(t1,t2,val.mapPoint.lat,val.mapPoint.lng);
+		console.log(isInDdistance);
+		isInDdistance=isInDdistance*100;
+		console.log(isInDdistance);
+		if( r > isInDdistance ){
+		console.log("trip is in the redius",val)
+			tempList.push(val);
+		}
+		else{
+			console.log("trip is'not in the redius",val)	
+		}	
+	});
+	console.log(g_ListTrip)
+	displayListTrip(tempList);
+	console.log(tempList);
 });
