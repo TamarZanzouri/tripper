@@ -17,7 +17,11 @@ var playlistSchema = new Schema(
 	tripSites : [ {
 					siteName : { type : String, default : ''},
 					location : { type : String, default : ''}
-				} ]
+				} ],
+	mapPoint : {
+		lat : {type : Number, default : 0},
+		lng : {type : Number, default : 0}
+	}
 	});
 
 Playlist = mongoose.model('tripper_playlists', playlistSchema);

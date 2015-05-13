@@ -54,23 +54,6 @@ router.post('/updateMySchedule', function(req, res) {
 		console.log("failed to get user and trip " + err);
 	}
 	console.log("update the schedule",trip)
-	// var user_collection = db.model('users');
-	// db.model('users').findOne({email:user}, function(err, result) {
-		// if (err) {
-		// 	console.log("found error inserting");
-		// 	res.json({status:0})
-		// 	return console.error(err);
-		// }
-		// if (result) {
-		// 	console.log(result)
-		// 	if (result.schedule){
-		// 		var check=1
-		// 	}
-		// 	else {
-		// 		result.schedule={};
-		// 	}
-
-			// docs.schedule=trip;
 
 			db.model('users').findOneAndUpdate({email:user}, { $push: {schedule:trip}}, function(err, docs) {
 				if (err) {

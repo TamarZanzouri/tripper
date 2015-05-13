@@ -10,16 +10,27 @@ var usersSchema = new Schema(
 			trip_name : String,
 	 		address : String ,  default : [] 
 	 	} ],
-	schedule : [ { trip_name : String, 
-				trip_description : String , 
-				address : String , 
-				address : String , 
-				trip_charachters : {type : Array, default : []}, 
-				trip_isPrivate : Boolean, 
-				tripSites : [ {
-					siteName : String, 
-					location : String , default : [] } ], default : [] } ],
-	area : String
-	});
+	schedule : [ { 
+	trip_name : { type : String, default : ''},
+	trip_description : { type : String, default : ''},
+	address : { type : String, default : ''},
+	trip_charachters : { type : Array, default : [] },
+	trip_isPrivate : { type : Boolean, default : false },
+	area : { type : String, default : ''},
+	email : { type : String, default : ''},
+	comments : { type : Array, default : []},
+	imageUrl : { type : String, default : ''},
+	trip_filter : { type : Array, default : [] },
+	shareEmail : { type : Array, default : [] },
+	tripSites : [ {
+					siteName : { type : String, default : ''},
+					location : { type : String, default : ''}
+				} ],
+	mapPoint : {
+		lat : {type : Number, default : 0},
+		lng : {type : Number, default : 0}
+	}
+	} ],
+});
 
 User = mongoose.model('users', usersSchema);
