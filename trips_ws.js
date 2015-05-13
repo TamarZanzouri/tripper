@@ -88,16 +88,18 @@ router.post('/add', function(req, res) {
 				var tripFilter =[];
 				userEmail =dataForm.email;
 				var shareEmail=dataForm.shareEmail;
-				shareEmail=shareEmail.split(" ");
-				// console.log("how are you going with: " + dataForm["who_are_you_going_with[]"])
+				if(shareEmail){
+					shareEmail=shareEmail.split(" ");
+		 		}
+				console.log("how are you going with: " + dataForm["who_are_you_going_with[]"])
 				if(dataForm["who_are_you_going_with[]"])
-					// console.log("in if whi are you going with")
-					// (dataForm["who_are_you_going_with[]"]).forEach(function(val){
-						// console.log("entring filter: " + val);
-						// tripFilter.push(val);
-						tripFilter.push(dataForm["who_are_you_going_with[]"]);
+					console.log("in if whi are you going with")
+					(dataForm["who_are_you_going_with[]"]).forEach(function(val){
+						console.log("entring filter: " + val);
+						tripFilter.push(val);
+						// tripFilter.push(dataForm["who_are_you_going_with[]"]);
 						console.log("after inserting: " + tripFilter)
-					// });
+					});
 
 
 				if(dataForm["trip_kind[]"])
