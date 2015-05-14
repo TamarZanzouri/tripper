@@ -866,6 +866,13 @@ $(document).on('click','#editFavorite',function(){
 	}
 	$('#imgUpload').focus();
 	$('#thumbnil').attr("src",g_trip.imageUrl);
+	$('#dvMap').click(function (){
+
+	});
+	if(g_trip.mapPoint){
+		mapPoint.lat=g_trip.mapPoint.lat;
+		mapPoint.lng=g_trip.mapPoint.latLng;
+	}
 		 // $('.firstIngredient').val(g_trip.tripSites[0].siteName)
 	 //  $('.firstAmount').val(g_trip.tripSites[0].location)
 	// $.each(g_trip.sites,function(index,val){

@@ -70,7 +70,7 @@ app.get('/', function(req, res) {
 	console.log("in my function");
 	// Connect to the db
 	
-		/*MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
+		MongoClient.connect("mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd", function(err, db) {
 			if (err) {
 				return console.dir(err);
 			} else {
@@ -106,7 +106,7 @@ app.get('/', function(req, res) {
 				            });
 
 			}
-		});*/
+		});
 
 });
 
