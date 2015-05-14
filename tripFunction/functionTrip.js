@@ -116,13 +116,14 @@ $(document).ready(function(){
 	var firstIngredient = $(".firstIngredient");
 	
 	var x = 1;
-	$(firstIngredient).focus(function(e){ //on add input button click
+	//$(firstIngredient).focus(function(e){ //on add input button click
+	$(outer_wrapper).on("focus", ".firstIngredient", function(e) {//on add input button click
 		e.preventDefault();
 		console.log("focus " + x);
 		if (x < max_fields) { //max input box allowed
 			x++;
 			$(this).off('focus');
-			$(outer_wrapper).append('<div style="text-align: center;margin: auto;position: relative;align-content: center;"><input id="newChild' + x + '" class="ingredients_i gapper ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset newChild" style="text-align:center;margin:auto;width:100%" type="text" placeholder="אתר" name="ingredients[]"><input type="text" name="amount[]" style="width:100%;padding:5px 0 5px 0" placeholder="מיקום" class="firstAmount amounts_i" id="firstAmount"><a href="#" class="remove_field"> X </a></div>');	
+			$(outer_wrapper).append('<div style="text-align: center;margin: auto;position: relative;align-content: center;"><input id="newChild' + x + '" class="ingredients_i gapper ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset newChild" style="text-align:center;margin:auto;width:100%" type="text" placeholder="אתר" name="ingredients[]"><input type="text" name="amount[]" style="width:100%;padding:5px 0 5px 0" placeholder="מיקום" class="firstAmount amounts_i amount'+x+'" id="firstAmount"><a href="#" class="remove_field"> X </a></div>');	
 		}
 	});
 	
@@ -134,7 +135,7 @@ $(document).ready(function(){
 			console.log("focus " + x);
 			x++;
 
-			$(outer_wrapper).append('<div style="text-align: center;margin: auto;position: relative;align-content: center;"><input id="newChild' + x + '" class="ingredients_i gapper ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset newChild" style="text-align:center;margin:auto;width:100%" type="text" placeholder="אתר" name="ingredients[]"><input type="text" name="amount[]" style="width:100%;padding:5px 0 5px 0" placeholder="מיקום" class="firstAmount amounts_i" id="firstAmount"><a href="#" class="remove_field"> X </a></div>');	
+			$(outer_wrapper).append('<div style="text-align: center;margin: auto;position: relative;align-content: center;"><input id="newChild' + x + '" class="ingredients_i gapper ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset newChild" style="text-align:center;margin:auto;width:100%" type="text" placeholder="אתר" name="ingredients[]"><input type="text" name="amount[]" style="width:100%;padding:5px 0 5px 0" placeholder="מיקום" class="firstAmount amounts_i amount'+x+'" id="firstAmount"><a href="#" class="remove_field"> X </a></div>');	
 		}
 	});		
 
@@ -835,23 +836,69 @@ $(document).on('click','#editFavorite',function(){
 	$('#trip_address').val(g_trip.address);
 	switch(g_trip.area) {
 	    case 'tel-aviv':
-	        $('#radio-choice-1').click();
+	        $('#radio-choice-1L').click();
 	        break;
 	    case 'south':
-	         $('#radio-choice-2').click();
+	         $('#radio-choice-2L').click();
 	        break;
 		case 'north':
-			 $('#radio-choice-3').click();
+			 $('#radio-choice-3L').click();
 	        break;
 	}
 	$('#firstcharachter').val(g_trip.trip_charachters[0]).change();
 	$('#secondcharachter').val(g_trip.trip_charachters[1]).change();
-	 $('.firstIngredient').val(g_trip.tripSites[0].siteName)
-	  $('.firstAmount').val(g_trip.tripSites[0].location)
+		
+	$.each(g_trip.trip_filter, function (index,val){
+		$("label[for='"+val+"']").addClass("ui-btn-active ui-checkbox-on");
+		console.log(val);	
+		switch(val) {
+		    case 'medium_trip':
+		        $("label[for='"+val+"']").click();
+		        break;
+		    case 'light_trip':
+		         $("label[for='"+val+"']").click();
+		        break;
+			case 'hard_trip':
+				 $("label[for='"+val+"']").click();
+		        break;
+		}
+	});
+	$("label[for='public_trip']").click();
+	if(g_trip.trip_isPrivate){
+		$("label[for='private_trip']").click();
+		$("#shareEmail").val(g_trip.shareEmail);
+
+	}else{
+		$("label[for='public_trip']").click();
+	}
+	var len = g_trip.tripSites.length;
+	
+	if(len){
+		$.each(g_trip.tripSites,function(i,val){
+			if ((i+1)==1 ) {
+			firstSites()
+			};
+			if ((i+1)>1) {
+				console.log(i);
+				console.log(val.location,val.siteName);
+				$('#newChild'+(i+1)).val(val.siteName);
+				$('.amount'+(i+1)).val(val.location);
+			};
+		});
+	}
+	$('#imgUpload').focus();
+	$('#thumbnil').attr("src",g_trip.imageUrl);
+		 // $('.firstIngredient').val(g_trip.tripSites[0].siteName)
+	 //  $('.firstAmount').val(g_trip.tripSites[0].location)
 	// $.each(g_trip.sites,function(index,val){
 
 	// });
 });
+function firstSites(){
+	$('.firstIngredient').trigger('focus').val(g_trip.tripSites[0].siteName);
+		$('.amount1').val(g_trip.tripSites[0].location);
+}
+
 $(document).on('click','.btn-primary',function(){
 	 r = $('#us3-radius').val();
 	 r = r;
