@@ -199,6 +199,7 @@ $(document).ready(function(){
 	$('#public_trip').click(function(){
 		$('#addUsers').hide();
 	})
+
 });
 
 // function myLocation() {
@@ -348,6 +349,28 @@ $(document).on('click','#submitComment', function(){
 
 });
 
+	$(document).on('click', '#editFavorite', function(){
+		console.log("deleting trip " + g_trip);
+		console.log("trip id: " +g_trip._id)
+		$.ajax({
+			type: "post",
+        	url: g_domain+"updateTripChangesToUserFavorites",// where you wanna post
+        	data:  {tripId:g_trip._id, userId:User.email},
+        	// ContentType: 'application/json',
+        	dataType : "json",
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+
+
+        },
+        success: function(data) {
+        	// g_trip=data;
+        	// displayFullTrip(data);
+        }
+    });
+
+	});
+
 $(document).on('click' ,'#favorite',function(){
 	
 	$.ajax({
@@ -370,20 +393,15 @@ $(document).on('click' ,'#favorite',function(){
         }
     });
 });
-//#######wait fot tamar
 $(document).on('click' ,'.saveSchedule',function(){
 
-	// var obj = JSON.parse(date);
-	// console.log(obj);
-	// alert(obj)
+
 	$.ajax({
 		type: "post",
         url: g_domain+"saveTimeSchedule",// where you wanna post
         data:  {userId:User.email,
         	tripTime:date},
-        	//	dataType: "json",
         	ContentType: 'application/json', 
-        	// contentType: "application/json",
 
         	error: function(jqXHR, textStatus, errorMessage) {
         		console.log(errorMessage)
@@ -519,7 +537,8 @@ function updateResultByFilter(){
 
 $(document).on('submit','#addform',function(e){
 	e.preventDefault();
-		var form = new FormData(this); 
+	var form = new FormData(this); 
+	var tempFilter = [];
 
 	var wrapper = $(".ingredients_i");
 	var amounts = $(".amounts_i");
@@ -541,8 +560,13 @@ $(document).on('submit','#addform',function(e){
 //console.log($(this))
 	form.append("email",User.email);
 	form.append("mapPoint",JSON.stringify(mapPoint));
-	// console.log("trip filters: " + JSON.stringify(form.trip_kind));
-	// form.append("mapPoint.");
+	$('input[type="checkbox"]').each(function(value) {
+		if($(this).is(':checked')){
+			tempFilter.push($(this).attr('id'));
+		}
+	console.log(tempFilter);
+	});
+	form.append("trip_filter", JSON.stringify(tempFilter));
 	console.log(form)
 	$.ajax({
 		type: "post",
@@ -680,7 +704,7 @@ function signinCallback(authResult) {
 		$.ajax({
 			type: "post",
         url: g_domain+"filterByChars",// where you wanna post
-        data:  {chars:tc},
+        data:  {chars:tc, userId:User.email},
         dataType: "json",
         //contentType: "application/json",
         error: function(jqXHR, textStatus, errorMessage) {
@@ -729,8 +753,6 @@ $(document).on('click','#showTrips',function(){
 	moveToAccountPage();
 	getUserTrip();
 });
-
-
 
 	function create_user(user){
 		$.ajax({

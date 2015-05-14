@@ -85,31 +85,12 @@ router.post('/add', function(req, res) {
 
 				var privte = dataForm.isTripPrivate;
 				var areaLocition = dataForm.area;
-				var tripFilter =[];
 				userEmail =dataForm.email;
 				var shareEmail=dataForm.shareEmail;
 				if(shareEmail){
 					shareEmail=shareEmail.split(" ");
 		 		}
-				console.log("how are you going with: " + dataForm["who_are_you_going_with[]"])
-				if(dataForm["who_are_you_going_with[]"])
-					console.log("in if whi are you going with")
-					(dataForm["who_are_you_going_with[]"]).forEach(function(val){
-						console.log("entring filter: " + val);
-						tripFilter.push(val);
-						// tripFilter.push(dataForm["who_are_you_going_with[]"]);
-						console.log("after inserting: " + tripFilter)
-					});
-
-
-				if(dataForm["trip_kind[]"])
-					// (dataForm["trip_kind[]"]).forEach(function(val){
-						// console.log("entring filter: " + val);
-						// tripFilter.push(val);
-						tripFilter.push(dataForm["trip_kind[]"]);
-				console.log("after inserting: " + tripFilter)
-
-					// });
+				var tripFilter=JSON.parse(dataForm.trip_filter);
 				console.log("trip filters " + tripFilter);
 				tripFilter.push(dataForm.difficulty);
 
@@ -148,6 +129,7 @@ app.get('/sendSites/:sites?', function(req, res) {
 router.post('/filterByChars', function(req, res) {
 	try{
 		var charachters = req.body.chars;
+		var user = req.body.userId;
 		console.log("trip charachters " + charachters)
 	}
 	catch(err){
@@ -155,7 +137,10 @@ router.post('/filterByChars', function(req, res) {
 	}
  	
 	// db.model('tripper_playlist').findOne({ email : user.email }, function(err, result){
-	db.model('tripper_playlists').find( {$and: [ {trip_charachters: { $in : [charachters[0], charachters[1] ] } }, { trip_isPrivate : false } ] },
+	db.model('tripper_playlists').find( {$or : [
+			{$and: [ {trip_charachters: { $in : [charachters[0], charachters[1] ] } }, { trip_isPrivate : false } ] },
+			{$and: [ {trip_charachters: { $in : [charachters[0], charachters[1] ] } }, { trip_isPrivate : true }, { shareEmail : user} ] }, 
+		]},
 		function (err, docs)
 	{ 
                 // failure while connecting to sessions collection
@@ -240,7 +225,6 @@ app.get('/findTripByUser/:email?', function(req, res) {
 	catch(err){
 		console.log("couldent get user " + err);
 	}
-	// var tripper_collection = db.model('tripper_playlist', new Schema({ url: String, text: String, id: Number}), 'tripper_playlist');
 	db.model('tripper_playlists').find({ email : userEmail },{_id:true, trip_name:true, address:true }, function (err, docs)
 			{ 
                 // failure while connecting to sessions collection

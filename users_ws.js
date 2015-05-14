@@ -103,26 +103,6 @@ router.post('/updateFavoirte', function(req, res) {
 	}
 	console.log(" update trip",trip)
 	var user_collection = db.model('users');
-	// user_collection.findOne({email:user}, function(err, docs) {
-	// 	if (err) {
-	// 		console.log("found error inserting");
-	// 		res.json({status:0})
-	// 		return console.error(err);
-	// 	}
-	// 	if (docs) {
-	// 		console.log(docs)
-	// 		var check=0;
-	// 		if (docs.favorites)
-	// 			(docs.favorites).forEach(function(val){
-	// 				if(val._id==trip._id)
-	// 					check=1;
-	// 					//console.log('haim',val)
-	// 				})
-	// 		else {
-	// 			docs.favorites=[];
-	// 		}
-	// 		if (check!=1 ) {
-	// 			docs.favorites.push(trip);
 
 	db.model('users').findOneAndUpdate({email:user}, { $push: {favorites:trip}}, function(err, docs) {
 					if (err) {
@@ -187,6 +167,33 @@ router.post('/getUserFavorites', function(req, res) {
                 	res.json(docs)
                 }
             });
+});
+
+router.post('/updateTripChangesToUserFavorites', function(req, res){
+	console.log("updating trip");
+	try{
+		var userEmail = req.body.userId;
+		var tripToDelete = req.body.tripId;
+
+		// console.log(JSON.stringify(req.body.trip))
+		// var tripToDelete = JSON.stringify(req.body.trip);;
+		// console.log("trip to delete: " + tripToDelete)
+		console.log("user email: " + userEmail + "trip: " + tripToDelete);
+	}
+	catch(err) {
+		console.log("error getting data " + err);
+	}
+	db.model('users').findOneAndUpdate({ email : userEmail}, {$pull : { favorites : {_id : new ObjectId(tripToDelete)}}}, function(err, docs){
+		if (err) {
+			console.log("error updating user favorites");
+			res.json({status:0})
+			return console.error(err);
+		}
+		else{
+			res.json({status:1})
+		}
+	})
+
 });
 
 module.exports = router;
