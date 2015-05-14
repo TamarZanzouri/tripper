@@ -256,13 +256,13 @@
 						<fieldset data-role="controlgroup" data-type="horizontal" data-role="fieldcontain">
 							<legend>אזור הטיול:</legend>
 							<input type="radio" name="area" id="radio-choice-1" value="tel-aviv" checked="checked" />
-							<label for="radio-choice-1">אזור המרכז</label>
+							<label for="radio-choice-1" id="radio-choice-1L">אזור המרכז</label>
 
 							<input type="radio" name="area" id="radio-choice-2" value="south"  />
-							<label for="radio-choice-2">אזור הדרום</label>
+							<label for="radio-choice-2" id="radio-choice-2L">אזור הדרום</label>
 
 							<input type="radio" name="area" id="radio-choice-3" value="north"  />
-							<label for="radio-choice-3">אזור הצפון</label>
+							<label for="radio-choice-3" id="radio-choice-3L">אזור הצפון</label>
 
 						</fieldset>
 					</div>	
@@ -288,12 +288,13 @@
 					<div data-role="fieldcontain">
 						<fieldset data-role="controlgroup" data-type="horizontal">
 							<legend>עם מי הולכים לטייל?</legend>
-							<input type="checkbox" name="who_are_you_going_with[]" value="trip_with_animals" id="trip_with_animals" class="custom" />
 							<label for="trip_with_animals"  id="trip_with_animalsL">בע"ח</label>
+							<input type="checkbox" name="who_are_you_going_with[]" value="trip_with_animals" id="trip_with_animals" class="custom" />
+							<label for="trip_with_road"  id="trip_with_roadL">מסלול סלול לאנשים עם מוגבליות או עגלות לתינוקות</label>
 							<input type="checkbox" name="who_are_you_going_with[]" value="trip_with_road" id="trip_with_road" class="custom" />
-							<label for="trip_with_road"  id="trip_with_road">מסלול סלול לאנשים עם מוגבליות או עגלות לתינוקות</label>
+							<label for="trip_for_children" id="trip_for_childrenL">מותאם לילדים</label>
 							<input type="checkbox" name="who_are_you_going_with[]" value="trip_for_children"  id="trip_for_children" class="custom" />
-							<label for="trip_for_children" id="trip_for_children">מותאם לילדים</label>
+							
 						</fieldset>
 					</div>
 					<div data-role="fieldcontain">
@@ -315,13 +316,13 @@
 						<fieldset data-role="controlgroup" data-type="horizontal" data-role="fieldcontain">
 							<legend>בחר רמת קושי</legend>
 							<input type="radio" name="difficulty" id="light_trip" value="light_trip" checked="checked" />
-							<label for="light_trip">קל</label>
+							<label for="light_trip" id="light_tripL">קל</label>
 
 							<input type="radio" name="difficulty" id="medium_trip" value="medium_trip"  />
-							<label for="medium_trip">בינוני</label>
+							<label for="medium_trip" id="medium_tripL">בינוני</label>
 
 							<input type="radio" name="difficulty" id="hard_trip" value="hard_trip"  />
-							<label for="hard_trip">קשה</label>
+							<label for="hard_trip" id="hard_tripL">קשה</label>
 						</fieldset>
 					</div>	
 					<div data-role="fieldcontain" id="isPrivate">
@@ -340,13 +341,13 @@
 
 								<div style="text-align: center;margin: auto;position: relative;align-content: center;">
 									<input type="text" name="ingredients[]" placeholder="אתר" class="firstIngredient ingredients_i" id="firstIngredient">
-									<input type="text" name="amount[]" placeholder="מיקום" class="firstAmount amounts_i" id="firstAmount">
+									<input type="text" name="amount[]" placeholder="מיקום" class="firstAmount amounts_i amount1" id="firstAmount">
 								</div>
 							</div> 
 						</span> 
 					</label>
 					<br>
-					<input type="file" accept="image/*"  onchange="showMyImage(this)" name="file" />
+					<input id="imgUpload" type="file" accept="image/*"  onchange="showMyImage(this)" name="file" />
 					 <br/>
 					<img id="thumbnil" style="width:20%; margin-top:10px;"  src="" alt="image"/>
 
