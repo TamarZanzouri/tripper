@@ -109,7 +109,7 @@ router.post('/add', function(req, res) {
 					}
 					if(docs){
 						console.log('insert seccessfuly')
-						res.json({status:1})
+						res.json({status:1},docs)
 						return ;
 					}
 				});

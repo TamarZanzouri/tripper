@@ -15,6 +15,7 @@ var r=0;
 var isInDdistance;
 var t1 =  32.03952466510527;
 var t2 = 34.83763210941106;
+edit=false;
 
 navigator.geolocation.getCurrentPosition(function(position) {
 		//Get Latitude From Geolocation API
@@ -581,11 +582,36 @@ $(document).on('submit','#addform',function(e){
         },
         success: function(data) {
         	console.log(data)
+        	if(edit==true){
+        		addToFavoFromEdit(data);
+        	}
+        	edit=false;
+
         	moveToHomePage();	      
       } 
   });
 })
+function addToFavoFromEdit(data){
+	$.ajax({
+		type: "post",
+        url: g_domain+"updateFavoirte",// where you wanna post
+        data:  {trip:{
+        	_id:data._id,
+        	trip_name:data.trip_name,
+        	address:data.address        	
+        }
+        ,userId:User.email},
+        dataType: "json",
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
 
+
+        },
+        success: function(data) {
+        	console.log("update success to add to the favorite");
+        }
+    });
+}
 // function validateMyForm(obj){
 // 	var wrapper = $(".ingredients_i");
 // 	var amounts = $(".amounts_i");
@@ -830,6 +856,7 @@ function favoriteDisplayFullTrip(data){
 
 }
 $(document).on('click','#editFavorite',function(){
+	edit=true;
 	moveToAddPage();
 	$('#trip_name').val(g_trip.trip_name);
 	$('#description').val(g_trip.trip_description);
@@ -893,7 +920,7 @@ $(document).on('click','#editFavorite',function(){
 	});
 	if(g_trip.mapPoint){
 		mapPoint.lat=g_trip.mapPoint.lat;
-		mapPoint.lng=g_trip.mapPoint.latLng;
+		mapPoint.lng=g_trip.mapPoint.lng;
 	}
 		 // $('.firstIngredient').val(g_trip.tripSites[0].siteName)
 	 //  $('.firstAmount').val(g_trip.tripSites[0].location)
