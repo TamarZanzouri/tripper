@@ -19,6 +19,11 @@ app.use(express.static(path.join(__dirname, 'tripFunction')));
 app.use(express.static(path.join(__dirname, 'style')));
 
 
+var usersWS = require('./users_ws'); 
+app.use(usersWS); 
+var tripsWS = require('./trips_ws'); 
+app.use(tripsWS); 
+
 app.use(bodyParser());
 // parse application/x-www-form-urlencoded 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -110,10 +115,6 @@ app.get('/', function(req, res) {
 */
 });
 
-var usersWS = require('./users_ws'); 
-app.use(usersWS); 
-var tripsWS = require('./trips_ws'); 
-app.use(tripsWS); 
 
 
 

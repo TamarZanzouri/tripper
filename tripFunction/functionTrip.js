@@ -195,15 +195,28 @@ $(document).ready(function(){
 
 	$("#private_trip").click(function(){
 		console.log("privateTrip")
-		$('#isPrivate').append('<label id="addUsers">הוסף משתמשים אליהם יפורסם הטיול:<br><textarea placeholder="לדוגמא : haimyyy@gmail.com,\nzanzuoritamar@gmail.com" type="text" id="shareEmail" name="shareEmail" >');
-		
+		$('#isPrivate').append('<label id="addUsers" style=" float:right";>הוסף משתמשים אליהם יפורסם הטיול:<br><input placeholder="לדוגמא : haimyyy@gmail.com" type="text" id="shareEmail" name="shareEmail" >');
+		$('#isPrivate').append('<a id="addUser" href="#"> הוסף עוד חבר<a>')
+		$('#isPrivate').append('<p id="usersList"><p>')
 	})
 	$('#public_trip').click(function(){
 		$('#addUsers').hide();
 	})
-
+	
 });
-
+$(document).on('click','#addUser',function(){
+	console.log(tempEmailUser)
+	var tempEmailUser = $('#shareEmail').val();
+	$('#shareEmail').val("");
+	console.log(tempEmailUser)
+	$('#usersList').append(tempEmailUser+" ");
+});
+	/*
+$('#addUser').click(function(){
+		var tempEmailUser = $('#shareEmail').val();
+		$('#shareEmail').empty();
+		$('#usersList').append(tempEmailUser+" ");
+	});*/
 // function myLocation() {
 // 	//If HTML5 Geolocation Is Supported In This Browser
 // 	if (navigator.geolocation) {
