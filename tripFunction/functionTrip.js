@@ -195,7 +195,7 @@ $(document).ready(function(){
 
 	$("#private_trip").click(function(){
 		console.log("privateTrip")
-		$('#isPrivate').append('<label id="addUsers" style=" float:right";>הוסף משתמשים אליהם יפורסם הטיול:<br><input placeholder="לדוגמא : haimyyy@gmail.com" type="text" id="shareEmail" name="shareEmail" >');
+		$('#isPrivate').append('<label id="addUsers" style=" float:right";>הוסף משתמשים אליהם יפורסם הטיול:<br><input placeholder="לדוגמא : haimyyy@gmail.com" type="text" id="shareEmail" >');
 		$('#isPrivate').append('<a id="addUser" href="#"> הוסף עוד חבר<a>')
 		$('#isPrivate').append('<p id="usersList"><p>')
 	})
@@ -330,12 +330,71 @@ function displayFullTrip(data){
 	console.log(data)
 	$('.Trip').empty();
 	$('.Trip').append("<h3>הטיול הנבחר </h3>");
+	$('.Trip').append($("<img>").attr('src', 'images/smalLike.png').addClass('topImg').css({
+			"opacity" : "0.4"
+		}));
+	$('.Trip').append("<span class='countLike'>" + g_trip.rate.value + "</span>");
 	$('.Trip').append("<h2>"+data.trip_name+"</h2>");
 	$('.Trip').append("<a id='favorite'>הוסף למועדפים</a> </br>");
 	$('.Trip').append("<a id='updateSchedule'>בחר כמסלול ראשי</a>");
 	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
 	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
-
+}
+$(document).on("click", '.topImg', function() {
+	// if (!g_user.email) {
+	// 	alert("אנא התחבר למערכת")
+	// 	return;
+	// }
+	if ($(this).hasClass("selectedImg")) {
+		$(this).removeClass("selectedImg").css({
+			"opacity" : "0.4"
+		});
+		currentValue = $(".countLike").html();
+		newValue = parseInt(currentValue, 10);
+		newValue = parseInt(newValue, 10) - 1;
+		$(".countLike").html(newValue);
+		updateRate(0);
+		
+	} else {
+		$(this).addClass("selectedImg").css({
+			"opacity" : "1.0"
+		});
+		currentValue = $(".countLike").html();
+		newValue = parseInt(currentValue, 10);
+		newValue = parseInt(newValue, 10) + 1;
+		$(".countLike").html(newValue);
+		updateRate(1);
+	}
+});
+function updateRate(value){
+	$.ajax({
+		type : "post",
+		url : g_domain+"updateRate",
+		data : {
+			value : value,
+			tripId : g_trip._id,
+			userEmail :User.email
+		},
+		dataType : 'json',
+		success : function(data) {
+			console.log("update success",data);
+			// if (data.status ==1 ){
+			// 	$(".countLike").html(data.info);
+			// 	if (value)
+			// 		g_ratedRecipes.push(g_currRecipe.id)
+			// 	else g_ratedRecipes = _.without(g_ratedRecipes, g_currRecipe.id)
+			// 	window.localStorage.setItem('g_ratedRecipes',JSON.stringify(g_ratedRecipes));
+			// // }
+			// else if (data.status ==0 ){
+			// 	removeRate();
+			// }
+		},
+		error : function(objRequest, errortype) {
+			console.log(errortype);
+			console.log("change to error func");
+			removeRate();
+		}
+	});
 }
 
 $(document).on('click','#submitComment', function(){
@@ -582,6 +641,10 @@ $(document).on('submit','#addform',function(e){
 	console.log(tempFilter);
 	});
 	form.append("trip_filter", JSON.stringify(tempFilter));
+	var temp_arr =[]
+	var temp= $('#usersList').val();
+	temp_arr = temp.split(" ");
+	from.append("shareEmail",shareEmail)
 	console.log(form)
 	$.ajax({
 		type: "post",
@@ -592,7 +655,6 @@ $(document).on('submit','#addform',function(e){
         processData:false,
         error: function(jqXHR, textStatus, errorMessage) {
         	console.log(errorMessage)
-        },
         success: function(data) {
         	console.log(data)
         	if(edit==true){

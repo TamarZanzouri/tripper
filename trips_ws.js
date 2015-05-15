@@ -242,5 +242,124 @@ app.get('/findTripByUser/:email?', function(req, res) {
                 }
             });
 });
+router.post("/updateRate", function(req, res) 
+{
+    var data=req.body.value;
+    var tripId=req.body.tripId;
+    var userEmail=req.body.userEmail;
+    var temp_trip={};
+         var temp={
+     	
+     }
+     var exit=0;
+     var r ={}
+    	db.model('tripper_playlists').findOne({ _id : new ObjectId(tripId) },function (err, result)
+			{ 
+                // failure while connecting to sessions collection
+                if (err) 
+                {
+                	console.log( err);
+
+                	return;
+                }
+                
+                else
+                {
+                	console.log("seccess to find",result);
+                	temp_trip=result;
+                	console.log("temp_trip.rate",temp_trip.rate)
+					
+		      	  console.log("rate is: " + data);
+            
+			    	if (data==1) {
+			    		//check IF THE USER MADE LIKE BEFORE
+						for (item in temp_trip.rate.userEmail) {
+							console.log("###############",item);
+							if (temp_trip.rate.userEmail[item]==userEmail) {
+								console.log("###############allready did like");
+								exit=1;
+							};
+						}
+						
+		            console.log("temp",temp)
+		            if (exit==0) {
+
+		            	temp_trip.rate.value++;
+			    		temp_trip.rate.userEmail.push(userEmail);
+			    		temp=temp_trip.rate;
+				        db.model('tripper_playlists').findOneAndUpdate({ _id : new ObjectId(tripId) }, {$set : {rate : temp}}, function(err, result)
+				        {
+				            if (err) 
+				            {
+				                console.log("--> Err <-- : " + err);
+				                r.status = 0;
+				                r.desc = "--> Err <-- : " + err;
+				                res.json(r);
+				            }
+				            
+				            if (result)
+				            {
+				                console.log("the result is: " + result.length);
+				                r.status = 1;
+				                r.info = (result.length)?result[0]:[];
+				                res.json(r);
+				            }
+				        });
+			    		}
+			    		else{
+			    			r.status = 2;
+				            res.json(r);
+			    		}
+	           		}else{//if data==0
+
+		            	temp_trip.rate.userEmail.splice(userEmail, 1);
+						temp_trip.rate.value--;
+						temp=temp_trip.rate;
+						db.model('tripper_playlists').findOneAndUpdate({ _id : new ObjectId(tripId) }, {$set : {rate : temp}}, function(err, result)
+				        {
+				            if (err) 
+				            {
+				                console.log("--> Err <-- : " + err);
+				                r.status = 0;
+				                r.desc = "--> Err <-- : " + err;
+				                res.json(r);
+				            }
+				            
+				            if (result)
+				            {
+				                console.log("the result is: " + result.length);
+				                r.status = 1;
+				                r.info = (result.length)?result[0]:[];
+				                res.json(r);
+				            }
+				        });
+	           		}
+	        	};
+            });
+		//  if (data==0) {
+		
+		// temp_trip.rate.userEmail.splice(userEmail, 1);
+		// temp_trip.rate.value--;
+		// temp=temp_trip.rate;
+		//   db.model('tripper_playlists').findOneAndUpdate({ _id : new ObjectId(tripId) }, {$set : {rate : temp}}, function(err, result)
+	 //        {
+	 //            if (err) 
+	 //            {
+	 //                console.log("--> Err <-- : " + err);
+	 //                r.status = 0;
+	 //                r.desc = "--> Err <-- : " + err;
+	 //                res.json(r);
+	 //            }
+	            
+	 //            if (result)
+	 //            {
+	 //                console.log("the result is: " + result.length);
+	 //                r.status = 1;
+	 //                r.info = (result.length)?result[0]:[];
+	 //                res.json(r);
+	 //            }
+  //       });
+  //  }
+});
 
 module.exports = router;

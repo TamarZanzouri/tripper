@@ -14,15 +14,11 @@ app.use(express.static(path.join(__dirname, 'views')));
 app.use(express.static(path.join(__dirname, 'node_modules/bower_components')));
 
 app.use(express.static(path.join(__dirname, 'datepicker')));
-
+app.use(express.static(path.join(__dirname, 'images')));
 app.use(express.static(path.join(__dirname, 'tripFunction')));
 app.use(express.static(path.join(__dirname, 'style')));
 
 
-var usersWS = require('./users_ws'); 
-app.use(usersWS); 
-var tripsWS = require('./trips_ws'); 
-app.use(tripsWS); 
 
 app.use(bodyParser());
 // parse application/x-www-form-urlencoded 
@@ -38,6 +34,12 @@ var options = {
 mongoose.connect(mongopath,options);
 
 db = mongoose.connection;
+
+
+var usersWS = require('./users_ws'); 
+app.use(usersWS); 
+var tripsWS = require('./trips_ws'); 
+app.use(tripsWS); 
 
 db.on('error', console.error.bind(console, 'connection error:'));
 
