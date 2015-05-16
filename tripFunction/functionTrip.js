@@ -3,6 +3,7 @@ g_domain="http://127.0.0.1:1337/";//"http://shenkartripper.herokuapp.com/";
 mapPoint={};
 g_trip={};
 g_ListTrip=[];
+var webView = {};
 var filter = [];
 var clickedCharachters = [];
 var tripsAfterCharachters = [];
@@ -15,6 +16,7 @@ var isInDdistance;
 var t1 =  32.03952466510527;
 var t2 = 34.83763210941106;
 edit=false;
+var count=1;
 
 navigator.geolocation.getCurrentPosition(function(position) {
 		//Get Latitude From Geolocation API
@@ -98,8 +100,9 @@ $(document).ready(function(){
 	//     $('#us3').locationpicker('autosize');
 	// });
                    
-	$('#homePage').click(function(){
+	$('#home').click(function(){
 		var tripCharacters = [];
+		$('#groupButton').empty();
 		$.ajax({
 			type: "get",
         	url: g_domain+"getTripCharachters",// where you wanna post
@@ -110,6 +113,8 @@ $(document).ready(function(){
         success: function(data) {
         	// console.log("update success to add to the favorite");
         	console.log(data)
+        	webView = data;
+        	console.log(webView)
         	$.each(data, function(i, val){
         		$.each(val.trip_charachters, function(i, val){
         			tripCharacters.push(val.name);
@@ -181,31 +186,6 @@ $(document).ready(function(){
 				console.log(filter);
 				updateResultByFilter();
 		}
-	});
-
-	var count=1;
-	var me;
-	$('.btnChar').click(function(){
-
-		$(this).addClass('selectedChar');
-		if(count==1)
-		{
-			count++;
-			clickedCharachters[0] = $(this).text();
-			$('.continue').css('display','block');
-		}
-		else if(count==2)
-		{
-			clickedCharachters[1] = $(this).text();
-			console.log(clickedCharachters[0] + " " + clickedCharachters[1]);
-			count=1;
-			updateTripFromCharchters(clickedCharachters);
-		}
-
-		$('.continue').click(function(){
-			updateTripFromCharchters(clickedCharachters);
-		});
-
 	});
 
 	$("#private_trip").click(function(){
@@ -644,6 +624,29 @@ function updateResultByFilter(){
 	displayListTrip(g_ListTrip);
 
 }
+
+$(document).on('click','.btnChar', function(e){
+		console.log("picked char")
+		$(this).addClass('selectedChar');
+		if(count==1)
+		{
+			count++;
+			clickedCharachters[0] = $(this).text();
+			$('.continue').css('display','block');
+		}
+		else if(count==2)
+		{
+			clickedCharachters[1] = $(this).text();
+			console.log(clickedCharachters[0] + " " + clickedCharachters[1]);
+			count=1;
+			updateTripFromCharchters(clickedCharachters);
+		}
+
+		$('.continue').click(function(){
+			updateTripFromCharchters(clickedCharachters);
+		});
+
+});
 
 $(document).on('submit','#addform',function(e){
 	e.preventDefault();
