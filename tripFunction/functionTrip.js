@@ -117,7 +117,7 @@ $(document).ready(function(){
 
         		})
         	});
-        	appendTripCharachters();
+        	appendTripCharachters(tripCharacters);
         }
 	})
 	})
@@ -808,7 +808,7 @@ function moveToHomePage() {
 	});
 }
 
-function appendTripCharachters(){
+function appendTripCharachters(tripCharacters){
 	$.each(tripCharacters, function(i, val){
 		var buttonAppendCharachters = '<button class="btnChar">' + val + '</button>';
 		var selectAppendCharachters = '<option value=' + val + '>' + val + '</option>';
