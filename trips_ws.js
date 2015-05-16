@@ -87,9 +87,7 @@ router.post('/add', function(req, res) {
 				var areaLocition = dataForm.area;
 				userEmail =dataForm.email;
 				var shareEmail=dataForm.shareEmail;
-				if(shareEmail){
-					shareEmail=shareEmail.split(" ");
-		 		}
+				playlistToAdd.shareEmail=shareEmail;
 				var tripFilter=JSON.parse(dataForm.trip_filter);
 				console.log("trip filters " + tripFilter);
 				tripFilter.push(dataForm.difficulty);

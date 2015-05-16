@@ -157,3 +157,76 @@ fieldset > div{
         padding: 5px;
         border: 1px solid #999;
       }
+/*******trip page********/
+.Trip{
+  direction: rtl;
+}
+.Trip > h2{
+    width: 50%;
+  float: right;
+}
+.Trip >ul{
+
+}
+.Trip > ul >li{
+  float: right;
+  border: 1px solid grey;
+  margin: 22px 10px 11px 10px;
+  padding: 3px 5px 3px 5px;
+}
+.Trip >div{
+    float: right;
+  width: 48%;
+  /* display: -webkit-inline-box; */
+  position: relative;
+  height: 200px;
+    margin: 0px 0 10px 0;
+
+}
+.topImg{
+    float: left;
+  position: relative;
+    margin: 5px 5px 0px 5px;
+}
+.countLike{
+    float: left;
+  position: relative;
+    margin: 7px 10px 0px 5px;
+}
+#favorite{
+  float: left;
+  position: relative;
+}
+#updateSchedule{
+  float: left;
+  position: relative;
+}
+#tripImg{
+    width: 50%;
+  float: right;
+  height: 200px;
+  position: relative;
+  /* left: 50%; */
+  margin: 10px 0px 0px 15px;  
+}
+#submitComment{
+  float:right;
+}
+.Trip > label{
+float: right;
+  width: 100%;
+  margin: 10px 0 7px 0;
+  padding: 0px 0 0px 0;
+}
+#comment{
+    float: right;
+  position: relative;
+  margin: 5px 0 0 0;
+}
+.sitesUl{
+    float: right;
+  padding: 0 0 0 0;
+}
+.sitesUl>li{
+    margin: 0 0px 0 6px !important;
+}

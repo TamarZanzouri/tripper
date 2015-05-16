@@ -334,11 +334,29 @@ function displayFullTrip(data){
 			"opacity" : "0.4"
 		}));
 	$('.Trip').append("<span class='countLike'>" + g_trip.rate.value + "</span>");
-	$('.Trip').append("<h2>"+data.trip_name+"</h2>");
 	$('.Trip').append("<a id='favorite'>הוסף למועדפים</a> </br>");
 	$('.Trip').append("<a id='updateSchedule'>בחר כמסלול ראשי</a>");
+	
+	$('.Trip').append("<h2>"+g_trip.trip_name+"</h2>");
+	$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
+
+	$('.Trip').append("<img id='tripImg' src="+g_trip.imageUrl+">");
+	var div=('<div>');
+	div+=("<h4>תאור הטיול</h4>");
+	div+=(g_trip.trip_description);
+	$('.Trip').append(div);
+	var strSites="<ul class=sitesUl>";
+	strSites+="<h4>אתרים בטיול</h4>";
+	$.each(g_trip.tripSites , function(index,val){
+		strSites+="<li>";
+		strSites+=" שם האתר :"+val.siteName+", מיקום האתר : \n"+val.location;
+
+	});
+	$('.Trip').append(strSites);
 	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
 	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
+
+
 }
 $(document).on("click", '.topImg', function() {
 	// if (!g_user.email) {
@@ -356,6 +374,8 @@ $(document).on("click", '.topImg', function() {
 		updateRate(0);
 		
 	} else {
+		temp_rate=updateRate(1);
+		console.log(temp_rate)
 		$(this).addClass("selectedImg").css({
 			"opacity" : "1.0"
 		});
@@ -363,7 +383,7 @@ $(document).on("click", '.topImg', function() {
 		newValue = parseInt(currentValue, 10);
 		newValue = parseInt(newValue, 10) + 1;
 		$(".countLike").html(newValue);
-		updateRate(1);
+		
 	}
 });
 function updateRate(value){
@@ -377,26 +397,18 @@ function updateRate(value){
 		},
 		dataType : 'json',
 		success : function(data) {
-			console.log("update success",data);
-			// if (data.status ==1 ){
-			// 	$(".countLike").html(data.info);
-			// 	if (value)
-			// 		g_ratedRecipes.push(g_currRecipe.id)
-			// 	else g_ratedRecipes = _.without(g_ratedRecipes, g_currRecipe.id)
-			// 	window.localStorage.setItem('g_ratedRecipes',JSON.stringify(g_ratedRecipes));
-			// // }
-			// else if (data.status ==0 ){
-			// 	removeRate();
-			// }
+			console.log("update success",data.status);
+			if (data.status==2) {
+			alert("כבר עשית לייק")
+			}
+			
 		},
 		error : function(objRequest, errortype) {
 			console.log(errortype);
 			console.log("change to error func");
-			removeRate();
 		}
 	});
 }
-
 $(document).on('click','#submitComment', function(){
 	var comment = $('#comment').val();
 	$('#comment').html("");
@@ -525,12 +537,20 @@ $(document).on('click','#mySchedule',function(){
         },
         success: function(data) {
         	console.log(data.schedule)
-        	displayScheduleTrip(data.schedule);
+        	displayListScheduleTrip(data.schedule);
         }
     });
 	moveToSchedule();
 });
-
+function displayListScheduleTrip(data){
+	console.log(data)
+	$('#resultTrip ul').empty();
+	g_ListTrip=data;
+	for (i in data) {
+		var tripResult = '<li id='+data[i]._id+' class="favoriteListResultTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
+		$('#resultTrip .displayTrip').append(tripResult);
+	};
+}
 function displayScheduleTrip(data){
 	$('.Trip').empty();
 	$('.Trip').append("<h3>הטיול הנבחר </h3>");
@@ -627,7 +647,6 @@ $(document).on('submit','#addform',function(e){
 			comms.push(comm);
 		}
 	}
-	console.log(comms);
 	if (comms != 0)
 		form.append("sites", JSON.stringify(comms));	
 	else form.append("sites", JSON.stringify([]));	
@@ -638,13 +657,19 @@ $(document).on('submit','#addform',function(e){
 		if($(this).is(':checked')){
 			tempFilter.push($(this).attr('id'));
 		}
-	console.log(tempFilter);
 	});
 	form.append("trip_filter", JSON.stringify(tempFilter));
 	var temp_arr =[]
-	var temp= $('#usersList').val();
-	temp_arr = temp.split(" ");
-	from.append("shareEmail",shareEmail)
+	var temp= $('#usersList').text();
+	if(temp==""){
+		form.append("shareEmail",temp_arr)	
+		console.log(temp);
+	}else{ 
+
+		temp_arr = temp.split(" ");
+		console.log(temp_arr);
+		form.append("shareEmail",temp_arr);
+	}
 	console.log(form)
 	$.ajax({
 		type: "post",
@@ -655,6 +680,7 @@ $(document).on('submit','#addform',function(e){
         processData:false,
         error: function(jqXHR, textStatus, errorMessage) {
         	console.log(errorMessage)
+        },
         success: function(data) {
         	console.log(data)
         	if(edit==true){
