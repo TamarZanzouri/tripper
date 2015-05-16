@@ -201,6 +201,10 @@ fieldset > div{
   float: left;
   position: relative;
 }
+#removeFromSchedule{
+  float: left;
+  position: relative; 
+}
 #tripImg{
     width: 50%;
   float: right;

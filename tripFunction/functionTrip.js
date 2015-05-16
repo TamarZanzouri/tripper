@@ -419,27 +419,6 @@ $(document).on('click','#submitComment', function(){
 
 });
 
-	$(document).on('click', '#editFavorite', function(){
-		console.log("deleting trip " + g_trip);
-		console.log("trip id: " +g_trip._id)
-		$.ajax({
-			type: "post",
-        	url: g_domain+"updateTripChangesToUserFavorites",// where you wanna post
-        	data:  {tripId:g_trip._id, userId:User.email},
-        	// ContentType: 'application/json',
-        	dataType : "json",
-        error: function(jqXHR, textStatus, errorMessage) {
-        	console.log(errorMessage)
-
-
-        },
-        success: function(data) {
-        	// g_trip=data;
-        	// displayFullTrip(data);
-        }
-    });
-
-	});
 
 $(document).on('click' ,'#favorite',function(){
 	
@@ -532,29 +511,80 @@ function displayListScheduleTrip(data){
 	$('#resultTrip ul').empty();
 	g_list=data;
 	for (i in data) {
-		var tripResult = '<li id='+data[i]._id+' class="ListResultTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
+		var tripResult = '<li id='+data[i]._id+' class="listScheduleTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
 		$('#resultTrip .displayTrip').append(tripResult);
 	};
 }
+$(document).on('click','.listScheduleTrip',function(){
+	
 
+	var result = $(this).attr('id');
+	$.ajax({
+		type: "post",
+        url: g_domain+"getTripById",// where you wanna post
+        data:  {id:result},
+        dataType: "json",
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+
+
+        },
+        success: function(data) {
+        	g_trip=data;
+        	displayScheduleTrip(data);
+        	
+        }
+    });
+	moveToTripPage();
+});
 function displayScheduleTrip(data){
 	$('.Trip').empty();
 	$('.Trip').append("<h3>הטיול הנבחר </h3>");
-	$('.Trip').append("<h2>"+data.trip_name+"</h2>");
+	$('.Trip').append($("<img>").attr('src', 'images/smalLike.png').addClass('topImg').css({
+			"opacity" : "0.4"
+		}));
+	$('.Trip').append("<span class='countLike'>" + g_trip.rate.value + "</span>");
 	$('.Trip').append("<a id='favorite'>הוסף למועדפים</a> </br>");
-	$('.Trip').append("<a id='updateSchedule'>בחר כמסלול ראשי</a>");
+	$('.Trip').append("<a id='removeFromSchedule'>הסר מהמסול ראשי</a>");
+	
+	$('.Trip').append("<h2>"+g_trip.trip_name+"</h2>");
+	$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
+
+	$('.Trip').append("<img id='tripImg' src="+g_trip.imageUrl+">");
+	var div=('<div>');
+	div+=("<h4>תאור הטיול</h4>");
+	div+=(g_trip.trip_description);
+	$('.Trip').append(div);
+	var strSites="<ul class=sitesUl>";
+	strSites+="<h4>אתרים בטיול</h4>";
+	$.each(g_trip.tripSites , function(index,val){
+		strSites+="<li>";
+		strSites+=" שם האתר :"+val.siteName+", מיקום האתר : \n"+val.location;
+
+	});
+	$('.Trip').append(strSites);
+	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
+	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
 
 }
+$(document).on('click','#removeFromSchedule',function(){
+		$.ajax({
+		type: "post",
+    	url: g_domain+"removeFromSchedule",// where you wanna post
+    	data:  {tripId:g_trip._id, userEmail:User.email},
+    	// ContentType: 'application/json',
+    	dataType : "json",
+	    error: function(jqXHR, textStatus, errorMessage) {
+	    	console.log(errorMessage)
 
-function displayListScheduleTrip(data){
-	console.log(data)
-	$('#resultTrip ul').empty();
-	g_ListTrip=data;
-	for (i in data) {
-		var tripResult = '<li id='+data[i]._id+' class="favoriteListResultTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
-		$('#resultTrip .displayTrip').append(tripResult);
-	};
-}
+
+	    },
+	    success: function(data) {
+	    	// g_trip=data;
+	    	// displayFullTrip(data);
+	    }
+	});
+});
 
 $(document).on('click','#moveToFavorite',function(){
 	
@@ -988,6 +1018,29 @@ function favoriteDisplayFullTrip(data){
 
 }
 $(document).on('click','#editFavorite',function(){
+	
+
+	console.log("deleting trip " + g_trip);
+	console.log("trip id: " +g_trip._id)
+	$.ajax({
+		type: "post",
+    	url: g_domain+"updateTripChangesToUserFavorites",// where you wanna post
+    	data:  {tripId:g_trip._id, userId:User.email},
+    	// ContentType: 'application/json',
+    	dataType : "json",
+	    error: function(jqXHR, textStatus, errorMessage) {
+	    	console.log(errorMessage)
+
+
+	    },
+	    success: function(data) {
+	    	// g_trip=data;
+	    	// displayFullTrip(data);
+	    }
+	});
+
+
+
 	edit=true;
 	moveToAddPage();
 	$('#trip_name').val(g_trip.trip_name);
