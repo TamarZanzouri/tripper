@@ -14,7 +14,7 @@ app.use(express.static(path.join(__dirname, 'views')));
 app.use(express.static(path.join(__dirname, 'node_modules/bower_components')));
 
 app.use(express.static(path.join(__dirname, 'datepicker')));
-
+app.use(express.static(path.join(__dirname, 'images')));
 app.use(express.static(path.join(__dirname, 'tripFunction')));
 app.use(express.static(path.join(__dirname, 'style')));
 
@@ -46,6 +46,12 @@ mongoose.connect(mongopath,options);
 
 db = mongoose.connection;
 
+
+var usersWS = require('./users_ws'); 
+app.use(usersWS); 
+var tripsWS = require('./trips_ws'); 
+app.use(tripsWS); 
+
 db.on('error', console.error.bind(console, 'connection error:'));
 
 db.on('open', function () {
@@ -67,12 +73,6 @@ fs.readdirSync(__dirname + '/models').forEach( function( fileName)
 process.on('uncaughtException', function(err) {
 	console.log('Caught exception: ' + err);
 });
-
-//view in data base
-// app.get('/click', function(req, res) {
-
-// 	res.render('click.ejs')
-// });
 
 app.get('indexMobile', function(req, res) {
 

@@ -111,6 +111,9 @@ $(document).ready(function(){
         success: function(data) {
         	// console.log("update success to add to the favorite");
         	console.log(data)
+        	$.each(data, function(i, val){
+        		tripCharacters
+        	});
         }
 	})
 	})
