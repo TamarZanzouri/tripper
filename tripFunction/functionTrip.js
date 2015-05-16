@@ -568,6 +568,7 @@ function displayScheduleTrip(data){
 
 }
 $(document).on('click','#removeFromSchedule',function(){
+		console.log("start to removing")
 		$.ajax({
 		type: "post",
     	url: g_domain+"removeFromSchedule",// where you wanna post
@@ -582,6 +583,7 @@ $(document).on('click','#removeFromSchedule',function(){
 	    success: function(data) {
 	    	// g_trip=data;
 	    	// displayFullTrip(data);
+	    	moveToSchedule();
 	    }
 	});
 });
