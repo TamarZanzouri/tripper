@@ -99,7 +99,21 @@ $(document).ready(function(){
 	//     $('#us3').locationpicker('autosize');
 	// });
                    
-
+	$('#homePage').click(function(){
+		console.log("in home page")
+		$.ajax({
+			type: "get",
+        	url: g_domain+"getTripCharachters",// where you wanna post
+        	dataType: "json",
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+        },
+        success: function(data) {
+        	// console.log("update success to add to the favorite");
+        	console.log(data)
+        }
+	})
+	})
 
 
 	var max_fields = 20;
