@@ -175,9 +175,6 @@ router.post('/updateTripChangesToUserFavorites', function(req, res){
 		var userEmail = req.body.userId;
 		var tripToDelete = req.body.tripId;
 
-		// console.log(JSON.stringify(req.body.trip))
-		// var tripToDelete = JSON.stringify(req.body.trip);;
-		// console.log("trip to delete: " + tripToDelete)
 		console.log("user email: " + userEmail + "trip: " + tripToDelete);
 	}
 	catch(err) {
@@ -195,5 +192,28 @@ router.post('/updateTripChangesToUserFavorites', function(req, res){
 	})
 
 });
+
+
+router.post('/removeFromSchedule', function(req, res){
+		try{
+		var userEmail = req.body.userEmail;
+		var tripToDelete = req.body.tripId;
+
+		console.log("user email: " + userEmail + "trip: " + tripToDelete);
+	}
+	catch(err) {
+		console.log("error getting data " + err);
+	}
+	db.model('users').findOneAndUpdate({ email : userEmail}, {$pull : { schedule : {_id : new ObjectId(tripToDelete)}}}, function(err, docs){
+		if (err) {
+			console.log("error updating user favorites");
+			res.json({status:0})
+			return console.error(err);
+		}
+		else{
+			res.json({status:1})
+		}
+	})
+})
 
 module.exports = router;
