@@ -112,7 +112,7 @@ $(document).ready(function(){
         	// console.log("update success to add to the favorite");
         	console.log(data)
         	$.each(data, function(i, val){
-        		tripCharacters
+        		tripCharacters.push(val.trip_charachters)
         	});
         }
 	})
@@ -807,7 +807,9 @@ $(document).on('click','#showTrips',function(){
        // contentType: "application/json",
        success : function(data) {
        	console.log(data);
-       	
+       	User = data;
+       	// console.log(User.email + " " + User.favorites)
+
        },
        error : function(objRequest, errortype) {
        }
