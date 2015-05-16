@@ -127,6 +127,24 @@ $(document).ready(function(){
 	})
 	})
 
+	$('#addTripPage').click(function(){
+		// webView = {}
+				$.ajax({
+			type: "get",
+        	url: g_domain+"getTripCharachters",// where you wanna post
+        	dataType: "json",
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+        },
+        success: function(data) {
+        	// console.log("update success to add to the favorite");
+        	console.log(data)
+        	webView = data;
+        	console.log(webView);
+        	appendFilters();
+        }
+	})
+				})
 
 	var max_fields = 20;
 	// debugger;
@@ -184,7 +202,7 @@ $(document).ready(function(){
 					else return;
 				});
 				console.log(filter);
-				updateResultByFilter();
+				updateResultByFilterBeforeArea();
 		}
 	});
 
@@ -608,7 +626,7 @@ $(document).on('click','#moveToFavorite',function(){
 	moveToFavorite();
 });
 
-function changedArea(){
+function updateAreaAfterFilter(){
 	// debugger;
 	var tripsAfterArea = [];
 	if($('#selectArea').val() === ""){
@@ -628,12 +646,32 @@ function changedArea(){
 }
 
 
-function updateResultByFilter(){
+function updateAreaBeforeFilter(){
+	// debugger;
+	var tripsAfterArea = [];
+	if($('#selectArea').val() === ""){
+		displayListTrip(tripsAfterCharachters);	
+	}
+	else{
+		$('#resultTrip ul').empty();
+		for(i in tripsAfterCharachters){
+			// debugger;
+			if($('#selectArea').val() === tripsAfterCharachters[i].area){
+				tripsAfterArea.push(tripsAfterCharachters[i]);	
+			}
+		}
+		g_ListTrip = tripsAfterArea;
+		updateResultByFilterAfterArea()
+		// displayListTrip(g_ListTrip);	
+	}
+}
+
+function updateResultByFilterBeforeArea(){
 
 	var tripsAfterFilter = [];
 	var donsentContainFlag = false;
 
-	$.each(g_ListTrip, function(index,trip){
+	$.each(tripsAfterCharachters, function(index,trip){
 		$.each(filter, function(index,val){
 
 			if(!(_.contains(trip.trip_filter, val))){								
@@ -651,8 +689,37 @@ function updateResultByFilter(){
 	})
 	console.log(tripsAfterFilter);
 	g_ListTrip = tripsAfterFilter;
-	displayListTrip(g_ListTrip);
+	updateAreaAfterFilter();
+	// displayListTrip(g_ListTrip);
 
+}
+
+function updateResultByFilterAfterArea(){
+
+	var tripsAfterFilter = [];
+	var donsentContainFlag = false;
+	if(filter.length>0){
+		$.each(g_trip, function(index,trip){
+		$.each(filter, function(index,val){
+
+			if(!(_.contains(trip.trip_filter, val))){								
+				donsentContainFlag = true;
+				return;
+			}
+
+		})
+
+		if(!donsentContainFlag)
+		{
+			tripsAfterFilter.push(trip);
+		}
+		donsentContainFlag = false;
+	})
+	console.log(tripsAfterFilter);
+	g_ListTrip = tripsAfterFilter;
+	// updateAreaBeforeFilter();
+	}
+	displayListTrip(g_ListTrip);
 }
 
 $(document).on('click','.btnChar', function(e){
@@ -803,12 +870,14 @@ function moveToAddPage() {
 		transition : "none",
 		changeHash : true
 	});
+	appendFilters();
 }
-function moveTofilterPage() {
+function moveTofilterPage() {	
 	$.mobile.changePage("#resultTripPqge", {
 		transition : "none",
 		changeHash : true
 	});
+	appendFilters();
 }
 function moveToAccountPage() {
 	$.mobile.changePage("#accountPage", {
@@ -842,6 +911,7 @@ function moveToHomePage() {
 }
 
 function appendTripCharachters(tripCharacters){
+	$('#groupButton').append("<h2>חפשו לי מסלול...</h2>");
 	$.each(tripCharacters, function(i, val){
 		var buttonAppendCharachters = '<button class="btnChar">' + val + '</button>';
 		var selectAppendCharachters = '<option value=' + val + '>' + val + '</option>';
@@ -849,6 +919,46 @@ function appendTripCharachters(tripCharacters){
 		$("#firstcharachter").append(selectAppendCharachters);
 		$("#secondcharachter").append(selectAppendCharachters);		
 	});
+}
+
+function appendFilters(){
+	// debugger;
+		$('.who_are_you_going_with').empty();
+		$('.trip_kind').empty();
+		$('.difficulty').empty();
+		$('#isTripPrivate').empty();
+	$.each(webView, function(i, parent){
+		// console.log("paraent" + JSON.stringify(parent))
+		$.each(parent.who_are_you_going_with, function(i, val){
+			$('.who_are_you_going_with').append("<label for='" + val.filter + "' id=" + val.filter + "'>" + val.label + "</label>");
+			$('.who_are_you_going_with').append("<input type='checkbox' name='who_are_you_going_with[]' value='" + val.filter + "' id='" + val.filter + "' class='custom'/>");
+			console.log(val)
+	})
+});
+
+	$.each(webView, function(i, parent){
+		$.each(parent.trip_kind, function(i, val){
+			$('.trip_kind').append("<label for='" + val.filter + "' id=" + val.filter + "'>" + val.label + "</label>");
+			$('.trip_kind').append("<input type='checkbox' name='trip_kind[]' value='" + val.filter + "' id='" + val.filter + "' class='custom'/>");
+			console.log(val)
+})
+});
+
+	$.each(webView, function(i, parent){
+	$.each(parent.difficulty, function(i, val){
+		$('.difficulty').append("<label for='" + val.filter + "' id=" + val.filter + "'>" + val.label + "</label>");
+		$('.difficulty').append("<input type='checkbox' name='difficulty' value='" + val.filter + "' id='" + val.filter + "' class='custom'/>");
+		console.log(val)
+})
+});
+
+	$.each(webView, function(i, parent){
+	$.each(parent.isTripPrivate, function(i, val){
+		$('#isTripPrivate').append("<label for='" + val.filter + "' id=" + val.filter + "'>" + val.label + "</label>");
+		$('#isTripPrivate').append("<input type='radio' name='isTripPrivate' value='" + val.value + "' id='" + val.filter + "' class='custom'/>");
+		console.log(val)
+})
+});
 }
 
 function signinCallback(authResult) {
