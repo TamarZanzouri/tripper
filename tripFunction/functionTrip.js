@@ -545,7 +545,7 @@ $(document).on('click','#mySchedule',function(){
 function displayListScheduleTrip(data){
 	console.log(data)
 	$('#resultTrip ul').empty();
-	g_ListTrip=data;
+	g_list=data;
 	for (i in data) {
 		var tripResult = '<li id='+data[i]._id+' class="favoriteListResultTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
 		$('#resultTrip .displayTrip').append(tripResult);
