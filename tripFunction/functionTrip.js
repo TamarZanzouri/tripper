@@ -99,7 +99,24 @@ $(document).ready(function(){
 	//     $('#us3').locationpicker('autosize');
 	// });
                    
-
+	$('#homePage').click(function(){
+		console.log("in home page")
+		$.ajax({
+			type: "get",
+        	url: g_domain+"getTripCharachters",// where you wanna post
+        	dataType: "json",
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+        },
+        success: function(data) {
+        	// console.log("update success to add to the favorite");
+        	console.log(data)
+        	$.each(data, function(i, val){
+        		tripCharacters.push(val.trip_charachters)
+        	});
+        }
+	})
+	})
 
 
 	var max_fields = 20;
@@ -195,28 +212,15 @@ $(document).ready(function(){
 
 	$("#private_trip").click(function(){
 		console.log("privateTrip")
-		$('#isPrivate').append('<label id="addUsers" style=" float:right";>הוסף משתמשים אליהם יפורסם הטיול:<br><input placeholder="לדוגמא : haimyyy@gmail.com" type="text" id="shareEmail" >');
-		$('#isPrivate').append('<a id="addUser" href="#"> הוסף עוד חבר<a>')
-		$('#isPrivate').append('<p id="usersList"><p>')
+		$('#isPrivate').append('<label id="addUsers">הוסף משתמשים אליהם יפורסם הטיול:<br><textarea placeholder="לדוגמא : haimyyy@gmail.com,\nzanzuoritamar@gmail.com" type="text" id="shareEmail" name="shareEmail" >');
+		
 	})
 	$('#public_trip').click(function(){
 		$('#addUsers').hide();
 	})
-	
+
 });
-$(document).on('click','#addUser',function(){
-	console.log(tempEmailUser)
-	var tempEmailUser = $('#shareEmail').val();
-	$('#shareEmail').val("");
-	console.log(tempEmailUser)
-	$('#usersList').append(tempEmailUser+" ");
-});
-	/*
-$('#addUser').click(function(){
-		var tempEmailUser = $('#shareEmail').val();
-		$('#shareEmail').empty();
-		$('#usersList').append(tempEmailUser+" ");
-	});*/
+
 // function myLocation() {
 // 	//If HTML5 Geolocation Is Supported In This Browser
 // 	if (navigator.geolocation) {
@@ -330,85 +334,14 @@ function displayFullTrip(data){
 	console.log(data)
 	$('.Trip').empty();
 	$('.Trip').append("<h3>הטיול הנבחר </h3>");
-	$('.Trip').append($("<img>").attr('src', 'images/smalLike.png').addClass('topImg').css({
-			"opacity" : "0.4"
-		}));
-	$('.Trip').append("<span class='countLike'>" + g_trip.rate.value + "</span>");
+	$('.Trip').append("<h2>"+data.trip_name+"</h2>");
 	$('.Trip').append("<a id='favorite'>הוסף למועדפים</a> </br>");
 	$('.Trip').append("<a id='updateSchedule'>בחר כמסלול ראשי</a>");
-	
-	$('.Trip').append("<h2>"+g_trip.trip_name+"</h2>");
-	$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
-
-	$('.Trip').append("<img id='tripImg' src="+g_trip.imageUrl+">");
-	var div=('<div>');
-	div+=("<h4>תאור הטיול</h4>");
-	div+=(g_trip.trip_description);
-	$('.Trip').append(div);
-	var strSites="<ul class=sitesUl>";
-	strSites+="<h4>אתרים בטיול</h4>";
-	$.each(g_trip.tripSites , function(index,val){
-		strSites+="<li>";
-		strSites+=" שם האתר :"+val.siteName+", מיקום האתר : \n"+val.location;
-
-	});
-	$('.Trip').append(strSites);
 	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
 	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
 
+}
 
-}
-$(document).on("click", '.topImg', function() {
-	// if (!g_user.email) {
-	// 	alert("אנא התחבר למערכת")
-	// 	return;
-	// }
-	if ($(this).hasClass("selectedImg")) {
-		$(this).removeClass("selectedImg").css({
-			"opacity" : "0.4"
-		});
-		currentValue = $(".countLike").html();
-		newValue = parseInt(currentValue, 10);
-		newValue = parseInt(newValue, 10) - 1;
-		$(".countLike").html(newValue);
-		updateRate(0);
-		
-	} else {
-		temp_rate=updateRate(1);
-		console.log(temp_rate)
-		$(this).addClass("selectedImg").css({
-			"opacity" : "1.0"
-		});
-		currentValue = $(".countLike").html();
-		newValue = parseInt(currentValue, 10);
-		newValue = parseInt(newValue, 10) + 1;
-		$(".countLike").html(newValue);
-		
-	}
-});
-function updateRate(value){
-	$.ajax({
-		type : "post",
-		url : g_domain+"updateRate",
-		data : {
-			value : value,
-			tripId : g_trip._id,
-			userEmail :User.email
-		},
-		dataType : 'json',
-		success : function(data) {
-			console.log("update success",data.status);
-			if (data.status==2) {
-			alert("כבר עשית לייק")
-			}
-			
-		},
-		error : function(objRequest, errortype) {
-			console.log(errortype);
-			console.log("change to error func");
-		}
-	});
-}
 $(document).on('click','#submitComment', function(){
 	var comment = $('#comment').val();
 	$('#comment').html("");
@@ -542,6 +475,7 @@ $(document).on('click','#mySchedule',function(){
     });
 	moveToSchedule();
 });
+
 function displayListScheduleTrip(data){
 	console.log(data)
 	$('#resultTrip ul').empty();
@@ -551,6 +485,7 @@ function displayListScheduleTrip(data){
 		$('#resultTrip .displayTrip').append(tripResult);
 	};
 }
+
 function displayScheduleTrip(data){
 	$('.Trip').empty();
 	$('.Trip').append("<h3>הטיול הנבחר </h3>");
@@ -647,6 +582,7 @@ $(document).on('submit','#addform',function(e){
 			comms.push(comm);
 		}
 	}
+	console.log(comms);
 	if (comms != 0)
 		form.append("sites", JSON.stringify(comms));	
 	else form.append("sites", JSON.stringify([]));	
@@ -657,19 +593,9 @@ $(document).on('submit','#addform',function(e){
 		if($(this).is(':checked')){
 			tempFilter.push($(this).attr('id'));
 		}
+	console.log(tempFilter);
 	});
 	form.append("trip_filter", JSON.stringify(tempFilter));
-	var temp_arr =[]
-	var temp= $('#usersList').text();
-	if(temp==""){
-		form.append("shareEmail",temp_arr)	
-		console.log(temp);
-	}else{ 
-
-		temp_arr = temp.split(" ");
-		console.log(temp_arr);
-		form.append("shareEmail",temp_arr);
-	}
 	console.log(form)
 	$.ajax({
 		type: "post",
@@ -891,7 +817,9 @@ $(document).on('click','#showTrips',function(){
        // contentType: "application/json",
        success : function(data) {
        	console.log(data);
-       	
+       	User = data;
+       	// console.log(User.email + " " + User.favorites)
+
        },
        error : function(objRequest, errortype) {
        }

@@ -38,7 +38,7 @@ router.post('/registerUser', function(req, res) {
 						res.json({status:0})
 						return console.error(err);
 					}
-					res.json({status:1})
+					res.json({status:1}, result)
 					return;	
 				})		
 		}
