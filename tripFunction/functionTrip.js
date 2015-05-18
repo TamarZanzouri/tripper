@@ -17,6 +17,7 @@ var t1 =  32.03952466510527;
 var t2 = 34.83763210941106;
 edit=false;
 var count=1;
+var tripCharacters = [];
 
 navigator.geolocation.getCurrentPosition(function(position) {
 		//Get Latitude From Geolocation API
@@ -31,6 +32,27 @@ navigator.geolocation.getCurrentPosition(function(position) {
 	});
 
 $(document).ready(function(){
+
+	$.ajax({
+		type: "get",
+    	url: g_domain+"getTripCharachters",// where you wanna post
+    	dataType: "json",
+    error: function(jqXHR, textStatus, errorMessage) {
+    	console.log(errorMessage)
+    },
+    success: function(data) {
+    	// console.log("update success to add to the favorite");
+    	console.log(data)
+    	$.each(data, function(i, val){
+    		$.each(val.trip_charachters, function(i, val){
+    			tripCharacters.push(val.name);
+    			// console.log(val.name)
+
+    		})
+    });
+    	appendTripCharachters();
+    }
+    });   
 	
  var mapOptions = {
         center: new google.maps.LatLng(	 32.03952466510527, 34.83763210941106),
@@ -98,53 +120,7 @@ $(document).ready(function(){
 	// });
 	// $('#us6-dialog').on('shown.bs.modal', function() {
 	//     $('#us3').locationpicker('autosize');
-	// });
-                   
-	$('#home').click(function(){
-		var tripCharacters = [];
-		$('#groupButton').empty();
-		$.ajax({
-			type: "get",
-        	url: g_domain+"getTripCharachters",// where you wanna post
-        	dataType: "json",
-        error: function(jqXHR, textStatus, errorMessage) {
-        	console.log(errorMessage)
-        },
-        success: function(data) {
-        	// console.log("update success to add to the favorite");
-        	console.log(data)
-        	webView = data;
-        	console.log(webView)
-        	$.each(data, function(i, val){
-        		$.each(val.trip_charachters, function(i, val){
-        			tripCharacters.push(val.name);
-        			// console.log(val.name)
-
-        		})
-        	});
-        	appendTripCharachters(tripCharacters);
-        }
-	})
-	})
-
-	$('#addTripPage').click(function(){
-		// webView = {}
-				$.ajax({
-			type: "get",
-        	url: g_domain+"getTripCharachters",// where you wanna post
-        	dataType: "json",
-        error: function(jqXHR, textStatus, errorMessage) {
-        	console.log(errorMessage)
-        },
-        success: function(data) {
-        	// console.log("update success to add to the favorite");
-        	console.log(data)
-        	webView = data;
-        	console.log(webView);
-        	appendFilters();
-        }
-	})
-				})
+	// });           
 
 	var max_fields = 20;
 	// debugger;
@@ -300,10 +276,7 @@ function showMyImage(fileInput) {
 		reader.readAsDataURL(file);
 	}    
 }
-/*
-$(document).on('click','.saveSchedule',function(){
 
-});*/
 $(document).on('click','.listResultTrip',function(){
 	
 
@@ -912,8 +885,7 @@ function moveToHomePage() {
 	});
 }
 
-function appendTripCharachters(tripCharacters){
-	$('#groupButton').append("<h2>חפשו לי מסלול...</h2>");
+function appendTripCharachters(){
 	$.each(tripCharacters, function(i, val){
 		var buttonAppendCharachters = '<button class="btnChar">' + val + '</button>';
 		var selectAppendCharachters = '<option value=' + val + '>' + val + '</option>';
@@ -921,46 +893,6 @@ function appendTripCharachters(tripCharacters){
 		$("#firstcharachter").append(selectAppendCharachters);
 		$("#secondcharachter").append(selectAppendCharachters);		
 	});
-}
-
-function appendFilters(){
-	// debugger;
-		$('.who_are_you_going_with').empty();
-		$('.trip_kind').empty();
-		$('.difficulty').empty();
-		$('#isTripPrivate').empty();
-	$.each(webView, function(i, parent){
-		// console.log("paraent" + JSON.stringify(parent))
-		$.each(parent.who_are_you_going_with, function(i, val){
-			$('.who_are_you_going_with').append("<label for='" + val.filter + "' id=" + val.filter + "'>" + val.label + "</label>");
-			$('.who_are_you_going_with').append("<input type='checkbox' name='who_are_you_going_with[]' value='" + val.filter + "' id='" + val.filter + "' class='custom'/>");
-			console.log(val)
-	})
-});
-
-	$.each(webView, function(i, parent){
-		$.each(parent.trip_kind, function(i, val){
-			$('.trip_kind').append("<label for='" + val.filter + "' id=" + val.filter + "'>" + val.label + "</label>");
-			$('.trip_kind').append("<input type='checkbox' name='trip_kind[]' value='" + val.filter + "' id='" + val.filter + "' class='custom'/>");
-			console.log(val)
-})
-});
-
-	$.each(webView, function(i, parent){
-	$.each(parent.difficulty, function(i, val){
-		$('.difficulty').append("<label for='" + val.filter + "' id=" + val.filter + "'>" + val.label + "</label>");
-		$('.difficulty').append("<input type='checkbox' name='difficulty' value='" + val.filter + "' id='" + val.filter + "' class='custom'/>");
-		console.log(val)
-})
-});
-
-	$.each(webView, function(i, parent){
-	$.each(parent.isTripPrivate, function(i, val){
-		$('#isTripPrivate').append("<label for='" + val.filter + "' id=" + val.filter + "'>" + val.label + "</label>");
-		$('#isTripPrivate').append("<input type='radio' name='isTripPrivate' value='" + val.value + "' id='" + val.filter + "' class='custom'/>");
-		console.log(val)
-})
-});
 }
 
 function signinCallback(authResult) {
