@@ -8,7 +8,7 @@ var usersSchema = new Schema(
 	image : String,
 	favorites : [ { 
 			trip_name : String,
-	 		address : String ,  default : [] 
+	 		address : String
 	 	} ],
 	tripScheduleTime : { 
 		checkInTime : {type : Date, default : ''},

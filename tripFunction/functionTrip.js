@@ -1,5 +1,6 @@
 User={};
-g_domain="http://shenkartripper.herokuapp.com/";//"http://127.0.0.1:1337/";//
+g_domain="http://127.0.0.1:1337/";
+//"http://shenkartripper.herokuapp.com/";
 mapPoint={};
 g_trip={};
 g_ListTrip=[];
@@ -128,7 +129,7 @@ $(document).ready(function(){
 	var outer_wrapper = $(".ingredients_wrap");
 	var wrapper = $(".ingredients_i");
 	var firstIngredient = $(".firstIngredient");
-	
+	wrapper.geocomplete();
 	var x = 1;
 	//$(firstIngredient).focus(function(e){ //on add input button click
 	$(outer_wrapper).on("focus", ".firstIngredient", function(e) {//on add input button click
@@ -143,6 +144,7 @@ $(document).ready(function(){
 	
 	$(outer_wrapper).on("focus", ".newChild", function(e) {//on add input button click
 		wrapper = $(".ingredients_i");
+		wrapper.geocomplete();
 		console.log(wrapper[wrapper.length-1]);
 		console.log(wrapper[wrapper.length-1].id);
 		if (this.id == wrapper[wrapper.length-1].id){				
@@ -782,26 +784,43 @@ $(document).on('submit','#addform',function(e){
       } 
   });
 })
-function addToFavoFromEdit(data){
+function addToFavoFromEdit(tripToUpdate){
+
+	console.log("deleting trip " + g_trip);
+	console.log("trip id: " +g_trip._id)
 	$.ajax({
 		type: "post",
-        url: g_domain+"updateFavoirte",// where you wanna post
-        data:  {trip:{
-        	_id:data._id,
-        	trip_name:data.trip_name,
-        	address:data.address        	
-        }
-        ,userId:User.email},
-        dataType: "json",
-        error: function(jqXHR, textStatus, errorMessage) {
-        	console.log(errorMessage)
+    	url: g_domain+"updateTripChangesToUserFavorites",// where you wanna post
+    	data:  {tripId:g_trip._id, userId:User.email},
+    	// ContentType: 'application/json',
+    	dataType : "json",
+	    error: function(jqXHR, textStatus, errorMessage) {
+	    	console.log(errorMessage)
 
 
-        },
-        success: function(data) {
-        	console.log("update success to add to the favorite");
-        }
-    });
+	    },
+	    success: function(data) {
+			$.ajax({
+				type: "post",
+		        url: g_domain+"updateFavoirte",// where you wanna post
+		        data:  {trip:{
+		        	_id:tripToUpdate._id,
+		        	trip_name:tripToUpdate.trip_name,
+		        	address:tripToUpdate.address        	
+		        }
+		        ,userId:User.email},
+		        dataType: "json",
+		        error: function(jqXHR, textStatus, errorMessage) {
+		        	console.log(errorMessage)
+
+
+		        },
+		        success: function(data) {
+		        	console.log("update success to add to the favorite");
+		        }
+		    });
+	    }
+	});
 }
 // function validateMyForm(obj){
 // 	var wrapper = $(".ingredients_i");
@@ -844,14 +863,12 @@ function moveToAddPage() {
 		transition : "none",
 		changeHash : true
 	});
-	appendFilters();
 }
 function moveTofilterPage() {	
 	$.mobile.changePage("#resultTripPqge", {
 		transition : "none",
 		changeHash : true
 	});
-	appendFilters();
 }
 function moveToAccountPage() {
 	$.mobile.changePage("#accountPage", {
@@ -1061,29 +1078,7 @@ function favoriteDisplayFullTrip(data){
 
 }
 $(document).on('click','#editFavorite',function(){
-	
-
-	console.log("deleting trip " + g_trip);
-	console.log("trip id: " +g_trip._id)
-	$.ajax({
-		type: "post",
-    	url: g_domain+"updateTripChangesToUserFavorites",// where you wanna post
-    	data:  {tripId:g_trip._id, userId:User.email},
-    	// ContentType: 'application/json',
-    	dataType : "json",
-	    error: function(jqXHR, textStatus, errorMessage) {
-	    	console.log(errorMessage)
-
-
-	    },
-	    success: function(data) {
-	    	// g_trip=data;
-	    	// displayFullTrip(data);
-	    }
-	});
-
-
-
+	console.log(g_trip)
 	edit=true;
 	moveToAddPage();
 	$('#trip_name').val(g_trip.trip_name);
@@ -1156,6 +1151,7 @@ $(document).on('click','#editFavorite',function(){
 
 	// });
 });
+
 function firstSites(){
 	$('.firstIngredient').trigger('focus').val(g_trip.tripSites[0].siteName);
 		$('.amount1').val(g_trip.tripSites[0].location);
