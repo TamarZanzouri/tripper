@@ -412,7 +412,7 @@ function updateFavorites (bool){
         	address:g_trip.address        	
         }
         ,userId:User.email,
-    	bool:bool},
+    	isFavorite:bool},
         dataType: "json",
         error: function(jqXHR, textStatus, errorMessage) {
         	console.log(errorMessage)
@@ -424,6 +424,7 @@ function updateFavorites (bool){
         }
     });
 };
+
 $(document).on("click", '.topImg', function() {
 	// if (!g_user.email) {
 	// 	alert("אנא התחבר למערכת")
@@ -501,30 +502,7 @@ $(document).on('click','#submitComment', function(){
     });
 
 });
-/****** old favorite ******/
 
-// $(document).on('click' ,'#favorite',function(){
-	
-// 	$.ajax({
-// 		type: "post",
-//         url: g_domain+"updateFavoirte",// where you wanna post
-//         data:  {trip:{
-//         	_id:g_trip._id,
-//         	trip_name:g_trip.trip_name,
-//         	address:g_trip.address        	
-//         }
-//         ,userId:User.email},
-//         dataType: "json",
-//         error: function(jqXHR, textStatus, errorMessage) {
-//         	console.log(errorMessage)
-
-
-//         },
-//         success: function(data) {
-//         	console.log("update success");
-//         }
-//     });
-// });
 $(document).on('click' ,'.saveSchedule',function(){
 
 

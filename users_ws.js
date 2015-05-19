@@ -78,13 +78,27 @@ router.post('/updateScheduleParticipents', function(req,res){
 	}
 	tripParticipents.forEach(function(participent){
 		console.log(participent)
-		db.model('users').findOneAndUpdate({email:participent}, {schedule:tripsInSchedule}, { upsert : true }, function(err, docs) {
-		if (err) {
-			console.log("found error inserting");
-			res.json({status:0})
-			return console.error(err);
+		db.model('users').findOne({email : participent}, function(err, docs){
+			if(err){
+				console.log("found error inserting");
+				res.json({status:0})
+				return console.error(err);
 			}
-			});
+			if(docs){
+				console.log("found")
+				db.model('users').update({email:participent}, {schedule:tripsInSchedule}, { upsert : true }, function(err, docs) {
+				if (err) {
+					console.log("found error inserting");
+					res.json({status:0})
+					return console.error(err);
+					}
+
+				});
+			}
+			else{
+				return console.log("user " + participent + " not found");
+			}
+		})
 	})
 	res.json({status:1})
 
@@ -111,41 +125,84 @@ router.post('/saveTimeSchedule', function(req, res){
 
 });
 
-router.post('/updateFavoirte', function(req, res) {
+router.post('/updateFavoirte', function(req, res){
 	try{
-		var user = req.body.userId;
 		var trip = req.body.trip;
-		var wantToAddToFavorites = req.body.bool;
-		// console.log(updateOrRemove)
+		var user = req.body.userId;
+		var isFavorite = req.body.isFavorite;
+		console.log(trip, user, isFavorite)
 	}
 	catch(err){
-		console.log("failed to get user and trip " + err);
+		return console.error(err)
 	}
-	console.log(" update trip",trip)
-	// var user_collection = db.model('users');
-if(wantToAddToFavorites){
-	console.log("adding trip to favorites " + wantToAddToFavorites)
+	if(isFavorite == 'true'){
+		console.log("adding trip to favorites")
 	db.model('users').findOneAndUpdate({email:user}, { $push: {favorites:trip}}, { upsert : true }, function(err, docs) {
 					if (err) {
 						console.log("found error inserting");
 						res.json({status:0})
 						return console.error(err);
 					}
-					res.json({status:1})
-				});	
+				res.json({status:1})
+				});
 	}
-	console.log("removing trip from favorites ")
-	db.model('users').findOneAndUpdate({ email : userEmail}, {$pull : { favorites : {_id : new ObjectId(trip._id)}}}, function(err, docs){
-		if (err) {
-			console.log("error updating user favorites");
-			res.json({status:0})
-			return console.error(err);
-		}
-		else{
-			res.json({status:1})
-		}
-	})
-});
+	else{
+			console.log("removing trip from favorites ")
+	db.model('users').findOneAndUpdate({ email : user}, {$pull : { favorites : {_id : new ObjectId(trip._id)}}}, function(err, docs){
+	if (err) {
+		console.log("error updating user favorites");
+		res.json({status:0})
+		return console.error(err);
+	}		
+	res.json({status:1})
+	});
+	}
+
+})
+
+// router.post('/updateFavoirte', function(req, res) {
+// 	try{
+// 		var trip = req.body.trip;
+// 		var user = req.body.userId;
+// 		var wantToAddToFavorites = req.body.isFavorite;
+// 		console.log(wantToAddToFavorites)
+// 	}
+// 	catch(err){
+// 		console.log("failed to get user and trip " + err);
+// 		return console.error(err);
+// 	}
+	// console.log(" update trip",trip)
+	// if(wantToAddToFavorites){
+	// console.log("adding trip to favorites " + wantToAddToFavorites)
+	// db.model('users').findOneAndUpdate({email:user}, { $push: {favorites:trip}}, { upsert : true }, function(err, docs) {
+	// 				if (err) {
+	// 					console.log("found error inserting");
+	// 					res.json({status:0})
+	// 					return console.error(err);
+	// 				}
+	// 			res.json({status:1})
+	// 			});	
+	// }
+	// else{
+	// 		console.log("removing trip from favorites ")
+	// db.model('users').findOneAndUpdate({ email : user}, {$pull : { favorites : {_id : new ObjectId(trip._id)}}}, function(err, docs){
+	// if (err) {
+	// 	console.log("error updating user favorites");
+	// 	res.json({status:0})
+	// 	return console.error(err);
+	// }		
+	// res.json({status:1})
+	// })
+	// }
+// 	console.log(wantToAddToFavorites)
+// if(wantToAddToFavorites){
+// 	console.log(wantToAddToFavorites)
+// 	console.log("bla bla")
+// }
+// else{
+// 	console.lo("in else")
+// }
+// });
 
 router.post('/getUserSchedule', function(req, res) {
 	try{
