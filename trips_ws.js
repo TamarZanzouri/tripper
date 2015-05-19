@@ -195,10 +195,8 @@ app.post('/getTripById', function(req, res) {
 	catch(err){
 		console.log("error getting trip id " + err)
 	}
-			// var tripper_collection = db.collection('tripper_playlist');
 	db.model('tripper_playlists').findOne({ _id : new ObjectId(tripId) },function (err, docs)
 			{ 
-                // failure while connecting to sessions collection
                 if (err) 
                 {
                 	console.log( err);

@@ -211,9 +211,9 @@ header > a :hover{
 #groupButton{
   text-align: center;
   width: 50%;
-  height: 323px;
     margin: 110px auto;
   position: relative;
+    padding: 2px 5px 35px 5px;
     background-image: url("images/bg_groupButton.png");
 }
 
@@ -311,4 +311,15 @@ float: right;
 }
 .sitesUl>li{
     margin: 0 0px 0 6px !important;
+}
+.Trip>h3{
+  float: right;
+  font-size: 20px;
+}
+.Trip>article{
+  font-size: 12px;
+    float: right;
+  direction: rtl;
+  padding: 5px 16px 6px 5px;
+  line-height: 25px;
 }
