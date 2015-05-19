@@ -54,8 +54,8 @@ $(document).ready(function(){
     });
     	appendTripCharachters();
     }
-    });   
-	
+    });
+
  var mapOptions = {
         center: new google.maps.LatLng(	 32.03952466510527, 34.83763210941106),
         zoom: 8,
@@ -195,13 +195,17 @@ $(document).ready(function(){
 
 	$('#updateFriendsWithChanges').click(function(){
 		console.log(g_ListTrip)
-
+		if(!(_.contains(shareScheduleWithFriends, User.email))){
+			console.log(shareScheduleWithFriends)
+			shareScheduleWithFriends.push(User.email)
+		}		
+		console.log(date)
 		if(shareScheduleWithFriends.length>0){
 			console.log("sending email")
 			$.ajax({
 			type: "post",
 	        url: g_domain+"updateScheduleParticipents",// where you wanna post
-	        data:  {trips:g_ListTrip, sharedEmail:shareScheduleWithFriends},
+	        data:  {trips:g_ListTrip, sharedEmail:shareScheduleWithFriends, dateOfTrip : date},
         	dataType: 'json',
 	        error: function(jqXHR, textStatus, errorMessage) {
 	        	console.log(errorMessage)
