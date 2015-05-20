@@ -36,7 +36,7 @@ li{
 }
 .selected{
 	font-size:18px;
-  background: #337AB7 !important;
+  background: #1B936E !important;
   color:#ffffff !important;
 }
 .selected > a {
@@ -322,4 +322,10 @@ float: right;
   direction: rtl;
   padding: 5px 16px 6px 5px;
   line-height: 25px;
+}
+#RemoveFavPopup{
+  float:right;
+}
+#addToFavPopup{
+  float: right;
 }

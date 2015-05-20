@@ -72,7 +72,42 @@ $(document).ready(function(){
     });
     initDatepicker();
      
-    
+	$('#home').hover(function(){
+   	 	$("#home a img").attr("src", "images/search_hover.png");
+    }, function(){
+    	$("#home a img").attr("src", "images/search.png");
+	});
+	$('#showTrips').hover(function(){
+   	 	$("#showTrips a img").attr("src", "images/account_hover.png");
+    }, function(){
+    	$("#showTrips a img").attr("src", "images/account.png");
+	});
+	$('#moveToFavorite').hover(function(){
+   	 	$("#moveToFavorite a img").attr("src", "images/favorites_hover.png");
+    }, function(){
+    	$("#moveToFavorite a img").attr("src", "images/favorites.png");
+	});
+	$('#mySchedule').hover(function(){
+   	 	$("#mySchedule a img").attr("src", "images/my_track_hover.png");
+    }, function(){
+    	$("#mySchedule a img").attr("src", "images/my_track.png");
+	});
+	$('#addTrip').hover(function(){
+   	 	$("#addTrip a img").attr("src", "images/add_hover.png");
+    }, function(){
+    	$("#addTrip a img").attr("src", "images/add.png");
+	});
+	var arr=["#addTrip","#mySchedule","#moveToFavorite","#showTrips","#home"];
+	$('.nav li').click(function(){
+		console.log("li clicked")
+		var me = $(this);
+
+		$.each(arr, function(index,val){
+			if($(val).hasClass('selected'))
+				$(val).removeClass('selected');
+		});
+		$(me).addClass('selected');
+	});
 			//Use HTML5 Geolocation API To Get Current Position
 	
 
@@ -93,36 +128,7 @@ $(document).ready(function(){
         $('#us3').locationpicker('autosize');
     });
 
-
-   //   var distKM = 500;
-	  // var formula = distance(point1.lat,point1.lng,point2.lat,point2.lng);
-	  // console.log(formula);
-	 // var t = navigator.geolocation;
-	 // if (t ) {        //Use HTML5 Geolocation API To Get Current Position      
-		// 	navigator.geolocation.getCurrentPosition(function(position){   
-		//      //Get Latitude From Geolocation API    
-		//         point1.lat = position.coords.latitude;       
-		//       //Get Longitude From Geolocation API   
-		//           point1.lng = position.coords.longitude; 
-		//          })
-		// } 
-		// console,log
-		// myLocation();
-	//   $('#us3').locationpicker({
-		
-	//     location: {latitude: point1.lat, longitude: point1.lng},
-	//     radius: 1000,
-	//     inputBinding: {
-	//         // latitudeInput: $('#us3-lat'),
-	//         // longitudeInput: $('#us3-lon'),
-	//         radiusInput: $('#us3-radius'),
-	//         locationNameInput: $('#us3-address')
-	//     },
-	//     enableAutocomplete: true
-	// });
-	// $('#us6-dialog').on('shown.bs.modal', function() {
-	//     $('#us3').locationpicker('autosize');
-	// });           
+ 	$()
 
 	var max_fields = 20;
 	// debugger;
@@ -140,10 +146,11 @@ $(document).ready(function(){
 		if (x < max_fields) { //max input box allowed
 			x++;
 			$(this).off('focus');
-			$(outer_wrapper).append('<div style="text-align: center;margin: auto;position: relative;align-content: center;"><input id="newChild' + x + '" class="ingredients_i gapper ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset newChild" style="text-align:center;margin:auto;width:100%" type="text" placeholder="אתר" name="ingredients[]"><input type="text" name="amount[]" style="width:100%;padding:5px 0 5px 0" placeholder="מיקום" class="firstAmount amounts_i amount'+x+'" id="firstAmount"><a href="#" class="remove_field"> X </a></div>');	
+			$(outer_wrapper).append('<div style="text-align: center;margin: auto;position: relative;align-content: center;"><input id="newChild' + x + '" class="ingredients_i gapper ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset newChild" style="text-align:center;margin:auto;width:100%" type="text" placeholder="אתר" name="ingredients[]"><div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input id="imgUpload'+x+'" type="file" accept="image/*" onchange="showMyImage(this,'+x+')" name="file" class="image_i"><img id="thumbnil'+x+'" style="width:20%; margin-top:10px;"  src="" alt="image"/></div><a href="#" class="remove_field"> X </a></div>');	
+		
 		}
 	});
-	
+
 	$(outer_wrapper).on("focus", ".newChild", function(e) {//on add input button click
 		wrapper = $(".ingredients_i");
 		wrapper.geocomplete();
@@ -153,7 +160,7 @@ $(document).ready(function(){
 			console.log("focus " + x);
 			x++;
 
-			$(outer_wrapper).append('<div style="text-align: center;margin: auto;position: relative;align-content: center;"><input id="newChild' + x + '" class="ingredients_i gapper ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset newChild" style="text-align:center;margin:auto;width:100%" type="text" placeholder="אתר" name="ingredients[]"><input type="text" name="amount[]" style="width:100%;padding:5px 0 5px 0" placeholder="מיקום" class="firstAmount amounts_i amount'+x+'" id="firstAmount"><a href="#" class="remove_field"> X </a></div>');	
+			$(outer_wrapper).append('<div style="text-align: center;margin: auto;position: relative;align-content: center;"><input id="newChild' + x + '" class="ingredients_i gapper ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset newChild" style="text-align:center;margin:auto;width:100%" type="text" placeholder="אתר" name="ingredients[]"><div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input id="imgUpload'+x+'" type="file" accept="image/*" onchange="showMyImage(this,'+x+')" name="file" class="image_i"><img id="thumbnil'+x+'" style="width:20%; margin-top:10px;"  src="" alt="image"/><a href="#" class="remove_field"> X </a></div>');	
 		}
 	});		
 
@@ -303,7 +310,7 @@ function initDatepicker(){
 
 
 }
-function showMyImage(fileInput) {
+function showMyImage(fileInput,x) {
 	var files = fileInput.files;
 	for (var i = 0; i < files.length; i++) {           
 		var file = files[i];
@@ -311,7 +318,7 @@ function showMyImage(fileInput) {
 		if (!file.type.match(imageType)) {
 			continue;
 		}           
-		var img=document.getElementById("thumbnil");            
+		var img=document.getElementById("thumbnil"+x);            
 		img.file = file;    
 		var reader = new FileReader();
 		reader.onload = (function(aImg) { 
@@ -349,10 +356,15 @@ function displayFullTrip(data){
 	console.log(data)
 	$('.Trip').empty();
 	$('.Trip').append("<h3>הטיול הנבחר </h3>");
+	$('.Trip').append($("<img>").attr({'src':'images/star.png',"href":"#addToFavPopup","data-rel":"popup"}).addClass('topImgStar'));
+	$.each(User.favorites, function(index,val){
+		if (val._id==g_trip._id) {
+			$('.topImgStar').attr({'src':'images/yellohStar.png',"href":"#RemoveFavPopup","data-rel":"popup"});
+		}
+	});
 	$('.Trip').append($("<img>").attr('src', 'images/smalLike.png').addClass('topImg').css({
 			"opacity" : "0.4"
 		}));
-	$('.Trip').append($("<img>").attr('src', 'images/yellohStar.png').addClass('topImgStar'));
 	$('.Trip').append("<span class='countLike'>" + g_trip.rate.value + "</span>");
 	$('.Trip').append("<a id='favorite'>הוסף למועדפים</a> </br>");
 	$('.Trip').append("<a id='updateSchedule'>בחר כמסלול ראשי</a>");
@@ -387,15 +399,16 @@ function displayFullTrip(data){
 
 }
 $(document).on("click", '.topImgStar', function() {
-	// if (!g_user.email) {
+	// if (!User.email) {
 	// 	alert("אנא התחבר למערכת")
 	// 	return;
 	// }
 	if ($(this).hasClass("selectedImgStar")) {
-		$(this).removeClass("selectedImgStar").attr("src", "images/star.png");
+		$(this).removeClass("selectedImgStar").attr({'src':'images/star.png',"href":"#RemoveFavPopup","data-rel":"popup"});
 		updateFavorites(false);
+
 	} else {
-		$(this).addClass("selectedImgStar").attr("src", "images/yellohStar.png");
+		$(this).addClass("selectedImgStar").attr({'src':'images/yellohStar.png',"href":"#addToFavPopup","data-rel":"popup"});
 		updateFavorites(true);
 	}
 });
@@ -628,7 +641,12 @@ function displayScheduleTrip(data){
 			"opacity" : "0.4"
 		}));
 	$('.Trip').append("<span class='countLike'>" + g_trip.rate.value + "</span>");
-	$('.Trip').append("<a id='favorite'>הוסף למועדפים</a> </br>");
+	$('.Trip').append($("<img>").attr('src', 'images/star.png').addClass('topImgStar'));
+	$.each(User.favorites, function(index,val){
+		if (val._id==g_trip._id) {
+			$('.topImgStar').attr('src', 'images/yellohStar.png');
+		}
+	});
 	$('.Trip').append("<a id='removeFromSchedule'>הסר מהמסול ראשי</a>");
 	
 	$('.Trip').append("<h2>"+g_trip.trip_name+"</h2>");
@@ -828,7 +846,7 @@ $(document).on('submit','#addform',function(e){
 	var tempFilter = [];
 
 	var wrapper = $(".ingredients_i");
-	var amounts = $(".amounts_i");
+	// var images = $("image_i");
 	var comms = new Array();
 	for (var i = 0; i < wrapper.length; i++){
 		console.log(i);
@@ -836,10 +854,11 @@ $(document).on('submit','#addform',function(e){
 		var comm = {};
 		if (wrapper[i].value.trim() != ''){
 			comm['siteName'] = wrapper[i].value;
-			comm["location"] = amounts[i].value;
+			// comm["image"] = images[i].value;
 			comms.push(comm);
 		}
 	}
+	console.log(comms)
 	if (comms != 0)
 		form.append("sites", JSON.stringify(comms));	
 	else form.append("sites", JSON.stringify([]));	
@@ -864,6 +883,7 @@ $(document).on('submit','#addform',function(e){
 		form.append("shareEmail",temp_arr);
 	}
 	console.log(form)
+	moveToHomePage();	
 	$.ajax({
 		type: "post",
         url: g_domain+"add",// where you wanna post
@@ -881,9 +901,10 @@ $(document).on('submit','#addform',function(e){
         	}
         	edit=false;
 
-        	moveToHomePage();	      
+        	      
       } 
   });
+	return false;
 })
 function addToFavoFromEdit(tripToUpdate){
 
@@ -1172,6 +1193,12 @@ function favoriteDisplayFullTrip(data){
 	$('.Trip').empty();
 	$('.Trip').append("<h3>הטיול הנבחר </h3>");
 	$('.Trip').append("<h2>"+data.trip_name+"</h2>");
+	$('.Trip').append($("<img>").attr('src', 'images/star.png').addClass('topImgStar'));
+	$.each(User.favorites, function(index,val){
+		if (val._id==g_trip._id) {
+			$('.topImgStar').attr('src', 'images/yellohStar.png');
+		}
+	});
 	$('.Trip').append("<a id='editFavorite'>ערוך טיול כרצונך</a> </br>");
 	$('.Trip').append("<a id='updateSchedule'>בחר כמסלול ראשי</a>");
 	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
