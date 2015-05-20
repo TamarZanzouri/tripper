@@ -82,6 +82,15 @@ background-color: #337AB7 !important;
   padding: 10px 10px 10px 0;
   border-radius: 10px;
 }
+
+.addToSchedule{
+  background-image: url("images/mySchedule.jpg"); 
+  background-size: 30%,30%;
+  height: 750px;
+  background-repeat: no-repeat;
+  padding-left: 5%;
+  float: right;
+}
 .titelName{
 	display: -webkit-box;
   font-size: 18px;

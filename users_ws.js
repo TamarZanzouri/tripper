@@ -54,16 +54,62 @@ router.post('/updateMySchedule', function(req, res) {
 		console.log("failed to get user and trip " + err);
 	}
 	console.log("update the schedule",trip)
-
-	db.model('users').findOneAndUpdate({email:user}, { $push: {schedule:trip}}, { upsert : true }, function(err, docs) {
-		if (err) {
-			console.log("found error inserting");
+	db.model('users').findOne({email:user}).exec(function (err, docs){
+		if(err){
 			res.json({status:0})
 			return console.error(err);
-			}
-				// console.log(check);
+		}
+		console.log("schedule : " + (docs.schedule).length)
+		if((docs.schedule).length == 0){
+			console.log("%%%%%%%%%%%%%%%schedule is empty")
+			// db.model('users').Update({email:user}, { $addToSet: {schedule:trip}}, function(err, docs) {
+			// 	if (err) {
+			// 		console.log("found error inserting");
+			// 		res.json({status:0})
+			// 		return console.error(err);
+			// 		}
+			// 			res.json({status:1})
+			// 		});
+
+			docs.schedule.push(trip);
+			docs.save(function(err, result){
+				if(err){
+					return console.error(err)
+				}
+				result.json({status:1})	
+			})
+
+		}
+		else{
+			console.log("###############trip is with data")
+			docs.schedule.every(function(tripsInSchedule){
+			console.log("in trip")
+			if(tripsInSchedule._id == trip._id){
+				console.log("trip allready in schedule")
 				res.json({status:1})
-			});
+				return false
+			}
+			console.log("trip not found")
+			// db.model('users').Update({email:user}, { $addToSet: {schedule:trip}}, function(err, docs) {
+			// 	if (err) {
+			// 		console.log("found error inserting");
+			// 		res.json({status:0})
+			// 		return console.error(err);
+			// 		}
+			// 			res.json({status:1})
+			// 		});
+			docs.schedule.push(trip);
+			docs.save(function(err, result){
+				if(err) {
+					return console.error(err)
+				}
+				result.json({status:1})
+			})
+			
+		});
+			// res.json({status:1})
+			}
+		})
 });
 
 router.post('/updateScheduleParticipents', function(req,res){

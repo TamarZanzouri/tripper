@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var usersSchema = new Schema( 
 {
-	email : {type : String, index: 1,unique: true, required: true},
+	email : {type : String, index: true,unique: true, required: true},
 	name : String,
 	image : String,
 	favorites : [ { 
@@ -15,7 +15,8 @@ var usersSchema = new Schema(
 		checkOutTime : {type : Date, default : ''}
 	},
 	tripPatners : { type : Array, default : [] },
-	schedule : [ { 
+	schedule : [ {
+		_id : String,
 	trip_name : { type : String, default : ''},
 	trip_description : { type : String, default : ''},
 	address : { type : String, default : ''},
