@@ -30,7 +30,7 @@ var usersSchema = new Schema(
 	shareEmail : { type : Array, default : [] },
 	tripSites : [ {
 					siteName : { type : String, default : ''},
-					location : { type : String, default : ''}
+					img : { type : String, default : ''}
 				} ],
 	mapPoint : {
 		lat : {type : Number, default : 0},

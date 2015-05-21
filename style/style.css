@@ -338,3 +338,17 @@ float: right;
 #addToFavPopup{
   float: right;
 }
+
+#mobile-indicator {
+    display: none;
+}
+
+#nav-panel{
+  display: none;
+}
+
+@media (max-width: 767) {
+    #mobile-indicator {
+        display: block;
+    }
+}
