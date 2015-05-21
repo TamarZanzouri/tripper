@@ -15,8 +15,6 @@ cloudinary.config({
   //cdn_subdomain: true
 });
 
-var sites;
-
 router.post('/add', function(req, res) {
 	//console.log(req.files,req.body)
 	//console.log("haim" + req.body.newTrip + " " + req.body.des);
@@ -216,10 +214,6 @@ function uploadCallBack(total,size,urls){
 	if (total == size) console.log('urls',urls)
 
 }
-app.get('/sendSites/:sites?', function(req, res) {
-	sites = req.query.sites;
-	console.log(sites);
-});
 
 router.post('/filterByChars', function(req, res) {
 	try{

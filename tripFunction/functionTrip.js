@@ -943,41 +943,6 @@ function addToFavoFromEdit(tripToUpdate){
 	    }
 	});
 }
-// function validateMyForm(obj){
-// 	var wrapper = $(".ingredients_i");
-// 	var amounts = $(".amounts_i");
-// 	var comms = new Array();
-// 	for (var i = 0; i < wrapper.length; i++){
-// 		console.log(i);
-
-// 		var comm = {};
-// 		if (wrapper[i].value.trim() != ''){
-// 			comm['siteName'] = wrapper[i].value;
-// 			comm["location"] = amounts[i].value;
-// 			comms.push(comm);
-// 		}
-// 	}
-// 	console.log(comms);
-// 	if (comms != 0)
-// 		sendSites(comms);
-
-// 	$.ajax({
-// 		type: "post",
-//         url: g_domain+"add",// where you wanna post
-//         data:  obj,
-//         dataType: "json",
-//         //contentType: false,
-//         //processData:false,
-//         error: function(jqXHR, textStatus, errorMessage) {
-//         	console.log(errorMessage)
-//         },
-//         success: function(data) {
-//         	console.log(data)	
-
-//       } 
-//   });
-// 	return false;
-// }
 
 function moveToAddPage() {
 	$.mobile.changePage("#addTripPage", {
@@ -1105,19 +1070,7 @@ $(document).on( "click", "#signOut", function() {
 	console.log("signOut")
 	gapi.auth.signOut();
 });	
-// function sendSites(data){
-// 	$.ajax({
-// 		type: "get",
-//         url:g_domain+"sendSites",// where you wanna post
-//         data:  {sites:data},
-//         dataType: "json",
-//         contentType: "application/json",
-//        success : function(data) {console.log(data); 
-//        },
-//        error : function(objRequest, errortype) {
-//        }
-//    });
-// }
+
 $(document).on('click','#showTrips',function(){
 	moveToAccountPage();
 	getUserTrip();

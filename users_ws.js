@@ -30,7 +30,7 @@ router.post('/registerUser', function(req, res) {
 			})
 		}
 		else{
-			db.model('users').findOneAndUpdate( { email : user.email }, user, { upsert : true },
+			db.model('users').findOneAndUpdate( { email : user.email }, user, { upsert : false },
 				function (err, result)
 				{
 					if (err) {
@@ -62,55 +62,43 @@ router.post('/updateMySchedule', function(req, res) {
 		console.log("schedule : " + (docs.schedule).length)
 		if((docs.schedule).length == 0){
 			console.log("%%%%%%%%%%%%%%%schedule is empty")
-			// db.model('users').Update({email:user}, { $addToSet: {schedule:trip}}, function(err, docs) {
-			// 	if (err) {
-			// 		console.log("found error inserting");
-			// 		res.json({status:0})
-			// 		return console.error(err);
-			// 		}
-			// 			res.json({status:1})
-			// 		});
-
 			docs.schedule.push(trip);
 			docs.save(function(err, result){
 				if(err){
 					return console.error(err)
 				}
-				result.json({status:1})	
+				res.json({status:1})	
 			})
 
 		}
 		else{
 			console.log("###############trip is with data")
-			docs.schedule.every(function(tripsInSchedule){
+			var addToSchedule = docs.schedule.every(function(tripsInSchedule){
 			console.log("in trip")
+			console.log("req trip id", trip._id, "trip in schedule", tripsInSchedule._id)
 			if(tripsInSchedule._id == trip._id){
 				console.log("trip allready in schedule")
-				res.json({status:1})
 				return false
 			}
-			console.log("trip not found")
-			// db.model('users').Update({email:user}, { $addToSet: {schedule:trip}}, function(err, docs) {
-			// 	if (err) {
-			// 		console.log("found error inserting");
-			// 		res.json({status:0})
-			// 		return console.error(err);
-			// 		}
-			// 			res.json({status:1})
-			// 		});
-			docs.schedule.push(trip);
-			docs.save(function(err, result){
+			return true
+		});
+			if(addToSchedule){
+				console.log("trip not found")
+				docs.schedule.push(trip);
+				docs.save(function(err, result){
 				if(err) {
 					return console.error(err)
 				}
-				result.json({status:1})
+				res.json({status:1})
 			})
-			
-		});
-			// res.json({status:1})
 			}
-		})
-});
+			else{
+				console.log("trip found return")
+				res.json({status:1})
+			}
+		}
+			})
+		});
 
 router.post('/updateScheduleParticipents', function(req,res){
 	console.log("updating")
@@ -184,17 +172,62 @@ router.post('/updateFavoirte', function(req, res){
 	}
 	if(isFavorite == 'true'){
 		console.log("adding trip to favorites")
-	db.model('users').findOneAndUpdate({email:user}, { $push: {favorites:trip}}, { upsert : true }, function(err, docs) {
-					if (err) {
-						console.log("found error inserting");
-						res.json({status:0})
-						return console.error(err);
-					}
+		console.log("update the schedule",trip)
+		db.model('users').findOne({email:user}).exec(function (err, docs){
+		if(err){
+			res.json({status:0})
+			return console.error(err);
+		}
+		console.log("favorites length: " + (docs.favorites).length)
+		if((docs.favorites).length == 0){
+			console.log("%%%%%%%%%%%%%%%schedule is empty")
+			docs.favorites.push(trip);
+			docs.save(function(err, result){
+				if(err){
+					return console.error(err)
+				}
+				res.json({status:1})	
+			})
+
+		}
+		else{
+			console.log("###############trip is with data")
+			var addToFavorites = docs.favorites.every(function(tripsInFavorites){
+			console.log("in trip")
+			console.log("req trip id", trip._id, "trip in schedule", tripsInFavorites._id)
+			if(tripsInFavorites._id == trip._id){
+				console.log("trip allready in favorites")
+				return false
+			}
+			return true
+		});
+			if(addToFavorites){
+				console.log("trip not found")
+				docs.favorites.push(trip);
+				docs.save(function(err, result){
+				if(err) {
+					return console.error(err)
+				}
 				res.json({status:1})
-				});
+			})
+			}
+			else{
+				console.log("trip found return")
+				res.json({status:1})
+			}
+		}
+			})
+	// db.model('users').findOneAndUpdate({email:user}, { $push: {favorites:trip}}, { upsert : true }, function(err, docs) {
+	// 				if (err) {
+	// 					console.log("found error inserting");
+	// 					res.json({status:0})
+	// 					return console.error(err);
+	// 				}
+	// 			res.json({status:1})
+	// 			});
 	}
 	else{
-			console.log("removing trip from favorites ")
+	console.log("removing trip from favorites ")
 	db.model('users').findOneAndUpdate({ email : user}, {$pull : { favorites : {_id : new ObjectId(trip._id)}}}, function(err, docs){
 	if (err) {
 		console.log("error updating user favorites");
