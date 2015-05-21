@@ -54,8 +54,8 @@ $(document).ready(function(){
     });
     	appendTripCharachters();
     }
-    });
-
+    });   
+	
  var mapOptions = {
         center: new google.maps.LatLng(	 32.03952466510527, 34.83763210941106),
         zoom: 8,
@@ -97,7 +97,7 @@ $(document).ready(function(){
     }, function(){
     	$("#addTrip a img").attr("src", "images/add.png");
 	});
-	var arr=["#addTrip","#mySchedule","#moveToFavorite","#showTrips","#home"];
+	/*var arr=["#addTrip","#mySchedule","#moveToFavorite","#showTrips","#home"];
 	$('.nav li').click(function(){
 		console.log("li clicked")
 		var me = $(this);
@@ -107,7 +107,7 @@ $(document).ready(function(){
 				$(val).removeClass('selected');
 		});
 		$(me).addClass('selected');
-	});
+	});*/
 			//Use HTML5 Geolocation API To Get Current Position
 	
 
@@ -202,17 +202,13 @@ $(document).ready(function(){
 
 	$('#updateFriendsWithChanges').click(function(){
 		console.log(g_ListTrip)
-		if(!(_.contains(shareScheduleWithFriends, User.email))){
-			console.log(shareScheduleWithFriends)
-			shareScheduleWithFriends.push(User.email)
-		}		
-		console.log(date)
+
 		if(shareScheduleWithFriends.length>0){
 			console.log("sending email")
 			$.ajax({
 			type: "post",
 	        url: g_domain+"updateScheduleParticipents",// where you wanna post
-	        data:  {trips:g_ListTrip, sharedEmail:shareScheduleWithFriends, dateOfTrip : date},
+	        data:  {trips:g_ListTrip, sharedEmail:shareScheduleWithFriends},
         	dataType: 'json',
 	        error: function(jqXHR, textStatus, errorMessage) {
 	        	console.log(errorMessage)
@@ -359,7 +355,6 @@ $(document).on('click','.listResultTrip',function(){
 function displayFullTrip(data){
 	console.log(data)
 	$('.Trip').empty();
-	$('.Trip').append("	<div id='addingSchedule' data-role='popup'><p>הטיול נוסף למסלול שלך</p></div>");
 	$('.Trip').append("<h3>הטיול הנבחר </h3>");
 	$('.Trip').append($("<img>").attr({'src':'images/star.png',"href":"#addToFavPopup","data-rel":"popup"}).addClass('topImgStar'));
 	$.each(User.favorites, function(index,val){
@@ -371,7 +366,8 @@ function displayFullTrip(data){
 			"opacity" : "0.4"
 		}));
 	$('.Trip').append("<span class='countLike'>" + g_trip.rate.value + "</span>");
-	$('.Trip').append("<a href='#addingSchedule' class='updateSchedule' data-transition='flip' data-rel='popup'>הוסף למסלול שלי</a>");
+	$('.Trip').append("<a id='favorite'>הוסף למועדפים</a> </br>");
+	$('.Trip').append("<a id='updateSchedule'>בחר כמסלול ראשי</a>");
 	
 	$('.Trip').append("<h2>"+g_trip.trip_name+"</h2>");
 	$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
@@ -429,7 +425,7 @@ function updateFavorites (bool){
         	address:g_trip.address        	
         }
         ,userId:User.email,
-    	isFavorite:bool},
+    	bool:bool},
         dataType: "json",
         error: function(jqXHR, textStatus, errorMessage) {
         	console.log(errorMessage)
@@ -441,7 +437,6 @@ function updateFavorites (bool){
         }
     });
 };
-
 $(document).on("click", '.topImg', function() {
 	// if (!g_user.email) {
 	// 	alert("אנא התחבר למערכת")
@@ -519,7 +514,30 @@ $(document).on('click','#submitComment', function(){
     });
 
 });
+/****** old favorite ******/
 
+// $(document).on('click' ,'#favorite',function(){
+	
+// 	$.ajax({
+// 		type: "post",
+//         url: g_domain+"updateFavoirte",// where you wanna post
+//         data:  {trip:{
+//         	_id:g_trip._id,
+//         	trip_name:g_trip.trip_name,
+//         	address:g_trip.address        	
+//         }
+//         ,userId:User.email},
+//         dataType: "json",
+//         error: function(jqXHR, textStatus, errorMessage) {
+//         	console.log(errorMessage)
+
+
+//         },
+//         success: function(data) {
+//         	console.log("update success");
+//         }
+//     });
+// });
 $(document).on('click' ,'.saveSchedule',function(){
 
 
@@ -542,10 +560,7 @@ $(document).on('click' ,'.saveSchedule',function(){
 
 });
 
-$(document).on('click' ,'.updateSchedule',function(){
-
-    $('#addingSchedule').popup();
-    $('#addingSchedule').popup('open');
+$(document).on('click' ,'#updateSchedule',function(){
 
 	$.ajax({
 		type: "post",
@@ -560,12 +575,9 @@ $(document).on('click' ,'.updateSchedule',function(){
         	},
         	success: function(data) {
         		console.log("update schedule success");
-        		setTimeout(function(){
-        			$('#addingSchedule').popup('close');	
-        		}, 1000);
-        		
         	}
         });
+
 });
 
 
@@ -808,17 +820,14 @@ function updateResultByFilterAfterArea(){
 $(document).on('click','.btnChar', function(e){
 		console.log("picked char")
 		$(this).addClass('selectedChar');
-		console.log($(this).text())
 		if(count==1)
 		{
-			$('#groupButton h2').append($(this).text())
 			count++;
 			clickedCharachters[0] = $(this).text();
 			$('.continue').css('display','block');
 		}
 		else if(count==2)
 		{
-			$('#groupButton h2').append(" + " + $(this).text())
 			clickedCharachters[1] = $(this).text();
 			console.log(clickedCharachters[0] + " " + clickedCharachters[1]);
 			count=1;
@@ -1084,7 +1093,6 @@ function signinCallback(authResult) {
 	function displayListTrip(data){
 		console.log(data)
 		$('#resultTrip ul').empty();
-		$('#resultTrip ul').append(clickedCharachters[0] + " " + clickedCharachters[1])
 		trip=data;
 		for (i in data) {
 			var tripResult = '<li id='+data[i]._id+' class="listResultTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
@@ -1147,10 +1155,10 @@ $(document).on('click','#showTrips',function(){
        }
    });
 	}
-$(document).on('click','.titelName',function(){
+$(document).on('click','.favoriteListResultTrip',function(){
 	
 
-	var result = $(this).parent().attr('id');
+	var result = $(this).attr('id');
 	$.ajax({
 		type: "post",
         url: g_domain+"getTripById",// where you wanna post
@@ -1175,7 +1183,7 @@ function favoriteDisplayListTrip(data){
 	$('#resultTrip ul').empty();
 	trip=data;
 	for (i in data) {
-		var tripResult = '<li id='+data[i]._id+' class="favoriteListResultTrip trip" ><a href="#addingSchedule" class="addToSchedule" data-transition="flip" data-rel="popup">הוסף למסלול שלי</a><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
+		var tripResult = '<li id='+data[i]._id+' class="favoriteListResultTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
 		$('#resultTrip .displayTrip').append(tripResult);
 	};
 }
@@ -1183,7 +1191,6 @@ function favoriteDisplayFullTrip(data){
 	g_trip=data;
 	console.log(data)
 	$('.Trip').empty();
-	$('.Trip').append("	<div id='addingSchedule' data-role='popup'><p>הטיול נוסף למסלול שלך</p></div>");
 	$('.Trip').append("<h3>הטיול הנבחר </h3>");
 	$('.Trip').append("<h2>"+data.trip_name+"</h2>");
 	$('.Trip').append($("<img>").attr('src', 'images/star.png').addClass('topImgStar'));
@@ -1193,47 +1200,11 @@ function favoriteDisplayFullTrip(data){
 		}
 	});
 	$('.Trip').append("<a id='editFavorite'>ערוך טיול כרצונך</a> </br>");
-	$('.Trip').append("<a href='#addingSchedule' class='updateSchedule' data-transition='flip' data-rel='popup'>הוסף למסלול שלי</a>");
+	$('.Trip').append("<a id='updateSchedule'>בחר כמסלול ראשי</a>");
 	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
 	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
 
 }
-
-$(document).on('click', '.addToSchedule', function(){
-		var result = $(this).parent().attr('id');
-		$.ajax({
-		type: "post",
-        url: g_domain+"getTripById",// where you wanna post
-        data:  {id:result},
-        dataType: "json",
-        error: function(jqXHR, textStatus, errorMessage) {
-        	console.log(errorMessage)
-
-
-        },
-        success: function(data) {
-        	g_trip=data;
-        	$.ajax({
-			type: "post",
-	        url: g_domain+"updateMySchedule",// where you wanna post
-	        data:  {trip: g_trip
-	        	,userId:User.email},
-	        	dataType: "json",
-	        	error: function(jqXHR, textStatus, errorMessage) {
-	        		console.log(errorMessage)
-
-
-	        	},
-	        	success: function(data) {
-	        		$( "#addingToSchedule" ).popup( "close" );
-	        	}
-	        });
-        	
-        }
-    });
-
-})
-
 $(document).on('click','#editFavorite',function(){
 	console.log(g_trip)
 	edit=true;
