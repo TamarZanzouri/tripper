@@ -103,10 +103,10 @@ $(document).ready(function(){
 		var me = $(this);
 
 		$.each(arr, function(index,val){
-			if($(val).hasClass('selected'))
-				$(val).removeClass('selected');
+			if($(val).hasClass('selectedLi'))
+				$(val).removeClass('selectedLi');
 		});
-		$(me).addClass('selected');
+		$(me).addClass('selectedLi');
 	});*/
 			//Use HTML5 Geolocation API To Get Current Position
 	
@@ -377,14 +377,26 @@ function displayFullTrip(data){
 	div+=("<h4>תאור הטיול</h4>");
 	div+=(g_trip.trip_description);
 	$('.Trip').append(div);
-	var strSites="<ul class=sitesUl>";
-	strSites+="<h4>אתרים בטיול</h4>";
+
+	var strSites ='<div id="timeline">'; 
+	strSites+="<ul id=dates>";
 	$.each(g_trip.tripSites , function(index,val){
-		strSites+="<li>";
-		strSites+=" שם האתר :"+val.siteName+", מיקום האתר : \n"+val.location;
+		strSites+='<li><a href="#'+val.siteName+'">'+val.siteName+'</a></li>';
+		
+
+		// strSites+=" שם האתר :"+val.siteName+", מיקום האתר : \n"+val.location;
 
 	});
 	$('.Trip').append(strSites);
+
+	var ulSites = '<ul id="issues">';
+	$.each(g_trip.tripSites , function(index,val){
+		ulSites+='<li id='+val.siteName+'><h2>'+val.siteName+'</h2></li>';
+		// strSites+=" שם האתר :"+val.siteName+", מיקום האתר : \n"+val.location;<img src='+val.img+'>
+	});
+	ulSites+='</ul>';
+	$('.Trip').append(ulSites);
+
 	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
 	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
 	var article = "<h3>תגובות המטיילים</h3><article>";
