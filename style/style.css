@@ -34,12 +34,12 @@ li{
 	background: #49495A;
 	color:#ffffff;
 }
-.selected{
+.selectedLi{
 	font-size:18px;
   background: #1B936E !important;
   color:#ffffff !important;
 }
-.selected > a {
+.selectedLi > a {
   background-color: transparent !important;
   color: #ffffff !important;
 }
@@ -266,7 +266,7 @@ header > a :hover{
   width: 48%;
   /* display: -webkit-inline-box; */
   position: relative;
-  height: 200px;
+  /*height: 200px;*/
     margin: 0px 0 10px 0;
 
 }
