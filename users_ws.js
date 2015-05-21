@@ -182,7 +182,7 @@ router.post('/updateFavoirte', function(req, res){
 				});
 	}
 	else{
-			console.log("removing trip from favorites ")
+	console.log("removing trip from favorites ")
 	db.model('users').findOneAndUpdate({ email : user}, {$pull : { favorites : {_id : new ObjectId(trip._id)}}}, function(err, docs){
 	if (err) {
 		console.log("error updating user favorites");

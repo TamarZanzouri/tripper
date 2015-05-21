@@ -15,12 +15,10 @@ cloudinary.config({
   //cdn_subdomain: true
 });
 
-var sites;
-
 router.post('/add', function(req, res) {
 	//console.log(req.files,req.body)
 	//console.log("haim" + req.body.newTrip + " " + req.body.des);
-
+	console.log("start to add to DB")
 	var urlImg="";
 	var dataForm={};
 	var playlistToAdd = {};
@@ -38,7 +36,7 @@ router.post('/add', function(req, res) {
 	form.on('progress', function(bytesReceived, bytesExpected) 
 	{
 		var percent_complete = (bytesReceived / bytesExpected) * 100;
-		console.log(percent_complete.toFixed(2));
+		// console.log(percent_complete.toFixed(2));
 	});
 
 	form.on('error', function(err) 
@@ -47,18 +45,112 @@ router.post('/add', function(req, res) {
 		console.error(err);
 	});
 	form.on('end', function(error, fields, files) {
+		var file_names = this.openedFiles;
 
-		console.log(this)
-		console.log(files)
-		var temp_path = this.openedFiles[0].path;
-		console.log("temp_path: " + temp_path);
+	 	//console.log(this)
+		var files_temp=[];
+		var temp_paths=[];
+		for(i in file_names){
+			files_temp.push(file_names[i]);
+			
+		}
+		for(i in files_temp){
+			if(files_temp[i].name==''){
+				var x= files_temp[i]
+			}else{
+				temp_paths[i]=files_temp[i].path;
+			}
+			// console.log("temp_path file: ",temp_paths[i]);
+			// console.log(files_temp[i])
+		}
+
+		var urls=[],total=0,size=0;
+		total = temp_paths.length;
+		for(i in temp_paths){
+			console.log(temp_paths[i])
+			cloudinary.uploader.upload(temp_paths[i], 
+                    function(result) { 
+                  		if (result.error) {
+							return;
+						}
+                  		urls.push(result.url);	
+                  		
+                  		++size;
+                  		if (total != size) return;
+                  		
+                  		console.log('urls',urls)
+
+                  		playlistToAdd.trip_name = dataForm.nameTrip;
+						playlistToAdd.trip_description = dataForm.des;
+						playlistToAdd.address = dataForm.locationTrip;
+						var tripCharachters = [];
+						tripCharachters.push(dataForm.firstcharachter);
+						tripCharachters.push(dataForm.secondcharachter);
+						playlistToAdd.trip_charachters = tripCharachters;
+						var sitesName = dataForm.ingredients;
+						console.log("SSSSSSSSS",sitesName)
+						var loc= dataForm.amount;
+						var sites=JSON.parse(dataForm.sites);
+						playlistToAdd.mapPoint=(dataForm.mapPoint)?JSON.parse(dataForm.mapPoint):'';
+							for (val in sites){
+								console.log("############",urls[val]);
+								sites[val].img = urls[val];
+							}
+							console.log("$$$$$$$$",sites)
+
+							playlistToAdd.trip_isPrivate = dataForm.isTripPrivate;
+							playlistToAdd.area = dataForm.area;
+							var tripFilter =[];
+							playlistToAdd.email =dataForm.email;
+
+							var privte = dataForm.isTripPrivate;
+							var areaLocition = dataForm.area;
+							userEmail =dataForm.email;
+							var shareEmail=dataForm.shareEmail;
+							playlistToAdd.shareEmail=shareEmail;
+							var tripFilter=JSON.parse(dataForm.trip_filter);
+							console.log("trip filters " + tripFilter);
+							tripFilter.push(dataForm.difficulty);
+
+							console.log("filters enterd " + tripFilter)
+							playlistToAdd.trip_filter = tripFilter;
+							playlistToAdd.tripSites = sites;
+							// playlistToAdd.imageUrl = urlImg;
+							// console.log("inage url on cloudinary " + urlImg)
+							var newTrip = new Playlist(playlistToAdd);
+							console.log("new trip before insert " + newTrip)
+							newTrip.save(function(err, docs) {
+								if (err) {
+									console.log("found error inserting");
+									res.json({status:0,err:err})
+									return;
+								}
+								if(docs){
+									console.log('insert seccessfuly')
+									res.json({status:1},docs)
+									return ;
+								}
+							});
+                  		// save into the database
+                       	//console.log(result) 
+
+                    },{
+                    	crop: 'limit',
+						width: 640,
+						height: 360
+                    });
+		}
+
+			// cloudinary.uploader.upload([temp_paths[0],temp_paths[1]], 
+   //                         function(result) { console.log(result) 
+   //                  });
 
 		/* The file name of the uploaded file */
-		var file_name = this.openedFiles[0].name;
-		console.log("file_name: " + file_name);
-
+		// var file_name = this.openedFiles;
+		// console.log("file_name: " , file_names);
 		
-		var stream = cloudinary.uploader.upload_stream(function(result) {
+		
+		/*/*var stream = cloudinary.uploader.upload_stream(function(result) {
 			console.log("result from cloudinary " + result) 
 			urlImg=result.url;
 
@@ -112,17 +204,16 @@ router.post('/add', function(req, res) {
 					}
 				});
 			});
+	
+	var file_reader = fs.createReadStream(temp_paths).pipe(stream)
+*/
+	 });
 
-var file_reader = fs.createReadStream(temp_path).pipe(stream)
+});  
+function uploadCallBack(total,size,urls){
+	if (total == size) console.log('urls',urls)
 
-});
-
-}); 
-
-app.get('/sendSites/:sites?', function(req, res) {
-	sites = req.query.sites;
-	console.log(sites);
-});
+}
 
 router.post('/filterByChars', function(req, res) {
 	try{
