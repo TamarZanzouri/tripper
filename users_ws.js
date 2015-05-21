@@ -172,14 +172,59 @@ router.post('/updateFavoirte', function(req, res){
 	}
 	if(isFavorite == 'true'){
 		console.log("adding trip to favorites")
-	db.model('users').findOneAndUpdate({email:user}, { $push: {favorites:trip}}, { upsert : true }, function(err, docs) {
-					if (err) {
-						console.log("found error inserting");
-						res.json({status:0})
-						return console.error(err);
-					}
+		console.log("update the schedule",trip)
+		db.model('users').findOne({email:user}).exec(function (err, docs){
+		if(err){
+			res.json({status:0})
+			return console.error(err);
+		}
+		console.log("favorites length: " + (docs.favorites).length)
+		if((docs.favorites).length == 0){
+			console.log("%%%%%%%%%%%%%%%schedule is empty")
+			docs.favorites.push(trip);
+			docs.save(function(err, result){
+				if(err){
+					return console.error(err)
+				}
+				res.json({status:1})	
+			})
+
+		}
+		else{
+			console.log("###############trip is with data")
+			var addToFavorites = docs.favorites.every(function(tripsInFavorites){
+			console.log("in trip")
+			console.log("req trip id", trip._id, "trip in schedule", tripsInFavorites._id)
+			if(tripsInFavorites._id == trip._id){
+				console.log("trip allready in favorites")
+				return false
+			}
+			return true
+		});
+			if(addToFavorites){
+				console.log("trip not found")
+				docs.favorites.push(trip);
+				docs.save(function(err, result){
+				if(err) {
+					return console.error(err)
+				}
 				res.json({status:1})
-				});
+			})
+			}
+			else{
+				console.log("trip found return")
+				res.json({status:1})
+			}
+		}
+			})
+	// db.model('users').findOneAndUpdate({email:user}, { $push: {favorites:trip}}, { upsert : true }, function(err, docs) {
+	// 				if (err) {
+	// 					console.log("found error inserting");
+	// 					res.json({status:0})
+	// 					return console.error(err);
+	// 				}
+	// 			res.json({status:1})
+	// 			});
 	}
 	else{
 	console.log("removing trip from favorites ")
