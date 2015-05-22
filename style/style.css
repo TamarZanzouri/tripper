@@ -54,7 +54,13 @@ h1 > a:hover{
 	text-decoration: none;
 }
 .ui-btn-active{
-background-color: #337AB7 !important;
+background-color: #1B936E !important;
+}
+.ui-btn-active:focus{
+background-color: #1B936E !important;
+}
+.ui-btn-active:hover{
+background-color: #1B936E !important;
 }
 #addTripSec{
 	direction: rtl;
