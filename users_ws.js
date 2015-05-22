@@ -259,7 +259,7 @@ router.post('/getUserSchedule', function(req, res) {
 		console.log("failed to get user " + err);	
 	}
 	// var user_collection = db.model('users');
-	db.model('users').findOne({ email : userEmail },{_id:false, schedule:true},function (err, docs)
+	db.model('users').findOne({ email : userEmail },{_id:false},function (err, docs)
 	{ 
                 // failure while connecting to sessions collection
                 if (err) 

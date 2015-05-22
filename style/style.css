@@ -361,7 +361,8 @@ float: right;
 }
 
 /*@media (max-width: 767) {
-    #mobile-indicator {
+    
+#mobile-indicator {
         display: block;
 }
 
@@ -372,8 +373,7 @@ float: right;
 #menubtn{
   display: inline;
 }
-=======
-    }
+
   .nav{
     display: none;
   }
@@ -387,7 +387,7 @@ float: right;
   }
 
   .ui-btn-icon-notext:after, .ui-btn-icon-left:after, .ui-btn-icon-right:after{
-
+}
 }*/
 
 }

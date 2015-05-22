@@ -663,7 +663,7 @@ $(document).on('click','#mySchedule',function(){
         },
         success: function(data) {
         	console.log(data.schedule)
-        	displayListScheduleTrip(data.schedule);
+        	displayListScheduleTrip(data);
         }
     });
     
@@ -671,14 +671,21 @@ $(document).on('click','#mySchedule',function(){
 });
 
 function displayListScheduleTrip(data){
-	console.log(data)
+	console.log("data " + data)
 	$('#resultTrip ul').empty();
-	g_ListTrip=data;
-	for (i in data) {
-		var tripResult = '<li id='+data[i]._id+' class="listScheduleTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
+	$('#friendsemail').empty()
+	g_ListTrip=data.schedule;
+	for (i in g_ListTrip) {
+		var tripResult = '<li id='+g_ListTrip[i]._id+' class="listScheduleTrip trip" ><span class="titelName"> שם הטיול:' + g_ListTrip[i].trip_name + '</span>' + ' מיקום: ' + g_ListTrip[i].address +'</li>';
 		$('#resultTrip .displayTrip').append(tripResult);
 	};
-
+	$.each(data.tripPatners, function(i, val){
+		console.log(val)
+		$('#friendsemail').append("<button>" + val + "</button>" + "<button> &#10006 </button>");
+		// add("input[type=button]")append("&#10006");
+		
+	})
+	// $('#friendsemail').append(data.tripPatners);
 	var ul = $('#ulTimeLineSchedule');
 
 	$.each(g_ListTrip, function (index,val){
