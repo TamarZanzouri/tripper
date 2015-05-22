@@ -1,3 +1,4 @@
+
 #wrapper{
 	margin: 0 auto;
 	  width: 90%;
@@ -338,17 +339,38 @@ float: right;
 #addToFavPopup{
   float: right;
 }
+#friendsemail{
+  height: 20px;
+}
 
 #mobile-indicator {
     display: none;
 }
-
 #nav-panel{
   display: none;
 }
 
+#menubtn{
+  display: none;
+}
 @media (max-width: 767) {
     #mobile-indicator {
         display: block;
     }
+.nav{
+  display: none;
+}
+
+#menubtn{
+  display: block;
+}
+
+#nav-panel{
+  display: block;
+}
+
+.ui-btn-icon-notext:after, .ui-btn-icon-left:after, .ui-btn-icon-right:after{
+
+}
+
 }
