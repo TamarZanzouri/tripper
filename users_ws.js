@@ -49,6 +49,8 @@ router.post('/updateMySchedule', function(req, res) {
 	try{
 		var user = req.body.userId;
 		var trip = req.body.trip;
+		// var isInSchdule = req.body.isSchedule;
+		// console.log("getting detailes!!!!!!!", user, trip, isInSchdule)
 	}
 	catch(err){
 		console.log("failed to get user and trip " + err);
@@ -227,14 +229,6 @@ router.post('/updateFavoirte', function(req, res){
 			}
 		}
 			})
-	// db.model('users').findOneAndUpdate({email:user}, { $push: {favorites:trip}}, { upsert : true }, function(err, docs) {
-	// 				if (err) {
-	// 					console.log("found error inserting");
-	// 					res.json({status:0})
-	// 					return console.error(err);
-	// 				}
-	// 			res.json({status:1})
-	// 			});
 	}
 	else{
 	console.log("removing trip from favorites ")
@@ -259,7 +253,7 @@ router.post('/getUserSchedule', function(req, res) {
 		console.log("failed to get user " + err);	
 	}
 	// var user_collection = db.model('users');
-	db.model('users').findOne({ email : userEmail },{_id:false},function (err, docs)
+	db.model('users').findOne({ email : userEmail },{_id:false, schedule:true},function (err, docs)
 	{ 
                 // failure while connecting to sessions collection
                 if (err) 
@@ -350,6 +344,61 @@ router.post('/removeFromSchedule', function(req, res){
 			res.json({status:1})
 		}
 	})
+})
+
+
+router.post('/removeEmailFromTripPartners', function(req, res){
+	console.log("in remove email")
+	try{
+		var updatedTripPartners = req.body.trippartners;
+		var mailToRemove = req.body.triptoremove;
+		console.log("trip partners " + updatedTripPartners + " mail to remove" + mailToRemove)
+	}
+	catch(err){
+		console.error(err);
+	}
+	console.log(typeof updatedTripPartners)
+	if(typeof updatedTripPartners !== 'undefined'){
+		console.log("in if ")
+		updatedTripPartners.forEach(function(participent){
+		console.log(participent)
+		db.model('users').findOne({email : participent}, function(err, docs){
+			if(err){
+				console.log("found error inserting");
+				res.json({status:0})
+				return console.error(err);
+			}
+			if(docs){
+				console.log("found")
+				docs.tripPatners = updatedTripPartners;
+				docs.save(function(err){
+				if(err){
+					console.error(err);
+				}
+				res.json({status:1});
+			})
+			}
+			else{
+				return console.log("user " + participent + " not found");
+			}
+		})
+	});
+	db.model('users').findOneAndUpdate({email : mailToRemove}, {tripParticipents : mailToRemove}, function(err, docs){
+		if(err){
+			console.error(err)
+		}
+		res.json({status : 1})
+	})
+	}
+	else{
+		db.model('users').findOneAndUpdate({email : mailToRemove}, {tripParticipents : mailToRemove}, function(err, docs){
+		if(err){
+			console.error(err)
+		}
+		res.json({status : 1})
+	})	
+	}
+
 })
 
 module.exports = router;

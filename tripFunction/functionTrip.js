@@ -640,33 +640,10 @@ $(document).on('click' ,'.saveSchedule',function(){
 
 });
 
-// $(document).on('click' ,'.updateSchedule',function(){
-
-//     $('#addingSchedule').popup();
-//     $('#addingSchedule').popup('open');
-// 	$.ajax({
-// 		type: "post",
-//         url: g_domain+"updateMySchedule",// where you wanna post
-//         data:  {trip: g_trip
-//         	,userId:User.email},
-//         	dataType: "json",
-//         	error: function(jqXHR, textStatus, errorMessage) {
-//         		console.log(errorMessage)
-
-
-//         	},
-//         	success: function(data) {
-//         		console.log("update schedule success");
-//         		   setTimeout(function(){
-//       			$('#addingSchedule').popup('close');	
-//         		}, 1000);
-//         	}
-//         });
-
-// });
 function updateSchedule (bool){
 	console.log(bool)
-	$.ajax({
+	if(bool){
+		$.ajax({
 		type: "post",
         url: g_domain+"updateMySchedule",// where you wanna post
         data:  {trip:{
@@ -674,8 +651,7 @@ function updateSchedule (bool){
         	trip_name:g_trip.trip_name,
         	address:g_trip.address        	
         }
-        ,userId:User.email,
-    	isSchedule:bool},
+        ,userId:User.email},
         dataType: "json",
         error: function(jqXHR, textStatus, errorMessage) {
         	console.log(errorMessage)
@@ -686,6 +662,25 @@ function updateSchedule (bool){
         	console.log("update success");
         }
     });
+	}
+	else{
+		$.ajax({
+		type: "post",
+    	url: g_domain+"removeFromSchedule",// where you wanna post
+    	data:  {tripId:g_trip._id, userEmail:User.email},
+    	// ContentType: 'application/json',
+    	dataType : "json",
+	    error: function(jqXHR, textStatus, errorMessage) {
+	    	console.log(errorMessage)
+
+
+	    },
+	    success: function(data) {
+	    	console.log("removed from schedule")
+	    }
+	});
+	}
+
 };
 
 $(document).on('click','#mySchedule',function(){
@@ -703,7 +698,7 @@ $(document).on('click','#mySchedule',function(){
         },
         success: function(data) {
         	console.log(data.schedule)
-        	displayListScheduleTrip(data);
+        	displayListScheduleTrip(data.schedule);
         }
     });
     
@@ -714,14 +709,16 @@ function displayListScheduleTrip(data){
 	console.log("data " + data)
 	$('#resultTrip ul').empty();
 	$('#friendsemail').empty()
-	g_ListTrip=data.schedule;
-	for (i in g_ListTrip) {
-		var tripResult = '<li id='+g_ListTrip[i]._id+' class="listScheduleTrip trip" ><span class="titelName"> שם הטיול:' + g_ListTrip[i].trip_name + '</span>' + ' מיקום: ' + g_ListTrip[i].address +'</li>';
+	g_ListTrip=data;
+	shareScheduleWithFriends = User.tripPatners;
+	for (i in data) {
+		var tripResult = '<li id='+data[i]._id+' class="listScheduleTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
 		$('#resultTrip .displayTrip').append(tripResult);
 	};
-	$.each(data.tripPatners, function(i, val){
+	$.each(User.tripPatners, function(i, val){
 		console.log(val)
-		$('#friendsemail').append("<button>" + val + "</button>" + "<button> &#10006 </button>");
+		$('#friendsemail').append("<button id='emailNum" + i + "'>" + val + "</button>");
+		$('#emailNum' + i).append("<button id='deleteMailFromSchedule'> &#10006 </button>");
 	})
 	var ul = $('#ulTimeLineSchedule');
 
@@ -759,6 +756,42 @@ function displayListScheduleTrip(data){
 		//$(this).attr({"width":50,"height":50});
 	});
 }
+
+$(document).on('click', '#deleteMailFromSchedule', function(){
+	console.log("clicked on " + $(this).parent().text());
+	// var mail  = $(this).parent().text();
+	var mailToRemove = $(this).parent().text().slice(0, -3);
+	console.log(mailToRemove)
+	console.log(shareScheduleWithFriends.indexOf(mailToRemove));
+	shareScheduleWithFriends.splice(shareScheduleWithFriends.indexOf(mailToRemove), 1);
+	User.tripPatners = shareScheduleWithFriends;
+	console.log(shareScheduleWithFriends)
+	$.ajax({
+		type : "post",
+		url : g_domain + "removeEmailFromTripPartners",
+		data : {trippartners : shareScheduleWithFriends,
+				triptoremove : mailToRemove},
+		dataType : "json",
+		error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+        },
+        success: function(data) {
+        console.log("removed mail from schedule")
+        updateSharedTrip();
+        }
+	})
+})
+
+function updateSharedTrip(){
+	$('#friendsemail').empty();
+	if(!User.tripPatners.length){
+		$.each(User.tripPatners, function(i, val){
+		console.log(val)
+		$('#friendsemail').append("<button id='emailNum" + i + "'>" + val + "</button>");
+		$('#emailNum' + i).append("<button id='deleteMailFromSchedule'> &#10006 </button>");
+	});
+}
+}
 $(document).on('click','.listScheduleTrip',function(){
 	
 
@@ -794,7 +827,6 @@ function displayScheduleTrip(data){
 			$('.topImgStar').attr('src', 'images/yellohStar.png');
 		}
 	});
-	$('.Trip').append("<a id='removeFromSchedule'>הסר מהמסול ראשי</a>");
 	
 	$('.Trip').append("<h2>"+g_trip.trip_name+"</h2>");
 	$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
@@ -827,26 +859,26 @@ function displayScheduleTrip(data){
 	article+="</article>"
 	$('.Trip').append(article);
 }
-$(document).on('click','#removeFromSchedule',function(){
-		console.log("start to removing")
-		$.ajax({
-		type: "post",
-    	url: g_domain+"removeFromSchedule",// where you wanna post
-    	data:  {tripId:g_trip._id, userEmail:User.email},
-    	// ContentType: 'application/json',
-    	dataType : "json",
-	    error: function(jqXHR, textStatus, errorMessage) {
-	    	console.log(errorMessage)
+// $(document).on('click','#removeFromSchedule',function(){
+// 		console.log("start to removing")
+// 		$.ajax({
+// 		type: "post",
+//     	url: g_domain+"removeFromSchedule",// where you wanna post
+//     	data:  {tripId:g_trip._id, userEmail:User.email},
+//     	// ContentType: 'application/json',
+//     	dataType : "json",
+// 	    error: function(jqXHR, textStatus, errorMessage) {
+// 	    	console.log(errorMessage)
 
 
-	    },
-	    success: function(data) {
-	    	// g_trip=data;
-	    	// displayFullTrip(data);
-	    	moveToSchedule();
-	    }
-	});
-});
+// 	    },
+// 	    success: function(data) {
+// 	    	// g_trip=data;
+// 	    	// displayFullTrip(data);
+// 	    	moveToSchedule();
+// 	    }
+// 	});
+// });
 
 $(document).on('click','#moveToFavorite',function(){
 	
@@ -1289,7 +1321,7 @@ function favoriteDisplayListTrip(data){
 	$('#resultTrip ul').empty();
 	trip=data;
 	for (i in data) {
-			var tripResult = '<li id='+data[i]._id+' class="favoriteListResultTrip trip" ><a href="#addingSchedule" class="addToSchedule" data-transition="flip" data-rel="popup">הוסף למסלול שלי</a><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
+			var tripResult = '<li id='+data[i]._id+' class="favoriteListResultTrip trip" ><a href="#addingSchedule" class="topImgSchedule" data-transition="flip" data-rel="popup">הוסף למסלול שלי</a><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
 		$('#resultTrip .displayTrip').append(tripResult);
 	};
 }
