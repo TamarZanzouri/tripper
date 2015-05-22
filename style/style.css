@@ -359,9 +359,20 @@ float: right;
 #menubtn{
   display: none;
 }
-@media (max-width: 767) {
+
+/*@media (max-width: 767) {
     #mobile-indicator {
         display: block;
+}
+
+.nav{
+  display: none;
+}
+
+#menubtn{
+  display: inline;
+}
+=======
     }
   .nav{
     display: none;
@@ -377,7 +388,7 @@ float: right;
 
   .ui-btn-icon-notext:after, .ui-btn-icon-left:after, .ui-btn-icon-right:after{
 
-}
+}*/
 
 }
 #timeline{
