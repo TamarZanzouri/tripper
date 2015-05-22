@@ -61,6 +61,7 @@ h1,h2,h4,h5,h6 {
 				height: 50px;
 				font-size: 24px;
 				text-align: center;
+				  margin: 10px 0 0 0;
 				background: url('images/biggerdot.png') center bottom no-repeat;
 			}
 				#dates a {

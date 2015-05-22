@@ -71,7 +71,9 @@ $(document).ready(function(){
     	mapPoint.lng=e.latLng.lng();
     });
     initDatepicker();
-     
+
+
+
 	$('#home').hover(function(){
    	 	$("#home a img").attr("src", "images/search_hover.png");
     }, function(){
@@ -97,19 +99,26 @@ $(document).ready(function(){
     }, function(){
     	$("#addTrip a img").attr("src", "images/add.png");
 	});
-	/*var arr=["#addTrip","#mySchedule","#moveToFavorite","#showTrips","#home"];
+	var arr=["#addTrip","#mySchedule","#moveToFavorite","#showTrips","#home"];
 	$('.nav li').click(function(){
 		console.log("li clicked")
 		var me = $(this);
 
 		$.each(arr, function(index,val){
-			if($(val).hasClass('selectedLi'))
-				$(val).removeClass('selectedLi');
+			if($(val).hasClass('ui-btn-active'))
+				$(val).removeClass('ui-btn-active');
 		});
-		$(me).addClass('selectedLi');
-	});*/
+		$(me).addClass('ui-btn-active');
+	});
 			//Use HTML5 Geolocation API To Get Current Position
 	
+
+	/********TimeLine*********/
+	// $(function(){
+	// 	$().timelinr({
+	// 		arrowKeys: 'true'
+	// 	})
+	// });
 
 	$('#us3').locationpicker({
 	    location: {latitude: t1, longitude: t2 },
@@ -412,29 +421,54 @@ function displayFullTrip(data){
 	$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
 
 	$('.Trip').append("<img id='tripImg' src="+g_trip.imageUrl+">");
-	var div=('<div>');
-	div+=("<h4>תאור הטיול</h4>");
-	div+=(g_trip.trip_description);
-	$('.Trip').append(div);
+	var articleDes=('<article>');
+	articleDes+=("<h4>תאור הטיול</h4>");
+	articleDes+=(g_trip.trip_description);
+	$('.Trip').append(articleDes);
 
-	var strSites ='<div id="timeline">'; 
-	strSites+="<ul id=dates>";
+	 // var timeline = $('#timeline');
+	 var ulSites = $('#ulTimeLine');
+
+
+
 	$.each(g_trip.tripSites , function(index,val){
-		strSites+='<li><a href="#'+val.siteName+'">'+val.siteName+'</a></li>';
-		
+		var li = $('<li>');
+		var img = $('<img>');
+		var span = $('<span>');
+		span.html(val.siteName);
+		img.attr({"src":val.img, "width":50, "height":50});
 
+		li.append(img)
+		li.append(span)
+		ulSites.append(li);
 		// strSites+=" שם האתר :"+val.siteName+", מיקום האתר : \n"+val.location;
 
 	});
-	$('.Trip').append(strSites);
 
-	var ulSites = '<ul id="issues">';
-	$.each(g_trip.tripSites , function(index,val){
-		ulSites+='<li id='+val.siteName+'><h2>'+val.siteName+'</h2></li>';
-		// strSites+=" שם האתר :"+val.siteName+", מיקום האתר : \n"+val.location;<img src='+val.img+'>
+	var meImg="";
+	var meSpan="";
+	
+	$('#ulTimeLine li').hover(function(){
+		console.log("hover");
+		$(this).css("top","0px");
+		meSpan = $(this).children('span');
+		meSpan.css({"font-size":"40px"});
+		meImg = $(this).children('img');
+		meImg.attr({"width":100,"height":100});
+		//$(this).attr({"width":100,"height":100})
+	}
+	, function(){
+		$(this).css("top","68px");
+		meSpan = $(this).children('span');
+		meSpan.css("font-size","20px");
+		
+		//me=$(this).attr({"width":50,"height":50});
+		//div.append(me)
+	    meImg = $(this).children('img');
+		meImg.attr({"width":50,"height":50});
+		//$(this).attr({"width":50,"height":50});
 	});
-	ulSites+='</ul>';
-	$('.Trip').append(ulSites);
+
 
 	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
 	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
@@ -644,6 +678,42 @@ function displayListScheduleTrip(data){
 		var tripResult = '<li id='+data[i]._id+' class="listScheduleTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
 		$('#resultTrip .displayTrip').append(tripResult);
 	};
+
+	var ul = $('#ulTimeLineSchedule');
+
+	$.each(g_ListTrip, function (index,val){
+		var li = $('<li>');
+		var span = $('<span>');
+		var img = $('<img>');
+		span.html(val.trip_name);
+		img.attr({"src":val.imageUrl, "width":50, "height":50})
+		li.append(img);
+		li.append(span);
+		ul.append(li);
+	});
+		var meImg="";
+	var meSpan="";
+	
+	$('#ulTimeLineSchedule li').hover(function(){
+		console.log("hover");
+		$(this).css("top","0px");
+		meSpan = $(this).children('span');
+		meSpan.css({"font-size":"40px"});
+		meImg = $(this).children('img');
+		meImg.attr({"width":100,"height":100});
+		//$(this).attr({"width":100,"height":100})
+	}
+	, function(){
+		$(this).css("top","68px");
+		meSpan = $(this).children('span');
+		meSpan.css("font-size","20px");
+		
+		//me=$(this).attr({"width":50,"height":50});
+		//div.append(me)
+	    meImg = $(this).children('img');
+		meImg.attr({"width":50,"height":50});
+		//$(this).attr({"width":50,"height":50});
+	});
 }
 $(document).on('click','.listScheduleTrip',function(){
 	
@@ -690,6 +760,7 @@ function displayScheduleTrip(data){
 	div+=("<h4>תאור הטיול</h4>");
 	div+=(g_trip.trip_description);
 	$('.Trip').append(div);
+
 	var strSites="<ul class=sitesUl>";
 	strSites+="<h4>אתרים בטיול</h4>";
 	$.each(g_trip.tripSites , function(index,val){
@@ -697,6 +768,7 @@ function displayScheduleTrip(data){
 		strSites+=" שם האתר :"+val.siteName+", מיקום האתר : \n"+val.location;
 
 	});
+
 	$('.Trip').append(strSites);
 	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
 	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
