@@ -111,6 +111,13 @@ $(document).ready(function(){
 			//Use HTML5 Geolocation API To Get Current Position
 	
 
+	/********TimeLine*********/
+	// $(function(){
+	// 	$().timelinr({
+	// 		arrowKeys: 'true'
+	// 	})
+	// });
+
 	$('#us3').locationpicker({
 	    location: {latitude: t1, longitude: t2 },
 	    radius: 3000,
@@ -388,29 +395,68 @@ function displayFullTrip(data){
 	$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
 
 	$('.Trip').append("<img id='tripImg' src="+g_trip.imageUrl+">");
-	var div=('<div>');
-	div+=("<h4>תאור הטיול</h4>");
-	div+=(g_trip.trip_description);
-	$('.Trip').append(div);
+	var articleDes=('<article>');
+	articleDes+=("<h4>תאור הטיול</h4>");
+	articleDes+=(g_trip.trip_description);
+	$('.Trip').append(articleDes);
 
-	var strSites ='<div id="timeline">'; 
-	strSites+="<ul id=dates>";
+	var strSites = $('#dates');
+	var ulSites = $('#issues');
+	
+
+
 	$.each(g_trip.tripSites , function(index,val){
-		strSites+='<li><a href="#'+val.siteName+'">'+val.siteName+'</a></li>';
+		var li = $('<li>');
+		var a = $('<a>');
+		a.attr("href","#"+val._id+"").html(val.siteName)
+		li.append(a)
 		
-
+		$('#dates').append(li);
 		// strSites+=" שם האתר :"+val.siteName+", מיקום האתר : \n"+val.location;
 
 	});
-	$('.Trip').append(strSites);
 
-	var ulSites = '<ul id="issues">';
 	$.each(g_trip.tripSites , function(index,val){
-		ulSites+='<li id='+val.siteName+'><h2>'+val.siteName+'</h2></li>';
+		var li = $('<li id='+val._id+'>');
+		var h1 = $('<h1>')
+		h1.html(val.siteName);
+		var img = $('<img>');
+		img.attr({"src":val.img, "width":256, height:256 });
+		li.append(img);
+		li.append(h1);
+		
+		// li.append('<h1>'+val.siteName+'</h1><img src='+val.img+' width="256" height="256" >');
 		// strSites+=" שם האתר :"+val.siteName+", מיקום האתר : \n"+val.location;<img src='+val.img+'>
+		$('#issues').append(li);
 	});
-	ulSites+='</ul>';
-	$('.Trip').append(ulSites);
+
+
+
+
+
+	// var strSites ='<div id="timeline">'; 
+	// strSites+='<ul id="dates">';
+	// $.each(g_trip.tripSites , function(index,val){
+	// 	strSites+='<li><a href="#'+val._id+'">'+val.siteName+'</a></li>';
+		
+
+	// 	// strSites+=" שם האתר :"+val.siteName+", מיקום האתר : \n"+val.location;
+
+	// });
+	// // $('.Trip').append(strSites);
+	// strSites+="</ul>"
+	// strSites+= '<ul id="issues">';
+	// $.each(g_trip.tripSites , function(index,val){
+	// 	strSites+='<li id='+val._id+'><h2>'+val.siteName+'</h2><img src='+val.img+' width="256" height="256" ></li>';
+	// 	// strSites+=" שם האתר :"+val.siteName+", מיקום האתר : \n"+val.location;<img src='+val.img+'>
+	// });
+	// strSites+='</ul>';
+	// strSites+='<div id="grad_left"></div>';
+	// strSites+='<div id="grad_right"></div>';
+	// strSites+='<a href="#" id="next">+</a>';
+	// strSites+='<a href="#" id="prev">-</a>';
+	// strSites+'</div>';
+	// $('#theTrip #content').append(strSites);
 
 	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
 	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
@@ -666,6 +712,7 @@ function displayScheduleTrip(data){
 	div+=("<h4>תאור הטיול</h4>");
 	div+=(g_trip.trip_description);
 	$('.Trip').append(div);
+
 	var strSites="<ul class=sitesUl>";
 	strSites+="<h4>אתרים בטיול</h4>";
 	$.each(g_trip.tripSites , function(index,val){
@@ -673,6 +720,7 @@ function displayScheduleTrip(data){
 		strSites+=" שם האתר :"+val.siteName+", מיקום האתר : \n"+val.location;
 
 	});
+
 	$('.Trip').append(strSites);
 	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
 	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
