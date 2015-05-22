@@ -121,21 +121,31 @@ router.post('/updateScheduleParticipents', function(req,res){
 			}
 			if(docs){
 				console.log("found")
-				db.model('users').update({email:participent}, {schedule : tripsInSchedule, tripPatners : tripParticipents, tripScheduleTime : timeForTrip}, { upsert : true }, function(err, docs) {
-				if (err) {
-					console.log("found error inserting");
-					res.json({status:0})
-					return console.error(err);
-					}
+				// db.model('users').update({email:participent}, {schedule : tripsInSchedule, tripPatners : tripParticipents, tripScheduleTime : timeForTrip}, { upsert : true }, function(err, docs) {
+				// if (err) {
+				// 	console.log("found error inserting");
+				// 	res.json({status:0})
+				// 	return console.error(err);
+				// 	}
 
-				});
+				// });
+			docs.schedule = tripsInSchedule;
+			docs.tripPatners.addToSet(tripParticipents);
+			docs.tripScheduleTime = timeForTrip;
+			docs.save(function(err, result){
+			if(err){
+				console.error(err);
+			}
+			res.json({status:1});
+			})
 			}
 			else{
 				return console.log("user " + participent + " not found");
+				res.json({status:1})
 			}
 		})
 	})
-	res.json({status:1})
+	
 
 })
 
@@ -196,7 +206,7 @@ router.post('/updateFavoirte', function(req, res){
 			console.log("in trip")
 			console.log("req trip id", trip._id, "trip in schedule", tripsInFavorites._id)
 			if(tripsInFavorites._id == trip._id){
-				console.log("trip allready in favorites")
+				console.log("trip allready in fav")
 				return false
 			}
 			return true

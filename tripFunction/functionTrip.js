@@ -137,10 +137,8 @@ $(document).ready(function(){
 
  	if ($(window).width() < 767) {
  		console.log("in mobile")
- 	// 	$("#header").find('a').attr("data-iconpos", "right")
-		// .attr("data-role", "button")
-		// .attr("data-icon","menu")
-		// .attr("data-inline","true");
+ 		$('#nav-panel').css("display" , "block");
+ 		$('.nav').css("display" , "none");
  	}
 
 
@@ -209,8 +207,10 @@ $(document).ready(function(){
 		$('#addFriendToSchedule').click(function(){
 		if($('#shareSchedule').val()){
 			shareScheduleWithFriends.push($('#shareSchedule').val());
+			$('#friendsemail').add("<p>").append($('#shareSchedule').val())
 			$('#shareSchedule').val("");
 			console.log(shareScheduleWithFriends)
+
 		}
 		return
 	})
@@ -348,6 +348,29 @@ function showMyImage(fileInput,x) {
 		reader.readAsDataURL(file);
 	}    
 }
+
+//panel
+$(document).on("click", '#nav ', function(e) {
+	$("[data-role=panel]").panel("open")
+});
+
+$(function() {
+	$("[data-role=panel]").enhanceWithin().panel();
+});
+
+$(document).on("pageinit", "[data-role='page']", function(event) {
+	$("[data-role='panel']").on("panelopen", function(event, ui) {
+		$('body').css("overflow", "hidden").on("touchmove", false);
+	});
+
+	$("[data-role='panel']").on("panelclose", function(event, ui) {
+		 $('body').css("overflow", "auto").off("touchmove");
+	});
+	
+	function stopScroll() {
+        return false;
+    }
+});
 
 $(document).on('click','.listResultTrip',function(){
 	
