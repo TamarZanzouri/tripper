@@ -219,18 +219,23 @@ header > a :hover{
 #homePage {
   background-image: url("images/bg_image.png");
   background-size: 100%,100%;
-  height: 750px;
+  background-repeat: no-repeat;
+    padding-top: 200px !important;
 }
 #homePage > #content {
   overflow: hidden !important;
 }
+#content{
+  padding: 25px !important;
+}
 #groupButton{
   text-align: center;
   width: 50%;
-    margin: 110px auto;
+  margin: 50px auto;
   position: relative;
-    padding: 2px 5px 35px 5px;
-    background-image: url("images/bg_groupButton.png");
+  padding: 2px 5px 35px 5px;
+  background-image: url("images/bg_groupButton.png");
+  top: 20px;
 }
 
 .btnChar {
@@ -300,13 +305,20 @@ header > a :hover{
   position: relative; 
 }
 #tripImg{
-    width: 50%;
+  width: 40%;
   float: right;
-  height: 200px;
+  height: 250px;
   position: relative;
   /* left: 50%; */
-  margin: 10px 0px 0px 15px;  
+  margin: 10px 0px 0px 15px;
+  /*background-image: url("http://res.cloudinary.com/dxgyixsmg/image/upload/v1432156445/qvxrjquqlrgrsjxxj5qe.jpg");*/
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
+/*#tripImg > img{
+  position: relative;
+  width: 100%;
+}*/
 #submitComment{
   float:right;
 }
@@ -339,6 +351,12 @@ float: right;
   padding: 5px 16px 6px 5px;
   line-height: 25px;
 }
+.topImgStar{
+  float: left;
+}
+.topImgSchedule{
+  float: left;
+}
 #RemoveFavPopup{
   float:right;
 }
@@ -359,7 +377,20 @@ float: right;
 #menubtn{
   display: none;
 }
-
+#buttonRadius{
+  display: none;
+}
+@media(max-width: 500px){
+  #buttonRadius{
+    display: block;
+  } 
+  #selectArea{
+    display: none;
+  }
+  #filter{
+    display: none;
+  }
+}
 /*@media (max-width: 767) {
     
 #mobile-indicator {
@@ -390,7 +421,7 @@ float: right;
 }
 }*/
 
-}
+
 #timeline{
   width: 800px;
   height: 190px;
