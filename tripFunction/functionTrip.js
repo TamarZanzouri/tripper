@@ -682,10 +682,7 @@ function displayListScheduleTrip(data){
 	$.each(data.tripPatners, function(i, val){
 		console.log(val)
 		$('#friendsemail').append("<button>" + val + "</button>" + "<button> &#10006 </button>");
-		// add("input[type=button]")append("&#10006");
-		
 	})
-	// $('#friendsemail').append(data.tripPatners);
 	var ul = $('#ulTimeLineSchedule');
 
 	$.each(g_ListTrip, function (index,val){
