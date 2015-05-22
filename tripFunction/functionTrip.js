@@ -132,6 +132,7 @@ $(document).ready(function(){
  		console.log("in mobile")
  		$('#nav-panel').css("display" , "block");
  		$('.nav').css("display" , "none");
+ 		$('#menubtn').css("display", "inline-block")
  	}
 
 
