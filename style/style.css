@@ -357,20 +357,100 @@ float: right;
     #mobile-indicator {
         display: block;
     }
-.nav{
-  display: none;
+  .nav{
+    display: none;
+  }
+
+  #menubtn{
+    display: block;
+  }
+
+  #nav-panel{
+    display: block;
+  }
+
+  .ui-btn-icon-notext:after, .ui-btn-icon-left:after, .ui-btn-icon-right:after{
+
 }
 
-#menubtn{
+}
+#timeline{
+  width: 800px;
+  height: 190px;
+  overflow: hidden;
+  margin: 107px auto;
+  position: relative;
+  background: url('images/dot.gif') top 170px left 45px repeat-x;
+  top: 67px;
+}
+#ulTimeLine{
+  height: 114px;
+  position: relative;
+  /* top: 50px; */
+  padding: 0 0 0 0;
+  margin: 10px 0 0 0;
+}
+#ulTimeLine>li{
+list-style: none;
+  float: left;
+  /*width: 106px;*/
+  /* height: 50px; */
+  font-size: 24px;
+  text-align: center;
+  margin: 10px 12px 0 15px;
+  background: url('images/biggerdot.png') center bottom no-repeat;
+  position: relative;
+  /* bottom: 20px*/
+ top: 67px;
+}
+#ulTimeLine>li>span{
+    font-size:20px;
+    position: relative;
+    
+}
+#ulTimeLine>li>img{
   display: block;
+  text-align: center;
+  position: relative;
+  margin: 0 auto;
 }
-
-#nav-panel{
+#scheduleTimeLline{
+  width: 83%;
+  height: 190px;
+  overflow: hidden;
+  margin: 107px auto;
+  position: relative;
+  background: url('images/dot.gif') top 170px left 45px repeat-x;
+  top: 67px;
+}
+#ulTimeLineSchedule{
+  height: 114px;
+  position: relative;
+  /* top: 50px; */
+  padding: 0 0 0 0;
+  margin: 10px 0 0 0;
+}
+#ulTimeLineSchedule>li{
+list-style: none;
+  float: left;
+  /*width: 106px;*/
+  /* height: 50px; */
+  font-size: 24px;
+  text-align: center;
+  margin: 10px 12px 0 15px;
+  background: url('images/biggerdot.png') center bottom no-repeat;
+  position: relative;
+  /* bottom: 20px*/
+ top: 67px;
+}
+#ulTimeLineSchedule>li>span{
+    font-size:20px;
+    position: relative;
+    
+}
+#ulTimeLineSchedule>li>img{
   display: block;
-}
-
-.ui-btn-icon-notext:after, .ui-btn-icon-left:after, .ui-btn-icon-right:after{
-
-}
-
+  text-align: center;
+  position: relative;
+  margin: 0 auto;
 }
