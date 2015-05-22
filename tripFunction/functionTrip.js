@@ -65,22 +65,30 @@ $(document).ready(function(){
     });
     	appendTripCharachters();
     }
-    });   
-	
- var mapOptions = {
-        center: new google.maps.LatLng(	 32.03952466510527, 34.83763210941106),
-        zoom: 8,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    var infoWindow = new google.maps.InfoWindow();
-    var latlngbounds = new google.maps.LatLngBounds();
-    var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
-    google.maps.event.addListener(map, 'click', function (e) {
-        alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
-    	console.log("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng())
-    	mapPoint.lat=e.latLng.lat();
-    	mapPoint.lng=e.latLng.lng();
-    });
+    });  
+    //  1.tel-aviv 2. north 3. south 
+	var locations={}
+ 	
+
+ 	$('input:radio[name=area]').click(function(){
+ 		console.log($(this).val());	
+		var tempLocation = $(this).val();
+		if(tempLocation=="tel-aviv"){
+			var tel_aviv=[32.020593632526015,34.83983516693115];
+ 			locations=tel_aviv;
+		}else if(tempLocation=="north"){
+			var north = [32.86430452355366,35.42211055755615];
+ 			locations=north;
+		}else{
+		 	var south=[31.195769601269923,34.957380294799805];
+	 		locations=south;			
+		}
+		console.log(locations[0])
+ 		initMap(locations[0],locations[1]);
+ 	});
+ 	initMap(32.020593632526015,34.83983516693115);
+ 	
+ 	
     initDatepicker();
 
 
@@ -260,7 +268,22 @@ $(document).ready(function(){
  	})
 
 });
-
+function initMap(l1,l2){
+	var mapOptions = {
+        center: new google.maps.LatLng(	l1, l2),
+        zoom: 9,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var infoWindow = new google.maps.InfoWindow();
+    var latlngbounds = new google.maps.LatLngBounds();
+    var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+    google.maps.event.addListener(map, 'click', function (e) {
+        alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
+    	console.log("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng())
+    	mapPoint.lat=e.latLng.lat();
+    	mapPoint.lng=e.latLng.lng();
+    });
+}
 $(document).on('click','#addUser',function(){
 	console.log(tempEmailUser)
 	var tempEmailUser = $('#shareEmail').val();
@@ -402,55 +425,48 @@ function displayFullTrip(data){
 	console.log(data)
 	$('.Trip').empty();
 	// $('.Trip').append("	<div id='addingSchedule' data-role='popup'><p>הטיול נוסף למסלול שלך</p></div>");
-
+	$('.Trip').append($("<img>").attr('src', 'images/smalLike.png').addClass('topImg').css({
+			"opacity" : "0.4"
+		}));
+	$('.Trip').append("<span class='countLike'>" + g_trip.rate.value + "</span>");
 	$('.Trip').append($("<img>").attr({'src':'images/favorites.png'}).addClass('topImgStar'));
 	$.each(User.favorites, function(index,val){
 		if (val._id==g_trip._id) {
 			$('.topImgStar').attr({'src':'images/favorites_hover.png'}).addClass('selectedImgStar');
 		}
 	});
-	$('.Trip').append($("<img>").attr('src', 'images/smalLike.png').addClass('topImg').css({
-			"opacity" : "0.4"
-		}));
-	$('.Trip').append("<span class='countLike'>" + g_trip.rate.value + "</span>");
 	$('.Trip').append($("<img>").attr({'src':'images/my_track.png'}).addClass('topImgSchedule'));
 	$.each(User.favorites, function(index,val){
 		if (val._id==g_trip._id) {
 			$('.topImgSchedule').attr({'src':'images/my_track_hover.png'}).addClass('selectedImgSchedule');
 		}
 	});
-	// $('.Trip').append("<a id='favorite'>הוסף למועדפים</a> </br>");
-	// $('.Trip').append("<a id='updateSchedule'>בחר כמסלול ראשי</a>");
-	// $('.Trip').append("<a href='#addingSchedule' class='updateSchedule' data-transition='flip' data-rel='popup'>הוסף למסלול שלי</a>");
-	
 	$('.Trip').append("<h2>"+g_trip.trip_name+"</h2>");
 	$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
+	var divImg = $('<div>');
+	divImg.attr("id","tripImg").css("background-image","url("+g_trip.tripSites[0].img+")")
+	$('.Trip').append(divImg);
 
-	$('.Trip').append("<img id='tripImg' src="+g_trip.imageUrl+">");
 	var articleDes=('<article>');
 	articleDes+=("<h4>תאור הטיול</h4>");
 	articleDes+=(g_trip.trip_description);
 	$('.Trip').append(articleDes);
-
-	 // var timeline = $('#timeline');
-	 var ulSites = $('#ulTimeLine');
-
-
-
+	 var timeline = $('<div>');
+	 timeline.attr({"id":"timeline"})
+	 var ulSites = $('<ul>');
+	 ulSites.attr({"id":"ulTimeLine"})
 	$.each(g_trip.tripSites , function(index,val){
 		var li = $('<li>');
 		var img = $('<img>');
 		var span = $('<span>');
 		span.html(val.siteName);
 		img.attr({"src":val.img, "width":50, "height":50});
-
 		li.append(img)
 		li.append(span)
 		ulSites.append(li);
-		// strSites+=" שם האתר :"+val.siteName+", מיקום האתר : \n"+val.location;
-
 	});
-
+	timeline.append(ulSites);
+	$('.Trip').append(timeline)
 	var meImg="";
 	var meSpan="";
 	
@@ -461,25 +477,16 @@ function displayFullTrip(data){
 		meSpan.css({"font-size":"40px"});
 		meImg = $(this).children('img');
 		meImg.attr({"width":100,"height":100});
-		//$(this).attr({"width":100,"height":100})
-	}
-	, function(){
+	}, function(){
 		$(this).css("top","68px");
 		meSpan = $(this).children('span');
 		meSpan.css("font-size","20px");
-		
-		//me=$(this).attr({"width":50,"height":50});
-		//div.append(me)
 	    meImg = $(this).children('img');
 		meImg.attr({"width":50,"height":50});
-		//$(this).attr({"width":50,"height":50});
 	});
-
-
 	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
 	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
 	var article = "<h3>תגובות המטיילים</h3><article>";
-
 	$.each(g_trip.comments,function(i,val){
 		console.log("comment");
 		article+=val;
@@ -487,8 +494,9 @@ function displayFullTrip(data){
 	});
 	article+="</article>"
 	$('.Trip').append(article);
-
 }
+
+
 $(document).on("click", '.topImgSchedule', function() {
 	// if (!User.email) {
 	// 	alert("אנא התחבר למערכת")
