@@ -312,7 +312,7 @@ app.get('/findTripByUser/:email?', function(req, res) {
 	catch(err){
 		console.log("couldent get user " + err);
 	}
-	db.model('tripper_playlists').find({ email : userEmail },{_id:true, trip_name:true, address:true }, function (err, docs)
+	db.model('tripper_playlists').find({ email : userEmail },{_id:true, trip_name:true, address:true , tripSites : true}, function (err, docs)
 			{ 
                 // failure while connecting to sessions collection
                 if (err) 
