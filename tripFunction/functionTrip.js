@@ -34,6 +34,17 @@ navigator.geolocation.getCurrentPosition(function(position) {
 	});
 
 $(document).ready(function(){
+	var arr=["#addTrip","#mySchedule","#moveToFavorite","#showTrips","#home"];
+	$('.nav li').click(function(){
+		console.log("li clicked")
+		var me = $(this);
+
+		$.each(arr, function(index,val){
+			if($(val).hasClass('ui-btn-active'))
+				$(val).removeClass('ui-btn-active');
+		});
+		$(me).addClass('ui-btn-active');
+	});
 
 	$.ajax({
 		type: "get",
@@ -99,17 +110,7 @@ $(document).ready(function(){
     }, function(){
     	$("#addTrip a img").attr("src", "images/add.png");
 	});
-	var arr=["#addTrip","#mySchedule","#moveToFavorite","#showTrips","#home"];
-	$('.nav li').click(function(){
-		console.log("li clicked")
-		var me = $(this);
-
-		$.each(arr, function(index,val){
-			if($(val).hasClass('ui-btn-active'))
-				$(val).removeClass('ui-btn-active');
-		});
-		$(me).addClass('ui-btn-active');
-	});
+	
 			//Use HTML5 Geolocation API To Get Current Position
 	
 
@@ -400,22 +401,27 @@ $(document).on('click','.listResultTrip',function(){
 function displayFullTrip(data){
 	console.log(data)
 	$('.Trip').empty();
-	$('.Trip').append("	<div id='addingSchedule' data-role='popup'><p>הטיול נוסף למסלול שלך</p></div>");
+	// $('.Trip').append("	<div id='addingSchedule' data-role='popup'><p>הטיול נוסף למסלול שלך</p></div>");
 
-	$('.Trip').append("<h3>הטיול הנבחר </h3>");
-	$('.Trip').append($("<img>").attr({'src':'images/star.png',"href":"#addToFavPopup","data-rel":"popup"}).addClass('topImgStar'));
+	$('.Trip').append($("<img>").attr({'src':'images/favorites.png'}).addClass('topImgStar'));
 	$.each(User.favorites, function(index,val){
 		if (val._id==g_trip._id) {
-			$('.topImgStar').attr({'src':'images/yellohStar.png',"href":"#RemoveFavPopup","data-rel":"popup"});
+			$('.topImgStar').attr({'src':'images/favorites_hover.png'}).addClass('selectedImgStar');
 		}
 	});
 	$('.Trip').append($("<img>").attr('src', 'images/smalLike.png').addClass('topImg').css({
 			"opacity" : "0.4"
 		}));
 	$('.Trip').append("<span class='countLike'>" + g_trip.rate.value + "</span>");
-	$('.Trip').append("<a id='favorite'>הוסף למועדפים</a> </br>");
+	$('.Trip').append($("<img>").attr({'src':'images/my_track.png'}).addClass('topImgSchedule'));
+	$.each(User.favorites, function(index,val){
+		if (val._id==g_trip._id) {
+			$('.topImgSchedule').attr({'src':'images/my_track_hover.png'}).addClass('selectedImgSchedule');
+		}
+	});
+	// $('.Trip').append("<a id='favorite'>הוסף למועדפים</a> </br>");
 	// $('.Trip').append("<a id='updateSchedule'>בחר כמסלול ראשי</a>");
-	$('.Trip').append("<a href='#addingSchedule' class='updateSchedule' data-transition='flip' data-rel='popup'>הוסף למסלול שלי</a>");
+	// $('.Trip').append("<a href='#addingSchedule' class='updateSchedule' data-transition='flip' data-rel='popup'>הוסף למסלול שלי</a>");
 	
 	$('.Trip').append("<h2>"+g_trip.trip_name+"</h2>");
 	$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
@@ -483,22 +489,34 @@ function displayFullTrip(data){
 	$('.Trip').append(article);
 
 }
+$(document).on("click", '.topImgSchedule', function() {
+	// if (!User.email) {
+	// 	alert("אנא התחבר למערכת")
+	// 	return;
+	// }
+	if ($(this).hasClass("selectedImgSchedule")) {
+		$(this).removeClass("selectedImgSchedule").attr({'src':'images/my_track.png'});
+		updateSchedule(false);
+
+	} else {
+		$(this).addClass("selectedImgSchedule").attr({'src':'images/my_track_hover.png'});
+		updateSchedule(true);
+	}
+});
 $(document).on("click", '.topImgStar', function() {
 	// if (!User.email) {
 	// 	alert("אנא התחבר למערכת")
 	// 	return;
 	// }
 	if ($(this).hasClass("selectedImgStar")) {
-		$(this).removeClass("selectedImgStar").attr({'src':'images/star.png',"href":"#RemoveFavPopup","data-rel":"popup"});
+		$(this).removeClass("selectedImgStar").attr({'src':'images/favorites.png',"href":"#RemoveFavPopup","data-rel":"popup"});
 		updateFavorites(false);
 
 	} else {
-		$(this).addClass("selectedImgStar").attr({'src':'images/yellohStar.png',"href":"#addToFavPopup","data-rel":"popup"});
+		$(this).addClass("selectedImgStar").attr({'src':'images/favorites_hover.png',"href":"#addToFavPopup","data-rel":"popup"});
 		updateFavorites(true);
 	}
 });
-/******** wait for tamar ******/
-
 function updateFavorites (bool){
 	console.log(bool)
 	$.ajax({
@@ -622,31 +640,53 @@ $(document).on('click' ,'.saveSchedule',function(){
 
 });
 
-$(document).on('click' ,'.updateSchedule',function(){
+// $(document).on('click' ,'.updateSchedule',function(){
 
-    $('#addingSchedule').popup();
-    $('#addingSchedule').popup('open');
+//     $('#addingSchedule').popup();
+//     $('#addingSchedule').popup('open');
+// 	$.ajax({
+// 		type: "post",
+//         url: g_domain+"updateMySchedule",// where you wanna post
+//         data:  {trip: g_trip
+//         	,userId:User.email},
+//         	dataType: "json",
+//         	error: function(jqXHR, textStatus, errorMessage) {
+//         		console.log(errorMessage)
+
+
+//         	},
+//         	success: function(data) {
+//         		console.log("update schedule success");
+//         		   setTimeout(function(){
+//       			$('#addingSchedule').popup('close');	
+//         		}, 1000);
+//         	}
+//         });
+
+// });
+function updateSchedule (bool){
+	console.log(bool)
 	$.ajax({
 		type: "post",
         url: g_domain+"updateMySchedule",// where you wanna post
-        data:  {trip: g_trip
-        	,userId:User.email},
-        	dataType: "json",
-        	error: function(jqXHR, textStatus, errorMessage) {
-        		console.log(errorMessage)
+        data:  {trip:{
+        	_id:g_trip._id,
+        	trip_name:g_trip.trip_name,
+        	address:g_trip.address        	
+        }
+        ,userId:User.email,
+    	isSchedule:bool},
+        dataType: "json",
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
 
 
-        	},
-        	success: function(data) {
-        		console.log("update schedule success");
-        		   setTimeout(function(){
-      			$('#addingSchedule').popup('close');	
-        		}, 1000);
-        	}
-        });
-
-});
-
+        },
+        success: function(data) {
+        	console.log("update success");
+        }
+    });
+};
 
 $(document).on('click','#mySchedule',function(){
 	
@@ -927,6 +967,7 @@ function updateResultByFilterAfterArea(){
 }
 
 $(document).on('click','.btnChar', function(e){
+
 		console.log("picked char")
 		$(this).addClass('selectedChar');
 		if(count==1)
@@ -1096,6 +1137,7 @@ function moveToHomePage() {
 		transition : "none",
 		changeHash : true
 	});
+
 }
 
 function appendTripCharachters(){
@@ -1103,6 +1145,7 @@ function appendTripCharachters(){
 		var buttonAppendCharachters = '<button class="btnChar">' + val + '</button>';
 		var selectAppendCharachters = '<option value=' + val + '>' + val + '</option>';
 		$("#groupButton").append(buttonAppendCharachters);
+		$('#groupButton h2').html("חפש לי מסלול... ");
 		$("#firstcharachter").append(selectAppendCharachters);
 		$("#secondcharachter").append(selectAppendCharachters);		
 	});
