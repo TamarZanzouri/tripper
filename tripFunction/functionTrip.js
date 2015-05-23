@@ -1027,6 +1027,7 @@ $(document).on('click','.btnChar', function(e){
 		else if(count==2)
 		{
 			$('#groupButton h2').append(" + " + $(this).text())
+			clickedCharachters[1] = $(this).text();
 			console.log(clickedCharachters[0] + " " + clickedCharachters[1]);
 			count=1;
 			updateTripFromCharchters(clickedCharachters);
@@ -1267,7 +1268,7 @@ function signinCallback(authResult) {
 			// var img = $('<img>')
 			// 	img.attr({"src":val.tripSites[0].img,"width":50,"height":50});
 			// li.append(img);
-			debugger;
+			// debugger;
 			var span = $('<span>');
 			span.addClass('titelName').html("שם הטיול:"+val.trip_name)
 			li.append(span);
