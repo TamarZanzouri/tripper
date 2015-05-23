@@ -49,8 +49,9 @@ li{
 }
 
 .selectedChar{
-	background: #49495A;
+	background-color: #22AF87 !important;
 	color:#ffffff;
+    border: none !important;
 }
 .selectedLi{
 	font-size:18px;
@@ -84,14 +85,6 @@ background-color: #1B936E !important;
 }
 #showTripsSec{
 	direction: rtl;
-}
-.continue{
-	  color: #337ab7;
-  text-decoration: none;
-  position: relative;
-  float: right;
-  font-size: x-large;
-  display: none;
 }
 .listResultTrip{
   display: block;
@@ -263,10 +256,19 @@ body, input, select, textarea, button, .ui-btn{
   background-image: url("images/bg_groupButton.png");
   top: 20px;
 }
-
+.continue{
+  border: 1px solid #ffffff;
+  direction: rtl;
+  width: inherit;
+  padding: 5px 0px 5px 0px;
+  color: #ffffff;
+  font-size: 20px;
+  display: block;
+  /*height: 40px;*/
+}
 .btnChar {
   color: #ffffff !important;
-  background: transparent !important;
+  background: transparent ;
   margin: 15px 16px 10px 16px !important;
   height: 48px;
   font-size: 20px;
