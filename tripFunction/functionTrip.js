@@ -1130,13 +1130,21 @@ function updateResultByFilterAfterArea(){
 $(document).on('click','.btnChar', function(e){
 
 		console.log("picked char")
+		$('.continue').css({'display':'block',"width":"50px"});	
 		$(this).addClass('selectedChar');
 		if(count==1)
 		{
 			$('#groupButton h2').append($(this).text())
 			count++;
 			clickedCharachters[0] = $(this).text();
-			$('.continue').css('display','block');
+			var div = $('<div>')
+			div.addClass('continue');
+			var img = $('<img>').attr("src","images/arrow_2.png");
+			var span = $('<span>').html("המשך  ")
+			div.append(span);
+			div.append(img);
+			$('#groupButton').append(div)
+			console.log("continue")
 		}
 		else if(count==2)
 		{
@@ -1150,7 +1158,13 @@ $(document).on('click','.btnChar', function(e){
 		$('.continue').click(function(){
 			updateTripFromCharchters(clickedCharachters);
 		});
-
+		$('.continue').hover(function(){
+			$(this).css({"background-color":"#22AF87","color":"#EED53D"});
+			$(this).children('img').attr("src","images/arrow_2_hover.png");
+		},function(){
+			$(this).css({"background":"transparent","color":"#ffffff"});
+			$(this).children('img').attr("src","images/arrow_2.png");
+		})
 });
 
 $(document).on('submit','#addform',function(e){
@@ -1311,6 +1325,11 @@ function appendTripCharachters(){
 		$("#firstcharachter").append(selectAppendCharachters);
 		$("#secondcharachter").append(selectAppendCharachters);		
 	});
+	$('.btnChar').hover(function(){
+		$(this).css("background","#EED53D")
+	},function(){
+		$(this).css("background","transparent")
+	})
 }
 
 function signinCallback(authResult) {
@@ -1376,26 +1395,35 @@ function signinCallback(authResult) {
 		var ul = $('.displayTrip');
 		trip=data;
 		$.each(data,function(index,val){
-			var li = $('<li>')
+			var li = $('<li>');
 			li.attr({"id":val._id}).addClass('listResultTrip trip');
-					console.log(li)
-			li.append($("<img>").attr({'src':'images/favorites.png'}).addClass('topImgStar'));
-			$.each(User.favorites, function(index,value){
-				if (value._id===val._id) {
-					$('.topImgStar').attr({'src':'images/favorites_hover.png'}).addClass('selectedImgStar');
-				}
-			});
-			li.append($("<img>").attr({'src':'images/my_track.png'}).addClass('topImgSchedule'));
-			$.each(User.favorites, function(index,value){
-				if (value._id===val._id) {
-					$('.topImgSchedule').attr({'src':'images/my_track_hover.png'}).addClass('selectedImgSchedule');
-				}
-			});
-
-
-			// var img = $('<img>')
-			// 	img.attr({"src":val.tripSites[0].img,"width":50,"height":50});
-			// li.append(img);
+			var imgF="";
+			var imgS="";
+			var favorites= []
+			$.each(User.favorites, function(i,value){
+				favorites.push(value._id)
+			})
+			if (favorites.indexOf(val._id) > -1)
+			{
+				imgF = $('<img>')
+				imgF.attr({"id":"img"+index+"Id",'src':'images/favorites_hover.png'}).addClass('topImgStar selectedImgStar'); 
+			}else{
+				imgF = $('<img>')
+				imgF.attr({"id":"img"+index+"Id",'src':'images/favorites.png'}).addClass('topImgStar'); 
+			}
+			var schedules= []
+			$.each(User.schedule, function(i,value){
+				schedules.push(value._id)
+			})
+			if (schedules.indexOf(val._id) > -1) {
+				imgS = $('<img>')
+				imgS.attr({"id":"imgS"+index+"Id",'src':'images/my_track_hover.png'}).addClass('topImgSchedule selectedImgSchedule'); 
+			}else{
+				imgS = $('<img>')
+				imgS.attr({"id":"imgS"+index+"Id",'src':'images/my_track.png'}).addClass('topImgSchedule'); 
+			}
+			li.append(imgF);
+			li.append(imgS);
 
 			var span = $('<span>');
 			span.addClass('titelName').html("שם הטיול:"+val.trip_name)
@@ -1405,12 +1433,6 @@ function signinCallback(authResult) {
 			// var tripResult = '<li id='+data[i]._id+' class="listResultTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
 			ul.append(li);
 		});
-
-
-
-
-
-		console.log(ul)
 }
 $(document).on( "click", "#signOut", function() {
 	console.log("signOut")
@@ -1478,30 +1500,137 @@ $(document).on('click','.titelName',function(){
 });
 
 function favoriteDisplayListTrip(data){
+	// console.log(data)
+	// $('#resultTrip ul').empty();
+	// trip=data;
+	// for (i in data) {
+	// 		var tripResult = '<li id='+data[i]._id+' class="favoriteListResultTrip trip" ><a href="#addingSchedule" class="topImgSchedule" data-transition="flip" data-rel="popup">הוסף למסלול שלי</a><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
+	// 	$('#resultTrip .displayTrip').append(tripResult);
+	// };
+
+
 	console.log(data)
-	$('#resultTrip ul').empty();
-	trip=data;
-	for (i in data) {
-			var tripResult = '<li id='+data[i]._id+' class="favoriteListResultTrip trip" ><a href="#addingSchedule" class="topImgSchedule" data-transition="flip" data-rel="popup">הוסף למסלול שלי</a><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
-		$('#resultTrip .displayTrip').append(tripResult);
-	};
+		$('#resultTrip ul').empty();
+		var ul = $('.displayTrip');
+		trip=data;
+		$.each(data,function(index,val){
+			var li = $('<li>');
+			li.attr({"id":val._id}).addClass('favoriteListResultTrip trip');
+			var imgF="";
+			var imgS="";
+			var favorites= []
+			$.each(User.favorites, function(i,value){
+				favorites.push(value._id)
+			})
+			if (favorites.indexOf(val._id) > -1)
+			{
+				imgF = $('<img>')
+				imgF.attr({"id":"img"+index+"Id",'src':'images/favorites_hover.png'}).addClass('topImgStar selectedImgStar'); 
+			}else{
+				imgF = $('<img>')
+				imgF.attr({"id":"img"+index+"Id",'src':'images/favorites.png'}).addClass('topImgStar'); 
+			}
+			var schedules= []
+			$.each(User.schedule, function(i,value){
+				schedules.push(value._id)
+			})
+			if (schedules.indexOf(val._id) > -1) {
+				imgS = $('<img>')
+				imgS.attr({"id":"imgS"+index+"Id",'src':'images/my_track_hover.png'}).addClass('topImgSchedule selectedImgSchedule'); 
+			}else{
+				imgS = $('<img>')
+				imgS.attr({"id":"imgS"+index+"Id",'src':'images/my_track.png'}).addClass('topImgSchedule'); 
+			}
+			li.append(imgF);
+			li.append(imgS);
+
+			var span = $('<span>');
+			span.addClass('titelName').html("שם הטיול:"+val.trip_name)
+			li.append(span);
+			var p =$('<p>').html(' מיקום: ' + val.area);
+			li.append(p);
+			// var tripResult = '<li id='+data[i]._id+' class="listResultTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
+			ul.append(li);
+		});
+
 }
 function favoriteDisplayFullTrip(data){
 	g_trip=data;
+
 	console.log(data)
 	$('.Trip').empty();
-	$('.Trip').append("<h3>הטיול הנבחר </h3>");
-	$('.Trip').append("<h2>"+data.trip_name+"</h2>");
-	$('.Trip').append($("<img>").attr('src', 'images/star.png').addClass('topImgStar'));
+	// $('.Trip').append("	<div id='addingSchedule' data-role='popup'><p>הטיול נוסף למסלול שלך</p></div>");
+	$('.Trip').append($("<img>").attr('src', 'images/smalLike.png').addClass('topImg').css({
+			"opacity" : "0.4"
+		}));
+	$('.Trip').append("<span class='countLike'>" + g_trip.rate.value + "</span>");
+	$('.Trip').append($("<img>").attr({'src':'images/favorites.png'}).addClass('topImgStar'));
 	$.each(User.favorites, function(index,val){
 		if (val._id==g_trip._id) {
-			$('.topImgStar').attr('src', 'images/yellohStar.png');
+			$('.topImgStar').attr({'src':'images/favorites_hover.png'}).addClass('selectedImgStar');
+		}
+	});
+	$('.Trip').append($("<img>").attr({'src':'images/my_track.png'}).addClass('topImgSchedule'));
+	$.each(User.favorites, function(index,val){
+		if (val._id==g_trip._id) {
+			$('.topImgSchedule').attr({'src':'images/my_track_hover.png'}).addClass('selectedImgSchedule');
 		}
 	});
 	$('.Trip').append("<a id='editFavorite'>ערוך טיול כרצונך</a> </br>");
--	$('.Trip').append("<a href='#addingSchedule' class='updateSchedule' data-transition='flip' data-rel='popup'>הוסף למסלול שלי</a>");
+	$('.Trip').append("<h2>"+g_trip.trip_name+"</h2>");
+	$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
+	var divImg = $('<div>');
+	divImg.attr("id","tripImg").css("background-image","url("+g_trip.tripSites[0].img+")")
+	$('.Trip').append(divImg);
+
+	var articleDes=('<article>');
+	articleDes+=("<h4>תאור הטיול</h4>");
+	articleDes+=(g_trip.trip_description);
+	$('.Trip').append(articleDes);
+	 var timeline = $('<div>');
+	 timeline.attr({"id":"timeline"})
+	 var ulSites = $('<ul>');
+	 ulSites.attr({"id":"ulTimeLine"})
+	$.each(g_trip.tripSites , function(index,val){
+		var li = $('<li>');
+		var img = $('<img>');
+		var span = $('<span>');
+		span.html(val.siteName);
+		img.attr({"src":val.img, "width":50, "height":50});
+		li.append(img)
+		li.append(span)
+		ulSites.append(li);
+	});
+	timeline.append(ulSites);
+	$('.Trip').append(timeline)
+	var meImg="";
+	var meSpan="";
+	
+	$('#ulTimeLine li').hover(function(){
+		console.log("hover");
+		$(this).css("top","0px");
+		meSpan = $(this).children('span');
+		meSpan.css({"font-size":"40px"});
+		meImg = $(this).children('img');
+		meImg.attr({"width":100,"height":100});
+	}, function(){
+		$(this).css("top","68px");
+		meSpan = $(this).children('span');
+		meSpan.css("font-size","20px");
+	    meImg = $(this).children('img');
+		meImg.attr({"width":50,"height":50});
+	});
 	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
 	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
+	var article = "<h3>תגובות המטיילים</h3><article>";
+	$.each(g_trip.comments,function(i,val){
+		console.log("comment");
+		article+=val;
+		article+="</br>";
+	});
+	article+="</article>"
+	$('.Trip').append(article);
+
 
 }
 
