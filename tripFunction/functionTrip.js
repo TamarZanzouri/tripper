@@ -150,7 +150,9 @@ $(document).ready(function(){
  		console.log("in mobile")
  		$('#nav-panel').css("display" , "block");
  		$('.nav').css("display" , "none");
- 		$('#menubtn').css("display", "inline-block")
+ 		$('#menubtn').css("display", "inline-block");
+ 		$('#filter').css("display", "none");
+ 		$('#buttonRadius').css("display", "block")
  	}
 
  	$("#shareSchedule").emailautocomplete({
@@ -265,7 +267,7 @@ $(document).ready(function(){
  		console.log("privateTrip")
 		// $('#isPrivate').append('<label id="addUsers">הוסף משתמשים אליהם יפורסם הטיול:<br><textarea placeholder="example@gmail.com" type="text" id="shareEmail" name="shareEmail" >');
 		
-		$('#isPrivate').append('<label id="addUsers" style=" float:right";>שתף את פנינת הטבע עם חברייך:<br><input id="shareEmail"  name="email" type="email">');
+		$('#isPrivate').append('<label id="addUsers" style=" float:right";>שתף את פנינת הטבע עם חברייך:<br><input id="shareEmail"  name="email" type="email" required>');
 		$('#isPrivate').append('<a id="addUser" href="#"> הוסף עוד חבר<a>')
 		$('#isPrivate').append('<p id="usersList"><p>')
  	})
@@ -356,13 +358,77 @@ function initDatepicker(){
 	  }
 	}).on('changeDate', function(ev) {
 	  checkout.hide();
-	  date.checkInTime=checkin.viewDate;
-	  date.checkOutTime=checkout.viewDate;
+	  date.checkInTime=formatDate(checkin.viewDate, "MM d, y");
+	  date.checkOutTime=formatDate(checkout.viewDate,"MM d, y");
 	  console.log(date);
 	}).data('datepicker');
 
 
 }
+var MONTH_NAMES=new Array('January','February','March','April','May','June','July','August','September','October','November','December','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
+var DAY_NAMES=new Array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sun','Mon','Tue','Wed','Thu','Fri','Sat');
+function LZ(x) {return(x<0||x>9?"":"0")+x}
+// ------------------------------------------------------------------
+// formatDate (date_object, format)
+// Returns a date in the output format specified.
+// The format string uses the same abbreviations as in getDateFromFormat()
+// ------------------------------------------------------------------
+function formatDate(date,format) {
+	format=format+"";
+	var result="";
+	var i_format=0;
+	var c="";
+	var token="";
+	var y=date.getYear()+"";
+	var M=date.getMonth()+1;
+	var d=date.getDate();
+	var E=date.getDay();
+	var H=date.getHours();
+	var m=date.getMinutes();
+	var s=date.getSeconds();
+	var yyyy,yy,MMM,MM,dd,hh,h,mm,ss,ampm,HH,H,KK,K,kk,k;
+	// Convert real date parts into formatted versions
+	var value=new Object();
+	if (y.length < 4) {y=""+(y-0+1900);}
+	value["y"]=""+y;
+	value["yyyy"]=y;
+	value["yy"]=y.substring(2,4);
+	value["M"]=M;
+	value["MM"]=LZ(M);
+	value["MMM"]=MONTH_NAMES[M-1];
+	value["NNN"]=MONTH_NAMES[M+11];
+	value["d"]=d;
+	value["dd"]=LZ(d);
+	value["E"]=DAY_NAMES[E+7];
+	value["EE"]=DAY_NAMES[E];
+	value["H"]=H;
+	value["HH"]=LZ(H);
+	if (H==0){value["h"]=12;}
+	else if (H>12){value["h"]=H-12;}
+	else {value["h"]=H;}
+	value["hh"]=LZ(value["h"]);
+	if (H>11){value["K"]=H-12;} else {value["K"]=H;}
+	value["k"]=H+1;
+	value["KK"]=LZ(value["K"]);
+	value["kk"]=LZ(value["k"]);
+	if (H > 11) { value["a"]="PM"; }
+	else { value["a"]="AM"; }
+	value["m"]=m;
+	value["mm"]=LZ(m);
+	value["s"]=s;
+	value["ss"]=LZ(s);
+	while (i_format < format.length) {
+		c=format.charAt(i_format);
+		token="";
+		while ((format.charAt(i_format)==c) && (i_format < format.length)) {
+			token += format.charAt(i_format++);
+			}
+		if (value[token] != null) { result=result + value[token]; }
+		else { result=result + token; }
+		}
+	return result;
+	}
+
 function showMyImage(fileInput,x) {
 	var files = fileInput.files;
 	for (var i = 0; i < files.length; i++) {           
@@ -381,6 +447,46 @@ function showMyImage(fileInput,x) {
 		})(img);
 		reader.readAsDataURL(file);
 	}    
+}
+
+function uploadImgFromTrip(fileInput) {
+	// console.log(g_trip._id)
+	// var form = new FormData(this);
+	// // console.log(form.files)
+	// // var files = fileInput.files;
+	// // for (var i = 0; i < files.length; i++) {           
+	// // 	var file = files[i];
+	// // 	var imageType = /image.*/;     
+	// // 	if (!file.type.match(imageType)) {
+	// // 		continue;
+	// // 	}           
+	// // 	var img=document.getElementById("imgUpload");            
+	// // 	img.file = file;    
+	// // 	var reader = new FileReader();
+	// // 	reader.onload = (function(aImg) { 
+	// // 		return function(e) { 
+	// // 			aImg.src = e.target.result; 
+	// // 		}; 
+	// // 	})(img);
+	// // 	console.log(file);
+	// // 	reader.readAsDataURL(file);
+	// 	$.ajax({
+	// 		type : "post",
+	// 		url: g_domain+"uploadImageToTrip",
+	// 		data : {form,
+	// 			tripId : g_trip._id},
+	// 		dataType : "json",
+	// 	error: function(jqXHR, textStatus, errorMessage) {
+ //        	console.log(errorMessage)
+
+
+ //        },
+ //        success: function(data) {
+ //        	g_trip=data;
+ //        	displayFullTrip(data);
+        	
+ //        }
+	// 	});
 }
 
 //panel
@@ -428,10 +534,15 @@ $(document).on('click','.listResultTrip',function(){
     });
 	moveToTripPage();
 });
+
+
 function displayFullTrip(data){
 	console.log(data)
+	console.log("id: ", data._id)
 	$('.Trip').empty();
-	// $('.Trip').append("	<div id='addingSchedule' data-role='popup'><p>הטיול נוסף למסלול שלך</p></div>");
+	$('.Trip').append('<form action="#" method="post"><input id="imgUpload" type="file" accept="image/*" onchange="uploadImgFromTrip(this)" name="file" class="image_i"><img id="showImage" style="width:20%; margin-top:10px;"  src="" alt="image"/></div></form>')
+	// $('.Trip').append('<input id="imgUpload" type="file" accept="image/*" onchange="uploadImgFromTrip(this)" name="file" class="image_i"><img id="showImage" style="width:20%; margin-top:10px;"  src="" alt="image"/></div></form>');
+	// $('.Trip').append('</form>')
 	$('.Trip').append($("<img>").attr('src', 'images/smalLike.png').addClass('topImg').css({
 			"opacity" : "0.4"
 		}));
@@ -726,6 +837,9 @@ function displayListScheduleTrip(data){
 	$('#friendsemail').empty()
 	g_ListTrip=data;
 	shareScheduleWithFriends = User.tripPatners;
+	// console.log(User.tripScheduleTime.checkInTime.substring(0, User.tripScheduleTime.checkInTime.length-14));
+	$('#dpd1').val(User.tripScheduleTime.checkInTime.substring(0, User.tripScheduleTime.checkInTime.length-14));
+	$('#dpd2').val(User.tripScheduleTime.checkOutTime.substring(0, User.tripScheduleTime.checkOutTime.length-14));
 	for (i in data) {
 		var tripResult = '<li id='+data[i]._id+' class="listScheduleTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
 		$('#resultTrip .displayTrip').append(tripResult);

@@ -260,8 +260,8 @@
 
 			<section id="addTripSec">
 				<form action="#" method="post" id="addform" >
-					<label>שם או אזור הטיול <br>
-						<input type="text" name="nameTrip" id="trip_name">
+					<label>שם הטיול<br>
+						<input type="text" name="nameTrip" id="trip_name" required>
 					</label><br>
 					<label>תאור הטיול<br>
 						<textarea type="text" name="des" id="description"></textarea>
@@ -281,10 +281,7 @@
 
 						</fieldset>
 					</div>	
-
-					<label>מיקום הטיול: <br>
-						<input type="text" name="locationTrip" id="trip_address">
-					</label><br>
+					<br>
 					<div data-role="fieldcontain">
 						<fieldset data-role="controlgroup" data-type="horizontal">
 							<legend>בחר את ג'אנר הפלייליסט שלך</legend>
@@ -362,7 +359,7 @@
 						</span> 
 					</label>
 					<br>
-
+					<label>בחר מיקום</label>
 					<div id="dvMap" style="width: 500px; height: 500px"></div>
 
 

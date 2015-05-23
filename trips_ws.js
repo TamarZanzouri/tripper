@@ -449,4 +449,28 @@ router.post("/updateRate", function(req, res)
   //  }
 });
 
+router.post('/uploadImageToTrip', function(req, res){
+	try{
+		// var imgToUpload = req.body.imgUrl;
+		var trip = req.body.tripId;
+		console.log("image", imgToUpload, "upload to trip", trip)
+	}
+	catch(err){
+		console.error(err)
+	}
+
+	var form = new formidable.IncomingForm();
+	form.parse(req, function(error, fields, files) 
+	{
+		console.log('-->PARSE<--');
+        //logs the file information 
+        console.log("files", JSON.stringify(files));
+        console.log("fields", JSON.stringify(fields));
+        dataForm=fields;
+    });
+	// cloudinary.uploader.upload(imgToUpload, function(result) { 
+ //  	console.log(result) 
+	// });
+})
+
 module.exports = router;
