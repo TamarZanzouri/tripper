@@ -1264,11 +1264,25 @@ function signinCallback(authResult) {
 		$.each(data,function(index,val){
 			var li = $('<li>')
 			li.attr({"id":val._id}).addClass('listResultTrip trip');
-			console.log(li)
+					console.log(li)
+			li.append($("<img>").attr({'src':'images/favorites.png'}).addClass('topImgStar'));
+			$.each(User.favorites, function(index,value){
+				if (value._id===val._id) {
+					$('.topImgStar').attr({'src':'images/favorites_hover.png'}).addClass('selectedImgStar');
+				}
+			});
+			li.append($("<img>").attr({'src':'images/my_track.png'}).addClass('topImgSchedule'));
+			$.each(User.favorites, function(index,value){
+				if (value._id===val._id) {
+					$('.topImgSchedule').attr({'src':'images/my_track_hover.png'}).addClass('selectedImgSchedule');
+				}
+			});
+
+
 			// var img = $('<img>')
 			// 	img.attr({"src":val.tripSites[0].img,"width":50,"height":50});
 			// li.append(img);
-			// debugger;
+
 			var span = $('<span>');
 			span.addClass('titelName').html("שם הטיול:"+val.trip_name)
 			li.append(span);
@@ -1277,6 +1291,10 @@ function signinCallback(authResult) {
 			// var tripResult = '<li id='+data[i]._id+' class="listResultTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
 			ul.append(li);
 		});
+
+
+
+
 
 		console.log(ul)
 }
