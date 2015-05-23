@@ -153,8 +153,15 @@ $(document).ready(function(){
  		$('#menubtn').css("display", "inline-block")
  	}
 
+ 	$("#shareSchedule").emailautocomplete({
+		suggClass: "custom-classname", //default: "eac-sugg". your custom classname (optional)
+		// domains: ["example.com"] //additional domains (optional)
+	});
 
-
+ 	$('#shareEmail').emailautocomplete({
+		suggClass: "custom-classname", //default: "eac-sugg". your custom classname (optional)
+		// domains: ["example.com"] //additional domains (optional)
+	});
 	var max_fields = 20;
 	// debugger;
 
@@ -258,7 +265,7 @@ $(document).ready(function(){
  		console.log("privateTrip")
 		// $('#isPrivate').append('<label id="addUsers">הוסף משתמשים אליהם יפורסם הטיול:<br><textarea placeholder="example@gmail.com" type="text" id="shareEmail" name="shareEmail" >');
 		
-		$('#isPrivate').append('<label id="addUsers" style=" float:right";>שתף את פנינת הטבע עם חברייך:<br><input placeholder="example@gmail.com" type="text" id="shareEmail" name="shareEmail" >');
+		$('#isPrivate').append('<label id="addUsers" style=" float:right";>שתף את פנינת הטבע עם חברייך:<br><input id="shareEmail"  name="email" type="email">');
 		$('#isPrivate').append('<a id="addUser" href="#"> הוסף עוד חבר<a>')
 		$('#isPrivate').append('<p id="usersList"><p>')
  	})

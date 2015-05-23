@@ -1,4 +1,28 @@
 
+@font-face {
+  font-family: 'Shual-Bold';
+  src: url('../fonts/shual-bold.eot');
+  src: url('../fonts/shual-bold.eot?#iefix') format('embedded-opentype'), url('../fonts/Shual-Bold.otf') format("opentype"), url('../fonts/shual-bold.woff') format('woff'), url('../fonts/shual-bold.ttf') format('truetype'), url('../fonts/shual-bold.svg#Shual-Bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'shual-light';
+  src: url('../fonts/Shual-Light-webfont.eot');
+  src: url('../fonts/Shual-Light-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/Shual-Light.otf') format("opentype"), url('../fonts/Shual-Light-webfont.woff2') format('woff2'), url('../fonts/Shual-Light-webfont.woff') format('woff'), url('../fonts/Shual-Light-webfont.ttf') format('truetype'), url('../fonts/Shual-Light-webfont.svg#shual-light') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'shual_regular';
+  src: url('../fonts/Shual-Regular-webfont.eot');
+  src: url('../fonts/Shual-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/Shual-Regular.otf') format("opentype"), url('../fonts/Shual-Regular-webfont.woff2') format('woff2'), url('../fonts/Shual-Regular-webfont.woff') format('woff'), url('../fonts/Shual-Regular-webfont.ttf') format('truetype'), url('../fonts/Shual-Regular-webfont.svg#shual_regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 #wrapper{
 	margin: 0 auto;
 	  width: 90%;
@@ -28,7 +52,8 @@ li{
   position: relative;
   width: 100%;
   margin: 0 auto;
-  text-align: center
+  text-align: center;
+  font-family: 'shual-light';
 }
 
 .selectedChar{
@@ -205,6 +230,8 @@ header > a :hover{
   display: block;
   position: relative;
   margin: 0 auto;
+  font-family: 'shual-light';
+  font-weight: 400;
 }
 .nav > li > a > span:hover{
   background-color: #1B936E !important;
