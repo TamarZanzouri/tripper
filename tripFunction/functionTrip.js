@@ -1251,13 +1251,26 @@ function signinCallback(authResult) {
 	function displayListTrip(data){
 		console.log(data)
 		$('#resultTrip ul').empty();
+		var ul = $('.displayTrip');
 		trip=data;
-		for (i in data) {
-			var tripResult = '<li id='+data[i]._id+' class="listResultTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
-			$('#resultTrip .displayTrip').append(tripResult);
-		};
+		$.each(data,function(index,val){
+			var li = $('<li>')
+			li.attr({"id":val._id}).addClass('listResultTrip trip');
+			console.log(li)
+			// var img = $('<img>')
+			// 	img.attr({"src":val.tripSites[0].img,"width":50,"height":50});
+			// li.append(img);
+			debugger;
+			var span = $('<span>');
+			span.addClass('titelName').html("שם הטיול:"+val.trip_name)
+			li.append(span);
+			var p =$('<p>').html(' מיקום: ' + val.area);
+			li.append(p);
+			// var tripResult = '<li id='+data[i]._id+' class="listResultTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
+			ul.append(li);
+		});
 
-
+		console.log(ul)
 }
 $(document).on( "click", "#signOut", function() {
 	console.log("signOut")
