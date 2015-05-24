@@ -63,7 +63,7 @@
 			<!-- application data will goes here -->
 			<div id="groupButton">
 				<h2>חפש לי מסלול...</h2>
-				
+				<h2 id="genres"></h2>
 			</div>	
 			
 				<section>
@@ -151,13 +151,13 @@
 					<option value="north">איזור צפון</option>
 				</select>
 
-				<button id="buttonRadius" data-target="#us6-dialog" data-toggle="modal">Click hear to open dialog</button>
+				<button id="buttonRadius" data-target="#us6-dialog" data-toggle="modal">לחץ כאן לפלטור לפי מיקומך</button>
 				<div id="us6-dialog" class="modal fade">
 				    <div class="modal-dialog">
 				        <div class="modal-content">
 				            <div class="modal-header">
 				                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				                <h4 class="modal-title">Modal title</h4>
+				                <h4 class="modal-title">פילטור לפי רדיוס</h4>
 				            </div>
 				            <div class="modal-body">
 				                <div class="form-horizontal" style="width: 550px">
@@ -167,7 +167,7 @@
 				                        <div class="col-sm-10"><input type="text" class="form-control" id="us3-address"/></div>
 				                    </div>-->
 				                    <div class="form-group">
-				                        <label class="col-sm-2 control-label">Radius:</label>
+				                        <label class="col-sm-2 control-label">רדיוס:</label>
 
 				                        <div class="col-sm-5"><input type="text" class="form-control" id="us3-radius"/></div>
 				                    </div>
@@ -233,10 +233,11 @@
 			</ul>
 		</header>
 			<div data-role="content" class="ui-content" id="content">
+				<h1>המועדפים שלי</h1>
 				<section id="resultTrip">
-						<div id="addingToSchedule" data-role="popup">
+						<!-- <div id="addingToSchedule" data-role="popup">
 							<p>הטיול נוסף למסלול שלך</p>
-						</div>
+						</div> -->
 					<ul class="displayTrip">
 					</ul>
 
@@ -371,7 +372,7 @@
 		</div>
 
 		<div data-role="page" id="accountPage" >
-					<header data-role="header" data-position="fixed" data-tap-toggle="false">  
+		<header data-role="header" data-position="fixed" data-tap-toggle="false">  
 			<a href="#home"><img id="logo" src="images/logo.png"></a>
 			<a href="#nav-panel" id="menubtn" data-role="button" data-icon="grid"></a>   
 			<ul class="nav nav-pills">
@@ -383,6 +384,10 @@
 			</ul>
 		</header>
 			<div data-role="content" class="ui-content" id="content">
+				<div class="details">
+					<h1 id="userName"></h1>
+					<img id="userImg" src="">
+				</div>
 				<section id="resultTrip">
 					<ul class="displayTrip">
 					</ul>

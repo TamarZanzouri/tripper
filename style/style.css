@@ -427,6 +427,19 @@ float: right;
   #filter{
     display: none;
   }
+  #dvMap{
+    display: none;
+  }
+  #groupButton{
+    width:auto;
+  }
+  #homePage{ 
+      background: url('images/backgroundImage.jpg');
+  background-size: 300%,100%;
+  background-repeat: no-repeat;
+  padding-top: 50px !important;
+  background-position-x: -113px;
+  }
 }
 /*@media (max-width: 767) {
     
@@ -460,18 +473,18 @@ float: right;
 
 
 #timeline{
-  width: 800px;
-  height: 190px;
+  width: 83%;
+  height: 265px;
   overflow: hidden;
   margin: 107px auto;
   position: relative;
-  background: url('images/dot.gif') top 170px left 45px repeat-x;
+  background: url('images/dot2.gif') top 170px left 45px repeat-x;
   top: 67px;
 }
 #ulTimeLine{
-  height: 114px;
+  /*height: 114px;*/
   position: relative;
-  /* top: 50px; */
+  top: 25px; 
   padding: 0 0 0 0;
   margin: 10px 0 0 0;
 }
@@ -483,7 +496,7 @@ list-style: none;
   font-size: 24px;
   text-align: center;
   margin: 10px 12px 0 15px;
-  background: url('images/biggerdot.png') center bottom no-repeat;
+  /*background: url('images/biggerdot2.png') center bottom no-repeat;*/
   position: relative;
   /* bottom: 20px*/
  top: 67px;
@@ -498,20 +511,21 @@ list-style: none;
   text-align: center;
   position: relative;
   margin: 0 auto;
+    border-radius: 50px;
 }
 #scheduleTimeLline{
   width: 83%;
-  height: 190px;
+  height: 300px;
   overflow: hidden;
   margin: 107px auto;
   position: relative;
-  background: url('images/dot.gif') top 170px left 45px repeat-x;
+  background: url('images/dot2.gif') top 205px left 45px repeat-x;
   top: 67px;
 }
 #ulTimeLineSchedule{
-  height: 114px;
+  /*height: 114px;*/
   position: relative;
-  /* top: 50px; */
+    top: 60px;
   padding: 0 0 0 0;
   margin: 10px 0 0 0;
 }
@@ -523,7 +537,7 @@ list-style: none;
   font-size: 24px;
   text-align: center;
   margin: 10px 12px 0 15px;
-  background: url('images/biggerdot.png') center bottom no-repeat;
+  /*background: url('images/biggerdot2.png') center bottom no-repeat;*/
   position: relative;
   /* bottom: 20px*/
  top: 67px;
@@ -538,4 +552,15 @@ list-style: none;
   text-align: center;
   position: relative;
   margin: 0 auto;
+    border-radius: 50px;
+}
+
+/***** account page*************/
+.details > img{
+    border-radius: 50px;
+      position: relative;
+  right: 50px;
+}
+.details{
+  text-align: right;
 }
