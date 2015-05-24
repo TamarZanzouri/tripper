@@ -1,6 +1,7 @@
 User={};
 
 g_domain="http://127.0.0.1:1337/";//"http://shenkartripper.herokuapp.com/";
+
 mapPoint={};
 g_trip={};
 g_ListTrip=[];
@@ -724,13 +725,13 @@ $(document).on("click", '.topImgStar', function() {
 
 	} else {
 		$(this).addClass("selectedImgStar").attr({'src':'images/favorites_hover.png',"href":"#addToFavPopup","data-rel":"popup"});
-		updateFavorites(true);
+		updateFavoritesFromFavoritesList(true, $(this).parent().attr('id'));
 	}
 });
 
 function updateFavoritesFromFavoritesList(isFavorite, tripId){
 	// var result = $(this).parent().attr('id');
-	console.log(tripId)
+	console.log(isFavorite, tripId)
 	$.ajax({
 	type: "post",
     url: g_domain+"getTripById",// where you wanna post
@@ -741,6 +742,7 @@ function updateFavoritesFromFavoritesList(isFavorite, tripId){
     },
     success: function(data) {
     	g_trip=data;
+    	console.log(g_trip.tripSites)
     	$.ajax({
 		type: "post",
         url: g_domain+"updateFavoirte",// where you wanna post

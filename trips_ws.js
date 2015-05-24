@@ -229,9 +229,8 @@ router.post('/filterByChars', function(req, res) {
 	db.model('tripper_playlists').find( {$or : [
 			{$and: [ {trip_charachters: { $in : [charachters[0], charachters[1] ] } }, { trip_isPrivate : false } ] },
 			{$and: [ {trip_charachters: { $in : [charachters[0], charachters[1] ] } }, { trip_isPrivate : true }, { shareEmail : user} ] }, 
-		]},
-		function (err, docs)
-	{ 
+		]}).sort({ rate : 'ascending'}).exec(function (err, docs)
+		{ 
                 // failure while connecting to sessions collection
                 if (err) 
                 {
@@ -256,7 +255,12 @@ router.post('/addComment', function(req, res) {
 		var user = req.body.user;
 		var trip_id = req.body.trip_id;
 		var comment = req.body.comment;
-		var objComment = user.name + " : " + comment;
+		var objComment = {
+			userName : user.name,
+			userImg : user.image,
+			comment : comment
+		}
+			// user.name + " : " +comment;
 		console.log(" update comment",comment);
 	}
 	catch(err){

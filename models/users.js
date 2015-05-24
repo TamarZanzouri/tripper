@@ -28,7 +28,11 @@ var usersSchema = new Schema(
 	trip_isPrivate : { type : Boolean, default : false },
 	area : { type : String, default : ''},
 	email : { type : String, default : ''},
-	comments : { type : Array, default : []},
+	comments : [{ 
+		userName : { type : String, default : ''},
+		userImg : { type : String, default : ''},
+		comment : { type : String, default : ''}
+	}],
 	imageUrl : { type : String, default : ''},
 	trip_filter : { type : Array, default : [] },
 	shareEmail : { type : Array, default : [] },
