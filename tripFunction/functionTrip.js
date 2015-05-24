@@ -1,6 +1,6 @@
 User={};
 
-g_domain="http://shenkartripper.herokuapp.com/";//"http://127.0.0.1:1337/";//
+g_domain="http://127.0.0.1:1337/";//"http://shenkartripper.herokuapp.com/";//
 
 mapPoint={};
 g_trip={};
@@ -31,6 +31,8 @@ navigator.geolocation.getCurrentPosition(function(position) {
 		console.log(point1.lng);
 		t2 = parseFloat(point1.lng)
 		//Define New Google Map With Lat / Lon
+		mapPoint.lat=point1.lat;
+    mapPoint.lng=point1.lng;
 	});
 
 $(document).ready(function(){
@@ -286,8 +288,9 @@ function initMap(l1,l2){
     var infoWindow = new google.maps.InfoWindow();
     var latlngbounds = new google.maps.LatLngBounds();
     var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+    
     google.maps.event.addListener(map, 'click', function (e) {
-        alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
+        // alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
     	console.log("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng())
     	mapPoint.lat=e.latLng.lat();
     	mapPoint.lng=e.latLng.lng();
@@ -543,9 +546,19 @@ function displayFullTrip(data){
 	$('.Trip').append('<form action="#" method="post"><input id="imgUpload" type="file" accept="image/*" onchange="uploadImgFromTrip(this)" name="file" class="image_i"><img id="showImage" style="width:20%; margin-top:10px;"  src="" alt="image"/></div></form>')
 	// $('.Trip').append('<input id="imgUpload" type="file" accept="image/*" onchange="uploadImgFromTrip(this)" name="file" class="image_i"><img id="showImage" style="width:20%; margin-top:10px;"  src="" alt="image"/></div></form>');
 	// $('.Trip').append('</form>')
-	$('.Trip').append($("<img>").attr('src', 'images/smalLike.png').addClass('topImg').css({
-			"opacity" : "0.4"
+	if(g_trip.rate.userEmail.indexOf(User.email) >-1)
+	{
+		console.log(User.email,g_trip.rate.userEmail)
+		$('.Trip').append($("<img>").attr('src', 'images/smalLike.png').addClass("topImg selectedImg").css({
+			"opacity" : "1.0"
 		}));
+	}
+	else{
+		$('.Trip').append($("<img>").attr('src', 'images/smalLike.png').addClass('topImg').css({
+				"opacity" : "0.4"
+		}));	
+	}
+	
 	$('.Trip').append("<span class='countLike'>" + g_trip.rate.value + "</span>");
 	$('.Trip').append($("<img>").attr({'src':'images/favorites.png'}).addClass('topImgStar'));
 	$.each(User.favorites, function(index,val){
@@ -579,8 +592,9 @@ function displayFullTrip(data){
 		var span = $('<span>');
 		span.html(val.siteName);
 		img.attr({"src":val.img, "width":50, "height":50});
-		li.append(img)
 		li.append(span)
+		li.append(img)
+		
 		ulSites.append(li);
 	});
 	timeline.append(ulSites);
@@ -590,17 +604,18 @@ function displayFullTrip(data){
 	
 	$('#ulTimeLine li').hover(function(){
 		console.log("hover");
-		$(this).css("top","0px");
+		$(this).css({"top":"0px","border":"1px solid #000000","padding":"12px","background-color":"#ffffff","border-radius":"30px"});
 		meSpan = $(this).children('span');
-		meSpan.css({"font-size":"40px"});
+		meSpan.css({"font-size":"35px"});
 		meImg = $(this).children('img');
-		meImg.attr({"width":100,"height":100});
-	}, function(){
-		$(this).css("top","68px");
+		meImg.attr({"width":125,"height":125}).css("border-radius","0px");
+	}
+	, function(){
+		$(this).css({"top":"68px","border":"none","background-color":"transparent","padding":"0px"});
 		meSpan = $(this).children('span');
 		meSpan.css("font-size","20px");
 	    meImg = $(this).children('img');
-		meImg.attr({"width":50,"height":50});
+		meImg.attr({"width":50,"height":50}).css("border-radius","50px");
 	});
 	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
 	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
@@ -672,6 +687,8 @@ $(document).on("click", '.topImg', function() {
 	// 	return;
 	// }
 	if ($(this).hasClass("selectedImg")) {
+		temp_rate=updateRate(0);
+		console.log(temp_rate)
 		$(this).removeClass("selectedImg").css({
 			"opacity" : "0.4"
 		});
@@ -679,7 +696,7 @@ $(document).on("click", '.topImg', function() {
 		newValue = parseInt(currentValue, 10);
 		newValue = parseInt(newValue, 10) - 1;
 		$(".countLike").html(newValue);
-		updateRate(0);
+		// updateRate(0);
 		
 	} else {
 		temp_rate=updateRate(1);
@@ -850,15 +867,16 @@ function displayListScheduleTrip(data){
 		$('#emailNum' + i).append("<button id='deleteMailFromSchedule'> &#10006 </button>");
 	})
 	var ul = $('#ulTimeLineSchedule');
-
+	ul.empty();
 	$.each(g_ListTrip, function (index,val){
 		var li = $('<li>');
 		var span = $('<span>');
 		var img = $('<img>');
 		span.html(val.trip_name);
 		img.attr({"src":val.imageUrl, "width":50, "height":50})
-		li.append(img);
 		li.append(span);
+		li.append(img);
+		
 		ul.append(li);
 	});
 		var meImg="";
@@ -866,22 +884,22 @@ function displayListScheduleTrip(data){
 	
 	$('#ulTimeLineSchedule li').hover(function(){
 		console.log("hover");
-		$(this).css("top","0px");
+		$(this).css({"top":"-75px","border":"1px solid #000000","padding":"12px","background-color":"#ffffff","border-radius":"30px"});
 		meSpan = $(this).children('span');
-		meSpan.css({"font-size":"40px"});
+		meSpan.css({"font-size":"35px"});
 		meImg = $(this).children('img');
-		meImg.attr({"width":100,"height":100});
+		meImg.attr({"width":125,"height":125}).css("border-radius","0px");
 		//$(this).attr({"width":100,"height":100})
 	}
 	, function(){
-		$(this).css("top","68px");
+		$(this).css({"top":"68px","border":"none","background-color":"transparent","padding":"0px"});
 		meSpan = $(this).children('span');
 		meSpan.css("font-size","20px");
 		
 		//me=$(this).attr({"width":50,"height":50});
 		//div.append(me)
 	    meImg = $(this).children('img');
-		meImg.attr({"width":50,"height":50});
+		meImg.attr({"width":50,"height":50}).css("border-radius","50px");
 		//$(this).attr({"width":50,"height":50});
 	});
 }
@@ -1132,9 +1150,10 @@ $(document).on('click','.btnChar', function(e){
 		console.log("picked char")
 		$('.continue').css({'display':'block',"width":"50px"});	
 		$(this).addClass('selectedChar');
+
 		if(count==1)
 		{
-			$('#groupButton h2').append($(this).text())
+			$('#genres').html($(this).text())
 			count++;
 			clickedCharachters[0] = $(this).text();
 			var div = $('<div>')
@@ -1148,7 +1167,7 @@ $(document).on('click','.btnChar', function(e){
 		}
 		else if(count==2)
 		{
-			$('#groupButton h2').append(" + " + $(this).text())
+			$('#genres').append(" + " + $(this).text())
 			clickedCharachters[1] = $(this).text();
 			console.log(clickedCharachters[0] + " " + clickedCharachters[1]);
 			count=1;
@@ -1270,7 +1289,12 @@ function addToFavoFromEdit(tripToUpdate){
 	    }
 	});
 }
-
+// $(window).on('hashchange', function(e) {
+// 	if (e.originalEvent.newURL.indexOf("homePage") != -1) {
+// 		console.log("home")
+// 	}
+	
+// });
 function moveToAddPage() {
 	$.mobile.changePage("#addTripPage", {
 		transition : "none",
@@ -1315,13 +1339,19 @@ function moveToHomePage() {
 	});
 
 }
-
+$(document).on('click','#home',function(){
+	console.log("homeP")
+	moveToHomePage();
+});
 function appendTripCharachters(){
+	$("#groupButton").empty();
+	$("#groupButton").append('<h2>חפש לי מסלול...</h2>')
+	var h2 = $('<h2>').attr("id","genres");
+	$("#groupButton").append(h2);
 	$.each(tripCharacters, function(i, val){
 		var buttonAppendCharachters = '<button class="btnChar">' + val + '</button>';
 		var selectAppendCharachters = '<option value=' + val + '>' + val + '</option>';
 		$("#groupButton").append(buttonAppendCharachters);
-		$('#groupButton h2').html("חפש לי מסלול... ");
 		$("#firstcharachter").append(selectAppendCharachters);
 		$("#secondcharachter").append(selectAppendCharachters);		
 	});
@@ -1441,6 +1471,9 @@ $(document).on( "click", "#signOut", function() {
 
 $(document).on('click','#showTrips',function(){
 	moveToAccountPage();
+	$('#userName').html(User.name);
+	$('#userImg').attr({"src":User.image,"width":100,"height":100});
+
 	getUserTrip();
 });
 
@@ -1597,8 +1630,8 @@ function favoriteDisplayFullTrip(data){
 		var span = $('<span>');
 		span.html(val.siteName);
 		img.attr({"src":val.img, "width":50, "height":50});
-		li.append(img)
 		li.append(span)
+		li.append(img)
 		ulSites.append(li);
 	});
 	timeline.append(ulSites);
@@ -1606,19 +1639,21 @@ function favoriteDisplayFullTrip(data){
 	var meImg="";
 	var meSpan="";
 	
+	
 	$('#ulTimeLine li').hover(function(){
 		console.log("hover");
-		$(this).css("top","0px");
+		$(this).css({"top":"0px","border":"1px solid #000000","padding":"12px","background-color":"#ffffff","border-radius":"30px"});
 		meSpan = $(this).children('span');
-		meSpan.css({"font-size":"40px"});
+		meSpan.css({"font-size":"35px"});
 		meImg = $(this).children('img');
-		meImg.attr({"width":100,"height":100});
-	}, function(){
-		$(this).css("top","68px");
+		meImg.attr({"width":125,"height":125}).css("border-radius","0px");
+	}
+	, function(){
+		$(this).css({"top":"68px","border":"none","background-color":"transparent","padding":"0px"});
 		meSpan = $(this).children('span');
 		meSpan.css("font-size","20px");
 	    meImg = $(this).children('img');
-		meImg.attr({"width":50,"height":50});
+		meImg.attr({"width":50,"height":50}).css("border-radius","50px");
 	});
 	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
 	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
