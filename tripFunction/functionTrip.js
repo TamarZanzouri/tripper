@@ -227,11 +227,13 @@ $(document).ready(function(){
 	});
 		$('#addFriendToSchedule').click(function(){
 		if($('#shareSchedule').val()){
+			// debugger
 			shareScheduleWithFriends.push($('#shareSchedule').val());
-			$('#friendsemail').add("<p>").append($('#shareSchedule').val())
+			User.tripPatners.push($('#shareSchedule').val());
 			$('#shareSchedule').val("");
 			console.log(shareScheduleWithFriends)
-
+			console.log(User.tripPatners)
+			updateSharedTrip();
 		}
 		return
 	})
@@ -604,7 +606,7 @@ function displayFullTrip(data){
 	});
 	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
 	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
-	var article = "<h3>תגובות המטיילים</h3><article>";
+	var article = "<h3>תגובות המטיילים</h3><article id='tripComments'>";
 	$.each(g_trip.comments,function(i,val){
 		console.log("comment");
 		article+=val;
@@ -720,7 +722,8 @@ function updateRate(value){
 
 $(document).on('click','#submitComment', function(){
 	var comment = $('#comment').val();
-	$('#comment').html("");
+	g_trip.comments.push(User.name + " : " + comment)
+	$('#comment').val("");
 	console.log(comment, User, g_trip);
 
 	$.ajax({
@@ -738,6 +741,8 @@ $(document).on('click','#submitComment', function(){
         },
         success: function(data) {
         	console.log("add comment success");
+        	// updateComments()
+        	$('#tripComments').append(User.name + " : " + comment);
         	console.log(data)
         }
     });
@@ -837,7 +842,6 @@ function displayListScheduleTrip(data){
 	$('#friendsemail').empty()
 	g_ListTrip=data;
 	shareScheduleWithFriends = User.tripPatners;
-	// console.log(User.tripScheduleTime.checkInTime.substring(0, User.tripScheduleTime.checkInTime.length-14));
 	$('#dpd1').val(User.tripScheduleTime.checkInTime.substring(0, User.tripScheduleTime.checkInTime.length-14));
 	$('#dpd2').val(User.tripScheduleTime.checkOutTime.substring(0, User.tripScheduleTime.checkOutTime.length-14));
 	for (i in data) {
@@ -912,6 +916,7 @@ $(document).on('click', '#deleteMailFromSchedule', function(){
 })
 
 function updateSharedTrip(){
+	console.log(User.tripPatners)
 	$('#friendsemail').empty();
 	if(!User.tripPatners.length){
 		$.each(User.tripPatners, function(i, val){

@@ -256,7 +256,7 @@ router.post('/addComment', function(req, res) {
 		var user = req.body.user;
 		var trip_id = req.body.trip_id;
 		var comment = req.body.comment;
-		var objComment = user.name+":"+comment;
+		var objComment = user.name + " : " + comment;
 		console.log(" update comment",comment);
 	}
 	catch(err){
