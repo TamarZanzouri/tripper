@@ -169,6 +169,8 @@ fieldset > div{
   height: 100%;
   position: relative;
   float: right;
+  margin: 10px 0px 0px 0;
+  padding: 0 10px 0 0;
 }
 header{
   background-color: #22AF87 !important;
@@ -192,14 +194,16 @@ header > a :hover{
   list-style: none;
   position: relative;
   float: right;
-  width: 78%;
+  width: 85%;
   background-color: #22AF87 !important;
 }
 .nav > li{
   text-align: center;
-  width: 19.5%;
+  width: 18.5%;
+    padding: 0 10px 0 10px;
   float: right;
   color: #ffffff;
+  margin: 0 0 0 0 ;
 }
 .nav > li >a {
   color: #ffffff !important;
