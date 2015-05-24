@@ -1,8 +1,6 @@
 User={};
 
-g_domain="http://shenkartripper.herokuapp.com/";
-//"http://127.0.0.1:1337/";
-
+g_domain="http://127.0.0.1:1337/";//"http://shenkartripper.herokuapp.com/";
 mapPoint={};
 g_trip={};
 g_ListTrip=[];
@@ -277,7 +275,7 @@ function initMap(l1,l2){
     var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
     
     google.maps.event.addListener(map, 'click', function (e) {
-        // alert("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
+        alert("המיקום נשמר");
     	console.log("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng())
     	mapPoint.lat=e.latLng.lat();
     	mapPoint.lng=e.latLng.lng();
@@ -676,8 +674,20 @@ function displayFullTrip(data){
 	    meImg = $(this).children('img');
 		meImg.attr({"width":50,"height":50}).css("border-radius","50px");
 	});
-	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
-	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
+	var img = $('<img>').attr({"src":User.image,"id":"myImg"});
+	var h3 = $('<h3>').html("הוסף תגובה חדשה");
+
+	
+	var textarea = $('textarea').attr({"type":"text","name":"comment","id":"comment"}).css({"display":"none"})
+	// $('.Trip').append("<textarea type='text' name='comment' id='comment style'display:none'></textarea>");
+	var aSend= $('<a>').attr({"id":"submitComment"}).css({"display":"none"}).html("שלח תגובה")
+	// $('.Trip').append("<a id='submitComment' style'display:none'>שלח תגובה</a> </br>");
+
+	$('.Trip').append(img);
+	$('.Trip').append(h3);
+	$('.Trip').append(textarea);
+	$('.Trip').append(aSend);
+
 	var article = "<h3>תגובות המטיילים</h3><article id='tripComments'>";
 	$.each(g_trip.comments,function(i,val){
 		console.log("comment");
@@ -939,25 +949,29 @@ function updateSchedule (bool, tripId){
 };
 
 $(document).on('click','#mySchedule',function(){
-	
+	if(!User.email)
+	{
+		alert("רק משתמשים רשומים יכולים לצפות בעמוד זה")
+	}else{
 
-	$.ajax({
-		type: "post",
-        url: g_domain+"getUserSchedule",// where you wanna post
-        data:  {email:User.email},
-        dataType: "json",
-        error: function(jqXHR, textStatus, errorMessage) {
-        	console.log(errorMessage)
+		$.ajax({
+			type: "post",
+	        url: g_domain+"getUserSchedule",// where you wanna post
+	        data:  {email:User.email},
+	        dataType: "json",
+	        error: function(jqXHR, textStatus, errorMessage) {
+	        	console.log(errorMessage)
 
 
-        },
-        success: function(data) {
-        	console.log(data.schedule)
-        	displayListScheduleTrip(data.schedule);
-        }
-    });
-    
-	moveToSchedule();
+	        },
+	        success: function(data) {
+	        	console.log(data.schedule)
+	        	displayListScheduleTrip(data.schedule);
+	        }
+	    });
+	    
+		moveToSchedule();
+	}
 });
 
 function displayListScheduleTrip(data){
@@ -1141,7 +1155,10 @@ function displayScheduleTrip(data){
 // });
 
 $(document).on('click','#moveToFavorite',function(){
-	
+	if(!User.email)
+	{
+		alert("רק משתמשים רשומים יכולים לצפות בעמוד זה")
+	}else{
 
 	$.ajax({
 		type: "post",
@@ -1160,7 +1177,9 @@ $(document).on('click','#moveToFavorite',function(){
         }
     });
 	moveToFavorite();
+}
 });
+
 
 function updateAreaAfterFilter(){
 	// debugger;
@@ -1261,7 +1280,7 @@ function updateResultByFilterAfterArea(){
 $(document).on('click','.btnChar', function(e){
 
 		console.log("picked char")
-		$('.continue').css({'display':'block',"width":"50px"});	
+		$('.continue').css({'display':'block'});	
 		$(this).addClass('selectedChar');
 
 		if(count==1)
@@ -1300,8 +1319,10 @@ $(document).on('click','.btnChar', function(e){
 });
 
 $(document).on('submit','#addform',function(e){
-	 e.preventDefault();
+	 // e.preventDefault();
 	var form = new FormData(this); 
+
+
 	var tempFilter = [];
 
 	var wrapper = $(".ingredients_i");
@@ -1359,12 +1380,15 @@ $(document).on('submit','#addform',function(e){
         		addToFavoFromEdit(data);
         	}
         	edit=false;
-
-        	      
       } 
   });
 	return false;
 })
+
+// $(document).on('click','#submitForm', function(){
+// 	location.reload();	
+// })
+ 
 function addToFavoFromEdit(tripToUpdate){
 
 	console.log("deleting trip " + g_trip);
@@ -1585,10 +1609,15 @@ $(document).on( "click", "#signOut", function() {
 
 $(document).on('click','#showTrips',function(){
 	moveToAccountPage();
-	$('#userName').html(User.name);
-	$('#userImg').attr({"src":User.image,"width":100,"height":100});
+	if(!User.email)
+	{
+		alert("רק משתמשים רשומים יכולים לצפות בעמוד זה")
+	}else{
+		$('#userName').html(User.name);
+		$('#userImg').attr({"src":User.image,"width":100,"height":100});
 
-	getUserTrip();
+		getUserTrip();
+	}
 });
 
 	function create_user(user){
