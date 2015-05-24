@@ -602,18 +602,34 @@ function displayFullTrip(data){
 	}
 	
 	$('.Trip').append("<span class='countLike'>" + g_trip.rate.value + "</span>");
-	$('.Trip').append($("<img>").attr({'src':'images/favorites.png'}).addClass('topImgStar'));
-	$.each(User.favorites, function(index,val){
-		if (val._id==g_trip._id) {
-			$('.topImgStar').attr({'src':'images/favorites_hover.png'}).addClass('selectedImgStar');
-		}
-	});
-	$('.Trip').append($("<img>").attr({'src':'images/my_track.png'}).addClass('topImgSchedule'));
-	$.each(User.favorites, function(index,val){
-		if (val._id==g_trip._id) {
-			$('.topImgSchedule').attr({'src':'images/my_track_hover.png'}).addClass('selectedImgSchedule');
-		}
-	});
+
+	var imgF="";
+	var imgS="";
+	var favorites= []
+	$.each(User.favorites, function(i,value){
+		favorites.push(value._id)
+	})
+	if (favorites.indexOf(g_trip._id) > -1)
+	{
+		imgF = $('<img>')
+		imgF.attr({'src':'images/favorites_hover.png'}).addClass('topImgStar selectedImgStar'); 
+	}else{
+		imgF = $('<img>')
+		imgF.attr({'src':'images/favorites.png'}).addClass('topImgStar'); 
+	}
+	var schedules= []
+	$.each(User.schedule, function(i,value){
+		schedules.push(value._id)
+	})
+	if (schedules.indexOf(g_trip._id) > -1) {
+		imgS = $('<img>')
+		imgS.attr({'src':'images/my_track_hover.png'}).addClass('topImgSchedule selectedImgSchedule'); 
+	}else{
+		imgS = $('<img>')
+		imgS.attr({'src':'images/my_track.png'}).addClass('topImgSchedule'); 
+	}
+	$('.Trip').append(imgF)
+	$('.Trip').append(imgS)		
 	$('.Trip').append("<h2>"+g_trip.trip_name+"</h2>");
 	$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
 	var divImg = $('<div>');
@@ -1003,7 +1019,7 @@ $(document).on('click','.listScheduleTrip',function(){
         },
         success: function(data) {
         	g_trip=data;
-        	displayScheduleTrip(data);
+        	displayFullTrip(data);
         	
         }
     });
@@ -1641,22 +1657,47 @@ function favoriteDisplayFullTrip(data){
 	console.log(data)
 	$('.Trip').empty();
 	// $('.Trip').append("	<div id='addingSchedule' data-role='popup'><p>הטיול נוסף למסלול שלך</p></div>");
-	$('.Trip').append($("<img>").attr('src', 'images/smalLike.png').addClass('topImg').css({
-			"opacity" : "0.4"
+	if(g_trip.rate.userEmail.indexOf(User.email) >-1)
+	{
+		console.log(User.email,g_trip.rate.userEmail)
+		$('.Trip').append($("<img>").attr('src', 'images/smalLike.png').addClass("topImg selectedImg").css({
+			"opacity" : "1.0"
 		}));
+	}
+	else{
+		$('.Trip').append($("<img>").attr('src', 'images/smalLike.png').addClass('topImg').css({
+				"opacity" : "0.4"
+		}));	
+	}
+	
 	$('.Trip').append("<span class='countLike'>" + g_trip.rate.value + "</span>");
-	$('.Trip').append($("<img>").attr({'src':'images/favorites.png'}).addClass('topImgStar'));
-	$.each(User.favorites, function(index,val){
-		if (val._id==g_trip._id) {
-			$('.topImgStar').attr({'src':'images/favorites_hover.png'}).addClass('selectedImgStar');
-		}
-	});
-	$('.Trip').append($("<img>").attr({'src':'images/my_track.png'}).addClass('topImgSchedule'));
-	$.each(User.favorites, function(index,val){
-		if (val._id==g_trip._id) {
-			$('.topImgSchedule').attr({'src':'images/my_track_hover.png'}).addClass('selectedImgSchedule');
-		}
-	});
+		var imgF="";
+	var imgS="";
+	var favorites= []
+	$.each(User.favorites, function(i,value){
+		favorites.push(value._id)
+	})
+	if (favorites.indexOf(g_trip._id) > -1)
+	{
+		imgF = $('<img>')
+		imgF.attr({'src':'images/favorites_hover.png'}).addClass('topImgStar selectedImgStar'); 
+	}else{
+		imgF = $('<img>')
+		imgF.attr({'src':'images/favorites.png'}).addClass('topImgStar'); 
+	}
+	var schedules= []
+	$.each(User.schedule, function(i,value){
+		schedules.push(value._id)
+	})
+	if (schedules.indexOf(g_trip._id) > -1) {
+		imgS = $('<img>')
+		imgS.attr({'src':'images/my_track_hover.png'}).addClass('topImgSchedule selectedImgSchedule'); 
+	}else{
+		imgS = $('<img>')
+		imgS.attr({'src':'images/my_track.png'}).addClass('topImgSchedule'); 
+	}
+	$('.Trip').append(imgF)
+	$('.Trip').append(imgS)
 	$('.Trip').append("<a id='editFavorite'>ערוך טיול כרצונך</a> </br>");
 	$('.Trip').append("<h2>"+g_trip.trip_name+"</h2>");
 	$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
