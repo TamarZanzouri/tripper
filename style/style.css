@@ -266,6 +266,7 @@ body, input, select, textarea, button, .ui-btn{
   font-size: 20px;
   display: block;
   /*height: 40px;*/
+    margin: 15px 16px 0px 16px !important
 }
 .btnChar {
   color: #ffffff !important;
@@ -276,6 +277,7 @@ body, input, select, textarea, button, .ui-btn{
   border: 1px solid #ffffff;
   font-weight: 100;
   padding: 0px 10px 0px 9px;
+  width: auto !important;
 }
 #groupButton > h2{
   color: #ffffff;
