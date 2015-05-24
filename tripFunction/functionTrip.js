@@ -1,6 +1,7 @@
 User={};
 
-g_domain="http://127.0.0.1:1337/";//"http://shenkartripper.herokuapp.com/";
+g_domain="http://shenkartripper.herokuapp.com/";
+//"http://127.0.0.1:1337/";
 
 mapPoint={};
 g_trip={};
@@ -494,10 +495,71 @@ function showMyImage(fileInput,x) {
 	}    
 }
 
+$(document).on("submit", '#uploadImgForm', function(e){
+	e.preventDefault();
+	console.log("bla bla", this)
+var form = new FormData(this);
+form.append("tripId", g_trip._id);
+// debugger
+$.ajax({
+	type : "post",
+			url: g_domain+"uploadImageToTrip",
+			data : form,
+			// dataType : "json",
+			contentType: false,
+        	processData:false,
+		error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+
+
+        },
+        success: function(data) {
+        	g_trip=data;
+        	displayFullTrip(data);
+        	
+        }
+		});
+});
+// function test(obj){
+// console.log("bla bla", obj)
+// var form = new FormData(obj);
+// form.append("tripId", g_trip._id);
+// // debugger
+// $.ajax({
+// 	type : "post",
+// 			url: g_domain+"uploadImageToTrip",
+// 			data : form,
+// 			// dataType : "json",
+// 			contentType: false,
+//         	processData:false,
+// 		error: function(jqXHR, textStatus, errorMessage) {
+//         	console.log(errorMessage)
+
+
+//         },
+//         success: function(data) {
+//         	g_trip=data;
+//         	displayFullTrip(data);
+        	
+//         }
+// 		});
+// return false;	
+// }
+
 function uploadImgFromTrip(fileInput) {
+	console.log("ins")
+	console.log("file", fileInput)
+	$('#uploadImgForm').submit();
+	// $('#uploadImgForm').submit(function(e){
+	// 	e.preventDefault();
+	// 	console.log("submit", this)
+	// });
 	// console.log(g_trip._id)
-	// var form = new FormData(this);
-	// // console.log(form.files)
+
+	//var form = new FormData($('#uploadImgForm'));
+	//form.append("file",fileInput);
+
+	// console.log(form.files)
 	// // var files = fileInput.files;
 	// // for (var i = 0; i < files.length; i++) {           
 	// // 	var file = files[i];
@@ -515,23 +577,7 @@ function uploadImgFromTrip(fileInput) {
 	// // 	})(img);
 	// // 	console.log(file);
 	// // 	reader.readAsDataURL(file);
-	// 	$.ajax({
-	// 		type : "post",
-	// 		url: g_domain+"uploadImageToTrip",
-	// 		data : {form,
-	// 			tripId : g_trip._id},
-	// 		dataType : "json",
-	// 	error: function(jqXHR, textStatus, errorMessage) {
- //        	console.log(errorMessage)
 
-
- //        },
- //        success: function(data) {
- //        	g_trip=data;
- //        	displayFullTrip(data);
-        	
- //        }
-	// 	});
 }
 
 //panel
@@ -581,11 +627,13 @@ $(document).on('click','.listResultTrip',function(){
 });
 
 
+
 function displayFullTrip(data){
 	console.log(data)
 	console.log("id: ", data._id)
 	$('.Trip').empty();
-	$('.Trip').append('<form action="#" method="post"><input id="imgUpload" type="file" accept="image/*" onchange="uploadImgFromTrip(this)" name="file" class="image_i"><img id="showImage" style="width:20%; margin-top:10px;"  src="" alt="image"/></div></form>')
+	$('.Trip').append('<form action="#" method="post" id="uploadImgForm"><input id="imgUpload" type="file" accept="image/*" onchange="uploadImgFromTrip(this)"' +
+	 'name="file" class="image_i"><img id="showImage" style="width:20%; margin-top:10px;"  src="" alt="image"/></div><input type="submit" value="submit" style="visibility : hidden"/>  </form>')
 	// $('.Trip').append('<input id="imgUpload" type="file" accept="image/*" onchange="uploadImgFromTrip(this)" name="file" class="image_i"><img id="showImage" style="width:20%; margin-top:10px;"  src="" alt="image"/></div></form>');
 	// $('.Trip').append('</form>')
 	if(g_trip.rate.userEmail.indexOf(User.email) >-1)

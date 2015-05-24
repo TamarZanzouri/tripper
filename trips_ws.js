@@ -454,14 +454,14 @@ router.post("/updateRate", function(req, res)
 });
 
 router.post('/uploadImageToTrip', function(req, res){
-	try{
-		// var imgToUpload = req.body.imgUrl;
-		var trip = req.body.tripId;
-		console.log("image", imgToUpload, "upload to trip", trip)
-	}
-	catch(err){
-		console.error(err)
-	}
+	// try{
+	// 	var imgToUpload = req.body.form;
+	// 	var trip = req.body.tripId;
+	// 	console.log("image", form, "upload to trip", trip)
+	// }
+	// catch(err){
+	// 	console.error(err)
+	// }
 
 	var form = new formidable.IncomingForm();
 	form.parse(req, function(error, fields, files) 
@@ -473,7 +473,7 @@ router.post('/uploadImageToTrip', function(req, res){
         dataForm=fields;
     });
 	// cloudinary.uploader.upload(imgToUpload, function(result) { 
- //  	console.log(result) 
+  	// console.log(result) 
 	// });
 })
 

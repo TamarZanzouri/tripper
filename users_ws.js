@@ -25,7 +25,7 @@ router.post('/registerUser', function(req, res) {
 					console.log("error inserting email: " + user.email);
 					return console.error(err)
 				}
-				res.json({status:1}, result)
+				res.json({status:1,res:result})
 				return;
 			})
 		}
@@ -38,7 +38,7 @@ router.post('/registerUser', function(req, res) {
 						res.json({status:0})
 						return console.error(err);
 					}
-					res.json({status:1}, result)
+					res.json({status:1, res:result})
 					return;	
 				})		
 		}
