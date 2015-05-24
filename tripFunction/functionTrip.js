@@ -36,17 +36,7 @@ navigator.geolocation.getCurrentPosition(function(position) {
 	});
 
 $(document).ready(function(){
-	var arr=["#addTrip","#mySchedule","#moveToFavorite","#showTrips","#home"];
-	$('.nav li').click(function(){
-		console.log("li clicked")
-		var me = $(this);
-
-		$.each(arr, function(index,val){
-			if($(val).hasClass('ui-btn-active'))
-				$(val).removeClass('ui-btn-active');
-		});
-		$(me).addClass('ui-btn-active');
-	});
+	
 
 	$.ajax({
 		type: "get",
@@ -95,32 +85,8 @@ $(document).ready(function(){
 
 
 
-	$('#home').hover(function(){
-   	 	$("#home a img").attr("src", "images/search_hover.png");
-    }, function(){
-    	$("#home a img").attr("src", "images/search.png");
-	});
-	$('#showTrips').hover(function(){
-   	 	$("#showTrips a img").attr("src", "images/account_hover.png");
-    }, function(){
-    	$("#showTrips a img").attr("src", "images/account.png");
-	});
-	$('#moveToFavorite').hover(function(){
-   	 	$("#moveToFavorite a img").attr("src", "images/favorites_hover.png");
-    }, function(){
-    	$("#moveToFavorite a img").attr("src", "images/favorites.png");
-	});
-	$('#mySchedule').hover(function(){
-   	 	$("#mySchedule a img").attr("src", "images/my_track_hover.png");
-    }, function(){
-    	$("#mySchedule a img").attr("src", "images/my_track.png");
-	});
-	$('#addTrip').hover(function(){
-   	 	$("#addTrip a img").attr("src", "images/add_hover.png");
-    }, function(){
-    	$("#addTrip a img").attr("src", "images/add.png");
-	});
 	
+	// border-bottom: 5px solid #EED53D;
 			//Use HTML5 Geolocation API To Get Current Position
 	
 
@@ -324,6 +290,62 @@ $(document).on('click','#addUser',function(){
 	$('#usersList').append(tempEmailUser+" ");
 });
 
+$("#home").on({
+    mouseenter: function () {
+    	console.log("hover LI")
+        //stuff to do on mouse enter
+    },
+    mouseleave: function () {
+        //stuff to do on mouse leave
+    }
+});
+$(document).on('mouseenter',"#home", function(){
+ 	$("#home a img").attr("src", "images/search_hover.png");
+});
+$(document).on('mouseleave',"#home", function(){
+ 	$("#home a img").attr("src", "images/search.png");
+});
+$(document).on('mouseenter',"#showTrips", function(){
+ 	$("#showTrips a img").attr("src", "images/account_hover.png");
+});
+$(document).on('mouseleave',"#showTrips", function(){
+ 	$("#showTrips a img").attr("src", "images/account.png");
+});
+$(document).on('mouseenter',"#moveToFavorite", function(){
+ 	$("#moveToFavorite a img").attr("src", "images/favorites_hover.png");
+});
+$(document).on('mouseleave',"#moveToFavorite", function(){
+ 	$("#moveToFavorite a img").attr("src", "images/favorites.png");
+});
+$(document).on('mouseenter',"#mySchedule", function(){
+ 	$("#mySchedule a img").attr("src", "images/my_track_hover.png");
+});
+$(document).on('mouseleave',"#mySchedule", function(){
+ 	$("#mySchedule a img").attr("src", "images/my_track.png");
+});
+$(document).on('mouseenter',"#addTrip", function(){
+ 	$("#addTrip a img").attr("src", "images/add_hover.png");
+});
+$(document).on('mouseleave',"#addTrip", function(){
+ 	$("#addTrip a img").attr("src", "images/add.png");
+});
+
+var arr=["#addTrip","#mySchedule","#moveToFavorite","#showTrips","#home"];
+$(document).on('click','.nav li',function(){
+	console.log("li clicked")
+	var me = $(this);
+
+	$.each(arr, function(index,val){
+		console.log(val)
+		if($(val).hasClass('ui-btn-active'))
+			console.log(val)
+			$(val).removeClass('ui-btn-active');
+	});
+	$(me).addClass('ui-btn-active');
+})
+	// $('.nav li').click(function(){
+		
+	// });
 // function myLocation() {
 // 	//If HTML5 Geolocation Is Supported In This Browser
 // 	if (navigator.geolocation) {
@@ -897,7 +919,7 @@ function displayListScheduleTrip(data){
 		var span = $('<span>');
 		var img = $('<img>');
 		span.html(val.trip_name);
-		img.attr({"src":val.imageUrl, "width":50, "height":50})
+		img.attr({"src":val.tripSites[0].img, "width":50, "height":50})
 		li.append(span);
 		li.append(img);
 		
@@ -1213,7 +1235,7 @@ $(document).on('click','.btnChar', function(e){
 });
 
 $(document).on('submit','#addform',function(e){
-	e.preventDefault();
+	 e.preventDefault();
 	var form = new FormData(this); 
 	var tempFilter = [];
 
