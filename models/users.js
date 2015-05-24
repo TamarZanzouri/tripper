@@ -8,7 +8,7 @@ var usersSchema = new Schema(
 	image : String,
 	favorites : [ { 
 			trip_name : String,
-	 		address : String,
+	 		area : String,
  			tripSites : [ {
 				siteName : { type : String, default : ''},
 				img : { type : String, default : ''}

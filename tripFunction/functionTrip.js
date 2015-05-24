@@ -679,11 +679,11 @@ $(document).on("click", '.topImgSchedule', function() {
 	// }
 	if ($(this).hasClass("selectedImgSchedule")) {
 		$(this).removeClass("selectedImgSchedule").attr({'src':'images/my_track.png'});
-		updateSchedule(false);
+		updateSchedule(false, $(this).parent().attr('id'));
 
 	} else {
 		$(this).addClass("selectedImgSchedule").attr({'src':'images/my_track_hover.png'});
-		updateSchedule(true);
+		updateSchedule(true, $(this).parent().attr('id'));
 	}
 });
 $(document).on("click", '.topImgStar', function() {
@@ -704,6 +704,40 @@ $(document).on("click", '.topImgStar', function() {
 function updateFavoritesFromFavoritesList(isFavorite, tripId){
 	// var result = $(this).parent().attr('id');
 	console.log(tripId)
+	$.ajax({
+	type: "post",
+    url: g_domain+"getTripById",// where you wanna post
+    data:  {id:tripId},
+    dataType: "json",
+    error: function(jqXHR, textStatus, errorMessage) {
+    	console.log(errorMessage)
+    },
+    success: function(data) {
+    	g_trip=data;
+    	$.ajax({
+		type: "post",
+        url: g_domain+"updateFavoirte",// where you wanna post
+        data:  {trip:{
+        	_id:g_trip._id,
+        	trip_name:g_trip.trip_name,
+        	address: g_trip.area,
+        	trip_sites : g_trip.tripSites        	
+        }
+        ,userId:User.email,
+    	isFavorite:isFavorite},
+        	dataType: "json",
+        	error: function(jqXHR, textStatus, errorMessage) {
+        		console.log(errorMessage)
+
+
+        	},
+        	success: function(data) {
+        		$( "#addingToSchedule" ).popup( "close" );
+        	}
+        });
+    	
+    }
+});
 }
 
 function updateFavorites (bool){
@@ -714,7 +748,8 @@ function updateFavorites (bool){
         data:  {trip:{
         	_id:g_trip._id,
         	trip_name:g_trip.trip_name,
-        	address:g_trip.address        	
+        	address:g_trip.area,
+        	trip_sites : g_trip.tripSites          	
         }
         ,userId:User.email,
     	isFavorite:bool},
@@ -834,25 +869,38 @@ $(document).on('click' ,'.saveSchedule',function(){
 
 });
 
-function updateSchedule (bool){
-	console.log(bool)
+function updateSchedule (bool, tripId){
+	console.log(bool, tripId)
 	if(bool){
-		$.ajax({
-		type: "post",
-        url: g_domain+"updateMySchedule",// where you wanna post
-        data:  {trip:g_trip
-        ,userId:User.email},
-        dataType: "json",
-        error: function(jqXHR, textStatus, errorMessage) {
-        	console.log(errorMessage)
+	$.ajax({
+	type: "post",
+    url: g_domain+"getTripById",// where you wanna post
+    data:  {id:tripId},
+    dataType: "json",
+    error: function(jqXHR, textStatus, errorMessage) {
+    	console.log(errorMessage)
+    },
+    success : function(data){
+    g_trip=data; 
+    console.log(g_trip)
+	$.ajax({
+	type: "post",
+    url: g_domain+"updateMySchedule",// where you wanna post
+    data:  {trip:g_trip
+    ,userId:User.email},
+    dataType: "json",
+    error: function(jqXHR, textStatus, errorMessage) {
+    	console.log(errorMessage)
 
 
-        },
-        success: function(data) {
-        	console.log("update success");
-        }
+    },
+    success: function(data) {
+    	console.log("update success");
+    }
     });
 	}
+	});
+}
 	else{
 		$.ajax({
 		type: "post",
@@ -1320,7 +1368,8 @@ function addToFavoFromEdit(tripToUpdate){
 		        data:  {trip:{
 		        	_id:tripToUpdate._id,
 		        	trip_name:tripToUpdate.trip_name,
-		        	address:tripToUpdate.address        	
+        			address:tripToUpdate.area,
+        			trip_sites : tripToUpdate.tripSites           	
 		        }
 		        ,userId:User.email},
 		        dataType: "json",
@@ -1726,10 +1775,9 @@ $(document).on('click', '.addToSchedule', function(){
         dataType: "json",
         error: function(jqXHR, textStatus, errorMessage) {
         	console.log(errorMessage)
-
-
         },
         success: function(data) {
+        	console.log(data)
         	g_trip=data;
         	$.ajax({
 			type: "post",
@@ -1743,7 +1791,7 @@ $(document).on('click', '.addToSchedule', function(){
 
 	        	},
 	        	success: function(data) {
-	        		$( "#addingToSchedule" ).popup( "close" );
+	        		// $( "#addingToSchedule" ).popup( "close" );
 	        	}
 	        });
         	

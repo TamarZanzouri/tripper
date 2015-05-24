@@ -50,7 +50,7 @@ router.post('/updateMySchedule', function(req, res) {
 		var user = req.body.userId;
 		var trip = req.body.trip;
 		// var isInSchdule = req.body.isSchedule;
-		// console.log("getting detailes!!!!!!!", user, trip, isInSchdule)
+		console.log("getting detailes!!!!!!!", user, trip)
 	}
 	catch(err){
 		console.log("failed to get user and trip " + err);
@@ -139,16 +139,13 @@ router.post('/updateScheduleParticipents', function(req,res){
 				console.error(err);
 			}
 			})
-			res.json({status:1});
 			}
 			else{
 				return console.log("user " + participent + " not found");
-				res.json({status:1})
 			}
 		})
 	})
-	
-
+	res.json({status:1});	
 })
 
 router.post('/saveTimeSchedule', function(req, res){
@@ -184,7 +181,7 @@ router.post('/updateFavoirte', function(req, res){
 	}
 	if(isFavorite == 'true'){
 		console.log("adding trip to favorites")
-		console.log("update the schedule",trip)
+		console.log("update the favorites",trip)
 		db.model('users').findOne({email:user}).exec(function (err, docs){
 		if(err){
 			res.json({status:0})
