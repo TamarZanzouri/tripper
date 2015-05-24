@@ -675,28 +675,59 @@ function displayFullTrip(data){
 	    meImg = $(this).children('img');
 		meImg.attr({"width":50,"height":50}).css("border-radius","50px");
 	});
+	
+
+	var num =0;
+	var commentSection = $( '<section>').attr("id","sectionComment")
+	var ul = $('<ul>').addClass("commentList");
+	$.each(g_trip.comments, function(index,val){
+		var li = $('<li>');
+		var img = $('<img>');
+		var p = $('<h5>');
+		img.attr({"src":val.userImg});
+		p.html((index+1)+". "+val.comment);
+		li.append(img);
+		li.append(p);
+		ul.append(li);
+		num++;
+	});
+
+
+
+	var h3= $('<h3>').html("לפלייליסט זה התפרסמו "+num+" תגובות");
 	var img = $('<img>').attr({"src":User.image,"id":"myImg"});
-	var h3 = $('<h3>').html("הוסף תגובה חדשה");
+	var h4 = $('<h4>').html("הוסף תגובה חדשה").attr("id","titleComment");
 
 	
 	var textarea = $('textarea').attr({"type":"text","name":"comment","id":"comment"}).css({"display":"none"})
 	// $('.Trip').append("<textarea type='text' name='comment' id='comment style'display:none'></textarea>");
-	var aSend= $('<a>').attr({"id":"submitComment"}).css({"display":"none"}).html("שלח תגובה")
+	var aSend= $('<a>').attr({"id":"submitComment"}).css({"display":"none"}).html("שלח")
 	// $('.Trip').append("<a id='submitComment' style'display:none'>שלח תגובה</a> </br>");
 
-	$('.Trip').append(img);
-	$('.Trip').append(h3);
-	$('.Trip').append(textarea);
-	$('.Trip').append(aSend);
 
-	var article = "<h3>תגובות המטיילים</h3><article id='tripComments'>";
-	$.each(g_trip.comments,function(i,val){
-		console.log("comment");
-		article+=val;
-		article+="</br>";
+
+
+	commentSection.append(h3);
+	commentSection.append(img);
+	commentSection.append(h4);
+	commentSection.append(textarea);
+	commentSection.append(aSend);
+	commentSection.append(ul)
+
+
+	$('.Trip').append(commentSection);
+	$('#titleComment').click(function(){
+		$('#comment').show();
+		$('#submitComment').show();
 	});
-	article+="</article>"
-	$('.Trip').append(article);
+	// var article = "<h3>תגובות המטיילים</h3><article id='tripComments'>";
+	// $.each(g_trip.comments,function(i,val){
+	// 	console.log("comment");
+	// 	article+=val;
+	// 	article+="</br>";
+	// });
+	// article+="</article>"
+	// $('.Trip').append(article);
 }
 
 
