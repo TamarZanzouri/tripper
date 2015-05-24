@@ -358,20 +358,7 @@ body, input, select, textarea, button, .ui-btn{
   position: relative;
   width: 100%;
 }*/
-#submitComment{
-  float:right;
-}
-.Trip > label{
-float: right;
-  width: 100%;
-  margin: 10px 0 7px 0;
-  padding: 0px 0 0px 0;
-}
-#comment{
-    float: right;
-  position: relative;
-  margin: 5px 0 0 0;
-}
+
 .sitesUl{
     float: right;
   padding: 0 0 0 0;
@@ -590,6 +577,49 @@ list-style: none;
 #titleComment{
     color: #22AF87 !important;
   text-decoration: underline;
+    height: 50px;
+  line-height: 50px;
+    font-size: 20px;
+}
+.commentList{
+  position: relative;
+  left: 33px;
+}
+.commentList > li{
+width: 100%;
+  float: right
+}
+.commentList > li > img {
+  border-radius: 50px;
+  position: relative;
+  float: right;
+}
+.commentList > li > h5{
+  float: right;
+    font-size: 18px;
+      padding: 5px 20px 0 0;
+}
+#submitComment{
+  float: right;
+  position: relative;
+  background-color: #22AF87 !important;
+  color: #ffffff;
+  padding: 10px 15px 10px 15px;
+  margin: 10px 0 5px 0;
+  right: 244px;
+}
+.Trip > label{
+float: right;
+  width: 100%;
+  margin: 10px 0 7px 0;
+  padding: 0px 0 0px 0;
+}
+#comment{
+  position: relative;
+  margin: 5px 0 0 0;
+    width: 224px;
+  height: 98px;
+    display: block;
 }
 /***** account page*************/
 .details > img{
