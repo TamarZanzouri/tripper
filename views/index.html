@@ -46,11 +46,11 @@
 
 				
 </head>
-<body >
+<body dir="rtl">
 	<div data-role="page" id="homePage" >
 		<header data-role="header" data-position="fixed" data-tap-toggle="false">  
-			<a href="#home"><img id="logo" src="images/logo.png"></a>
-			<a href="#nav-panel" id="menubtn" data-role="button" data-icon="grid"></a>   
+			<a id="headerlogo" href="#home"><img id="logo" src="images/logo.png"></a>
+			<a href="#nav-panel" id="menubtn" data-role="button"></a>   
 			<ul class="nav nav-pills">
 				<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
 				<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
@@ -87,8 +87,8 @@
 
 		<div data-role="page" id="resultTripPqge" >
 					<header data-role="header" data-position="fixed" data-tap-toggle="false">  
-			<a href="#home"><img id="logo" src="images/logo.png"></a>
-			<a href="#nav-panel" id="menubtn" data-role="button" data-icon="grid"></a>   
+			<a id="headerlogo" href="#home"><img id="logo" src="images/logo.png"></a>
+			<a href="#nav-panel" id="menubtn" data-role="button"></a>  
 			<ul class="nav nav-pills">
 				<li id="home"  class="ui-btn-active"  ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
 				<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
@@ -202,8 +202,8 @@
 
 		<div data-role="page" id="theTrip" >
 					<header data-role="header" data-position="fixed" data-tap-toggle="false">  
-			<a href="#home"><img id="logo" src="images/logo.png"></a>
-			<a href="#nav-panel" id="menubtn" data-role="button" data-icon="grid"></a>   
+			<a id="headerlogo" href="#home"><img id="logo" src="images/logo.png"></a>
+			<a href="#nav-panel" id="menubtn" data-role="button"></a>   
 			<ul class="nav nav-pills">
 				<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
 				<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
@@ -222,8 +222,8 @@
 
 		<div data-role="page" id="viewFavorite" >
 				<header data-role="header" data-position="fixed" data-tap-toggle="false">  
-			<a href="#home"><img id="logo" src="images/logo.png"></a>
-			<a href="#nav-panel" id="menubtn" data-role="button" data-icon="grid"></a>   
+			<a id="headerlogo" href="#home"><img id="logo" src="images/logo.png"></a>
+			<a href="#nav-panel" id="menubtn" data-role="button"></a>   
 			<ul class="nav nav-pills">
 				<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
 				<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
@@ -248,8 +248,8 @@
 
 		<div data-role="page" id="addTripPage" >
 					<header data-role="header" data-position="fixed" data-tap-toggle="false">  
-			<a href="#home"><img id="logo" src="images/logo.png"></a>
-			<a href="#nav-panel" id="menubtn" data-role="button" data-icon="grid"></a>   
+			<a id="headerlogo" href="#home"><img id="logo" src="images/logo.png"></a>
+			<a href="#nav-panel" id="menubtn" data-role="button"></a>  
 			<ul class="nav nav-pills">
 				<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
 				<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
@@ -373,8 +373,8 @@
 
 		<div data-role="page" id="accountPage" >
 		<header data-role="header" data-position="fixed" data-tap-toggle="false">  
-			<a href="#home"><img id="logo" src="images/logo.png"></a>
-			<a href="#nav-panel" id="menubtn" data-role="button" data-icon="grid"></a>   
+			<a id="headerlogo" href="#home"><img id="logo" src="images/logo.png"></a>
+			<a href="#nav-panel" id="menubtn" data-role="button"></a>   
 			<ul class="nav nav-pills">
 				<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
 				<li id="showTrips"><a href="#accountPage" class="ui-btn-active"><img src="images/account.png"><span>החשבון שלי</span></a></li>
@@ -397,8 +397,8 @@
 
 		<div data-role="page" id="myPageSchedule" >
 					<header data-role="header" data-position="fixed" data-tap-toggle="false">  
-			<a href="#home"><img id="logo" src="images/logo.png"></a>
-			<a href="#nav-panel" id="menubtn" data-role="button" data-icon="grid"></a>   
+			<a id="headerlogo" href="#home"><img id="logo" src="images/logo.png"></a>
+			<a href="#nav-panel" id="menubtn" data-role="button"></a>  
 			<ul class="nav nav-pills">
 				<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
 				<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
@@ -411,19 +411,17 @@
 				<div class="well">
 				    <div class="row">
 				        <div class="col-xs-6">
-				            <label class="control-label" for="dpd1">Check in: </label>
-				            <input class="form-control" type="text" id="dpd1" />
-				        </div>
-				        <div class="col-xs-6">
-				            <label class="control-label" for="dpd2">Check out: </label>
+				            <label class="control-label" for="dpd2">תאריך חזרה: </label>
 				            <input class="form-control" type="text" id="dpd2" />
+				        </div>
+				       	<div class="col-xs-6">
+				            <label class="control-label" for="dpd1">תאריך יציאה: </label>
+				            <input class="form-control" type="text" id="dpd1" />
 				        </div>
 				    </div>
 				</div>
-				<a href="#" class="saveSchedule">עדכון התאריכים בטיול</a>
 				ארגן טיול עם חברייך:<input id="shareSchedule"  name="email" type="email">
 				<input type="button" id="addFriendToSchedule" value="הוסף חבר">
-				<input type="button" id="updateFriendsWithChanges" value="עדכן שינויים">
 				<div id="friendsemail" style=></div>
 				<section id="resultTrip">
 					<ul class="displayTrip">
@@ -434,7 +432,7 @@
 					<ul id="ulTimeLineSchedule"></ul>
 				</div>
 				
-
+				<input type="button" id="updateFriendsWithChanges" value="עדכן שינויים">
 		</div>
 	</div>
 	 <div data-role="panel" data-position="right" data-display="overlay" data-swipe-close="true" data-theme="b" id="nav-panel" class="ui-responsive-panel">

@@ -164,6 +164,7 @@ fieldset > div{
       }
 
 /*********home page********/
+
 #logo{
     width: 100%;
   height: 100%;
@@ -419,6 +420,7 @@ float: right;
 
 #menubtn{
   display: none;
+
 }
 #buttonRadius{
   display: none;
@@ -446,6 +448,24 @@ float: right;
   padding-top: 50px !important;
   background-position-x: -113px;
   }
+  #headerlogo{
+  float: left;
+  }
+  #menubtn{
+  background-image: url('images/menu_button.png');
+  /* max-width: none; */
+  position: relative !important;
+  display: block;
+  background-size: 138%, 140% !important;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  height: 44px;
+  width: 40px;
+  margin-top: 50px;
+  top: 22px !important;
+  left: 11px;
+  }
+
 }
 /*@media (max-width: 767) {
     
