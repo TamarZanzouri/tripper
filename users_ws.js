@@ -138,8 +138,8 @@ router.post('/updateScheduleParticipents', function(req,res){
 			if(err){
 				console.error(err);
 			}
-			res.json({status:1});
 			})
+			res.json({status:1});
 			}
 			else{
 				return console.log("user " + participent + " not found");

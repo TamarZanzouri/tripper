@@ -231,12 +231,30 @@ $(document).ready(function(){
 		if($('#shareSchedule').val()){
 			// debugger
 			shareScheduleWithFriends.push($('#shareSchedule').val());
-			User.tripPatners.push($('#shareSchedule').val());
 			$('#shareSchedule').val("");
 			console.log(shareScheduleWithFriends)
 			console.log(User.tripPatners)
-			updateSharedTrip();
-		}
+			console.log(g_ListTrip)
+		if(!(_.contains(shareScheduleWithFriends, User.email))){
+			console.log(shareScheduleWithFriends)
+			shareScheduleWithFriends.push(User.email)
+		}	
+			console.log("sending email")
+			$.ajax({
+			type: "post",
+	        url: g_domain+"updateScheduleParticipents",// where you wanna post
+	        data:  {trips:g_ListTrip, sharedEmail:shareScheduleWithFriends, dateOfTrip : date},
+        	dataType: 'json',
+	        error: function(jqXHR, textStatus, errorMessage) {
+	        	console.log(errorMessage)
+	        },
+	        success: function(data) {
+	        	console.log("update success");
+	        	updateSharedTrip();
+	        }
+
+			})
+		}	
 		return
 	})
 
@@ -653,13 +671,19 @@ $(document).on("click", '.topImgStar', function() {
 	// }
 	if ($(this).hasClass("selectedImgStar")) {
 		$(this).removeClass("selectedImgStar").attr({'src':'images/favorites.png',"href":"#RemoveFavPopup","data-rel":"popup"});
-		updateFavorites(false);
+		updateFavoritesFromFavoritesList(false, $(this).parent().attr('id'));
 
 	} else {
 		$(this).addClass("selectedImgStar").attr({'src':'images/favorites_hover.png',"href":"#addToFavPopup","data-rel":"popup"});
 		updateFavorites(true);
 	}
 });
+
+function updateFavoritesFromFavoritesList(isFavorite, tripId){
+	// var result = $(this).parent().attr('id');
+	console.log(tripId)
+}
+
 function updateFavorites (bool){
 	console.log(bool)
 	$.ajax({
@@ -794,11 +818,7 @@ function updateSchedule (bool){
 		$.ajax({
 		type: "post",
         url: g_domain+"updateMySchedule",// where you wanna post
-        data:  {trip:{
-        	_id:g_trip._id,
-        	trip_name:g_trip.trip_name,
-        	address:g_trip.address        	
-        }
+        data:  {trip:g_trip
         ,userId:User.email},
         dataType: "json",
         error: function(jqXHR, textStatus, errorMessage) {
@@ -934,9 +954,10 @@ $(document).on('click', '#deleteMailFromSchedule', function(){
 })
 
 function updateSharedTrip(){
-	console.log(User.tripPatners)
+	console.log("if update shared trip ", User.tripPatners.length)
 	$('#friendsemail').empty();
-	if(!User.tripPatners.length){
+	if(User.tripPatners.length > 0){
+		console.log("in if")
 		$.each(User.tripPatners, function(i, val){
 		console.log(val)
 		$('#friendsemail').append("<button id='emailNum" + i + "'>" + val + "</button>");
@@ -1294,12 +1315,12 @@ function addToFavoFromEdit(tripToUpdate){
 	    }
 	});
 }
-// $(window).on('hashchange', function(e) {
-// 	if (e.originalEvent.newURL.indexOf("homePage") != -1) {
-// 		console.log("home")
-// 	}
+$(window).on('hashchange', function(e) {
+	if (e.originalEvent.newURL.indexOf("#myPageSchedule") != -1) {
+		console.log("home")
+	}
 	
-// });
+});
 function moveToAddPage() {
 	$.mobile.changePage("#addTripPage", {
 		transition : "none",
@@ -1708,6 +1729,10 @@ $(document).on('click', '.addToSchedule', function(){
     });
 
 })
+
+$(document).on("pagehide","#myPageSchedule",function(){ // When leaving pagetwo
+  alert("pagetwo is about to be hidden");
+});
 
 $(document).on('click','#editFavorite',function(){
 	console.log(g_trip)
