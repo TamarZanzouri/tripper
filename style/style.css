@@ -275,7 +275,7 @@ body, input, select, textarea, button, .ui-btn{
 }
 .btnChar {
   color: #ffffff !important;
-  background: transparent ;
+  background: transparent !important;
   margin: 15px 16px 10px 16px !important;
   height: 48px;
   font-size: 20px;
@@ -661,3 +661,9 @@ float: right;
 .details{
   text-align: right;
 }
+.TripImg {
+  display: inline;
+  float: right;
+  border-radius: 50px;
+  margin: 3px 10px 10px 15px;
+  }

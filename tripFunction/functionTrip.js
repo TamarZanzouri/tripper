@@ -702,14 +702,14 @@ function displayFullTrip(data){
 		meSpan = $(this).children('span');
 		meSpan.css({"font-size":"35px"});
 		meImg = $(this).children('img');
-		meImg.attr({"width":125,"height":125}).css("border-radius","0px");
+		meImg.attr({"width":125,"height":125}).css({"border-radius":"0px","width":"auto"});
 	}
 	, function(){
 		$(this).css({"top":"68px","border":"none","background-color":"transparent","padding":"0px"});
 		meSpan = $(this).children('span');
 		meSpan.css("font-size","20px");
 	    meImg = $(this).children('img');
-		meImg.attr({"width":50,"height":50}).css("border-radius","50px");
+		meImg.attr({"width":50,"height":50}).css({"border-radius":"50px",  "width": "50px"});
 	});
 	
 	var commentSection = $( '<section>').attr("id","sectionComment")
@@ -1167,28 +1167,28 @@ function updateSharedTrip(){
 	});
 }
 }
-$(document).on('click','.listScheduleTrip',function(){
+// $(document).on('click','.listScheduleTrip',function(){
 	
 
-	var result = $(this).attr('id');
-	$.ajax({
-		type: "post",
-        url: g_domain+"getTripById",// where you wanna post
-        data:  {id:result},
-        dataType: "json",
-        error: function(jqXHR, textStatus, errorMessage) {
-        	console.log(errorMessage)
+// 	var result = $(this).attr('id');
+// 	$.ajax({
+// 		type: "post",
+//         url: g_domain+"getTripById",// where you wanna post
+//         data:  {id:result},
+//         dataType: "json",
+//         error: function(jqXHR, textStatus, errorMessage) {
+//         	console.log(errorMessage)
 
 
-        },
-        success: function(data) {
-        	g_trip=data;
-        	displayFullTrip(data);
+//         },
+//         success: function(data) {
+//         	g_trip=data;
+//         	displayFullTrip(data);
         	
-        }
-    });
-	moveToTripPage();
-});
+//         }
+//     });
+// 	moveToTripPage();
+// });
 function displayScheduleTrip(data){
 	$('.Trip').empty();
 	$('.Trip').append("<h3>הטיול הנבחר </h3>");
@@ -1666,6 +1666,8 @@ function signinCallback(authResult) {
 		$.each(data,function(index,val){
 			var li = $('<li>');
 			li.attr({"id":val._id}).addClass('listResultTrip trip');
+			var imgTrip=$('<img>').attr({"src":val.tripSites[0].img,"width":"50px","height":"50px"}).addClass('TripImg');
+			li.append(imgTrip);
 			var imgF="";
 			var imgS="";
 			var favorites= []
