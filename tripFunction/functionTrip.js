@@ -1,7 +1,6 @@
 User={};
 
-g_domain="http://shenkartripper.herokuapp.com/";
-//"http://127.0.0.1:1337/";
+g_domain="http://127.0.0.1:1337/";//"http://shenkartripper.herokuapp.com/";
 
 
 mapPoint={};
@@ -499,8 +498,8 @@ function showMyImage(fileInput,x) {
 $(document).on("submit", '#uploadImgForm', function(e){
 	e.preventDefault();
 	console.log("bla bla", this)
-var form = new FormData(this);
-form.append("tripId", g_trip._id);
+	var form = new FormData(this);
+	form.append("tripId", g_trip._id);
 // debugger
 $.ajax({
 	type : "post",
