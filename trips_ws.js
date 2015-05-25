@@ -499,6 +499,7 @@ router.post('/uploadImageToTrip', function(req, res){
 	 		res.json({status:0})
 	 	}
 	 	console.log("enterd image to trip")
+	 	res.json({status:1})
 	 })
 	});
 	var file_reader = fs.createReadStream(temp_path).pipe(stream)

@@ -1,7 +1,25 @@
 User={};
 
-g_domain="http://shenkartripper.herokuapp.com/";
-//"http://127.0.0.1:1337/";
+g_domain="http://127.0.0.1:1337/";
+//"http://shenkartripper.herokuapp.com/";
+
+
+//hashtable for variables in english
+var hashtable = {};
+hashtable.trip_with_animals = "בע''ח";
+hashtable.trip_with_road = "מסלול סלול";
+hashtable.trip_for_children = "מותאם לילדים";
+hashtable.trip_with_watter = "טיול עם מקורות מים";
+hashtable.trip_for_night = "טיול עם לילה";
+hashtable.trip_for_day = "טיול יומי";
+hashtable.trip_with_bicycle = "טיול עם אופניים";
+hashtable.trip_with_jeep = "טיול ג'יפים";
+hashtable.light_trip = "קל";
+hashtable.medium_trip = "בינוני";
+hashtable.hard_trip = "קשה";
+hashtable.tel_aviv = "איזור מרכז וגוש דן";
+hashtable.south = "איזור דרום";
+hashtable.north = "איזור צפון"
 
 
 mapPoint={};
@@ -60,14 +78,14 @@ $(document).ready(function(){
     	appendTripCharachters();
     }
     });  
-    //  1.tel-aviv 2. north 3. south 
+    //  1.tel_aviv 2. north 3. south 
 	var locations={}
  	
 
  	$('input:radio[name=area]').click(function(){
  		console.log($(this).val());	
 		var tempLocation = $(this).val();
-		if(tempLocation=="tel-aviv"){
+		if(tempLocation=="tel_aviv"){
 			var tel_aviv=[32.020593632526015,34.83983516693115];
  			locations=tel_aviv;
 		}else if(tempLocation=="north"){
@@ -515,70 +533,15 @@ $.ajax({
 
         },
         success: function(data) {
-        	g_trip=data.res;
-        	displayFullTrip(data.rest);
-        	
+        	console.log("img uploaded")      	
         }
 		});
 });
-// function test(obj){
-// console.log("bla bla", obj)
-// var form = new FormData(obj);
-// form.append("tripId", g_trip._id);
-// // debugger
-// $.ajax({
-// 	type : "post",
-// 			url: g_domain+"uploadImageToTrip",
-// 			data : form,
-// 			// dataType : "json",
-// 			contentType: false,
-//         	processData:false,
-// 		error: function(jqXHR, textStatus, errorMessage) {
-//         	console.log(errorMessage)
-
-
-//         },
-//         success: function(data) {
-//         	g_trip=data;
-//         	displayFullTrip(data);
-        	
-//         }
-// 		});
-// return false;	
-// }
 
 function uploadImgFromTrip(fileInput) {
 	console.log("ins")
 	console.log("file", fileInput)
 	$('#uploadImgForm').submit();
-	// $('#uploadImgForm').submit(function(e){
-	// 	e.preventDefault();
-	// 	console.log("submit", this)
-	// });
-	// console.log(g_trip._id)
-
-	//var form = new FormData($('#uploadImgForm'));
-	//form.append("file",fileInput);
-
-	// console.log(form.files)
-	// // var files = fileInput.files;
-	// // for (var i = 0; i < files.length; i++) {           
-	// // 	var file = files[i];
-	// // 	var imageType = /image.*/;     
-	// // 	if (!file.type.match(imageType)) {
-	// // 		continue;
-	// // 	}           
-	// // 	var img=document.getElementById("imgUpload");            
-	// // 	img.file = file;    
-	// // 	var reader = new FileReader();
-	// // 	reader.onload = (function(aImg) { 
-	// // 		return function(e) { 
-	// // 			aImg.src = e.target.result; 
-	// // 		}; 
-	// // 	})(img);
-	// // 	console.log(file);
-	// // 	reader.readAsDataURL(file);
-
 }
 
 //panel
@@ -634,7 +597,7 @@ function displayFullTrip(data){
 	console.log("id: ", data._id)
 	$('.Trip').empty();
 	$('.Trip').append('<form action="#" method="post" id="uploadImgForm"><input id="imgUpload" type="file" accept="image/*" onchange="uploadImgFromTrip(this)"' +
-	 'name="file" class="image_i"><img id="showImage" style="width:20%; margin-top:10px;"  src="" alt="image"/></div><input type="submit" value="submit" style="visibility : hidden"/>  </form>')
+	 'name="file" class="image_i"></div><input type="submit" value="submit" style="visibility : hidden"/>  </form>')
 	// $('.Trip').append('<input id="imgUpload" type="file" accept="image/*" onchange="uploadImgFromTrip(this)" name="file" class="image_i"><img id="showImage" style="width:20%; margin-top:10px;"  src="" alt="image"/></div></form>');
 	// $('.Trip').append('</form>')
 	if(g_trip.rate.userEmail.indexOf(User.email) >-1)
@@ -1457,7 +1420,7 @@ $(document).on('submit','#addform',function(e){
         	console.log(errorMessage)
         },
         success: function(data) {
-        	console.log(data)
+        	console.log(data.res)
         	if(edit==true){
         		addToFavoFromEdit(data);
         	}
@@ -1678,7 +1641,7 @@ function signinCallback(authResult) {
 			var span = $('<span>');
 			span.addClass('titelName').html("שם הטיול:"+val.trip_name)
 			li.append(span);
-			var p =$('<p>').html(' מיקום: ' + val.area);
+			var p =$('<p>').html(' מיקום: ' + hashtable[val.area]);
 			li.append(p);
 			// var tripResult = '<li id='+data[i]._id+' class="listResultTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
 			ul.append(li);
@@ -1805,7 +1768,7 @@ function favoriteDisplayListTrip(data){
 			var span = $('<span>');
 			span.addClass('titelName').html("שם הטיול:"+val.trip_name)
 			li.append(span);
-			var p =$('<p>').html(' מיקום: ' + val.area);
+			var p =$('<p>').html(' מיקום: ' + hashtable[val.area]);
 			li.append(p);
 			// var tripResult = '<li id='+data[i]._id+' class="listResultTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
 			ul.append(li);
@@ -1965,7 +1928,7 @@ $(document).on('click','#editFavorite',function(){
 	$('#description').val(g_trip.trip_description);
 	$('#trip_address').val(g_trip.address);
 	switch(g_trip.area) {
-	    case 'tel-aviv':
+	    case 'tel_aviv':
 	        $('#radio-choice-1L').click();
 	        break;
 	    case 'south':
