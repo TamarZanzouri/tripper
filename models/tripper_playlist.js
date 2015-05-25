@@ -15,7 +15,7 @@ var playlistSchema = new Schema(
 		userImg : { type : String, default : ''},
 		comment : { type : String, default : ''}
 	}],
-	imageUrl : { type : String, default : ''},
+	imageUrl : { type : Array, default : []},
 	trip_filter : { type : Array, default : [] },
 	shareEmail : { type : Array, default : [] },
 	tripSites : [ {

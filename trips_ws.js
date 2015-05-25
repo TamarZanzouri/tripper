@@ -46,7 +46,7 @@ router.post('/add', function(req, res) {
 	});
 	form.on('end', function(error, fields, files) {
 		var file_names = this.openedFiles;
-
+		console.log("in end of form")
 	 	//console.log(this)
 		var files_temp=[];
 		var temp_paths=[];
@@ -454,16 +454,9 @@ router.post("/updateRate", function(req, res)
 });
 
 router.post('/uploadImageToTrip', function(req, res){
-	// try{
-	// 	var imgToUpload = req.body.form;
-	// 	var trip = req.body.tripId;
-	// 	console.log("image", form, "upload to trip", trip)
-	// }
-	// catch(err){
-	// 	console.error(err)
-	// }
 
 	var form = new formidable.IncomingForm();
+	
 	form.parse(req, function(error, fields, files) 
 	{
 		console.log('-->PARSE<--');
@@ -472,9 +465,44 @@ router.post('/uploadImageToTrip', function(req, res){
         console.log("fields", JSON.stringify(fields));
         dataForm=fields;
     });
-	// cloudinary.uploader.upload(imgToUpload, function(result) { 
-  	// console.log(result) 
-	// });
-})
+    form.on('progress', function(bytesReceived, bytesExpected) 
+	{
+		var percent_complete = (bytesReceived / bytesExpected) * 100;
+		console.log(percent_complete.toFixed(2));
+	});
 
+	form.on('error', function(err) 
+	{
+		console.log("-->ERROR<--");
+		console.error(err);
+	});
+
+	form.on('end', function(error, fields, files) {
+	console.log(this)
+	console.log(files)
+	console.log("trip id ", dataForm.tripId)
+	 var temp_path = this.openedFiles[0].path;
+  console.log("temp_path: " + temp_path);
+      
+  /* The file name of the uploaded file */
+  var file_name = this.openedFiles[0].name;
+  console.log("file_name: " + file_name);
+
+	
+	var stream = cloudinary.uploader.upload_stream(function(result) {
+	 console.log(result) 
+	 urlImg=result.url;
+	 console.log(urlImg)
+	 db.model('tripper_playlists').findOneAndUpdate({_id : new ObjectId(dataForm.tripId)}, { $push: { imageUrl : urlImg } }, function(err, docs){
+	 	if(err){
+	 		console.error(err)
+	 		res.json({status:0})
+	 	}
+	 	console.log("enterd image to trip")
+	 	res.json({status:1})
+	 })
+	});
+	var file_reader = fs.createReadStream(temp_path).pipe(stream)
+})
+})
 module.exports = router;
