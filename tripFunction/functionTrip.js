@@ -971,6 +971,43 @@ $(document).on('click','#submitComment', function(){
     });
 
 });
+/*************** Tamar ***********/
+$(document).on('click','#chatComment', function(){
+	var chat = $('#chat').val();
+	console.log()
+//	g_trip.comments.push(User.name + " : " + comment)
+	$('#cat').val("");
+	console.log(comment, User, g_trip);
+
+	$.ajax({
+		type: "post",
+        url: g_domain+"addChatComment",// where you wanna post
+        data:  {user:User,
+        	chat:chat
+        },
+        dataType: "json",
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+
+
+        },
+        success: function(data) {
+  //       	console.log("add comment success");
+		// 	var ul = $('.commentList');
+		// 	var li = $('<li>');
+		// 	var img = $('<img>');
+		// 	var p = $('<h5>');
+		// 	img.attr({"src" : User.image});
+		// 	p.html((num+1)+". "+comment);
+		// 	li.append(img);
+		// 	li.append(p);
+		// 	ul.append(li);        	
+		// // $('#tripComments').append(User.name + " : " + comment);
+  //       	console.log(data)
+        }
+    });
+
+});
 
 $(document).on('click' ,'.saveSchedule',function(){
 
@@ -1162,6 +1199,52 @@ function displayListScheduleTrip(data){
 		meImg.attr({"width":50,"height":50}).css("border-radius","50px");
 		//$(this).attr({"width":50,"height":50});
 	});
+	num = 0
+
+	// var schedulePage= $('#myPageSchedule #content')
+	
+	var commentSection = $('#sectionComment').empty();
+	var ul = $('<ul>').addClass("commentList");
+	$.each(User.scheduleChat, function(index,val){
+		var li = $('<li>');
+		var img = $('<img>');
+		var p = $('<h5>');
+		img.attr({"src":val.userImg});
+		p.html((index+1)+". "+val.comment);
+		li.append(img);
+		li.append(p);
+		ul.append(li);
+		num++;
+	});
+	
+
+
+	var h3= $('<h3>').html("שוחח עם חבריך לפלייליסט ");
+	var img = $('<img>').attr({"src":User.image,"id":"myImg"});
+	var h4 = $('<h4>').html("הוסף תגובה חדשה").attr("id","titleComment");
+
+	
+	var textarea = $('textarea').attr({"type":"text","name":"chat","id":"chat"}).css({"display":"none"})
+	// $('.Trip').append("<textarea type='text' name='comment' id='comment style'display:none'></textarea>");
+	var aSend= $('<a>').attr({"id":"chatComment"}).css({"display":"none"}).html("שלח")
+	// $('.Trip').append("<a id='submitComment' style'display:none'>שלח תגובה</a> </br>");
+
+
+
+
+	commentSection.append(h3);
+	commentSection.append(img);
+	commentSection.append(h4);
+	commentSection.append(textarea);
+	commentSection.append(aSend);
+	commentSection.append(ul)
+
+
+	// schedulePage.append(commentSection);
+	$('#titleComment').click(function(){
+		$('#chat').show();
+		$('#chatComment').show();
+	});
 }
 
 $(document).on('click', '#deleteMailFromSchedule', function(){
@@ -1223,51 +1306,53 @@ function updateSharedTrip(){
 //     });
 // 	moveToTripPage();
 // });
-function displayScheduleTrip(data){
-	$('.Trip').empty();
-	$('.Trip').append("<h3>הטיול הנבחר </h3>");
-	$('.Trip').append($("<img>").attr('src', 'images/smalLike.png').addClass('topImg').css({
-			"opacity" : "0.4"
-		}));
-	$('.Trip').append("<span class='countLike'>" + g_trip.rate.value + "</span>");
-	$('.Trip').append($("<img>").attr('src', 'images/star.png').addClass('topImgStar'));
-	$.each(User.favorites, function(index,val){
-		if (val._id==g_trip._id) {
-			$('.topImgStar').attr('src', 'images/yellohStar.png');
-		}
-	});
+
+// function displayScheduleTrip(data){
+// 	$('.Trip').empty();
+// 	$('.Trip').append("<h3>הטיול הנבחר </h3>");
+// 	$('.Trip').append($("<img>").attr('src', 'images/smalLike.png').addClass('topImg').css({
+// 			"opacity" : "0.4"
+// 		}));
+// 	$('.Trip').append("<span class='countLike'>" + g_trip.rate.value + "</span>");
+// 	$('.Trip').append($("<img>").attr('src', 'images/star.png').addClass('topImgStar'));
+// 	$.each(User.favorites, function(index,val){
+// 		if (val._id==g_trip._id) {
+// 			$('.topImgStar').attr('src', 'images/yellohStar.png');
+// 		}
+// 	});
 	
-	$('.Trip').append("<h2>"+g_trip.trip_name+"</h2>");
-	$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
+// 	$('.Trip').append("<h2>"+g_trip.trip_name+"</h2>");
+// 	$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
 
-	$('.Trip').append("<img id='tripImg' src="+g_trip.imageUrl+">");
-	var div=('<div>');
-	div+=("<h4>תאור הטיול</h4>");
-	div+=(g_trip.trip_description);
-	$('.Trip').append(div);
+// 	$('.Trip').append("<img id='tripImg' src="+g_trip.imageUrl+">");
+// 	var div=('<div>');
+// 	div+=("<h4>תאור הטיול</h4>");
+// 	div+=(g_trip.trip_description);
+// 	$('.Trip').append(div);
 
-	var strSites="<ul class=sitesUl>";
-	strSites+="<h4>אתרים בטיול</h4>";
-	$.each(g_trip.tripSites , function(index,val){
-		strSites+="<li>";
-		strSites+=" שם האתר :"+val.siteName+", מיקום האתר : \n"+val.location;
+// 	var strSites="<ul class=sitesUl>";
+// 	strSites+="<h4>אתרים בטיול</h4>";
+// 	$.each(g_trip.tripSites , function(index,val){
+// 		strSites+="<li>";
+// 		strSites+=" שם האתר :"+val.siteName+", מיקום האתר : \n"+val.location;
 
-	});
+// 	});
 
-	$('.Trip').append(strSites);
-	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
-	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
-	$('.Trip').append("<h3>תגובות המטיילים</h3>");
-	var article = "<h3>תגובות המטיילים</h3><article>";
+// 	$('.Trip').append(strSites);
+// 	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
+// 	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
+// 	$('.Trip').append("<h3>תגובות המטיילים</h3>");
+// 	var article = "<h3>תגובות המטיילים</h3><article>";
 
-	$.each(g_trip.comments,function(i,val){
-		console.log("comment");
-		article+=val;
-		article+="</br>";
-	});
-	article+="</article>"
-	$('.Trip').append(article);
-}
+// 	$.each(g_trip.comments,function(i,val){
+// 		console.log("comment");
+// 		article+=val;
+// 		article+="</br>";
+// 	});
+// 	article+="</article>"
+// 	$('.Trip').append(article);
+// }
+
 // $(document).on('click','#removeFromSchedule',function(){
 // 		console.log("start to removing")
 // 		$.ajax({

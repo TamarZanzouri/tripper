@@ -652,6 +652,22 @@ float: right;
   margin: 0 auto;
   left: 444px;
 }
+#chat{
+    position: relative;
+  margin: 5px 0 0 0;
+  width: 224px;
+  height: 98px;
+  display: block;
+}
+#chatComment{
+  float: right;
+  position: relative;
+  background-color: #22AF87 !important;
+  color: #ffffff;
+  padding: 10px 15px 10px 15px;
+  margin: 10px 0 5px 0;
+  right: 244px;
+}
 /***** account page*************/
 .details > img{
     border-radius: 50px;
@@ -666,4 +682,8 @@ float: right;
   float: right;
   border-radius: 50px;
   margin: 3px 10px 10px 15px;
+  }
+  .well{
+      background: #22AF87 !important;
+  color: #ffffff !important;
   }
