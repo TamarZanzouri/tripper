@@ -4,7 +4,7 @@ g_domain="http://127.0.0.1:1337/";//"http://shenkartripper.herokuapp.com/";
 
 //hashtable for variables in english
 var hashtable = {};
-hashtable.trip_with_animals = "בע''ח";
+hashtable.trip_with_animals = "טיול עם בע\"ח";
 hashtable.trip_with_road = "מסלול סלול";
 hashtable.trip_for_children = "מותאם לילדים";
 hashtable.trip_with_watter = "טיול עם מקורות מים";
@@ -38,6 +38,7 @@ edit=false;
 var count=1;
 var tripCharacters = [];
 var shareScheduleWithFriends = [];
+var num =0;
 
 navigator.geolocation.getCurrentPosition(function(position) {
 		//Get Latitude From Geolocation API
@@ -610,7 +611,7 @@ function displayFullTrip(data){
 	articleDes.append(g_trip.trip_description);
 	var aside = $('<aside>').addClass('asideFilter')
 	$.each(g_trip.trip_filter, function(i,v){
-		aside.append(v)
+		aside.append(hashtable[v])
 		aside.append(' | ')
 	});
 
@@ -708,8 +709,6 @@ function displayFullTrip(data){
 		meImg.attr({"width":50,"height":50}).css("border-radius","50px");
 	});
 	
-
-	var num =0;
 	var commentSection = $( '<section>').attr("id","sectionComment")
 	var ul = $('<ul>').addClass("commentList");
 	$.each(g_trip.comments, function(index,val){
@@ -927,8 +926,16 @@ $(document).on('click','#submitComment', function(){
         },
         success: function(data) {
         	console.log("add comment success");
-        	// updateComments()
-        	$('#tripComments').append(User.name + " : " + comment);
+			var ul = $('.commentList');
+			var li = $('<li>');
+			var img = $('<img>');
+			var p = $('<h5>');
+			img.attr({"src" : User.image});
+			p.html((num+1)+". "+comment);
+			li.append(img);
+			li.append(p);
+			ul.append(li);        	
+		// $('#tripComments').append(User.name + " : " + comment);
         	console.log(data)
         }
     });
