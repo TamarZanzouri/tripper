@@ -711,7 +711,7 @@ function displayFullTrip(data){
 	    meImg = $(this).children('img');
 		meImg.attr({"width":50,"height":50}).css({"border-radius":"50px",  "width": "50px"});
 	});
-	
+	num = 0;
 	var commentSection = $( '<section>').attr("id","sectionComment")
 	var ul = $('<ul>').addClass("commentList");
 	$.each(g_trip.comments, function(index,val){
@@ -993,10 +993,44 @@ $(document).on('click' ,'.saveSchedule',function(){
         });
 
 });
-/************ Tamar *******/
-function updateSchedule (bool){
 
+function updateSchedule (bool){
+	if(bool){
+		$.ajax({
+		type: "post",
+	    url: g_domain+"updateMySchedule",// where you wanna post
+	    data:  {trip:g_trip
+	    ,userId:User.email},
+	    dataType: "json",
+	    error: function(jqXHR, textStatus, errorMessage) {
+	    	console.log(errorMessage)
+
+
+	    },
+	    success: function(data) {
+	    	console.log("update success");
+	    }
+	});
+	}
+	else{
+		$.ajax({
+		type: "post",
+    	url: g_domain+"removeFromSchedule",// where you wanna post
+    	data:  {tripId:g_trip._id, userEmail:User.email},
+    	// ContentType: 'application/json',
+    	dataType : "json",
+	    error: function(jqXHR, textStatus, errorMessage) {
+	    	console.log(errorMessage)
+
+
+	    },
+	    success: function(data) {
+	    	console.log("removed from schedule")
+	    }
+	});
+	}
 }
+
 function updateScheduleFromList (bool, tripId){
 	console.log(bool, tripId)
 	if(bool){
@@ -1994,9 +2028,9 @@ $(document).on('click', '.addToSchedule', function(){
 
 })
 
-$(document).on("pagehide","#myPageSchedule",function(){ // When leaving pagetwo
-  alert("pagetwo is about to be hidden");
-});
+// $(document).on("pagehide","#myPageSchedule",function(){ // When leaving pagetwo
+//   alert("pagetwo is about to be hidden");
+// });
 
 $(document).on('click','#editFavorite',function(){
 	console.log(g_trip)

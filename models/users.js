@@ -18,6 +18,11 @@ var usersSchema = new Schema(
 		checkInTime : {type : Date, default : ''},
 		checkOutTime : {type : Date, default : ''}
 	},
+	scheduleChat : [{ 
+		userName : { type : String, default : ''},
+		userImg : { type : String, default : ''},
+		comment : { type : String, default : ''}
+	}],
 	tripPatners : { type : Array, default : [] },
 	schedule : [ {
 		_id : String,
