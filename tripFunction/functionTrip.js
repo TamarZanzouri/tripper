@@ -1,7 +1,7 @@
 User={};
 
-g_domain="http://shenkartripper.herokuapp.com/";
-//"http://127.0.0.1:1337/";
+g_domain="http://127.0.0.1:1337/";//"http://shenkartripper.herokuapp.com/";
+
 
 
 mapPoint={};
@@ -637,20 +637,42 @@ function displayFullTrip(data){
 	 'name="file" class="image_i"><img id="showImage" style="width:20%; margin-top:10px;"  src="" alt="image"/></div><input type="submit" value="submit" style="visibility : hidden"/>  </form>')
 	// $('.Trip').append('<input id="imgUpload" type="file" accept="image/*" onchange="uploadImgFromTrip(this)" name="file" class="image_i"><img id="showImage" style="width:20%; margin-top:10px;"  src="" alt="image"/></div></form>');
 	// $('.Trip').append('</form>')
+	
+	$('.Trip').append("<h1>"+g_trip.trip_name+"</h1>");
+	$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li class='plus'> + </li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
+	var divImg = $('<div>');
+	divImg.attr("id","tripImg").css("background-image","url("+g_trip.tripSites[0].img+")")
+	$('.Trip').append(divImg);
+
+	var articleDes=$('<article>');
+	articleDes.append("<h4>תאור הטיול</h4>");
+	articleDes.append(g_trip.trip_description);
+	var aside = $('<aside>').addClass('asideFilter')
+	$.each(g_trip.trip_filter, function(i,v){
+		aside.append(v)
+		aside.append(' | ')
+	});
+
+	$('.Trip').append(articleDes);
+	$('.Trip').append(aside);
+
+	var ulImg =$ ('<ul>').addClass('ulImages');
+	var liImgF= $('<li>')
+	var liImgS= $('<li>')
+	var liImgL= $('<li>')
+	var imgL="";
 	if(g_trip.rate.userEmail.indexOf(User.email) >-1)
 	{
 		console.log(User.email,g_trip.rate.userEmail)
-		$('.Trip').append($("<img>").attr('src', 'images/smalLike.png').addClass("topImg selectedImg").css({
-			"opacity" : "1.0"
-		}));
+		imgL= $('<img>')
+		imgL.attr('src', 'images/dislike.png').addClass("topImg selectedImg");
 	}
 	else{
-		$('.Trip').append($("<img>").attr('src', 'images/smalLike.png').addClass('topImg').css({
-				"opacity" : "0.4"
-		}));	
+		imgL= $('<img>')
+		imgL.attr('src', 'images/like.png').addClass('topImg');
 	}
-	
-	$('.Trip').append("<span class='countLike'>" + g_trip.rate.value + "</span>");
+	var spanLike = $('<span>').addClass('countLike').html(g_trip.rate.value)
+	// $('.Trip').append("<span class='countLike'>" + g_trip.rate.value + "</span>");
 
 	var imgF="";
 	var imgS="";
@@ -661,10 +683,10 @@ function displayFullTrip(data){
 	if (favorites.indexOf(g_trip._id) > -1)
 	{
 		imgF = $('<img>')
-		imgF.attr({'src':'images/favorites_hover.png'}).addClass('topImgStar selectedImgStar'); 
+		imgF.attr({'src':'images/remove_favorites.png'}).addClass('topImgStar selectedImgStar'); 
 	}else{
 		imgF = $('<img>')
-		imgF.attr({'src':'images/favorites.png'}).addClass('topImgStar'); 
+		imgF.attr({'src':'images/add_favorites.png'}).addClass('topImgStar'); 
 	}
 	var schedules= []
 	$.each(User.schedule, function(i,value){
@@ -672,24 +694,23 @@ function displayFullTrip(data){
 	})
 	if (schedules.indexOf(g_trip._id) > -1) {
 		imgS = $('<img>')
-		imgS.attr({'src':'images/my_track_hover.png'}).addClass('topImgSchedule selectedImgSchedule'); 
+		imgS.attr({'src':'images/remove_track.png'}).addClass('topImgSchedule selectedImgSchedule'); 
 	}else{
 		imgS = $('<img>')
-		imgS.attr({'src':'images/my_track.png'}).addClass('topImgSchedule'); 
+		imgS.attr({'src':'images/add_track.png'}).addClass('topImgSchedule'); 
 	}
-	$('.Trip').append(imgF)
-	$('.Trip').append(imgS)		
-	$('.Trip').append("<h2>"+g_trip.trip_name+"</h2>");
-	$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
-	var divImg = $('<div>');
-	divImg.attr("id","tripImg").css("background-image","url("+g_trip.tripSites[0].img+")")
-	$('.Trip').append(divImg);
+	liImgF.append(imgF);
+	liImgS.append(imgS);		
+	liImgL.append(imgL);
+	liImgL.append(spanLike);
+	ulImg.append(liImgF);
+	ulImg.append(liImgS);
+	ulImg.append(liImgL);
+	$('.Trip').append(ulImg);
 
-	var articleDes=('<article>');
-	articleDes+=("<h4>תאור הטיול</h4>");
-	articleDes+=(g_trip.trip_description);
-	$('.Trip').append(articleDes);
 	 var timeline = $('<div>');
+	 var h2 = $('<h2>').html('אתרי הפלייליסט').addClass('sitesTitle');
+	 // timeline.append(h2)
 	 timeline.attr({"id":"timeline"})
 	 var ulSites = $('<ul>');
 	 ulSites.attr({"id":"ulTimeLine"})
@@ -705,6 +726,7 @@ function displayFullTrip(data){
 		ulSites.append(li);
 	});
 	timeline.append(ulSites);
+	$('.Trip').append(h2)
 	$('.Trip').append(timeline)
 	var meImg="";
 	var meSpan="";
@@ -786,11 +808,11 @@ $(document).on("click", '.topImgSchedule', function() {
 	// 	return;
 	// }
 	if ($(this).hasClass("selectedImgSchedule")) {
-		$(this).removeClass("selectedImgSchedule").attr({'src':'images/my_track.png'});
+		$(this).removeClass("selectedImgSchedule").attr({'src':'images/add_track.png'});
 		updateSchedule(false, $(this).parent().attr('id'));
 
 	} else {
-		$(this).addClass("selectedImgSchedule").attr({'src':'images/my_track_hover.png'});
+		$(this).addClass("selectedImgSchedule").attr({'src':'images/remove_track.png'});
 		updateSchedule(true, $(this).parent().attr('id'));
 	}
 });
@@ -800,11 +822,11 @@ $(document).on("click", '.topImgStar', function() {
 	// 	return;
 	// }
 	if ($(this).hasClass("selectedImgStar")) {
-		$(this).removeClass("selectedImgStar").attr({'src':'images/favorites.png',"href":"#RemoveFavPopup","data-rel":"popup"});
+		$(this).removeClass("selectedImgStar").attr({'src':'images/add_favorites.png'});
 		updateFavoritesFromFavoritesList(false, $(this).parent().attr('id'));
 
 	} else {
-		$(this).addClass("selectedImgStar").attr({'src':'images/favorites_hover.png',"href":"#addToFavPopup","data-rel":"popup"});
+		$(this).addClass("selectedImgStar").attr({'src':'images/remove_favorites.png'});
 		updateFavoritesFromFavoritesList(true, $(this).parent().attr('id'));
 	}
 });
@@ -881,9 +903,7 @@ $(document).on("click", '.topImg', function() {
 	if ($(this).hasClass("selectedImg")) {
 		temp_rate=updateRate(0);
 		console.log(temp_rate)
-		$(this).removeClass("selectedImg").css({
-			"opacity" : "0.4"
-		});
+		$(this).removeClass("selectedImg").attr("src","images/like.png");
 		currentValue = $(".countLike").html();
 		newValue = parseInt(currentValue, 10);
 		newValue = parseInt(newValue, 10) - 1;
@@ -893,9 +913,7 @@ $(document).on("click", '.topImg', function() {
 	} else {
 		temp_rate=updateRate(1);
 		console.log(temp_rate)
-		$(this).addClass("selectedImg").css({
-			"opacity" : "1.0"
-		});
+		$(this).addClass("selectedImg").attr("src","images/dislike.png");
 		currentValue = $(".countLike").html();
 		newValue = parseInt(currentValue, 10);
 		newValue = parseInt(newValue, 10) + 1;

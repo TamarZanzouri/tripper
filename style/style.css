@@ -297,13 +297,24 @@ body, input, select, textarea, button, .ui-btn{
   direction: rtl;
 }
 .Trip > h2{
-    width: 50%;
+    width: 42%;
   float: right;
   font-family: 'Alef';
   font-weight: 700;
 }
+.Trip > h1{
+    width: 42%;
+  float: right;
+  font-family: 'Alef';
+  font-weight: 700;
+  font-size: 64px;
+}
 .Trip >ul{
-
+  height: 100px;
+  position: relative;
+  float: right;
+  left: 40px;
+  top: 20px;
 }
 .Trip > ul >li{
   float: right;
@@ -330,6 +341,7 @@ body, input, select, textarea, button, .ui-btn{
     float: left;
   position: relative;
     margin: 7px 10px 0px 5px;
+      font-size: 40px;
 }
 #favorite{
   float: left;
@@ -349,7 +361,7 @@ body, input, select, textarea, button, .ui-btn{
   height: 250px;
   position: relative;
   /* left: 50%; */
-  margin: 10px 0px 0px 15px;
+   margin: 10px 0px 0px 30px;
   /*background-image: url("http://res.cloudinary.com/dxgyixsmg/image/upload/v1432156445/qvxrjquqlrgrsjxxj5qe.jpg");*/
   background-size: 100%;
   background-repeat: no-repeat;
@@ -371,14 +383,34 @@ body, input, select, textarea, button, .ui-btn{
   font-size: 20px;
 }
 .Trip>article{
-  font-size: 12px;
+  font-size: 15px;
     float: right;
   direction: rtl;
   padding: 5px 16px 6px 5px;
   line-height: 25px;
-  font-family: 'Alef'
+  font-family: 'Alef';
+    height: 210px;
 }
-
+.asideFilter{
+    height: 40px;
+  float: right;
+    height: 40px;
+  float: right;
+  background-color: #22AF87 !important;
+  color: #ffffff;
+  padding: 3px 6px 0 8px;
+}
+article> h4 {
+    font-size: 30px;
+  position: relative;
+  /* float: right; */
+  bottom: 17px;
+}
+.plus{
+    border: none !important;
+  margin: 20px 0 0 0 !important;
+  padding: 5px 0 0 0 !important;
+}
 /*h4{
   font-family: 'Alef';
 }*/
@@ -454,36 +486,6 @@ body, input, select, textarea, button, .ui-btn{
   }
 
 }
-/*@media (max-width: 767) {
-    
-#mobile-indicator {
-        display: block;
-}
-
-.nav{
-  display: none;
-}
-
-#menubtn{
-  display: inline;
-}
-
-  .nav{
-    display: none;
-  }
-
-  #menubtn{
-    display: block;
-  }
-
-  #nav-panel{
-    display: block;
-  }
-
-  .ui-btn-icon-notext:after, .ui-btn-icon-left:after, .ui-btn-icon-right:after{
-}
-}*/
-
 
 #timeline{
   width: 83%;
@@ -620,6 +622,24 @@ float: right;
     width: 224px;
   height: 98px;
     display: block;
+}
+.ulImages{
+  position: relative;
+  right: 200px;
+  float: right;
+}
+.ulImages > li{
+    float: inherit !important;
+  border: none !important;
+  margin: 45px 25px 0 25px !important;
+}
+.sitesTitle{
+  width: auto;
+  position: relative;
+  float: right;
+  top: 167px;
+  margin: 0 auto;
+  left: 444px;
 }
 /***** account page*************/
 .details > img{
