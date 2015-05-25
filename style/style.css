@@ -295,6 +295,7 @@ body, input, select, textarea, button, .ui-btn{
 /*******trip page********/
 .Trip{
   direction: rtl;
+    padding: 0 5% 0 0px;
 }
 .Trip > h2{
     width: 42%;
@@ -313,8 +314,7 @@ body, input, select, textarea, button, .ui-btn{
   height: 100px;
   position: relative;
   float: right;
-  left: 40px;
-  top: 20px;
+  left: 20px;
 }
 .Trip > ul >li{
   float: right;
@@ -356,7 +356,7 @@ body, input, select, textarea, button, .ui-btn{
   position: relative; 
 }
 #tripImg{
-  width: 40%;
+  width: 45%;
   float: right;
   height: 250px;
   position: relative;
@@ -383,13 +383,16 @@ body, input, select, textarea, button, .ui-btn{
   font-size: 20px;
 }
 .Trip>article{
-  font-size: 15px;
+  font-size: 20px;
     float: right;
   direction: rtl;
-  padding: 5px 16px 6px 5px;
+  padding: 5px 6px 6px 5px;
   line-height: 25px;
   font-family: 'Alef';
     height: 210px;
+  width: 48%;
+  position: relative;
+    margin: 0px 0 10px 0;
 }
 .asideFilter{
     height: 40px;
@@ -399,6 +402,7 @@ body, input, select, textarea, button, .ui-btn{
   background-color: #22AF87 !important;
   color: #ffffff;
   padding: 3px 6px 0 8px;
+  font-size: 18px;
 }
 article> h4 {
     font-size: 30px;
@@ -444,6 +448,9 @@ article> h4 {
 #buttonRadius{
   display: none;
 }
+#uploadImgForm{
+  display:none;
+}
 @media(max-width: 500px){
   #buttonRadius{
     display: block;
@@ -462,29 +469,31 @@ article> h4 {
   }
   #homePage{ 
       background: url('images/backgroundImage.jpg');
-  background-size: 300%,100%;
-  background-repeat: no-repeat;
-  padding-top: 50px !important;
-  background-position-x: -113px;
+    background-size: 300%,100%;
+    background-repeat: no-repeat;
+    padding-top: 50px !important;
+    background-position-x: -113px;
   }
   #headerlogo{
-  float: left;
+    float : left;
   }
   #menubtn{
-  background-image: url('images/menu_button.png');
-  /* max-width: none; */
-  position: relative !important;
-  display: block;
-  background-size: 138%, 140% !important;
-  background-repeat: no-repeat;
-  margin: 0 auto;
-  height: 44px;
-  width: 40px;
-  margin-top: 50px;
-  top: 22px !important;
-  left: 11px;
+    background-image: url('images/menu_button.png');
+    /* max-width: none; */
+    position: relative !important;
+    display: block;
+    background-size: 138%, 140% !important;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+    height: 44px;
+    width: 40px;
+    margin-top: 50px;
+    top: 22px !important;
+    left: 11px;
   }
-
+  #uploadImgForm{
+    display:block;
+  }
 }
 
 #timeline{
@@ -495,6 +504,7 @@ article> h4 {
   position: relative;
   background: url('images/dot2.gif') top 170px left 45px repeat-x;
   top: 67px;
+    left: 45px;
 }
 #ulTimeLine{
   /*height: 114px;*/
