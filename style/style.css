@@ -283,6 +283,7 @@ body, input, select, textarea, button, .ui-btn{
   font-weight: 100;
   padding: 0px 10px 0px 9px;
   width: auto !important;
+    display: inline !important;
 }
 #groupButton > h2{
   color: #ffffff;
