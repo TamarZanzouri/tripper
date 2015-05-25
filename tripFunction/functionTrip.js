@@ -1709,8 +1709,8 @@ $(document).on('click','#showTrips',function(){
 			dataType:"json",
        // contentType: "application/json",
        success : function(data) {
-       	console.log(data);
-       	User = data;
+       	console.log(data.res);
+       	User = data.res;
        	// console.log(User.email + " " + User.favorites)
 
        },
