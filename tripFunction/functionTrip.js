@@ -1540,7 +1540,7 @@ $(document).on('click','.btnChar', function(e){
 });
 
 $(document).on('submit','#addform',function(e){
-	 // e.preventDefault();
+	e.preventDefault();
 	var form = new FormData(this); 
 
 
@@ -1603,7 +1603,7 @@ $(document).on('submit','#addform',function(e){
         	edit=false;
       } 
   });
-	return false;
+	return true;
 })
 
 // $(document).on('click','#submitForm', function(){
@@ -1654,9 +1654,19 @@ $(window).on('hashchange', function(e) {
 	}
 	
 });
-$(document).on('click','#accountPage',function(){
-	accountCounter=1;
-})
+// $(document).on('click','#accountPage',function(){
+// 	accountCounter=1;
+// 	console.log("click to move the account page")
+// })
+// $(document).on('click','#accountPage img',function(){
+// 	accountCounter=1;
+// 	console.log("click to move the account page")
+// })
+
+// $(document).on('click','#accountPage span',function(){
+// 	accountCounter=1;
+// 	console.log("click to move the account page")
+// })
 function moveToAddPage() {
 	$.mobile.changePage("#addTripPage", {
 		transition : "none",
@@ -1781,8 +1791,18 @@ function signinCallback(authResult) {
         } 
     });
 	}
-	function displayListTrip(data){
+function displayListTrip(data){
+	debugger;
 		console.log(data)
+		// if (e.originalEvent.newURL.indexOf("#myPageSchedule") != -1) {
+		// 	console.log("home")
+		// }
+		if(window.location.hash=='#accountPage')
+		{
+			console.log('accountPage');
+			accountCounter=1;
+		}
+		console.log(accountCounter)
 		if (accountCounter==0){
 			$('#resultTitle').html('תוצאות חיפוש');
 			$('#chars').html(clickedCharachters[0]+" + "+clickedCharachters[1]);
@@ -1795,7 +1815,26 @@ function signinCallback(authResult) {
 			li.attr({"id":val._id}).addClass('listResultTrip trip');
 			var imgTrip=$('<img>').attr({"src":val.tripSites[0].img,"width":"190px","height":"190px"}).addClass('TripImg');
 			li.append(imgTrip);
-			if (accountCounter==1){
+			
+
+			var span = $('<span>');
+			span.addClass('titelName').html(val.trip_name)
+			li.append(span);
+			var h5 =$('<h5>').html( hashtable[val.area]).addClass('locH5');
+			li.append(h5);
+			if(accountCounter==0){
+				var ulSmall =$('<ul>').addClass("smallUL")
+				if(val.trip_filter.length>0){
+				$.each(val.trip_filter,function(i,v){
+					var liSmall = $('<li>')
+					var imgVi= $('<img>').attr({"src":"images/vi.png"}).addClass("vi");
+					liSmall.append(imgVi);
+					liSmall.append( hashtable[v])
+					ulSmall.append(liSmall)
+				});
+				} 
+				li.append(ulSmall);
+			}else if (accountCounter==1){
 
 				var imgF="";
 				var imgS="";
@@ -1825,27 +1864,10 @@ function signinCallback(authResult) {
 				li.append(imgF);
 				li.append(imgS);
 			}
-
-			var span = $('<span>');
-			span.addClass('titelName').html(val.trip_name)
-			li.append(span);
-			var h5 =$('<h5>').html( hashtable[val.area]).addClass('locH5');
-			li.append(h5);
-			var ulSmall =$('<ul>').addClass("smallUL")
-			if(val.trip_filter.length>0){
-			$.each(val.trip_filter,function(i,v){
-				var liSmall = $('<li>')
-				var imgVi= $('<img>').attr({"src":"images/vi.png"}).addClass("vi");
-				liSmall.append(imgVi);
-				liSmall.append( hashtable[v])
-				ulSmall.append(liSmall)
-			});
-			} 
-			li.append(ulSmall);
-			// var tripResult = '<li id='+data[i]._id+' class="listResultTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
 			ul.append(li);
 		});
 accountCounter=0;
+console.log("after display list",accountCounter)
 }
 $(document).on( "click", "#signOut", function() {
 	console.log("signOut")
