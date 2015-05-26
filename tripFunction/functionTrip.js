@@ -1,6 +1,7 @@
 User={};
 
-g_domain="http://127.0.0.1:1337/";//"http://shenkartripper.herokuapp.com/";
+g_domain="http://shenkartripper.herokuapp.com/";
+//"http://127.0.0.1:1337/";
 
 //hashtable for variables in english
 var hashtable = {};
@@ -8,7 +9,7 @@ hashtable.trip_with_animals = "טיול עם בע\"ח";
 hashtable.trip_with_road = "מסלול סלול";
 hashtable.trip_for_children = "מותאם לילדים";
 hashtable.trip_with_watter = "טיול עם מקורות מים";
-hashtable.trip_for_night = "טיול עם לילה";
+hashtable.trip_for_night = "טיול ליילי";
 hashtable.trip_for_day = "טיול יומי";
 hashtable.trip_with_bicycle = "טיול עם אופניים";
 hashtable.trip_with_jeep = "טיול ג'יפים";
@@ -977,7 +978,7 @@ $(document).on('click','#chatComment', function(){
 	console.log()
 //	g_trip.comments.push(User.name + " : " + comment)
 	$('#cat').val("");
-	console.log(comment, User, g_trip);
+	console.log(chat, User, g_trip);
 
 	$.ajax({
 		type: "post",

@@ -30,7 +30,7 @@ router.post('/registerUser', function(req, res) {
 			})
 		}
 		else{
-			db.model('users').findOneAndUpdate( { email : user.email }, user, { upsert : false },
+			db.model('users').findOneAndUpdate( { email : user.email }, user, { upsert : true },
 				function (err, result)
 				{
 					if (err) {
@@ -396,6 +396,43 @@ router.post('/removeEmailFromTripPartners', function(req, res){
 	})	
 	}
 
-})
+});
+
+router.post('/addChatComment', function(req, res){
+	try{
+		var user = req.body.user;
+		var comment = req.body.chat;
+		var objComment = {
+			userName : user.name,
+			userImg : user.image,
+			comment : comment
+		}
+			// user.name + " : " +comment;
+		console.log(" update comment",comment);
+	}
+	catch(err){
+		console.log("cant add comment")
+	}
+	db.model('users').findOne({email : user.email}, {tripPatners : true, _id : false, tripScheduleTime : false}, function(err, docs){
+		if(err){
+			console.error(err)
+			res.json({status:0});
+		}
+		else
+			console.log(docs);
+	})
+	// db.model('users').findOneAndUpdate({email : user.email}, { $push: {scheduleChat:objComment}}, function(err, docs) {
+	// 	if (err) {
+	// 		console.log("found error inserting");
+	// 		res.json({status:0})
+	// 		db.close();
+	// 		return console.error(err);
+	// 	}
+	// 	console.log("updated comment")
+	// 	console.log(docs)
+	// 	res.json({status:1})
+	// 	return;
+	// });
+});
 
 module.exports = router;
