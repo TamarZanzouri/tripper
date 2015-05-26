@@ -1796,10 +1796,10 @@ function signinCallback(authResult) {
 			if (favorites.indexOf(val._id) > -1)
 			{
 				imgF = $('<img>')
-				imgF.attr({"id":"img"+index+"Id",'src':'images/favorites_hover.png'}).addClass('topImgStarList selectedImgStar'); 
+				imgF.attr({"id":"img"+index+"Id",'src':'images/remove_favorites.png'}).addClass('topImgStarList selectedImgStar'); 
 			}else{
 				imgF = $('<img>')
-				imgF.attr({"id":"img"+index+"Id",'src':'images/favorites.png'}).addClass('topImgStarList'); 
+				imgF.attr({"id":"img"+index+"Id",'src':'images/add_favorites.png'}).addClass('topImgStarList'); 
 			}
 			var schedules= []
 			$.each(User.schedule, function(i,value){
@@ -1807,10 +1807,10 @@ function signinCallback(authResult) {
 			})
 			if (schedules.indexOf(val._id) > -1) {
 				imgS = $('<img>')
-				imgS.attr({"id":"imgS"+index+"Id",'src':'images/my_track_hover.png'}).addClass('topImgScheduleList selectedImgSchedule'); 
+				imgS.attr({"id":"imgS"+index+"Id",'src':'images/remove_track.png'}).addClass('topImgScheduleList selectedImgSchedule'); 
 			}else{
 				imgS = $('<img>')
-				imgS.attr({"id":"imgS"+index+"Id",'src':'images/my_track.png'}).addClass('topImgScheduleList'); 
+				imgS.attr({"id":"imgS"+index+"Id",'src':'images/add_track.png'}).addClass('topImgScheduleList'); 
 			}
 			li.append(imgF);
 			li.append(imgS);
@@ -1945,10 +1945,10 @@ function favoriteDisplayListTrip(data){
 			if (favorites.indexOf(val._id) > -1)
 			{
 				imgF = $('<img>')
-				imgF.attr({"id":"img"+index+"Id",'src':'images/favorites_hover.png'}).addClass('topImgStarList selectedImgStar'); 
+				imgF.attr({"id":"img"+index+"Id",'src':'images/remove_favorites.png'}).addClass('topImgStarList selectedImgStar'); 
 			}else{
 				imgF = $('<img>')
-				imgF.attr({"id":"img"+index+"Id",'src':'images/favorites.png'}).addClass('topImgStarList'); 
+				imgF.attr({"id":"img"+index+"Id",'src':'images/add_favorites.png'}).addClass('topImgStarList'); 
 			}
 			var schedules= []
 			$.each(User.schedule, function(i,value){
@@ -1956,10 +1956,10 @@ function favoriteDisplayListTrip(data){
 			})
 			if (schedules.indexOf(val._id) > -1) {
 				imgS = $('<img>')
-				imgS.attr({"id":"imgS"+index+"Id",'src':'images/my_track_hover.png'}).addClass('topImgScheduleList selectedImgSchedule'); 
+				imgS.attr({"id":"imgS"+index+"Id",'src':'images/remove_track.png'}).addClass('topImgScheduleList selectedImgSchedule'); 
 			}else{
 				imgS = $('<img>')
-				imgS.attr({"id":"imgS"+index+"Id",'src':'images/my_track.png'}).addClass('topImgScheduleList'); 
+				imgS.attr({"id":"imgS"+index+"Id",'src':'images/add_track.png'}).addClass('topImgScheduleList'); 
 			}
 			li.append(imgF);
 			li.append(imgS);
