@@ -174,7 +174,7 @@ router.post('/updateFavoirte', function(req, res){
 		var trip = req.body.trip;
 		var user = req.body.userId;
 		var isFavorite = req.body.isFavorite;
-		console.log(trip, user, isFavorite)
+		console.log("trip ", trip, user, isFavorite)
 	}
 	catch(err){
 		return console.error(err)

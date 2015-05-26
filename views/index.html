@@ -100,10 +100,12 @@
 		<div data-role="content" class="ui-content" id="content">
 			<h1 id="resultTitle"></h1>
 			<h2 id="chars" ></h2>
-			<div type="button" id="filter" value="filter">
+			<div id="filter">
+				<ul>
+					<li><input type="checkbox" name="who_are_you_going_with[]" value="trip_with_animals" id="trip_with_animals" class="custom" />בע"ח</li>
+					<li><input type="checkbox" name="who_are_you_going_with[]" value="trip_with_road" id="trip_with_road" class="custom" />מסלול סלול</li>
+				</ul>
 			<div id="filteroptions">
-<!-- 				<label for="slider-1">בחר תקציב:</label>
-				<input type="range" name="slider-1" id="slider-1" value="60" min="0" max="100" />	 -->
 				<div data-role="fieldcontain">
 					<fieldset data-role="controlgroup" class="who_are_you_going_with" data-type="horizontal">
 						<legend>עם מי הולכים לטייל?</legend>
@@ -132,7 +134,6 @@
 				</div>
 				<div data-role="fieldcontain">
 					<fieldset data-role="controlgroup" class="difficulty" data-type="horizontal">
-						<legend>בחר רמת קושי</legend>
 							<legend>בחר רמת קושי</legend>
 							<input type="radio" name="difficulty" id="light_trip" value="light_trip" checked="checked" />
 							<label for="light_trip" id="light_tripL">קל</label>

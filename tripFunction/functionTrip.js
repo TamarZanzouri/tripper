@@ -841,8 +841,8 @@ function updateFavoritesFromFavoritesList(isFavorite, tripId){
         data:  {trip:{
         	_id:g_trip._id,
         	trip_name:g_trip.trip_name,
-        	address: g_trip.area,
-        	trip_sites : g_trip.tripSites        	
+        	area: g_trip.area,
+        	tripSites : g_trip.tripSites        	
         }
         ,userId:User.email,
     	isFavorite:isFavorite},
@@ -869,8 +869,8 @@ function updateFavorites (bool){
         data:  {trip:{
         	_id:g_trip._id,
         	trip_name:g_trip.trip_name,
-        	address:g_trip.area,
-        	trip_sites : g_trip.tripSites          	
+        	area:g_trip.area,
+        	tripSites : g_trip.tripSites          	
         }
         ,userId:User.email,
     	isFavorite:bool},
@@ -1629,8 +1629,8 @@ function addToFavoFromEdit(tripToUpdate){
 		        data:  {trip:{
 		        	_id:tripToUpdate._id,
 		        	trip_name:tripToUpdate.trip_name,
-        			address:tripToUpdate.area,
-        			trip_sites : tripToUpdate.tripSites           	
+        			area:tripToUpdate.area,
+        			tripSites : tripToUpdate.tripSites           	
 		        }
 		        ,userId:User.email},
 		        dataType: "json",
