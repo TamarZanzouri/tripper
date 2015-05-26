@@ -20,6 +20,7 @@ hashtable.south = "איזור דרום";
 hashtable.north = "איזור צפון";
 var accountCounter=0;
 var favoriteFlag=0;
+var favoriteFlagList=0;
 mapPoint={};
 g_trip={};
 g_ListTrip=[];
@@ -1393,7 +1394,7 @@ $(document).on('click','#moveToFavorite',function(){
         success: function(data) {
         	console.log(data.favorites);
         	g_ListTrip=data.favorites;
-        	favoriteDisplayListTrip(data.favorites);
+        	displayListTrip(data.favorites);
         }
     });
 	moveToFavorite();
@@ -1792,11 +1793,15 @@ function signinCallback(authResult) {
     });
 	}
 function displayListTrip(data){
-	debugger;
 		console.log(data)
 		// if (e.originalEvent.newURL.indexOf("#myPageSchedule") != -1) {
 		// 	console.log("home")
 		// }
+		if(window.location.hash=='#viewFavorite')
+		{
+			console.log('accountPage');
+			favoriteFlagList=1;
+		}
 		if(window.location.hash=='#accountPage')
 		{
 			console.log('accountPage');
@@ -1818,11 +1823,15 @@ function displayListTrip(data){
 			
 
 			var span = $('<span>');
-			span.addClass('titelName').html(val.trip_name)
+			if(favoriteFlagList==1){
+				span.addClass('titelNameFavorite').html(val.trip_name)
+			}else{
+				span.addClass('titelName').html(val.trip_name)
+			}
 			li.append(span);
 			var h5 =$('<h5>').html( hashtable[val.area]).addClass('locH5');
 			li.append(h5);
-			if(accountCounter==0){
+			if(accountCounter==0 && favoriteFlagList==0){
 				var ulSmall =$('<ul>').addClass("smallUL")
 				if(val.trip_filter.length>0){
 				$.each(val.trip_filter,function(i,v){
@@ -1834,7 +1843,7 @@ function displayListTrip(data){
 				});
 				} 
 				li.append(ulSmall);
-			}else if (accountCounter==1){
+			}else {
 
 				var imgF="";
 				var imgS="";
@@ -1866,6 +1875,7 @@ function displayListTrip(data){
 			}
 			ul.append(li);
 		});
+favoriteFlagList=0;
 accountCounter=0;
 console.log("after display list",accountCounter)
 }
@@ -1962,63 +1972,63 @@ $(document).on('click','.titelName',function(){
     });
 	moveToTripPage();
 });
-function favoriteDisplayListTrip(data){
-	// console.log(data)
-	// $('#resultTrip ul').empty();
-	// trip=data;
-	// for (i in data) {
-	// 		var tripResult = '<li id='+data[i]._id+' class="favoriteListResultTrip trip" ><a href="#addingSchedule" class="topImgSchedule" data-transition="flip" data-rel="popup">הוסף למסלול שלי</a><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
-	// 	$('#resultTrip .displayTrip').append(tripResult);
-	// };
+// function favoriteDisplayListTrip(data){
+// 	// console.log(data)
+// 	// $('#resultTrip ul').empty();
+// 	// trip=data;
+// 	// for (i in data) {
+// 	// 		var tripResult = '<li id='+data[i]._id+' class="favoriteListResultTrip trip" ><a href="#addingSchedule" class="topImgSchedule" data-transition="flip" data-rel="popup">הוסף למסלול שלי</a><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
+// 	// 	$('#resultTrip .displayTrip').append(tripResult);
+// 	// };
 
 
-	console.log(data)
-		$('#resultTrip ul').empty();
-		var ul = $('.displayTrip');
-		trip=data;
-		$.each(data,function(index,val){
-			var li = $('<li>');
-			li.attr({"id":val._id}).addClass('favoriteListResultTrip trip');
-			var imgTrip=$('<img>').attr({"src":val.tripSites[0].img,"width":"50px","height":"50px"}).addClass('TripImg');
-			li.append(imgTrip);
-			var imgF="";
-			var imgS="";
-			var favorites= []
-			$.each(User.favorites, function(i,value){
-				favorites.push(value._id)
-			})
-			if (favorites.indexOf(val._id) > -1)
-			{
-				imgF = $('<img>')
-				imgF.attr({"id":"img"+index+"Id",'src':'images/remove_favorites.png'}).addClass('topImgStarList selectedImgStar'); 
-			}else{
-				imgF = $('<img>')
-				imgF.attr({"id":"img"+index+"Id",'src':'images/add_favorites.png'}).addClass('topImgStarList'); 
-			}
-			var schedules= []
-			$.each(User.schedule, function(i,value){
-				schedules.push(value._id)
-			})
-			if (schedules.indexOf(val._id) > -1) {
-				imgS = $('<img>')
-				imgS.attr({"id":"imgS"+index+"Id",'src':'images/remove_track.png'}).addClass('topImgScheduleList selectedImgSchedule'); 
-			}else{
-				imgS = $('<img>')
-				imgS.attr({"id":"imgS"+index+"Id",'src':'images/add_track.png'}).addClass('topImgScheduleList'); 
-			}
-			li.append(imgF);
-			li.append(imgS);
+// 	console.log(data)
+// 		$('#resultTrip ul').empty();
+// 		var ul = $('.displayTrip');
+// 		trip=data;
+// 		$.each(data,function(index,val){
+// 			var li = $('<li>');
+// 			li.attr({"id":val._id}).addClass('favoriteListResultTrip trip');
+// 			var imgTrip=$('<img>').attr({"src":val.tripSites[0].img,"width":"50px","height":"50px"}).addClass('TripImg');
+// 			li.append(imgTrip);
+// 			var imgF="";
+// 			var imgS="";
+// 			var favorites= []
+// 			$.each(User.favorites, function(i,value){
+// 				favorites.push(value._id)
+// 			})
+// 			if (favorites.indexOf(val._id) > -1)
+// 			{
+// 				imgF = $('<img>')
+// 				imgF.attr({"id":"img"+index+"Id",'src':'images/remove_favorites.png'}).addClass('topImgStarList selectedImgStar'); 
+// 			}else{
+// 				imgF = $('<img>')
+// 				imgF.attr({"id":"img"+index+"Id",'src':'images/add_favorites.png'}).addClass('topImgStarList'); 
+// 			}
+// 			var schedules= []
+// 			$.each(User.schedule, function(i,value){
+// 				schedules.push(value._id)
+// 			})
+// 			if (schedules.indexOf(val._id) > -1) {
+// 				imgS = $('<img>')
+// 				imgS.attr({"id":"imgS"+index+"Id",'src':'images/remove_track.png'}).addClass('topImgScheduleList selectedImgSchedule'); 
+// 			}else{
+// 				imgS = $('<img>')
+// 				imgS.attr({"id":"imgS"+index+"Id",'src':'images/add_track.png'}).addClass('topImgScheduleList'); 
+// 			}
+// 			li.append(imgF);
+// 			li.append(imgS);
 
-			var span = $('<span>');
-			span.addClass('titelNameFavorite').html(val.trip_name)
-			li.append(span);
-			var p =$('<p>').html(' מיקום: ' + hashtable[val.area]);
-			li.append(p);
-			// var tripResult = '<li id='+data[i]._id+' class="listResultTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
-			ul.append(li);
-		});
+// 			var span = $('<span>');
+// 			span.addClass('titelNameFavorite').html(val.trip_name)
+// 			li.append(span);
+// 			var p =$('<p>').html(' מיקום: ' + hashtable[val.area]);
+// 			li.append(p);
+// 			// var tripResult = '<li id='+data[i]._id+' class="listResultTrip trip" ><span class="titelName"> שם הטיול:' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
+// 			ul.append(li);
+// 		});
 
-}
+// }
 // function favoriteDisplayFullTrip(data){
 // 	g_trip=data;
 
