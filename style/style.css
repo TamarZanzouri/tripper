@@ -92,15 +92,17 @@ background-color: #1B936E !important;
   display: block;
 }
 #resultTrip{
-	  text-align: -webkit-right;
+text-align: -webkit-right;
+  position: relative;
+  left: 20px;
+  float: right;
 }
 
 .displayTrip > li{
 	  font-size: 16px;
-  border: 1px solid #494949;
+  border: 1px solid grey;
   color: #494949;
   padding: 10px 10px 10px 0;
-  border-radius: 10px;
     font-family: 'Alef';
   font-weight: 400;
     width: 47%;
@@ -122,12 +124,19 @@ background-color: #1B936E !important;
     font-size: 36px;
     padding: 0 6px 0 0;
 }
+.titelNameFavorite{
+    display: -webkit-box;
+  font-weight: 600;
+    font-size: 36px;
+    padding: 0 6px 0 0;
+}
+
 .locH5{
   padding: 0 0 0 5px;
   font-size: 28px;
-  margin: 5px 6px 5px 0px;
-  width: 47%;
-  float: right;
+  margin: 5px 0 5px 10px;
+  position: relative;
+  right: 5px;
 }
 #resultTitle{
   font-size: 64px;
@@ -135,6 +144,21 @@ background-color: #1B936E !important;
   font-weight: 700;
   display: inline;
   float: right;
+}
+#resultTitleFavorite{
+  float: right;
+  margin: 10px 25px 15px 0 !important;
+  font-size: 64px;
+  font-family: Alef;
+  font-weight: 600;
+  display: block;
+}
+#userName{
+    float: right;
+  margin: 10px 25px 15px 0 !important;
+  font-size: 64px;
+  font-family: Alef;
+  font-weight: 600;
 }
 #myChoose{
 	text-align: -webkit-right;
@@ -518,50 +542,7 @@ article> h4 {
 #uploadImgForm{
   display:none;
 }
-@media(max-width: 500px){
-  #buttonRadius{
-    display: block;
-  } 
-  #selectArea{
-    display: none;
-  }
-  #filter{
-    display: none;
-  }
-  #dvMap{
-    display: none;
-  }
-  #groupButton{
-    width:auto;
-  }
-  #homePage{ 
-      background: url('images/backgroundImage.jpg');
-    background-size: 300%,100%;
-    background-repeat: no-repeat;
-    padding-top: 50px !important;
-    background-position-x: -113px;
-  }
-  #headerlogo{
-    float : left;
-  }
-  #menubtn{
-    background-image: url('images/menu_button.png');
-    /* max-width: none; */
-    position: relative !important;
-    display: block;
-    background-size: 138%, 140% !important;
-    background-repeat: no-repeat;
-    margin: 0 auto;
-    height: 44px;
-    width: 40px;
-    margin-top: 50px;
-    top: 22px !important;
-    left: 11px;
-  }
-  #uploadImgForm{
-    display:block;
-  }
-}
+
 
 #timeline{
   width: 83%;
@@ -736,12 +717,12 @@ float: right;
 }
 /***** account page*************/
 .details > img{
-    border-radius: 50px;
       position: relative;
   right: 50px;
 }
 .details{
-  text-align: right;
+    text-align: right;
+  margin: 20px 0 20px 0;
 }
 .TripImg {
   display: inline;
@@ -761,11 +742,9 @@ color: #ffffff !important;
 padding: 0 0px 0px 10px;
 }
 .smallUL{
-   width: 47%;
-  position: relative;
-  float: left;
-  margin: 0 0 0 0;
+margin: 0 7px 0 0px;
   padding: 0 0 0 0;
+  display: inline-block;
 }
 .smallUL > li {
 
@@ -774,4 +753,139 @@ padding: 0 0px 0px 10px;
 background-color: #22AF87 !important;
 color:#ffffff;
   border: none !important;
+}
+@media(max-width: 500px){
+  #buttonRadius{
+    display: block;
+      color: #ffffff;
+  background-color: #22AF87 !important;
+  } 
+  #selectArea{
+    display: none;
+  }
+  #filter{
+    display: none;
+  }
+  #dvMap{
+    display: none;
+  }
+  #groupButton{
+    width:auto;
+  }
+  #homePage{ 
+      background: url('images/backgroundImage.jpg');
+    background-size: 300%,100%;
+    background-repeat: no-repeat;
+    padding-top: 50px !important;
+    background-position-x: -113px;
+  }
+  #headerlogo{
+    float : left;
+  }
+  #menubtn{
+    background-image: url('images/menu_button.png');
+    /* max-width: none; */
+    position: relative !important;
+    display: block;
+    background-size: 138%, 140% !important;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+    height: 44px;
+    width: 40px;
+    margin-top: 50px;
+    top: 22px !important;
+    left: 11px;
+  }
+  #uploadImgForm{
+    display:block;
+  }
+  #userName{
+      font-size: 48px;
+  }
+  .displayTrip > li{
+      width: 100%;
+  margin: 10px 1px 10px 0;
+  }
+  .displayTrip{
+
+  }
+  #resultTitleFavorite{
+      font-size: 48px;
+  }
+  #us6-dialog{
+      position: relative;
+  width: 100%;
+  }
+  #resultTitle{
+    font-size: 48px;
+  }
+  .form-horizontal{
+    width: auto !important;
+  }
+  .Trip > h1{
+      font-size: 48px;
+  width: 100%;
+    position: relative;
+  left: 25px;
+
+  }
+  .Trip > ul {
+      padding: 0 5px 0 0;
+  margin: 0 0 0 0;
+  position: relative;
+    top: 10px;
+  }
+  .Trip > ul >li{
+      margin: 20px 5px 0px 5px;
+  }
+  #tripImg{
+    width:100%;
+  }
+  .Trip>article{
+    width: 100%;
+  }
+  .asideFilter{
+
+  }
+  .topImg{
+    margin: 0;
+  } 
+  .ulImages{
+    right: 0;
+    top: 40px !important;
+  }
+  .ulImages > li{
+    margin: 0 !important;
+  float: right !important;
+  }
+
+  #timeline{
+    width: 100%;
+    margin: 0;
+    left: 0;
+        top: -85px;
+  }
+  #ulTimeLine{}
+  #ulTimeLine >li{
+      width: 101px;
+  margin: 10px 5px 0 5px;
+  font-size: 15px;
+  }
+  article> h4{
+
+  }
+  #sectionComment{
+      position: relative;
+  bottom: 50px;
+  }
+  #submitComment{
+      right: 168px;
+  }
+  #comment{
+    width:223px;
+  }
+  .details > img}{
+    right: 24px;
+  }
+  
 }
