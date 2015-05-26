@@ -174,7 +174,7 @@ router.post('/updateFavoirte', function(req, res){
 		var trip = req.body.trip;
 		var user = req.body.userId;
 		var isFavorite = req.body.isFavorite;
-		console.log(trip, user, isFavorite)
+		console.log("trip ", trip, user, isFavorite)
 	}
 	catch(err){
 		return console.error(err)
@@ -413,26 +413,36 @@ router.post('/addChatComment', function(req, res){
 	catch(err){
 		console.log("cant add comment")
 	}
-	db.model('users').findOne({email : user.email}, {tripPatners : true, _id : false, tripScheduleTime : false}, function(err, docs){
+	db.model('users').findOne({email : user.email}, function(err, docs){
 		if(err){
 			console.error(err)
 			res.json({status:0});
 		}
 		else
-			console.log(docs);
+			docs.tripPatners.forEach(function(participent){
+				console.log(participent)
+				db.model('users').findOne({email : participent}, function(err, docs){
+				if(err){
+					console.log("found error inserting");
+					res.json({status:0})
+					return console.error(err);
+				}
+			if(docs){
+				console.log("found")
+				docs.scheduleChat.push(objComment);
+				docs.save(function(err){
+				if(err){
+					console.error(err);
+				}
+				res.json({status:1});
+			})
+			}
+			else{
+				return console.log("user " + participent + " not found");
+			}
+		})
+		})
 	})
-	// db.model('users').findOneAndUpdate({email : user.email}, { $push: {scheduleChat:objComment}}, function(err, docs) {
-	// 	if (err) {
-	// 		console.log("found error inserting");
-	// 		res.json({status:0})
-	// 		db.close();
-	// 		return console.error(err);
-	// 	}
-	// 	console.log("updated comment")
-	// 	console.log(docs)
-	// 	res.json({status:1})
-	// 	return;
-	// });
 });
 
 module.exports = router;

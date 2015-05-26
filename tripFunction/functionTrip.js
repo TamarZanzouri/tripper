@@ -1,7 +1,6 @@
 User={};
 
-g_domain="http://shenkartripper.herokuapp.com/";
-//"http://127.0.0.1:1337/";
+g_domain="http://127.0.0.1:1337/";//"http://shenkartripper.herokuapp.com/";
 
 //hashtable for variables in english
 var hashtable = {};
@@ -842,8 +841,8 @@ function updateFavoritesFromFavoritesList(isFavorite, tripId){
         data:  {trip:{
         	_id:g_trip._id,
         	trip_name:g_trip.trip_name,
-        	address: g_trip.area,
-        	trip_sites : g_trip.tripSites        	
+        	area: g_trip.area,
+        	tripSites : g_trip.tripSites        	
         }
         ,userId:User.email,
     	isFavorite:isFavorite},
@@ -870,8 +869,8 @@ function updateFavorites (bool){
         data:  {trip:{
         	_id:g_trip._id,
         	trip_name:g_trip.trip_name,
-        	address:g_trip.area,
-        	trip_sites : g_trip.tripSites          	
+        	area:g_trip.area,
+        	tripSites : g_trip.tripSites          	
         }
         ,userId:User.email,
     	isFavorite:bool},
@@ -960,11 +959,11 @@ $(document).on('click','#submitComment', function(){
 			var ul = $('.commentList');
 			var li = $('<li>');
 			var img = $('<img>');
-			var p = $('<h5>');
+			var h5 = $('<h5>');
 			img.attr({"src" : User.image});
-			p.html((num+1)+". "+comment);
+			h5.html((num+1)+". "+comment);
 			li.append(img);
-			li.append(p);
+			li.append(h5);
 			ul.append(li);        	
 		// $('#tripComments').append(User.name + " : " + comment);
         	console.log(data)
@@ -977,7 +976,7 @@ $(document).on('click','#chatComment', function(){
 	var chat = $('#chat').val();
 	console.log()
 //	g_trip.comments.push(User.name + " : " + comment)
-	$('#cat').val("");
+	$('#chat').val("");
 	console.log(chat, User, g_trip);
 
 	$.ajax({
@@ -993,18 +992,18 @@ $(document).on('click','#chatComment', function(){
 
         },
         success: function(data) {
-  //       	console.log("add comment success");
-		// 	var ul = $('.commentList');
-		// 	var li = $('<li>');
-		// 	var img = $('<img>');
-		// 	var p = $('<h5>');
-		// 	img.attr({"src" : User.image});
-		// 	p.html((num+1)+". "+comment);
-		// 	li.append(img);
-		// 	li.append(p);
-		// 	ul.append(li);        	
-		// // $('#tripComments').append(User.name + " : " + comment);
-  //       	console.log(data)
+        	console.log("add comment success");
+			var ul = $('.commentList');
+			var li = $('<li>');
+			var img = $('<img>');
+			var h5 = $('<h5>');
+			img.attr({"src" : User.image});
+			h5.html((num+1)+". "+chat);
+			li.append(img);
+			li.append(h5);
+			ul.append(li);        	
+		// $('#tripComments').append(User.name + " : " + comment);
+        	console.log(data)
         }
     });
 
@@ -1541,6 +1540,7 @@ $(document).on('click','.btnChar', function(e){
 
 $(document).on('submit','#addform',function(e){
 	e.preventDefault();
+
 	var form = new FormData(this); 
 
 
@@ -1630,8 +1630,8 @@ function addToFavoFromEdit(tripToUpdate){
 		        data:  {trip:{
 		        	_id:tripToUpdate._id,
 		        	trip_name:tripToUpdate.trip_name,
-        			address:tripToUpdate.area,
-        			trip_sites : tripToUpdate.tripSites           	
+        			area:tripToUpdate.area,
+        			tripSites : tripToUpdate.tripSites           	
 		        }
 		        ,userId:User.email},
 		        dataType: "json",

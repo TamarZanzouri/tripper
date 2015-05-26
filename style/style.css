@@ -311,6 +311,18 @@ body, input, select, textarea, button, .ui-btn{
   position: relative;
   padding: 20px 40px 0 0;
 }
+#filter{
+border:1px solid;
+height:50px;
+overflow-y:scroll;
+width:auto;
+text-align:left;
+
+}
+#filter ul{
+list-style-type: none;
+}
+
 /*******trip page********/
 .Trip{
   direction: rtl;
