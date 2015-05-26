@@ -1934,6 +1934,8 @@ function favoriteDisplayListTrip(data){
 		$.each(data,function(index,val){
 			var li = $('<li>');
 			li.attr({"id":val._id}).addClass('favoriteListResultTrip trip');
+			var imgTrip=$('<img>').attr({"src":val.tripSites[0].img,"width":"50px","height":"50px"}).addClass('TripImg');
+			li.append(imgTrip);
 			var imgF="";
 			var imgS="";
 			var favorites= []

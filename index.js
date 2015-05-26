@@ -8,6 +8,7 @@ ObjectId = require('mongodb').ObjectID;
 
 app = express();
 
+
 var mongopath = 'mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd';
 
 app.use(express.static(path.join(__dirname, 'views')));
