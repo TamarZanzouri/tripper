@@ -190,28 +190,20 @@ $(document).ready(function(){
 		$(this).parent('div').remove(); 
 	});
 
-	$('#filter').click(function(){
-		// debugger;
-		if ($("#filteroptions").hasClass('hidden')) {
-			console.log("has class");
-			$("#filteroptions").removeClass('hidden');
-			setTimeout(function () {
-			}, 20);
-
-		} else {
-			$("#filteroptions").addClass('hidden');
-			filter = [];
-				$('input[type="checkbox"]').each(function(value) {
-					if($(this).is(':checked')){
-						console.log($(this).attr('id'));
-						filter.push($(this).attr('id'));
-					}
-					else return;
-				});
-				console.log(filter);
-				updateResultByFilterBeforeArea();
-		}
-	});
+	// $('.filter').click(function(){
+	// 	// debugger;
+	// 	console.log("in filter");
+	// 	filter = [];
+	// 	$('input[type="checkbox"]').each(function(value) {
+	// 		if($(this).is(':checked')){
+	// 			console.log($(this).attr('id'));
+	// 			filter.push($(this).attr('id'));
+	// 		}
+	// 		else return;
+	// 	});
+	// 	console.log(filter);
+	// 	updateResultByFilterBeforeArea();
+	// });
 		$('#addFriendToSchedule').click(function(){
 		if($('#shareSchedule').val()){
 			// debugger
@@ -2253,3 +2245,66 @@ $(document).on('click','.btn-primary',function(){
 	console.log(tempList);
 });
 
+
+//checkbox menu
+    var expanded = false;
+    function showCheckboxes() {
+        var checkboxes = document.getElementById("who_are_you_going_with");
+        if (!expanded) {
+            checkboxes.style.display = "block";
+            expanded = true;
+        } else {
+		console.log("in filter");
+		filter = [];
+		$('input[type="checkbox"]').each(function(value) {
+			if($(this).is(':checked')){
+				console.log($(this).attr('id'));
+				filter.push($(this).attr('id'));
+			}
+			else return;
+		});
+		console.log(filter);
+        checkboxes.style.display = "none";
+        expanded = false;
+        updateResultByFilterBeforeArea();
+        }
+    }
+
+    function showCheckboxes2(){
+    	var checkboxes = document.getElementById("trip_kind");
+        if (!expanded) {
+            checkboxes.style.display = "block";
+            expanded = true;
+        } else {
+        console.log("in filter");
+		filter = [];
+		$('input[type="checkbox"]').each(function(value) {
+			if($(this).is(':checked')){
+				console.log($(this).attr('id'));
+				filter.push($(this).attr('id'));
+			}
+			else return;
+		});
+		console.log(filter);
+        checkboxes.style.display = "none";
+        expanded = false;
+        updateResultByFilterBeforeArea();
+        }
+    }
+
+    function getDificullty(){
+    	console.log("in get difficulty")
+		if($('#difficulty').val() === ""){
+		// displayListTrip(g_ListTrip);	
+		console.log("difficulty is empty")
+		return
+	}
+	else{
+		// $('#resultTrip ul').empty();
+		// for(i in g_ListTrip){
+		// 	// debugger;
+			// if($('#selectArea').val() === g_ListTrip[i].area){
+				filter.push($('#difficulty').val());	
+				console.log(filter)
+        }
+    }

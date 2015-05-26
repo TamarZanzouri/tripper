@@ -8,7 +8,6 @@
 
 	<title>Tripper</title>
 	<!--<link rel="stylesheet" href="bootstrap/dist/css/bootstrap.css">-->
-	
 	<link rel="stylesheet" href="jquerymobile.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	
@@ -19,7 +18,6 @@
 	<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
 	<script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-
 	
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
@@ -86,7 +84,7 @@
 
 
 		<div data-role="page" id="resultTripPqge" >
-					<header data-role="header" data-position="fixed" data-tap-toggle="false">  
+			<header data-role="header" data-position="fixed" data-tap-toggle="false">  
 			<a id="headerlogo" href="#home"><img id="logo" src="images/logo.png"></a>
 			<a href="#nav-panel" id="menubtn" data-role="button"></a>  
 			<ul class="nav nav-pills">
@@ -100,61 +98,53 @@
 		<div data-role="content" class="ui-content" id="content">
 			<h1 id="resultTitle"></h1>
 			<h2 id="chars" ></h2>
-			<div id="filter">
-				<ul>
-					<li><input type="checkbox" name="who_are_you_going_with[]" value="trip_with_animals" id="trip_with_animals" class="custom" />בע"ח</li>
-					<li><input type="checkbox" name="who_are_you_going_with[]" value="trip_with_road" id="trip_with_road" class="custom" />מסלול סלול</li>
-				</ul>
-			<div id="filteroptions">
-				<div data-role="fieldcontain">
-					<fieldset data-role="controlgroup" class="who_are_you_going_with" data-type="horizontal">
-						<legend>עם מי הולכים לטייל?</legend>
-						<label for="trip_with_animals"  id="trip_with_animals">בע"ח</label>
-						<input type="checkbox" name="who_are_you_going_with[]" value="trip_with_animals" id="trip_with_animals" class="custom" />
-						<label for="trip_with_road"  id="trip_with_road">מסלול סלול לאנשים עם מוגבליות או עגלות לתינוקות</label>
-						<input type="checkbox" name="who_are_you_going_with[]" value="trip_with_road" id="trip_with_road" class="custom" />
-						<label for="trip_for_children" id="trip_for_childrenL">מותאם לילדים</label>
-						<input type="checkbox" name="who_are_you_going_with[]" value="trip_for_children"  id="trip_for_children" class="custom" />
-					</fieldset>
-				</div>
-				<div data-role="fieldcontain">
-					<fieldset data-role="controlgroup" data-type="horizontal" class="trip_kind">
-						<legend>סוג טיול</legend>
-						<input type="checkbox" name="trip_kind[]" value="trip_with_watter" id="trip_with_watter" class="custom" />
-						<label for="trip_with_watter">טיול עם מקורות מים</label>
-						<input type="checkbox" name="trip_kind[]" value="trip_for_night" id="trip_for_night" class="custom" />
-						<label for="trip_for_night">טיול עם לילה</label>
-						<input type="checkbox" name="trip_kind[]" value="trip_for_day" id="trip_for_day" class="custom" />
-						<label for="trip_for_day">טיול יומי</label>
-						<input type="checkbox" name="trip_kind[]" value="trip_with_bicycle" id="trip_with_bicycle" class="custom" />
-						<label for="trip_with_bicycle">טיול עם אופניים</label>
-						<input type="checkbox" name="trip_kind[]" value="trip_with_jeep" id="trip_with_jeep" class="custom" />
-						<label for="trip_with_jeep">טיול ג'יפים</label>
-					</fieldset>
-				</div>
-				<div data-role="fieldcontain">
-					<fieldset data-role="controlgroup" class="difficulty" data-type="horizontal">
-							<legend>בחר רמת קושי</legend>
-							<input type="radio" name="difficulty" id="light_trip" value="light_trip" checked="checked" />
-							<label for="light_trip" id="light_tripL">קל</label>
-
-							<input type="radio" name="difficulty" id="medium_trip" value="medium_trip"  />
-							<label for="medium_trip" id="medium_tripL">בינוני</label>
-
-							<input type="radio" name="difficulty" id="hard_trip" value="hard_trip"  />
-							<label for="hard_trip" id="hard_tripL">קשה</label>
-					</fieldset>
-				</div>
+			<!-- <div id="filter"> -->
+		    <!-- <ul class="nav "> -->
+			<div class="btn-group filter">
+  				<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">עם מי הולכים לטייל <span class="caret"></span></button>
+    				<ul class="dropdown-menu noclose">
+      					<li><input type="checkbox" id="trip_with_animals" name="who_are_you_going_with[]" value="trip_with_animals"><label for="trip_with_animals">בע"ח</label></li>
+      					<li><input type="checkbox" id="trip_with_road" name="who_are_you_going_with[]" value="trip_with_road"><label for="trip_with_road">מסלול סלול</label></li>
+      					<li><input type="checkbox" id="trip_for_children" name="who_are_you_going_with[]" value="trip_for_children"><label for="trip_for_children">מותאם לילדים</label></li>
+    				</ul>
 			</div>
-			
-				
-				<select id="selectArea" onchange="updateAreaBeforeFilter()">
-					<option value=""></option>
+			<div class="btn-group filter">
+	    		<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">סוג טיול <span class="caret"></span></button>
+				<ul class="dropdown-menu">
+					<li><input type="checkbox" id="trip_with_watter" name="trip_kind[]" value="trip_with_watter"><label for="trip_with_watter">טיול עם מקורות מים</label></li>
+					<li><input type="checkbox" id="trip_with_bicycle" name="trip_kind[]" value="trip_with_bicycle"><label for="trip_with_bicycle">טיול עם אופניים</label></li>
+					<li><input type="checkbox" id="trip_with_jeep" name="trip_kind[]" value="trip_with_jeep"><label for="trip_with_jeep">טיול ג'יפים</label></li>
+					<li><input type="checkbox" id="trip_for_day" name="trip_kind[]" value="trip_for_day"><label for="trip_for_day">טיול יומי</label></li>
+					<li><input type="checkbox" id="trip_for_night" name="trip_kind[]" value="trip_for_night"><label for="trip_for_night">טיול ליילי</label></li>	
+				</ul>
+		      </div>
+		     <div class="btn-group filter">
+	    		<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">עם מי הולכים לטייל <span class="caret"></span></button>
+				<ul class="dropdown-menu">
+			  		<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">סוג הטיול <span class="caret"></span></button>
+					<li><input type="checkbox" id="trip_with_watter" name="trip_kind[]" value="trip_with_watter"><label for="trip_with_watter">טיול עם מקורות מים</label></li>
+					<li><input type="checkbox" id="trip_with_bicycle" name="trip_kind[]" value="trip_with_bicycle"><label for="trip_with_bicycle">טיול עם אופניים</label></li>
+					<li><input type="checkbox" id="trip_with_jeep" name="trip_kind[]" value="trip_with_jeep"><label for="trip_with_jeep">טיול ג'יפים</label></li>
+					<li><input type="checkbox" id="trip_for_day" name="trip_kind[]" value="trip_for_day"><label for="trip_for_day">טיול יומי</label></li>
+					<li><input type="checkbox" id="trip_for_night" name="trip_kind[]" value="trip_for_night"><label for="trip_for_night">טיול ליילי</label></li>	
+				</ul>
+		      </div>
+		    <!-- li>    		
+		    	<select id="difficulty" onclick="getDificullty()">
+				<option value="">רמת קושי</option>
+				<option value="light_trip">קל</option>
+				<option value="medium_trip">בינוני</option>
+				<option value="hard_trip">קשה</option>
+			</select></li>
+<li>
+			<select id="selectArea" onchange="updateAreaBeforeFilter()">
+					<option value="">איזור</option>
 					<option value="tel_aviv">איזור מרכז וגוש דן</option>
 					<option value="south">איזור דרום</option>
 					<option value="north">איזור צפון</option>
 				</select>
-			</div>
+				</li>
+		    </ul> -->
 				<button id="buttonRadius" data-target="#us6-dialog" data-toggle="modal">לחץ כאן לפלטור לפי מיקומך</button>
 				<div id="us6-dialog" class="modal fade">
 				    <div class="modal-dialog">

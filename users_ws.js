@@ -19,18 +19,18 @@ router.post('/registerUser', function(req, res) {
 			return console.error(err);
 		}
 		else if(!result){
+			console.log("adding new user")
 			var newUser =  new User(user);
 			newUser.save(function(err, result){
 				if(err) {
 					console.log("error inserting email: " + user.email);
 					return console.error(err)
 				}
-				res.json({status:1,res:result})
-				return;
 			})
+			res.json({status:1,res:result})
 		}
 		else{
-			db.model('users').findOneAndUpdate( { email : user.email }, user, { upsert : true },
+			db.model('users').findOneAndUpdate( { email : user.email }, user, { upsert : false },
 				function (err, result)
 				{
 					if (err) {
@@ -39,7 +39,6 @@ router.post('/registerUser', function(req, res) {
 						return console.error(err);
 					}
 					res.json({status:1, res:result})
-					return;	
 				})		
 		}
 	});

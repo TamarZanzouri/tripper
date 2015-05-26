@@ -312,17 +312,52 @@ body, input, select, textarea, button, .ui-btn{
   position: relative;
   padding: 20px 40px 0 0;
 }
-#filter{
-border:1px solid;
-height:50px;
-overflow-y:scroll;
-width:auto;
-text-align:left;
+/*.filter {
+    width: 80%;
+}
+.selectBox {
+    position: relative;
+}
+.selectBox select {
+    width: 100%;
+    font-weight: bold;
+}*/
+/*.overSelect {
+    position: absolute;
+    left: 0; right: 0; top: 0; bottom: 0;
+}*/
+/*#who_are_you_going_with {
+    display: none;
+    border: 1px #dadada solid;
+}
+#who_are_you_going_with label {
+    display: block;
+}
+#who_are_you_going_with label:hover {
+    background-color: #1e90ff;
+}
 
+#trip_kind {
+    display: none;
+    border: 1px #dadada solid;
 }
-#filter ul{
-list-style-type: none;
+#trip_kind label {
+    display: block;
 }
+#trip_kind label:hover {
+    background-color: #1e90ff;
+}
+
+#difficultyselect {
+    display: none;
+    border: 1px #dadada solid;
+}
+#difficultyselect label {
+    display: block;
+}
+#difficultyselect label:hover {
+    background-color: #1e90ff;
+}*/
 
 /*******trip page********/
 .Trip{
