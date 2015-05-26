@@ -97,8 +97,11 @@
 				<li id="addTrip" ><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
 			</ul>
 		</header>
-			<input type="button" id="filter" value="filter">
-			<div id="filteroptions" class="hidden">
+		<div data-role="content" class="ui-content" id="content">
+			<h1 id="resultTitle"></h1>
+			<h2 id="chars" ></h2>
+			<div type="button" id="filter" value="filter">
+			<div id="filteroptions">
 <!-- 				<label for="slider-1">בחר תקציב:</label>
 				<input type="range" name="slider-1" id="slider-1" value="60" min="0" max="100" />	 -->
 				<div data-role="fieldcontain">
@@ -142,7 +145,7 @@
 					</fieldset>
 				</div>
 			</div>
-			<div data-role="content" class="ui-content" id="content">
+			
 				
 				<select id="selectArea" onchange="updateAreaBeforeFilter()">
 					<option value=""></option>
@@ -150,7 +153,7 @@
 					<option value="south">איזור דרום</option>
 					<option value="north">איזור צפון</option>
 				</select>
-
+			</div>
 				<button id="buttonRadius" data-target="#us6-dialog" data-toggle="modal">לחץ כאן לפלטור לפי מיקומך</button>
 				<div id="us6-dialog" class="modal fade">
 				    <div class="modal-dialog">
