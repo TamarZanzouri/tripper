@@ -42,7 +42,7 @@
 
 	<script type="text/javascript" src="../functionTrip.js"></script>
 
-				
+
 </head>
 <body dir="rtl">
 	<div data-role="page" id="homePage" >
@@ -64,7 +64,7 @@
 				<h2 id="genres"></h2>
 			</div>	
 			
-				<section>
+			<section>
 				<span id="signinButton"> <span
 					class="g-signin"
 					data-callback="signinCallback"
@@ -77,93 +77,90 @@
 				<li id="signOut" role="presentation">
 					<a role="menuitem" tabindex="-1" href="#">Sign out</a>
 				</li>
+			</div>
 		</div>
-	</div>
 
 
 
 
 		<div data-role="page" id="resultTripPqge" >
 			<header data-role="header" data-position="fixed" data-tap-toggle="false">  
-			<a id="headerlogo" href="#home"><img id="logo" src="images/logo.png"></a>
-			<a href="#nav-panel" id="menubtn" data-role="button"></a>  
-			<ul class="nav nav-pills">
-				<li id="home"  class="ui-btn-active"  ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
-				<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
-				<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
-				<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
-				<li id="addTrip" ><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
-			</ul>
-		</header>
-		<div data-role="content" class="ui-content" id="content">
-			<h1 id="resultTitle"></h1>
-			<h2 id="chars" ></h2>
-			<!-- <div id="filter"> -->
-		    <!-- <ul class="nav "> -->
-			<div class="btn-group filter">
-  				<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">עם מי הולכים לטייל <span class="caret"></span></button>
-    				<ul class="dropdown-menu noclose">
-      					<li><input type="checkbox" id="trip_with_animals" name="who_are_you_going_with[]" value="trip_with_animals"><label for="trip_with_animals">בע"ח</label></li>
-      					<li><input type="checkbox" id="trip_with_road" name="who_are_you_going_with[]" value="trip_with_road"><label for="trip_with_road">מסלול סלול</label></li>
-      					<li><input type="checkbox" id="trip_for_children" name="who_are_you_going_with[]" value="trip_for_children"><label for="trip_for_children">מותאם לילדים</label></li>
-    				</ul>
-			</div>
-			<div class="btn-group filter">
-	    		<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">סוג טיול <span class="caret"></span></button>
-				<ul class="dropdown-menu">
-					<li><input type="checkbox" id="trip_with_watter" name="trip_kind[]" value="trip_with_watter"><label for="trip_with_watter">טיול עם מקורות מים</label></li>
-					<li><input type="checkbox" id="trip_with_bicycle" name="trip_kind[]" value="trip_with_bicycle"><label for="trip_with_bicycle">טיול עם אופניים</label></li>
-					<li><input type="checkbox" id="trip_with_jeep" name="trip_kind[]" value="trip_with_jeep"><label for="trip_with_jeep">טיול ג'יפים</label></li>
-					<li><input type="checkbox" id="trip_for_day" name="trip_kind[]" value="trip_for_day"><label for="trip_for_day">טיול יומי</label></li>
-					<li><input type="checkbox" id="trip_for_night" name="trip_kind[]" value="trip_for_night"><label for="trip_for_night">טיול ליילי</label></li>	
+				<a id="headerlogo" href="#home"><img id="logo" src="images/logo.png"></a>
+				<a href="#nav-panel" id="menubtn" data-role="button"></a>  
+				<ul class="nav nav-pills">
+					<li id="home"  class="ui-btn-active"  ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
+					<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
+					<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
+					<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
+					<li id="addTrip" ><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
 				</ul>
-		      </div>
-		     <div class="btn-group filter">
-	    		<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">עם מי הולכים לטייל <span class="caret"></span></button>
-				<ul class="dropdown-menu">
-			  		<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">סוג הטיול <span class="caret"></span></button>
-					<li><input type="checkbox" id="trip_with_watter" name="trip_kind[]" value="trip_with_watter"><label for="trip_with_watter">טיול עם מקורות מים</label></li>
-					<li><input type="checkbox" id="trip_with_bicycle" name="trip_kind[]" value="trip_with_bicycle"><label for="trip_with_bicycle">טיול עם אופניים</label></li>
-					<li><input type="checkbox" id="trip_with_jeep" name="trip_kind[]" value="trip_with_jeep"><label for="trip_with_jeep">טיול ג'יפים</label></li>
-					<li><input type="checkbox" id="trip_for_day" name="trip_kind[]" value="trip_for_day"><label for="trip_for_day">טיול יומי</label></li>
-					<li><input type="checkbox" id="trip_for_night" name="trip_kind[]" value="trip_for_night"><label for="trip_for_night">טיול ליילי</label></li>	
+			</header>
+			<div data-role="content" class="ui-content" id="content">
+				<h1 id="resultTitle"></h1>
+				<h2 id="chars" ></h2>
+				<ul id="filtermenu">
+					<li>
+						<div class="btn-group filter">
+							<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">עם מי הולכים לטייל <span class="caret"></span></button>
+							<ul class="dropdown-menu noclose">
+								<li><input type="checkbox" id="trip_with_animals" name="who_are_you_going_with[]" value="trip_with_animals"><label for="trip_with_animals">בע"ח</label></li>
+								<li><input type="checkbox" id="trip_with_road" name="who_are_you_going_with[]" value="trip_with_road"><label for="trip_with_road">מסלול סלול</label></li>
+								<li><input type="checkbox" id="trip_for_children" name="who_are_you_going_with[]" value="trip_for_children"><label for="trip_for_children">מותאם לילדים</label></li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<div class="btn-group filter">
+							<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">סוג טיול <span class="caret"></span></button>
+							<ul class="dropdown-menu">
+								<li><input type="checkbox" id="trip_with_watter" name="trip_kind[]" value="trip_with_watter"><label for="trip_with_watter">טיול עם מקורות מים</label></li>
+								<li><input type="checkbox" id="trip_with_bicycle" name="trip_kind[]" value="trip_with_bicycle"><label for="trip_with_bicycle">טיול עם אופניים</label></li>
+								<li><input type="checkbox" id="trip_with_jeep" name="trip_kind[]" value="trip_with_jeep"><label for="trip_with_jeep">טיול ג'יפים</label></li>
+								<li><input type="checkbox" id="trip_for_day" name="trip_kind[]" value="trip_for_day"><label for="trip_for_day">טיול יומי</label></li>
+								<li><input type="checkbox" id="trip_for_night" name="trip_kind[]" value="trip_for_night"><label for="trip_for_night">טיול ליילי</label></li>	
+							</ul>
+						</div>
+					</li>
+					<li>
+						<div class="input-group-btn btn-group select" id="dificullty">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="selected">רמת קושי</span> <span class="caret"></span></button>
+							<ul class="dropdown-menu option" role="menu">
+								<li id="light_trip"><a href="#">קל</a></li>
+								<li id="medium_trip"><a href="#">בינוני</a></li>
+								<li id="hard_trip"><a href="#">קשה</a></li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<div class="input-group-btn select" id="area">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="selected">איזור</span> <span class="caret"></span></button>
+							<ul class="dropdown-menu option" role="menu">
+								<li id="tel_aviv"><a href="#">איזור מרכז וגוש דן</a></li>
+								<li id="south"><a href="#">איזור דרום</a></li>
+								<li id="north"><a href="#">איזור צפון</a></li>
+							</ul>
+						</div>
+					</li>
 				</ul>
-		      </div>
-		    <!-- li>    		
-		    	<select id="difficulty" onclick="getDificullty()">
-				<option value="">רמת קושי</option>
-				<option value="light_trip">קל</option>
-				<option value="medium_trip">בינוני</option>
-				<option value="hard_trip">קשה</option>
-			</select></li>
-<li>
-			<select id="selectArea" onchange="updateAreaBeforeFilter()">
-					<option value="">איזור</option>
-					<option value="tel_aviv">איזור מרכז וגוש דן</option>
-					<option value="south">איזור דרום</option>
-					<option value="north">איזור צפון</option>
-				</select>
-				</li>
-		    </ul> -->
 				<button id="buttonRadius" data-target="#us6-dialog" data-toggle="modal">לחץ כאן לפלטור לפי מיקומך</button>
 				<div id="us6-dialog" class="modal fade">
-				    <div class="modal-dialog">
-				        <div class="modal-content">
-				            <div class="modal-header">
-				                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				                <h4 class="modal-title">פילטור לפי רדיוס</h4>
-				            </div>
-				            <div class="modal-body">
-				                <div class="form-horizontal" style="width: 550px">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title">פילטור לפי רדיוס</h4>
+							</div>
+							<div class="modal-body">
+								<div class="form-horizontal" style="width: 550px">
 				                    <!--<div class="form-group">
 				                        <label class="col-sm-2 control-label">Location:</label>
 
 				                        <div class="col-sm-10"><input type="text" class="form-control" id="us3-address"/></div>
 				                    </div>-->
 				                    <div class="form-group">
-				                        <label class="col-sm-2 control-label">רדיוס:</label>
+				                    	<label class="col-sm-2 control-label">רדיוס:</label>
 
-				                        <div class="col-sm-5"><input type="text" class="form-control" id="us3-radius"/></div>
+				                    	<div class="col-sm-5"><input type="text" class="form-control" id="us3-radius"/></div>
 				                    </div>
 				                    <div id="us3" style="width: 100%; height: 400px;"></div>
 				                    <!--<div class="clearfix">&nbsp;</div>
@@ -176,8 +173,8 @@
 				                        <div class="col-sm-3"><input type="text" class="form-control" style="width: 110px" id="us3-lon"/></div>
 				                    </div>-->
 				                    <div class="clearfix"></div>
-				                  	<script>
-				                  	
+				                    <script>
+
 				                    </script>
 				                </div>
 				            </div>
@@ -195,237 +192,237 @@
 
 
 		<div data-role="page" id="theTrip" >
-					<header data-role="header" data-position="fixed" data-tap-toggle="false">  
-			<a id="headerlogo" href="#home"><img id="logo" src="images/logo.png"></a>
-			<a href="#nav-panel" id="menubtn" data-role="button"></a>   
-			<ul class="nav nav-pills">
-				<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
-				<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
-				<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
-				<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
-				<li id="addTrip" ><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
-			</ul>
-		</header>
+			<header data-role="header" data-position="fixed" data-tap-toggle="false">  
+				<a id="headerlogo" href="#home"><img id="logo" src="images/logo.png"></a>
+				<a href="#nav-panel" id="menubtn" data-role="button"></a>   
+				<ul class="nav nav-pills">
+					<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
+					<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
+					<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
+					<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
+					<li id="addTrip" ><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
+				</ul>
+			</header>
 			<div data-role="content" class="ui-content" id="content">
 				<section class="Trip">
 				</section>
-		
+
 			</div>
 		</div>
 
 
 		<div data-role="page" id="viewFavorite" >
-				<header data-role="header" data-position="fixed" data-tap-toggle="false">  
-			<a id="headerlogo" href="#home"><img id="logo" src="images/logo.png"></a>
-			<a href="#nav-panel" id="menubtn" data-role="button"></a>   
-			<ul class="nav nav-pills">
-				<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
-				<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
-				<li id="moveToFavorite" class="ui-btn-active" ><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
-				<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
-				<li id="addTrip"><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
-			</ul>
-		</header>
+			<header data-role="header" data-position="fixed" data-tap-toggle="false">  
+				<a id="headerlogo" href="#home"><img id="logo" src="images/logo.png"></a>
+				<a href="#nav-panel" id="menubtn" data-role="button"></a>   
+				<ul class="nav nav-pills">
+					<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
+					<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
+					<li id="moveToFavorite" class="ui-btn-active" ><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
+					<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
+					<li id="addTrip"><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
+				</ul>
+			</header>
 			<div data-role="content" class="ui-content" id="content">
 				<h1 id="resultTitleFavorite">המועדפים שלי</h1>
 				<section id="resultTrip">
 						<!-- <div id="addingToSchedule" data-role="popup">
 							<p>הטיול נוסף למסלול שלך</p>
 						</div> -->
-					<ul class="displayTrip">
-					</ul>
+						<ul class="displayTrip">
+						</ul>
 
-				</section>
-			</div>
-		</div>
-
-
-		<div data-role="page" id="addTripPage" data-cache="false" data-dom-cache="false">
-					<header data-role="header" data-position="fixed" data-tap-toggle="false">  
-			<a id="headerlogo" href="#home"><img id="logo" src="images/logo.png"></a>
-			<a href="#nav-panel" id="menubtn" data-role="button"></a>  
-			<ul class="nav nav-pills">
-				<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
-				<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
-				<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
-				<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
-				<li id="#" class="ui-btn-active" ><a href="#addTripPage" onclick="moveToAddTrip()"><img src="images/add.png"><span>הוספת טיול</span></a></li>
-			</ul>
-		</header>
-
-			<section id="addTripSec">
-
-				<form action="#homePage" method="post" id="addform"  >
-
-					<label>שם הטיול<br>
-						<input type="text" name="nameTrip" id="trip_name" required>
-					</label><br>
-					<label>תאור הטיול<br>
-						<textarea type="text" name="des" id="description"></textarea>
-					</label><br>
-
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup" data-type="horizontal" data-role="fieldcontain">
-							<legend>אזור הטיול:</legend>
-							<input type="radio" name="area" id="radio-choice-1" value="tel_aviv" checked="checked" />
-							<label for="radio-choice-1" id="radio-choice-1L">אזור המרכז</label>
-
-							<input type="radio" name="area" id="radio-choice-2" value="south"  />
-							<label for="radio-choice-2" id="radio-choice-2L">אזור הדרום</label>
-
-							<input type="radio" name="area" id="radio-choice-3" value="north"  />
-							<label for="radio-choice-3" id="radio-choice-3L">אזור הצפון</label>
-
-						</fieldset>
-					</div>	
-					<br>
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup" data-type="horizontal">
-							<legend>בחר את ג'אנר הפלייליסט שלך</legend>
-
-							<label for="firstcharachter">בחר ג'אנר</label>
-							<select name="firstcharachter" id="firstcharachter">
-								<option>בחר ג'אנר</option>
-							</select>
-
-							<label for="secondcharachter">בחר ג'אנר נוסף</label>
-							<select name="secondcharachter" id="secondcharachter">
-								<option>בחר ג'אנר נוסף</option>
-							</select>
-						</fieldset>
-					</div>
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup" data-type="horizontal" class="who_are_you_going_with">
-							<legend>עם מי הולכים לטייל?</legend>
-							<label for="trip_with_animals"  id="trip_with_animals">בע"ח</label>
-							<input type="checkbox" name="who_are_you_going_with[]" value="trip_with_animals" id="trip_with_animals" class="custom" />
-							<label for="trip_with_road"  id="trip_with_roadL">מסלול סלול לאנשים עם מוגבליות או עגלות לתינוקות</label>
-							<input type="checkbox" name="who_are_you_going_with[]" value="trip_with_road" id="trip_with_road" class="custom" />
-							<label for="trip_for_children" id="trip_for_childrenL">מותאם לילדים</label>
-							<input type="checkbox" name="who_are_you_going_with[]" value="trip_for_children"  id="trip_for_children" class="custom" />
-						</fieldset>
-					</div>
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup" class="trip_kind" data-type="horizontal">
-							<legend>סוג טיול</legend>
-							<input type="checkbox" name="trip_kind[]" value="trip_with_watter" id="trip_with_watter" class="custom" />
-							<label for="trip_with_watter">טיול עם מקורות מים</label>
-							<input type="checkbox" name="trip_kind[]" value="trip_for_night" id="trip_for_night" class="custom" />
-							<label for="trip_for_night">טיול עם לילה</label>
-							<input type="checkbox" name="trip_kind[]" value="trip_for_day" id="trip_for_day" class="custom" />
-							<label for="trip_for_day">טיול יומי</label>
-							<input type="checkbox" name="trip_kind[]" value="trip_with_bicycle" id="trip_with_bicycle" class="custom" />
-							<label for="trip_with_bicycle">טיול עם אופניים</label>
-							<input type="checkbox" name="trip_kind[]" value="trip_with_jeep" id="trip_with_jeep" class="custom" />
-							<label for="trip_with_jeep">טיול ג'יפים</label>
-						</fieldset>
-					</div>
-					<div data-role="fieldcontain">
-						<fieldset data-role="controlgroup" class="difficulty" data-type="horizontal" data-role="fieldcontain">
-							<legend>בחר רמת קושי</legend>
-							<input type="radio" name="difficulty" id="light_trip" value="light_trip" checked="checked" />
-							<label for="light_trip" id="light_tripL">קל</label>
-
-							<input type="radio" name="difficulty" id="medium_trip" value="medium_trip"  />
-							<label for="medium_trip" id="medium_tripL">בינוני</label>
-
-							<input type="radio" name="difficulty" id="hard_trip" value="hard_trip"  />
-							<label for="hard_trip" id="hard_tripL">קשה</label>
-						</fieldset>
-					</div>	
-					<div data-role="fieldcontain" id="isPrivate">
-						<fieldset data-role="controlgroup" id="isTripPrivate" data-type="horizontal" data-role="fieldcontain">
-							<input type="radio" name="isTripPrivate" id="public_trip" value="false" checked="checked" />
-							<label for="public_trip">טיול פומבי</label>
-
-							<input type="radio" name="isTripPrivate" id="private_trip" value="true"  />
-							<label for="private_trip">טיול פרטי</label>
-						</fieldset>
-					</div>	
-					<label for="ingredients"> <span class="testRight" id="ingredientsT">אתרי תיירות</span>
-						<span class="formField">
-							<div class="ingredients_wrap">
-
-								<div style="text-align: center;margin: auto;position: relative;align-content: center;">
-									<input type="text" name="ingredients[]" placeholder="אתר" class="firstIngredient ingredients_i" id="firstIngredient" required>
-									<input id="imgUpload" type="file" accept="image/*"  onchange="showMyImage(this,'')" name="file" class="image_i" required/>
-									 <br/>
-									<img id="thumbnil" style="width:20%; margin-top:10px;"  src="" alt="image"/>
-								</div>
-							</div> 
-						</span> 
-					</label>
-					<br>
-					<label>בחר מיקום</label>
-					<div id="dvMap" style="width: 500px; height: 500px"></div>
-
-
-					<input type="hidden" name="commodities" id="commodities" value=""/>
-					<input type="submit" data-theme="b" name="submit" value="שלח" class="ui-btn-hidden" aria-disabled="false" id="submitForm" />
-					
-				</form>
-			</section>
-		</div>
-
-		<div data-role="page" id="accountPage" >
-		<header data-role="header" data-position="fixed" data-tap-toggle="false">  
-			<a id="headerlogo" href="#home"><img id="logo" src="images/logo.png"></a>
-			<a href="#nav-panel" id="menubtn" data-role="button"></a>   
-			<ul class="nav nav-pills">
-				<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
-				<li id="showTrips"><a href="#accountPage" class="ui-btn-active"><img src="images/account.png"><span>החשבון שלי</span></a></li>
-				<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
-				<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
-				<li id="addTrip"  ><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
-			</ul>
-		</header>
-			<div data-role="content" class="ui-content" id="content">
-				<div class="details">
-					<h1 id="userName"></h1>
-					<img id="userImg" src="">
+					</section>
 				</div>
-				<section id="resultTrip">
-					<ul class="displayTrip">
+			</div>
+
+
+			<div data-role="page" id="addTripPage" data-cache="false" data-dom-cache="false">
+				<header data-role="header" data-position="fixed" data-tap-toggle="false">  
+					<a id="headerlogo" href="#home"><img id="logo" src="images/logo.png"></a>
+					<a href="#nav-panel" id="menubtn" data-role="button"></a>  
+					<ul class="nav nav-pills">
+						<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
+						<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
+						<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
+						<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
+						<li id="#" class="ui-btn-active" ><a href="#addTripPage" onclick="moveToAddTrip()"><img src="images/add.png"><span>הוספת טיול</span></a></li>
 					</ul>
+				</header>
+
+				<section id="addTripSec">
+
+					<form action="#homePage" method="post" id="addform"  >
+
+						<label>שם הטיול<br>
+							<input type="text" name="nameTrip" id="trip_name" required>
+						</label><br>
+						<label>תאור הטיול<br>
+							<textarea type="text" name="des" id="description"></textarea>
+						</label><br>
+
+						<div data-role="fieldcontain">
+							<fieldset data-role="controlgroup" data-type="horizontal" data-role="fieldcontain">
+								<legend>אזור הטיול:</legend>
+								<input type="radio" name="area" id="radio-choice-1" value="tel_aviv" checked="checked" />
+								<label for="radio-choice-1" id="radio-choice-1L">אזור המרכז</label>
+
+								<input type="radio" name="area" id="radio-choice-2" value="south"  />
+								<label for="radio-choice-2" id="radio-choice-2L">אזור הדרום</label>
+
+								<input type="radio" name="area" id="radio-choice-3" value="north"  />
+								<label for="radio-choice-3" id="radio-choice-3L">אזור הצפון</label>
+
+							</fieldset>
+						</div>	
+						<br>
+						<div data-role="fieldcontain">
+							<fieldset data-role="controlgroup" data-type="horizontal">
+								<legend>בחר את ג'אנר הפלייליסט שלך</legend>
+
+								<label for="firstcharachter">בחר ג'אנר</label>
+								<select name="firstcharachter" id="firstcharachter">
+									<option>בחר ג'אנר</option>
+								</select>
+
+								<label for="secondcharachter">בחר ג'אנר נוסף</label>
+								<select name="secondcharachter" id="secondcharachter">
+									<option>בחר ג'אנר נוסף</option>
+								</select>
+							</fieldset>
+						</div>
+						<div data-role="fieldcontain">
+							<fieldset data-role="controlgroup" data-type="horizontal" class="who_are_you_going_with">
+								<legend>עם מי הולכים לטייל?</legend>
+								<label for="trip_with_animals"  id="trip_with_animals">בע"ח</label>
+								<input type="checkbox" name="who_are_you_going_with[]" value="trip_with_animals" id="trip_with_animals" class="custom" />
+								<label for="trip_with_road"  id="trip_with_roadL">מסלול סלול לאנשים עם מוגבליות או עגלות לתינוקות</label>
+								<input type="checkbox" name="who_are_you_going_with[]" value="trip_with_road" id="trip_with_road" class="custom" />
+								<label for="trip_for_children" id="trip_for_childrenL">מותאם לילדים</label>
+								<input type="checkbox" name="who_are_you_going_with[]" value="trip_for_children"  id="trip_for_children" class="custom" />
+							</fieldset>
+						</div>
+						<div data-role="fieldcontain">
+							<fieldset data-role="controlgroup" class="trip_kind" data-type="horizontal">
+								<legend>סוג טיול</legend>
+								<input type="checkbox" name="trip_kind[]" value="trip_with_watter" id="trip_with_watter" class="custom" />
+								<label for="trip_with_watter">טיול עם מקורות מים</label>
+								<input type="checkbox" name="trip_kind[]" value="trip_for_night" id="trip_for_night" class="custom" />
+								<label for="trip_for_night">טיול עם לילה</label>
+								<input type="checkbox" name="trip_kind[]" value="trip_for_day" id="trip_for_day" class="custom" />
+								<label for="trip_for_day">טיול יומי</label>
+								<input type="checkbox" name="trip_kind[]" value="trip_with_bicycle" id="trip_with_bicycle" class="custom" />
+								<label for="trip_with_bicycle">טיול עם אופניים</label>
+								<input type="checkbox" name="trip_kind[]" value="trip_with_jeep" id="trip_with_jeep" class="custom" />
+								<label for="trip_with_jeep">טיול ג'יפים</label>
+							</fieldset>
+						</div>
+						<div data-role="fieldcontain">
+							<fieldset data-role="controlgroup" class="difficulty" data-type="horizontal" data-role="fieldcontain">
+								<legend>בחר רמת קושי</legend>
+								<input type="radio" name="difficulty" id="light_trip" value="light_trip" checked="checked" />
+								<label for="light_trip" id="light_tripL">קל</label>
+
+								<input type="radio" name="difficulty" id="medium_trip" value="medium_trip"  />
+								<label for="medium_trip" id="medium_tripL">בינוני</label>
+
+								<input type="radio" name="difficulty" id="hard_trip" value="hard_trip"  />
+								<label for="hard_trip" id="hard_tripL">קשה</label>
+							</fieldset>
+						</div>	
+						<div data-role="fieldcontain" id="isPrivate">
+							<fieldset data-role="controlgroup" id="isTripPrivate" data-type="horizontal" data-role="fieldcontain">
+								<input type="radio" name="isTripPrivate" id="public_trip" value="false" checked="checked" />
+								<label for="public_trip">טיול פומבי</label>
+
+								<input type="radio" name="isTripPrivate" id="private_trip" value="true"  />
+								<label for="private_trip">טיול פרטי</label>
+							</fieldset>
+						</div>	
+						<label for="ingredients"> <span class="testRight" id="ingredientsT">אתרי תיירות</span>
+							<span class="formField">
+								<div class="ingredients_wrap">
+
+									<div style="text-align: center;margin: auto;position: relative;align-content: center;">
+										<input type="text" name="ingredients[]" placeholder="אתר" class="firstIngredient ingredients_i" id="firstIngredient" required>
+										<input id="imgUpload" type="file" accept="image/*"  onchange="showMyImage(this,'')" name="file" class="image_i" required/>
+										<br/>
+										<img id="thumbnil" style="width:20%; margin-top:10px;"  src="" alt="image"/>
+									</div>
+								</div> 
+							</span> 
+						</label>
+						<br>
+						<label>בחר מיקום</label>
+						<div id="dvMap" style="width: 500px; height: 500px"></div>
+
+
+						<input type="hidden" name="commodities" id="commodities" value=""/>
+						<input type="submit" data-theme="b" name="submit" value="שלח" class="ui-btn-hidden" aria-disabled="false" id="submitForm" />
+
+					</form>
 				</section>
 			</div>
-		</div>
 
-		<div data-role="page" id="myPageSchedule" >
-					<header data-role="header" data-position="fixed" data-tap-toggle="false">  
-			<a id="headerlogo" href="#home"><img id="logo" src="images/logo.png"></a>
-			<a href="#nav-panel" id="menubtn" data-role="button"></a>  
-			<ul class="nav nav-pills">
-				<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
-				<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
-				<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
-				<li id="mySchedule" class="ui-btn-active" ><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
-				<li id="addTrip"><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
-			</ul>
-		</header>
-		<div data-role="content" class="ui-content" id="content">
-			<h1 class="titelNameAccount"></h1>
-			<div class="userDetailes"></div>
-			<div class="well">
-			    <div class="row">
-			        <div class="col-xs-6">
-			            <label class="control-label" for="dpd2">תאריך חזרה: </label>
-			            <input class="form-control" type="text" id="dpd2" />
-			        </div>
-			       	<div class="col-xs-6">
-			            <label class="control-label" for="dpd1">תאריך יציאה: </label>
-			            <input class="form-control" type="text" id="dpd1" />
-			        </div>
-			    </div>
+			<div data-role="page" id="accountPage" >
+				<header data-role="header" data-position="fixed" data-tap-toggle="false">  
+					<a id="headerlogo" href="#home"><img id="logo" src="images/logo.png"></a>
+					<a href="#nav-panel" id="menubtn" data-role="button"></a>   
+					<ul class="nav nav-pills">
+						<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
+						<li id="showTrips"><a href="#accountPage" class="ui-btn-active"><img src="images/account.png"><span>החשבון שלי</span></a></li>
+						<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
+						<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
+						<li id="addTrip"  ><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
+					</ul>
+				</header>
+				<div data-role="content" class="ui-content" id="content">
+					<div class="details">
+						<h1 id="userName"></h1>
+						<img id="userImg" src="">
+					</div>
+					<section id="resultTrip">
+						<ul class="displayTrip">
+						</ul>
+					</section>
+				</div>
 			</div>
-			<input type="button" id="updateFriendsWithChanges" value="עדכן">
-			<div class="divShareSchedule">
-				<label>ארגן טיול עם חברייך:</label>
-				<input id="shareSchedule"  name="email" type="email">
-			</div>
-			<input type="button" id="addFriendToSchedule" value="שלח הזמנה">
-			<div id="friendsemail" ></div>
-			
+
+			<div data-role="page" id="myPageSchedule" >
+				<header data-role="header" data-position="fixed" data-tap-toggle="false">  
+					<a id="headerlogo" href="#home"><img id="logo" src="images/logo.png"></a>
+					<a href="#nav-panel" id="menubtn" data-role="button"></a>  
+					<ul class="nav nav-pills">
+						<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
+						<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
+						<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
+						<li id="mySchedule" class="ui-btn-active" ><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
+						<li id="addTrip"><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
+					</ul>
+				</header>
+				<div data-role="content" class="ui-content" id="content">
+					<h1 class="titelNameAccount"></h1>
+					<div class="userDetailes"></div>
+					<div class="well">
+						<div class="row">
+							<div class="col-xs-6">
+								<label class="control-label" for="dpd2">תאריך חזרה: </label>
+								<input class="form-control" type="text" id="dpd2" />
+							</div>
+							<div class="col-xs-6">
+								<label class="control-label" for="dpd1">תאריך יציאה: </label>
+								<input class="form-control" type="text" id="dpd1" />
+							</div>
+						</div>
+					</div>
+					<input type="button" id="updateFriendsWithChanges" value="עדכן">
+					<div class="divShareSchedule">
+						<label>ארגן טיול עם חברייך:</label>
+						<input id="shareSchedule"  name="email" type="email">
+					</div>
+					<input type="button" id="addFriendToSchedule" value="שלח הזמנה">
+					<div id="friendsemail" ></div>
+
 
 			<!-- <section id="resultTrip">
 				<ul class="displayTrip">
@@ -440,16 +437,16 @@
 			<section id="sectionComment"></section>
 		</div>
 	</div>
-	 <div data-role="panel" data-position="right" data-display="overlay" data-swipe-close="true" data-theme="b" id="nav-panel" class="ui-responsive-panel">
-            <ul data-role="listview" >
-                <li data-icon="grid">
-                    <a href="#" data-rel="close">סגור</a>
-                </li>
-					<li id="home"><a href="#homePage">חיפוש טיול</a></li>
-					<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
-					<li id="moveToFavorite"><a href="#viewFavorite">המועדפים שלי</a></li>
-					<li id="mySchedule"><a href="#myPageSchedule">המסלול שלי</a></li>
-					<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
+	<div data-role="panel" data-position="right" data-display="overlay" data-swipe-close="true" data-theme="b" id="nav-panel" class="ui-responsive-panel">
+		<ul data-role="listview" >
+			<li data-icon="grid">
+				<a href="#" data-rel="close">סגור</a>
+			</li>
+			<li id="home"><a href="#homePage">חיפוש טיול</a></li>
+			<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
+			<li id="moveToFavorite"><a href="#viewFavorite">המועדפים שלי</a></li>
+			<li id="mySchedule"><a href="#myPageSchedule">המסלול שלי</a></li>
+			<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
 <!--                 <li>
                     <a href="#" id="opendialog" data-rel="dialog" >מי אנחנו</a>
                 </li>
@@ -458,6 +455,6 @@
                 </li> -->
             </ul>
         </div>
-	</body>
+    </body>
 
-	</html>
+    </html>

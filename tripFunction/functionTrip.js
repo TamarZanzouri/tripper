@@ -237,6 +237,15 @@ $(document).ready(function(){
 		return
 	})
 
+$('.option li').click(function(){
+	console.log("inside click")
+	var i = $(this).parents('.select').attr('id');
+	var v = $(this).children().text();
+	var o = $(this).attr('id');
+	$('#'+i+' .selected').attr('id',o);
+	$('#'+i+' .selected').text(v);
+});
+
 	$('#updateFriendsWithChanges').click(function(){
 		console.log(g_ListTrip)
 		if(!(_.contains(shareScheduleWithFriends, User.email))){
@@ -2316,65 +2325,5 @@ $(document).on('click','.btn-primary',function(){
 });
 
 
-//checkbox menu
-    var expanded = false;
-    function showCheckboxes() {
-        var checkboxes = document.getElementById("who_are_you_going_with");
-        if (!expanded) {
-            checkboxes.style.display = "block";
-            expanded = true;
-        } else {
-		console.log("in filter");
-		filter = [];
-		$('input[type="checkbox"]').each(function(value) {
-			if($(this).is(':checked')){
-				console.log($(this).attr('id'));
-				filter.push($(this).attr('id'));
-			}
-			else return;
-		});
-		console.log(filter);
-        checkboxes.style.display = "none";
-        expanded = false;
-        updateResultByFilterBeforeArea();
-        }
-    }
 
-    function showCheckboxes2(){
-    	var checkboxes = document.getElementById("trip_kind");
-        if (!expanded) {
-            checkboxes.style.display = "block";
-            expanded = true;
-        } else {
-        console.log("in filter");
-		filter = [];
-		$('input[type="checkbox"]').each(function(value) {
-			if($(this).is(':checked')){
-				console.log($(this).attr('id'));
-				filter.push($(this).attr('id'));
-			}
-			else return;
-		});
-		console.log(filter);
-        checkboxes.style.display = "none";
-        expanded = false;
-        updateResultByFilterBeforeArea();
-        }
-    }
 
-    function getDificullty(){
-    	console.log("in get difficulty")
-		if($('#difficulty').val() === ""){
-		// displayListTrip(g_ListTrip);	
-		console.log("difficulty is empty")
-		return
-	}
-	else{
-		// $('#resultTrip ul').empty();
-		// for(i in g_ListTrip){
-		// 	// debugger;
-			// if($('#selectArea').val() === g_ListTrip[i].area){
-				filter.push($('#difficulty').val());	
-				console.log(filter)
-        }
-    }
