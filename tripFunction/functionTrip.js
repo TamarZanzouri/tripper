@@ -343,19 +343,19 @@ $(document).on('mouseleave',"#addTrip", function(){
  	$("#addTrip a img").attr("src", "images/add.png");
 });
 
-var arr=["#addTrip","#mySchedule","#moveToFavorite","#showTrips","#home"];
-$(document).on('click','.nav li',function(){
-	console.log("li clicked")
-	var me = $(this);
+// var arr=["#addTrip","#mySchedule","#moveToFavorite","#showTrips","#home"];
+// $(document).on('click','.nav li',function(){
+// 	console.log("li clicked")
+// 	var me = $(this);
 
-	$.each(arr, function(index,val){
-		console.log(val)
-		if($(val).hasClass('ui-btn-active'))
-			console.log(val)
-			$(val).removeClass('ui-btn-active');
-	});
-	$(me).addClass('ui-btn-active');
-})
+// 	$.each(arr, function(index,val){
+// 		console.log(val)
+// 		if($(val).hasClass('ui-btn-active'))
+// 			console.log(val)
+// 			$(val).removeClass('ui-btn-active');
+// 	});
+// 	$(me).addClass('ui-btn-active');
+// })
 	// $('.nav li').click(function(){
 		
 	// });
@@ -965,7 +965,6 @@ $(document).on('click','#submitComment', function(){
     });
 
 });
-/*************** Tamar ***********/
 $(document).on('click','#chatComment', function(){
 	var chat = $('#chat').val();
 	console.log()
@@ -1171,11 +1170,11 @@ function displayListScheduleTrip(data){
 	var ul = $('#ulTimeLineSchedule');
 	ul.empty();
 	$.each(g_ListTrip, function (index,val){
-		var li = $('<li>').addClass('liImeLine');
-		var span = $('<span>');
-		var img = $('<img>');
+		var li = $('<li>').addClass('liImeLine').attr("id",val._id);
+		var span = $('<span>').addClass('moveToTrip');
+		var img = $('<img>').addClass('moveToTrip');
 		
-		span.html(val.trip_name).addClass('titelName');
+		span.html(val.trip_name);
 		img.attr({"src":val.tripSites[0].img, "width":50, "height":50})
 			
 
@@ -1192,14 +1191,19 @@ function displayListScheduleTrip(data){
 			ulSmall.append(liSmall)
 		});
 		li.append(ulSmall);
-		
-		
+		var aTrip =$('<a>').attr({"id":"remove_track","href":"#"}).addClass('remove_track').html("הסר מהמסלול שלי");
+		li.append(aTrip);
 		ul.append(li);
 	});
-		var meImg="";
+	var meImg="";
 	var meSpan="";
 	var meArea="";
 	var meUl="";
+	var meA = "";
+	$('.remove_track').click(function(){
+		console.log($(this).parent().attr('id'))
+		updateScheduleFromList(false,$(this).parent().attr('id'));
+	});
 	$('#ulTimeLineSchedule li').hover(function(){
 		console.log("hover");
 		$(this).css({"top":"0","border":"1px solid #000000","padding":"12px","background-color":"#ffffff","border-radius":"30px"});
@@ -1212,6 +1216,8 @@ function displayListScheduleTrip(data){
 		meArea.css("display","block");
 		meUl = $(this).children('dl');
 		meUl.css("display","inline-block");
+		meA = $(this).children('a');
+		meA.css("display","inline-block")
 	}
 	, function(){
 		$(this).css({"top":"68px","border":"none","background-color":"transparent","padding":"0px"});
@@ -1227,6 +1233,8 @@ function displayListScheduleTrip(data){
 		meArea.css("display","none");
 		meUl = $(this).children('dl');
 		meUl.css("display","none");
+		meA = $(this).children('a');
+		meA.css("display","none")
 	});
 
 	num = 0
@@ -1826,6 +1834,14 @@ function displayListTrip(data){
 		// if (e.originalEvent.newURL.indexOf("#myPageSchedule") != -1) {
 		// 	console.log("home")
 		// }
+		$('.userDetailes').empty();
+		if (User) {
+			// var divUser = $('<div>').addClass('userDetailes');
+			var spanUser = $('<span>').html(User.name).addClass('nameUser');
+			var imgUser = $('<img>').attr("src",User.image).addClass('imgUser');
+		 	$('.userDetailes').append(imgUser)
+		 	$('.userDetailes').append(spanUser)
+	 	}
 		if(window.location.hash=='#viewFavorite')
 		{
 			console.log('accountPage');
@@ -1981,6 +1997,28 @@ $(document).on('click','.titelNameFavorite',function(){
 	moveToTripPage();
 });
 $(document).on('click','.titelName',function(){
+	
+	var result = $(this).parent().attr('id');
+	$.ajax({
+		type: "post",
+        url: g_domain+"getTripById",// where you wanna post
+        data:  {id:result},
+        dataType: "json",
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+
+
+        },
+        success: function(data) {
+        	g_trip=data;
+        	displayFullTrip(data);
+        	
+        }
+    });
+	moveToTripPage();
+});
+
+$(document).on('click','.moveToTrip',function(){
 	
 	var result = $(this).parent().attr('id');
 	$.ajax({

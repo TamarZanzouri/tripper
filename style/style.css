@@ -141,6 +141,28 @@ text-align: -webkit-right;
     padding: 0 6px 0 0;
     float: right;
    width: 75%;
+   z-index: 99;
+}
+.remove_track{
+  display: none;
+  color:#ff5555;
+}
+#submitForm{
+  color: #ffffff;
+  background-color: #22AF87 !important;
+  padding: 5px 10px 5px 10px;
+  margin: 10px 0px 10px 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+#friendsemail> div> button{
+  background: #22AF87;
+  color: #ffffff;
+  margin: 0px 5px 0 10px;
+  float: right;
+}
+#friendsemail> div{
+  float: right;
 }
 .col-xs-6{
   width: auto;
@@ -154,9 +176,9 @@ text-align: -webkit-right;
 }
 .userDetailes{
   float: left;
-  position: relative;
-  left: 6%;
-  top: 15px;
+  position: absolute;
+  left: 7%;
+  top: 120px;
 }
 .imgUser{
     border-radius: 50px;
