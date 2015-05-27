@@ -330,6 +330,7 @@ router.post('/removeFromSchedule', function(req, res){
 	catch(err) {
 		console.log("error getting data " + err);
 	}
+	console.log("removing from schedule")
 	db.model('users').findOneAndUpdate({ email : userEmail}, {$pull : { schedule : {_id : new ObjectId(tripToDelete)}}}, function(err, docs){
 		if (err) {
 			console.log("error updating user favorites");
@@ -337,10 +338,25 @@ router.post('/removeFromSchedule', function(req, res){
 			return console.error(err);
 		}
 		else{
+			if(docs.tripPatners.length > 0){
+				console.log("has trip participents", docs.tripPatners)
+				docs.tripPatners.forEach(function(participent){
+					if(participent != userEmail)
+					db.model('users').findOneAndUpdate({ email : participent}, {$pull : { schedule : {_id : new ObjectId(tripToDelete)}}}, function(err, docs){
+						if(err){
+							console.error(err);
+							res.json({status : 0})
+						}
+						console.log("removed trip from ", participent)
+					});
+				})
+				res.json({status:1})
+			}
+			console.log("only one participent in trip")
 			res.json({status:1})
 		}
-	})
-})
+	});
+});
 
 
 router.post('/removeEmailFromTripPartners', function(req, res){
@@ -371,7 +387,7 @@ router.post('/removeEmailFromTripPartners', function(req, res){
 				if(err){
 					console.error(err);
 				}
-				res.json({status:1});
+				console.log("participent ", participent, "updated")
 			})
 			}
 			else{
@@ -379,10 +395,11 @@ router.post('/removeEmailFromTripPartners', function(req, res){
 			}
 		})
 	});
-	db.model('users').findOneAndUpdate({email : mailToRemove}, {tripParticipents : mailToRemove}, function(err, docs){
+	db.model('users').findOneAndUpdate({email : mailToRemove}, {tripPatners : mailToRemove}, function(err, docs){
 		if(err){
 			console.error(err)
 		}
+		console.log("mail ", mailToRemove, "removed ", docs)
 		res.json({status : 1})
 	})
 	}
