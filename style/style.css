@@ -14,6 +14,10 @@
   font-style: normal;
 }
 
+body.ui-mobile-viewport, div.ui-mobile-viewport{
+  font-family: 'Alef';
+}
+
 #wrapper{
 	margin: 0 auto;
 	  width: 90%;
