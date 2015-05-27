@@ -85,6 +85,8 @@ background-color: #1B936E !important;
     position: relative;
   top: 10px;
     font-family: Alef;
+      margin: 30px 13px 40px 0;
+  right: 10px;
 }
 #addTripSec{
 	direction: rtl;
@@ -101,11 +103,86 @@ text-align: -webkit-right;
   left: 20px;
   float: right;
 }
-
+#filtermenu{
+  width: 100%;
+}
+.filter{
+    width: 100%;
+  background: #22AF87 !important;
+}
 #filtermenu > li{
-  float: right;
+ float: right;
+  width: 25%;
+  margin: 5px 0 25px 0px;
+}
+.filter > button{
+background: #22AF87 !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #000000;
+  text-shadow: none !important;
+    font-size: 20px;
+}
+.filter> ul{
+background: #22AF87 !important;
+  color: #000000;
+    padding: 0;
+  margin: 0;
+  width: 100%;
+   text-align: right;
+     border: none !important
+}
+.filter> ul>li>a{
+  color: #000000 !important;
+    text-shadow: none !important;
+}
+.filter> ul>li>a:hover{
+  background: #1B936E !important
 }
 
+
+.filter> ul>li{
+  background: #22AF87 !important;
+  color: #000000;
+  margin: 0;
+  text-align: right;
+  direction: rtl;
+  width: 100%;
+}
+.filter> ul>li >div{
+  background: #22AF87 !important;
+    color: #000000;
+     text-align: right;
+   }
+.filter> ul>li >div >label{
+text-align: right !important;
+  background: #22AF87 !important;
+  border: none;
+  width: 100%;
+  color: #000000;
+  text-shadow: none !important;
+  font-size: 17px !important;
+    font-weight: 100 !important;
+}
+.ui-btn.ui-checkbox-off:after{
+    background:#fff;
+    opacity:1;
+}
+.ui-checkbox-on:after {
+    background-color: green !important;
+}
+.filter> ul>li >div >input{
+  text-align: right;
+    margin: 0;
+  opacity: 1;
+  background: #ffffff !important;
+}
+#dificullty>ul>li{
+  padding: 10px 0 10px 0;
+}
+#area>ul>li{
+  padding: 10px 0 10px 0;
+}
 .displayTrip > li{
 	  font-size: 16px;
   border: 1px solid grey;
@@ -151,6 +228,10 @@ text-align: -webkit-right;
   display: none;
   color:#ff5555;
 }
+
+
+
+
 #submitForm{
   color: #ffffff;
   background-color: #22AF87 !important;
