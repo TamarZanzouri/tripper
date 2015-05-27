@@ -1154,7 +1154,7 @@ function displayListScheduleTrip(data){
 	// };
 	$.each(User.tripPatners, function(i, val){
 		console.log(val)
-		$('#friendsemail').append("<img id='emailNum" + i + "'>" + val + "</img>");
+		$('#friendsemail').append("<div id='emailNum" + i + "'>" + val + "</div>");
 		$('#emailNum' + i).append("<button id='deleteMailFromSchedule'> &#10006 </button>");
 	})
 	$('.titelNameAccount').html('המסלול שלי')	
@@ -1309,7 +1309,7 @@ function updateSharedTrip(){
 		console.log("in if")
 		$.each(User.tripPatners, function(i, val){
 		console.log(val)
-		$('#friendsemail').append("<img id='emailNum" + i + "'>" + val + "</img>");
+		$('#friendsemail').append("<div id='emailNum" + i + "'>" + val + "</div>");
 		$('#emailNum' + i).append("<button id='deleteMailFromSchedule'> &#10006 </button>");
 	});
 }
