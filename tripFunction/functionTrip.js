@@ -1148,51 +1148,87 @@ function displayListScheduleTrip(data){
 	shareScheduleWithFriends = User.tripPatners;
 	$('#dpd1').val(User.tripScheduleTime.checkInTime.substring(0, User.tripScheduleTime.checkInTime.length-14));
 	$('#dpd2').val(User.tripScheduleTime.checkOutTime.substring(0, User.tripScheduleTime.checkOutTime.length-14));
-	for (i in data) {
-		var tripResult = '<li id='+data[i]._id+' class="listScheduleTrip trip" ><span class="titelName">' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
-		$('#resultTrip .displayTrip').append(tripResult);
-	};
+	// for (i in data) {
+	// 	var tripResult = '<li id='+data[i]._id+' class="listScheduleTrip trip" ><span class="titelName">' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
+	// 	$('#resultTrip .displayTrip').append(tripResult);
+	// };
 	$.each(User.tripPatners, function(i, val){
 		console.log(val)
-		$('#friendsemail').append("<button id='emailNum" + i + "'>" + val + "</button>");
+		$('#friendsemail').append("<img id='emailNum" + i + "'>" + val + "</img>");
 		$('#emailNum' + i).append("<button id='deleteMailFromSchedule'> &#10006 </button>");
 	})
+	$('.titelNameAccount').html('המסלול שלי')	
+	// var divUser = $('<div>').addClass('userDetailes');
+	$('.userDetailes').empty();
+	if (User) {
+		// var divUser = $('<div>').addClass('userDetailes');
+		var spanUser = $('<span>').html(User.name).addClass('nameUser');
+		var imgUser = $('<img>').attr("src",User.image).addClass('imgUser');
+	 	$('.userDetailes').append(imgUser)
+	 	$('.userDetailes').append(spanUser)
+ 	}
+
 	var ul = $('#ulTimeLineSchedule');
 	ul.empty();
 	$.each(g_ListTrip, function (index,val){
-		var li = $('<li>');
+		var li = $('<li>').addClass('liImeLine');
 		var span = $('<span>');
 		var img = $('<img>');
-		span.html(val.trip_name);
+		
+		span.html(val.trip_name).addClass('titelName');
 		img.attr({"src":val.tripSites[0].img, "width":50, "height":50})
+			
+
 		li.append(span);
 		li.append(img);
+		var h5 =$('<h5>').html( hashtable[val.area]).addClass('locH5Schedule').css("display","none");
+		li.append(h5);
+		var ulSmall =$('<dl>').addClass("smallULSchedule").css("display","none");
+		$.each(val.trip_filter,function(i,v){
+			var liSmall = $('<dt>')
+			var imgVi= $('<img>').attr({"src":"images/vi.png"}).addClass("viSchedule");
+			liSmall.append(imgVi);
+			liSmall.append( hashtable[v])
+			ulSmall.append(liSmall)
+		});
+		li.append(ulSmall);
+		
 		
 		ul.append(li);
 	});
 		var meImg="";
 	var meSpan="";
-	
+	var meArea="";
+	var meUl="";
 	$('#ulTimeLineSchedule li').hover(function(){
 		console.log("hover");
-		$(this).css({"top":"-75px","border":"1px solid #000000","padding":"12px","background-color":"#ffffff","border-radius":"30px"});
+		$(this).css({"top":"0","border":"1px solid #000000","padding":"12px","background-color":"#ffffff","border-radius":"30px"});
 		meSpan = $(this).children('span');
-		meSpan.css({"font-size":"35px"});
+		meSpan.css({"font-size":"35px","float":"left","padding": "0px 10px 0 2px"});
 		meImg = $(this).children('img');
-		meImg.attr({"width":125,"height":125}).css("border-radius","0px");
+		meImg.attr({"width":125,"height":125}).css({"border-radius":"0px","float":"right"});
 		//$(this).attr({"width":100,"height":100})
+		meArea = $(this).children('h5');
+		meArea.css("display","block");
+		meUl = $(this).children('dl');
+		meUl.css("display","inline-block");
 	}
 	, function(){
 		$(this).css({"top":"68px","border":"none","background-color":"transparent","padding":"0px"});
 		meSpan = $(this).children('span');
-		meSpan.css("font-size","20px");
+		meSpan.css({"font-size":"20px","float":"none","padding": "0"});
 		
 		//me=$(this).attr({"width":50,"height":50});
 		//div.append(me)
 	    meImg = $(this).children('img');
-		meImg.attr({"width":50,"height":50}).css("border-radius","50px");
+		meImg.attr({"width":50,"height":50}).css({"border-radius":"50px","float":"none"});
 		//$(this).attr({"width":50,"height":50});
+		meArea = $(this).children('h5');
+		meArea.css("display","none");
+		meUl = $(this).children('dl');
+		meUl.css("display","none");
 	});
+
 	num = 0
 
 	// var schedulePage= $('#myPageSchedule #content')
@@ -1273,7 +1309,7 @@ function updateSharedTrip(){
 		console.log("in if")
 		$.each(User.tripPatners, function(i, val){
 		console.log(val)
-		$('#friendsemail').append("<button id='emailNum" + i + "'>" + val + "</button>");
+		$('#friendsemail').append("<img id='emailNum" + i + "'>" + val + "</img>");
 		$('#emailNum' + i).append("<button id='deleteMailFromSchedule'> &#10006 </button>");
 	});
 }

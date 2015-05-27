@@ -59,7 +59,7 @@ li{
   color: #ffffff !important;
 }
 h1{
-   margin: 0 10px 0 20px !important;
+  margin: 10px 10px 20px 20px !important;
   position: relative;
   float: right;
   padding: 0 0 0 0 !important;
@@ -130,13 +130,38 @@ text-align: -webkit-right;
     font-size: 36px;
     padding: 0 6px 0 0;
 }
-
+.titelNameAccount{
+      display: -webkit-box;
+  font-weight: 600;
+    font-size: 64px;
+    padding: 0 6px 0 0;
+    float: right;
+   width: 75%;
+}
+.col-xs-6{
+  width: auto;
+}
 .locH5{
   padding: 0 0 0 5px;
   font-size: 28px;
   margin: 5px 0 5px 10px;
   position: relative;
   right: 5px;
+}
+.userDetailes{
+  float: left;
+  position: relative;
+  left: 6%;
+  top: 15px;
+}
+.imgUser{
+    border-radius: 50px;
+  width: 80px;  
+}
+.nameUser{
+    font-size: 18px;
+  font-weight: 600;
+  padding: 0 12px 0 10px;
 }
 #resultTitle{
   font-size: 64px;
@@ -604,15 +629,11 @@ list-style: none;
 }
 #ulTimeLineSchedule>li{
 list-style: none;
-  float: left;
-  /*width: 106px;*/
-  /* height: 50px; */
+  float: right;
   font-size: 24px;
   text-align: center;
   margin: 10px 12px 0 15px;
-  /*background: url('images/biggerdot2.png') center bottom no-repeat;*/
   position: relative;
-  /* bottom: 20px*/
  top: 67px;
 }
 #ulTimeLineSchedule>li>span{
@@ -732,11 +753,87 @@ float: right;
   height: auto;
 }
 .well{
-    background: #22AF87 !important;
-color: #ffffff !important;
+  background: transparent !important;
+  border: none !important;
+  float: right;
 }
 #description{
   display: block;
+}
+.divShareSchedule{
+    float: right;
+  padding: 17px;
+    right: 100px;
+  position: relative;
+}
+.divShareSchedule > label{
+    margin: 0 0 2px 0 !important;
+}
+#shareSchedule{
+  width: 200px;
+  height: 35px;
+  position: relative;
+
+}
+#updateFriendsWithChanges{
+  float: right;
+  position: relative;
+  top: 56px;
+  width: 50px;
+  height: 34px;
+  color: #ffffff;
+  border: none;
+  background-color: #22AF87 !important;
+  font-size: 16px;
+  font-family: Alef;
+  font-weight: 600;
+  padding: 0 8px 0 0;
+}
+#addFriendToSchedule{
+    float: right;
+  position: relative;
+  top: 56px;
+  /* width: 50px; */
+  height: 34px;
+  color: #ffffff;
+  border: none;
+  background-color: #22AF87 !important;
+  font-size: 16px;
+  font-family: Alef;
+  font-weight: 600;
+  padding: 0 8px 0px 10px;
+     right: 100px;
+}
+#friendsemail{
+    float: right;
+  display: block;
+  width: 100%;
+}
+.locH5Schedule{
+  padding: 0 0 0 5px;
+  font-size: 28px;
+  margin: 5px 0 5px 10px;
+  position: relative;
+  right: 10px;
+  width: 100%;
+    text-align: right
+}
+dt{
+  font-weight: 100;
+  font-size: 15px;
+}
+.viSchedule{
+padding: 0 0px 0px 10px;
+}
+.smallULSchedule{
+margin: 0 7px 0 0px;
+  padding: 0 0 0 0;
+  display: inline-block;
+    float: right;
+  text-align: right;
+}
+.smallULSchedule > li {
+
 }
 .vi{
 padding: 0 0px 0px 10px;

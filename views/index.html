@@ -403,33 +403,41 @@
 				<li id="addTrip"><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
 			</ul>
 		</header>
-			<div data-role="content" class="ui-content" id="content">
-				<div class="well">
-				    <div class="row">
-				        <div class="col-xs-6">
-				            <label class="control-label" for="dpd2">תאריך חזרה: </label>
-				            <input class="form-control" type="text" id="dpd2" />
-				        </div>
-				       	<div class="col-xs-6">
-				            <label class="control-label" for="dpd1">תאריך יציאה: </label>
-				            <input class="form-control" type="text" id="dpd1" />
-				        </div>
-				    </div>
-				</div>
-				ארגן טיול עם חברייך:<input id="shareSchedule"  name="email" type="email">
-				<input type="button" id="addFriendToSchedule" value="הוסף חבר">
-				<div id="friendsemail" style=></div>
-				<section id="resultTrip">
-					<ul class="displayTrip">
-					</ul>
-				</section>
-				
-				
-				<input type="button" id="updateFriendsWithChanges" value="עדכן שינויים">
-				<div id="scheduleTimeLline">
-					<ul id="ulTimeLineSchedule"></ul>
-				</div>
-				<section id="sectionComment"></section>
+		<div data-role="content" class="ui-content" id="content">
+			<h1 class="titelNameAccount"></h1>
+			<div class="userDetailes"></div>
+			<div class="well">
+			    <div class="row">
+			        <div class="col-xs-6">
+			            <label class="control-label" for="dpd2">תאריך חזרה: </label>
+			            <input class="form-control" type="text" id="dpd2" />
+			        </div>
+			       	<div class="col-xs-6">
+			            <label class="control-label" for="dpd1">תאריך יציאה: </label>
+			            <input class="form-control" type="text" id="dpd1" />
+			        </div>
+			    </div>
+			</div>
+			<input type="button" id="updateFriendsWithChanges" value="עדכן">
+			<div class="divShareSchedule">
+				<label>ארגן טיול עם חברייך:</label>
+				<input id="shareSchedule"  name="email" type="email">
+			</div>
+			<input type="button" id="addFriendToSchedule" value="שלח הזמנה">
+			<div id="friendsemail" ></div>
+			
+
+			<!-- <section id="resultTrip">
+				<ul class="displayTrip">
+				</ul>
+			</section> -->
+			
+			
+			
+			<div id="scheduleTimeLline">
+				<ul id="ulTimeLineSchedule"></ul>
+			</div>
+			<section id="sectionComment"></section>
 		</div>
 	</div>
 	 <div data-role="panel" data-position="right" data-display="overlay" data-swipe-close="true" data-theme="b" id="nav-panel" class="ui-responsive-panel">
