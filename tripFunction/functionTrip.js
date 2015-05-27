@@ -105,6 +105,17 @@ $(document).ready(function(){
     initDatepicker();
 
 
+        $('#info').readmore({
+      moreLink: '<a href="#">Usage, examples, and options</a>',
+      collapsedHeight: 384,
+      afterToggle: function(trigger, element, expanded) {
+        if(! expanded) { // The "Close" link was clicked
+          $('html, body').animate({scrollTop: $(element).offset().top}, {duration: 100});
+        }
+      }
+    });
+
+   
 
 	
 	// border-bottom: 5px solid #EED53D;
@@ -1292,7 +1303,18 @@ function displayListScheduleTrip(data){
 		$('#chat').show();
 		$('#chatComment').show();
 	});
-}
+    $('article').readmore({
+	  speed: 75,
+	  lessLink: '<a href="#">Read less</a>'
+	});
+// 	    $('article').readmore({
+// 	  afterToggle: function(trigger, element, expanded) {
+// 	    if(! expanded) { // The "Close" link was clicked
+// 	      $('html, body').animate( { scrollTop: element.offset().top }, {duration: 100 } );
+// 	    }
+// 	  }
+// 	});
+ }
 
 $(document).on('click', '#deleteMailFromSchedule', function(){
 	console.log("clicked on " + $(this).parent().text());

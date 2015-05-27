@@ -511,6 +511,9 @@ body, input, select, textarea, button, .ui-btn{
 }*/
 
 /*******trip page********/
+article {
+  max-height: 6em; /* (4 * 1.5 = 6) */
+}
 .Trip{
   direction: rtl;
     padding: 0 5% 0 0px;
@@ -522,7 +525,6 @@ body, input, select, textarea, button, .ui-btn{
   font-weight: 700;
 }
 .Trip > h1{
-    width: 42%;
   float: right;
   font-family: 'Alef';
   font-weight: 700;
