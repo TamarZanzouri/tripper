@@ -534,8 +534,8 @@ article {
 .Trip >ul{
   height: 100px;
   position: relative;
-  float: right;
   left: 20px;
+  padding: 10px 0px 0px 0;
 }
 .Trip > ul >li{
   float: right;
