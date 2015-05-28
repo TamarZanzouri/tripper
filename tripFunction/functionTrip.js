@@ -1169,7 +1169,6 @@ function updateScheduleFromList (bool, tripId){
 });
 	}
 	else{
-		console.log("global trip id ", g_trip._id)
 		$.ajax({
 			type: "post",
     	url: g_domain+"removeFromSchedule",// where you wanna post
@@ -1282,7 +1281,7 @@ function displayListScheduleTrip(data){
 	});
 	$('#ulTimeLineSchedule li').hover(function(){
 		console.log("hover");
-		$(this).css({"top":"0","border":"1px solid #000000","padding":"12px","background-color":"#ffffff","border-radius":"30px"});
+		$(this).css({"top":"-50","border":"1px solid #000000","padding":"12px","background-color":"#ffffff","border-radius":"30px"});
 		meSpan = $(this).children('span');
 		meSpan.css({"font-size":"35px","float":"left","padding": "0px 10px 0 2px"});
 		meImg = $(this).children('img');
