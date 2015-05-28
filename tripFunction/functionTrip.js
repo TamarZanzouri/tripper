@@ -26,12 +26,15 @@ mapPoint={};
 g_trip={};
 g_ListTrip=[];
 var filter = [];
+var tempFilter=[];
 var clickedCharachters = [];
 var tripsAfterCharachters = [];
 var date={};
 var point1={},point2={} ;
 point2.lng = 34;
 point2.lat = 32;
+var w1="";
+var w2="";
 var r=0;
 var isInDdistance;
 var t1 =  32.03952466510527;
@@ -248,15 +251,28 @@ $('#addFriendToSchedule').click(function(){
 		return
 	})
 
-$('.option li').click(function(){
+$('.option1 li').click(function(){
 	console.log("inside click")
 	var i = $(this).parents('.select').attr('id');
 	var v = $(this).children().text();
 	var o = $(this).attr('id');
 	$('#'+i+' .selected').attr('id',o);
+	 w1 = $('#'+i+' .selected').attr('id',o);
 	$('#'+i+' .selected').text(v);
+	console.log(w1.attr('id'))
+	w1=w1.attr('id');
 });
-
+$('.option2 li').click(function(){
+	console.log("inside click")
+	var i = $(this).parents('.select').attr('id');
+	var v = $(this).children().text();
+	var o = $(this).attr('id');
+	$('#'+i+' .selected').attr('id',o);
+	 w2 = $('#'+i+' .selected').attr('id',o);
+	$('#'+i+' .selected').text(v);
+	console.log(w2.attr('id'))
+	w2= w2.attr('id');
+});
 $('#updateFriendsWithChanges').click(function(){
 	console.log(g_ListTrip)
 	if(!(_.contains(shareScheduleWithFriends, User.email))){
@@ -284,20 +300,67 @@ $('#updateFriendsWithChanges').click(function(){
 	}
 })
 
-$('#who_are_you_going_with').change(function(){
+$('#filtermenu li').change(function(){
+
+	console.log($(this).attr('id'))
+	filter=[];
 	console.log("in filter");
 	$('input[type="checkbox"]').each(function(value) {
 		if($(this).is(':checked')){
 			checkIfInArray($(this).attr('id'));
 		}
-		});
-	checkIfHasTripKind();
-	checkIfHasDificullty();
-	checkIfHasArea();
+	});
+	var dificullty = $("#dificullty").children().hasClass('selected');
+	if(w1){
+		checkIfInArray(w1)
+	}
+	var area = w2;
+	// checkIfHasTripKind();
+	// checkIfHasDificullty();
+	// checkIfHasArea();
 		// var dificullty = $('#dificullty').attr('id');
 		// console.log(dificullty)
+		console.log(area)
 		console.log(filter);
 	// 	updateResultByFilterBeforeArea();
+
+	var tripsAfterFilter = [];
+	var donsentContainFlag = false;
+	if (filter.length>0) {
+	$.each(tripsAfterCharachters, function(index,trip){
+		$.each(filter, function(index,val){
+
+			if(!(_.contains(trip.trip_filter, val))){								
+				donsentContainFlag = true;
+				return;
+			}
+
+		})
+
+		if(!donsentContainFlag)
+		{
+			tripsAfterFilter.push(trip);
+		}
+		donsentContainFlag = false;
+
+	})
+}else{
+	tripsAfterFilter=g_ListTrip;
+}
+	if (area=="") {
+	var tripsAfterArea=[];
+	for(i in tripsAfterFilter){
+			// debugger;
+		if(area == tripsAfterCharachters[i].area){
+			tripsAfterArea.push(tripsAfterCharachters[i]);	
+		}
+	}
+	console.log(tripsAfterArea);
+	g_ListTrip = tripsAfterArea;
+
+	};
+	
+	displayListTrip(g_ListTrip);
 })
 
 $("#private_trip").click(function(){
@@ -413,10 +476,10 @@ function checkIfInArray(filterToCheck){
 	if (found >= 0) {
     // Element was found, remove it.
     return
-} else {
-    // Element was not found, add it.
-    filter.push(filterToCheck);
-}
+	} else {
+	    // Element was not found, add it.
+	    filter.push(filterToCheck);
+	}
 }
 // var arr=["#addTrip","#mySchedule","#moveToFavorite","#showTrips","#home"];
 // $(document).on('click','.nav li',function(){

@@ -1088,5 +1088,35 @@ color:#ffffff;
   .details > img}{
     right: 24px;
   }
-  
+  .titelNameAccount{
+    font-size: 48px;
+  width: 100%;
+
+  }
+  #updateFriendsWithChanges{
+      top: 0;
+  float: left;
+  }
+  .well{}
+  #filtermenu{
+    display: none;
+  }
+  .titelName{
+      float: right;
+  }
+  .divShareSchedule{
+      top: 30px;
+  right: 0;
+  }
+  .userDetailes{
+      position: relative;
+  top: 0;
+  left: 0;
+  float: right;
+  right: 10px;
+  }
+  #addFriendToSchedule{
+    float: left;
+  right: 0;
+  }
 }
