@@ -1118,6 +1118,7 @@ color:#ffffff;
   .details > img{
     right: 24px;
   }
+<<<<<<< Updated upstream
   .titelNameAccount{
     font-size: 48px;
   width: 100%;
@@ -1151,4 +1152,7 @@ color:#ffffff;
 }
 @media(max-width: 500px){
 
+=======
+  
+>>>>>>> Stashed changes
 }
