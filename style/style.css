@@ -101,7 +101,8 @@ background-color: #1B936E !important;
 text-align: -webkit-right;
   position: relative;
   left: 20px;
-  float: right;
+    float: right;
+  width: 100%;
 }
 #filtermenu{
   width: 100%;
@@ -810,6 +811,7 @@ float: right;
   position: relative;
   right: 200px;
   float: right;
+    width: 100%;
 }
 .ulImages > li{
     float: inherit !important;
@@ -956,6 +958,32 @@ color:#ffffff;
   border: none !important;
 }
 @media(max-width: 500px){
+  
+  #updateFriendsWithChanges{
+      top: 0;
+  float: left;
+  }
+  #filtermenu{
+    display: none;
+  }
+  .titelName{
+      float: right;
+  }
+  .divShareSchedule{
+      top: 30px;
+  right: 0;
+  }
+  .userDetailes{
+    position: relative;
+    top: 0;
+    left: 0;
+    float: right;
+    right: 10px;
+  }
+  #addFriendToSchedule{
+    float: left;
+    right: 0;
+  }
   #buttonRadius{
     display: block;
       color: #ffffff;
@@ -1007,6 +1035,9 @@ color:#ffffff;
       width: 100%;
   margin: 10px 1px 10px 0;
   }
+  .displayTrip > li>img{
+    width: 110px;
+  }
   .displayTrip{
 
   }
@@ -1019,6 +1050,7 @@ color:#ffffff;
   }
   #resultTitle{
     font-size: 48px;
+    width: 100%;
   }
   .form-horizontal{
     width: auto !important;
@@ -1054,6 +1086,7 @@ color:#ffffff;
   .ulImages{
     right: 0;
     top: 40px !important;
+
   }
   .ulImages > li{
     margin: 0 !important;
@@ -1066,15 +1099,12 @@ color:#ffffff;
     left: 0;
         top: -85px;
   }
-  #ulTimeLine{}
   #ulTimeLine >li{
       width: 101px;
   margin: 10px 5px 0 5px;
   font-size: 15px;
   }
-  article> h4{
-
-  }
+ 
   #sectionComment{
       position: relative;
   bottom: 50px;
@@ -1085,7 +1115,7 @@ color:#ffffff;
   #comment{
     width:223px;
   }
-  .details > img}{
+  .details > img{
     right: 24px;
   }
   .titelNameAccount{
@@ -1093,11 +1123,10 @@ color:#ffffff;
   width: 100%;
 
   }
-  #updateFriendsWithChanges{
+/*  #updateFriendsWithChanges{
       top: 0;
   float: left;
   }
-  .well{}
   #filtermenu{
     display: none;
   }
@@ -1118,5 +1147,8 @@ color:#ffffff;
   #addFriendToSchedule{
     float: left;
   right: 0;
-  }
+  }*/
+}
+@media(max-width: 500px){
+
 }

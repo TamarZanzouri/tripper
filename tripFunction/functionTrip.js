@@ -1,6 +1,6 @@
 User={};
 
-g_domain="http://shenkartripper.herokuapp.com/";//"http://127.0.0.1:1337/";
+g_domain="http://127.0.0.1:1337/";//"http://shenkartripper.herokuapp.com/";//
 
 
 //hashtable for variables in english
@@ -1318,7 +1318,7 @@ function displayListScheduleTrip(data){
 
 		li.append(span);
 		li.append(img);
-		var h5 =$('<h5>').html( hashtable[val.area]).addClass('locH5Schedule').css("display","none");
+		var h5 =$('<h5>').html( hashtable[val.area]).addClass('locH5Schedule').css("display","none").addClass('moveToTrip');;
 		li.append(h5);
 		var ulSmall =$('<dl>').addClass("smallULSchedule").css("display","none");
 		$.each(val.trip_filter,function(i,v){
@@ -1344,7 +1344,7 @@ function displayListScheduleTrip(data){
 	});
 	$('#ulTimeLineSchedule li').hover(function(){
 		console.log("hover");
-		$(this).css({"top":"-50","border":"1px solid #000000","padding":"12px","background-color":"#ffffff","border-radius":"30px"});
+		$(this).css({"top":"-50px","border":"1px solid #000000","padding":"12px","background-color":"#ffffff","border-radius":"30px"});
 		meSpan = $(this).children('span');
 		meSpan.css({"font-size":"35px","float":"left","padding": "0px 10px 0 2px"});
 		meImg = $(this).children('img');
