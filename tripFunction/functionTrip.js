@@ -312,61 +312,10 @@ $('#filtermenu li').change(function(){
 			checkIfInArray($(this).attr('id'));
 		}
 	});
-	// var dificullty = $("#dificullty").children().hasClass('selected');
-	// if(w1){
-	// 	checkIfInArray(w1)
-	// }
+
 	var area = w2;
-	// checkIfHasTripKind();
-	// checkIfHasDificullty();
-	// checkIfHasArea();
-		// var dificullty = $('#dificullty').attr('id');
-		// console.log(dificullty)
-	console.log(area)
-	console.log(filter);
-	console.log(g_ListTrip)
-	console.log(tripsAfterCharachters)
 	checkTheList();
 
-	// 	updateResultByFilterBeforeArea();
-
-// 	var tripsAfterFilter = [];
-// 	var donsentContainFlag = false;
-// 	if (filter.length>0) {
-// 	$.each(tripsAfterCharachters, function(index,trip){
-// 		$.each(filter, function(index,val){
-
-// 			if(!(_.contains(trip.trip_filter, val))){								
-// 				donsentContainFlag = true;
-// 				return;
-// 			}
-
-// 		})
-
-// 		if(!donsentContainFlag)
-// 		{
-// 			tripsAfterFilter.push(trip);
-// 		}
-// 		donsentContainFlag = false;
-
-// 	})
-// }else{
-// 	tripsAfterFilter=g_ListTrip;
-// }
-// 	if (area=="") {
-// 	var tripsAfterArea=[];
-// 	for(i in tripsAfterFilter){
-// 			// debugger;
-// 		if(area == tripsAfterCharachters[i].area){
-// 			tripsAfterArea.push(tripsAfterCharachters[i]);	
-// 		}
-// 	}
-// 	console.log(tripsAfterArea);
-// 	g_ListTrip = tripsAfterArea;
-
-// 	};
-	
-	// displayListTrip(g_ListTrip);
 })
 
 
@@ -381,7 +330,6 @@ function checkTheList(){
 	}else{
 		$.each(tripsAfterCharachters,function(index,value){
 			$.each(filter,function(i,val){
-				debugger
 				if (value.trip_filter.indexOf(val)==-1) {
 					// tempList.push(value)
 					// return
@@ -770,31 +718,6 @@ $(document).on("pageinit", "[data-role='page']", function(event) {
 	}
 });
 
-// $(document).on('click','.listResultTrip',function(){
-	
-
-// 	var result = $(this).attr('id');
-// 	$.ajax({
-// 		type: "post",
-//         url: g_domain+"getTripById",// where you wanna post
-//         data:  {id:result},
-//         dataType: "json",
-//         error: function(jqXHR, textStatus, errorMessage) {
-//         	console.log(errorMessage)
-
-
-//         },
-//         success: function(data) {
-//         	g_trip=data;
-//         	displayFullTrip(data);
-
-//         }
-//     });
-// 	moveToTripPage();
-// });
-
-
-
 function displayFullTrip(data){
 	console.log(data)
 	console.log("id: ", data._id)
@@ -1057,14 +980,20 @@ function updateFavoritesFromFavoritesList(isFavorite, tripId){
 
         },
         success: function(data) {
-        	$( "#addingToSchedule" ).popup( "close" );
+        	removeImmediately();
         }
     });
     	
     }
 });
 }
-
+function removeImmediately (){
+	if(window.location.hash=='#viewFavorite')
+		{
+			console.log(User.favorites)
+			displayListTrip(User.favorites);
+		}
+}
 function updateFavorites (bool){
 	console.log(bool)
 	$.ajax({
@@ -1276,32 +1205,32 @@ function updateScheduleFromList (bool, tripId){
 	if(bool){
 		$.ajax({
 			type: "post",
-    url: g_domain+"getTripById",// where you wanna post
-    data:  {id:tripId},
-    dataType: "json",
-    error: function(jqXHR, textStatus, errorMessage) {
-    	console.log(errorMessage)
-    },
-    success : function(data){
-    	g_trip=data; 
-    	console.log(g_trip)
-    	$.ajax({
-    		type: "post",
-    url: g_domain+"updateMySchedule",// where you wanna post
-    data:  {trip:g_trip
-    	,userId:User.email},
-    	dataType: "json",
-    	error: function(jqXHR, textStatus, errorMessage) {
-    		console.log(errorMessage)
+		    url: g_domain+"getTripById",// where you wanna post
+		    data:  {id:tripId},
+		    dataType: "json",
+		    error: function(jqXHR, textStatus, errorMessage) {
+		    	console.log(errorMessage)
+		    },
+		    success : function(data){
+		    	g_trip=data; 
+		    	console.log(g_trip)
+		    	$.ajax({
+		    		type: "post",
+		    url: g_domain+"updateMySchedule",// where you wanna post
+		    data:  {trip:g_trip
+		    	,userId:User.email},
+		    	dataType: "json",
+		    	error: function(jqXHR, textStatus, errorMessage) {
+		    		console.log(errorMessage)
 
 
-    	},
-    	success: function(data) {
-    		console.log("update success");
-    	}
-    });
-    }
-});
+		    	},
+		    	success: function(data) {
+		    		console.log("update success");
+		    	}
+		    });
+   		  }
+		});
 	}
 	else{
 		$.ajax({
@@ -1317,12 +1246,22 @@ function updateScheduleFromList (bool, tripId){
     	},
     	success: function(data) {
     		console.log("removed from schedule")
+		    removeImmSchedule();
+
     	}
     });
 	}
 
 };
 
+
+function removeImmSchedule(){
+	if(window.location.hash=='#myPageSchedule')
+	{
+		console.log(User.schedule)
+		displayListScheduleTrip(User.schedule)
+	}
+}
 $(document).on('click','#mySchedule',function(){
 	if(!User.email)
 	{
