@@ -100,7 +100,7 @@ background-color: #1B936E !important;
 #resultTrip{
 text-align: -webkit-right;
   position: relative;
-  left: 20px;
+  left: 8px;
     float: right;
   width: 100%;
 }
@@ -184,16 +184,35 @@ text-align: right !important;
 #area>ul>li{
   padding: 10px 0 10px 0;
 }
-.displayTrip > li{
+.displayTripLeft{
+  width: 47%;
+  float: right;
+}
+.displayTripRight{
+  width: 47%;
+  float: right;
+}
+.displayTripLeft > li{
 	  font-size: 16px;
   border: 1px solid grey;
   color: #494949;
   padding: 10px 10px 10px 0;
     font-family: 'Alef';
   font-weight: 400;
-    width: 47%;
   float: right;
   margin: 8px 8px 8px 8px;
+    width: 100%;
+}
+.displayTripRight>li{
+  font-size: 16px;
+  border: 1px solid grey;
+  color: #494949;
+  padding: 10px 10px 10px 0;
+    font-family: 'Alef';
+  font-weight: 400;
+  float: right;
+  margin: 8px 8px 8px 8px;
+    width: 100%;
 }
 
 .addToSchedule{
@@ -281,6 +300,8 @@ text-align: right !important;
   font-weight: 700;
   display: inline;
   float: right;
+    margin: 10px 35px 15px 20px !important;
+
 }
 #resultTitleFavorite{
   float: right;
@@ -1116,7 +1137,13 @@ color:#ffffff;
   .details > img{
     right: 24px;
   }
-<<<<<<< Updated upstream
+  .displayTripLeft{
+      width: 100%;
+  }
+
+  .displayTripRight{
+      width: 100%;
+  }
   .titelNameAccount{
     font-size: 48px;
   width: 100%;
@@ -1148,9 +1175,4 @@ color:#ffffff;
   right: 0;
   }*/
 }
-@media(max-width: 500px){
 
-=======
-  
->>>>>>> Stashed changes
-}

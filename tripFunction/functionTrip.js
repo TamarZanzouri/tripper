@@ -260,6 +260,8 @@ $('.option1 li').click(function(){
 	$('#'+i+' .selected').text(v);
 	console.log(w1.attr('id'))
 	w1=w1.attr('id');
+	checkTheList();
+
 });
 $('.option2 li').click(function(){
 	console.log("inside click")
@@ -271,6 +273,7 @@ $('.option2 li').click(function(){
 	$('#'+i+' .selected').text(v);
 	console.log(w2.attr('id'))
 	w2= w2.attr('id');
+	checkTheList();
 });
 $('#updateFriendsWithChanges').click(function(){
 	console.log(g_ListTrip)
@@ -309,58 +312,119 @@ $('#filtermenu li').change(function(){
 			checkIfInArray($(this).attr('id'));
 		}
 	});
-	var dificullty = $("#dificullty").children().hasClass('selected');
-	if(w1){
-		checkIfInArray(w1)
-	}
+	// var dificullty = $("#dificullty").children().hasClass('selected');
+	// if(w1){
+	// 	checkIfInArray(w1)
+	// }
 	var area = w2;
 	// checkIfHasTripKind();
 	// checkIfHasDificullty();
 	// checkIfHasArea();
 		// var dificullty = $('#dificullty').attr('id');
 		// console.log(dificullty)
-		console.log(area)
-		console.log(filter);
+	console.log(area)
+	console.log(filter);
+	console.log(g_ListTrip)
+	console.log(tripsAfterCharachters)
+	checkTheList();
+
 	// 	updateResultByFilterBeforeArea();
 
-	var tripsAfterFilter = [];
-	var donsentContainFlag = false;
-	if (filter.length>0) {
-	$.each(tripsAfterCharachters, function(index,trip){
-		$.each(filter, function(index,val){
+// 	var tripsAfterFilter = [];
+// 	var donsentContainFlag = false;
+// 	if (filter.length>0) {
+// 	$.each(tripsAfterCharachters, function(index,trip){
+// 		$.each(filter, function(index,val){
 
-			if(!(_.contains(trip.trip_filter, val))){								
-				donsentContainFlag = true;
-				return;
-			}
+// 			if(!(_.contains(trip.trip_filter, val))){								
+// 				donsentContainFlag = true;
+// 				return;
+// 			}
+
+// 		})
+
+// 		if(!donsentContainFlag)
+// 		{
+// 			tripsAfterFilter.push(trip);
+// 		}
+// 		donsentContainFlag = false;
+
+// 	})
+// }else{
+// 	tripsAfterFilter=g_ListTrip;
+// }
+// 	if (area=="") {
+// 	var tripsAfterArea=[];
+// 	for(i in tripsAfterFilter){
+// 			// debugger;
+// 		if(area == tripsAfterCharachters[i].area){
+// 			tripsAfterArea.push(tripsAfterCharachters[i]);	
+// 		}
+// 	}
+// 	console.log(tripsAfterArea);
+// 	g_ListTrip = tripsAfterArea;
+
+// 	};
+	
+	// displayListTrip(g_ListTrip);
+})
+
+
+function checkTheList(){
+	var tempList= [];
+	var tempFil=1;
+	console.log(w1);
+	console.log(w2);
+	$.each(tripsAfterCharachters,function(index,value){
+		$.each(filter,function(i,val){
+			if (value.trip_filter.indexOf(val)==-1) {
+				// tempList.push(value)
+				// return
+				tempFil=0;
+				debugger
+				;
+			};
+		})
+		if (tempFil==1) {
+			tempList.push(value);
+			tempFil=1;
+		}
+	});
+	if(w1 ==""){
+		console.log("tempList :",tempList);
+	}else{
+		var tempListDif=[]
+		$.each(tempList,function(index,val){
+			 if(val.trip_filter.indexOf(w1)>-1) {
+				 tempListDif.push(val)
+				// return
+				
+			};
 
 		})
-
-		if(!donsentContainFlag)
-		{
-			tripsAfterFilter.push(trip);
-		}
-		donsentContainFlag = false;
-
-	})
-}else{
-	tripsAfterFilter=g_ListTrip;
-}
-	if (area=="") {
-	var tripsAfterArea=[];
-	for(i in tripsAfterFilter){
-			// debugger;
-		if(area == tripsAfterCharachters[i].area){
-			tripsAfterArea.push(tripsAfterCharachters[i]);	
-		}
+		tempList=tempListDif;
+		console.log("tempList : After w1 ",tempList);
 	}
-	console.log(tripsAfterArea);
-	g_ListTrip = tripsAfterArea;
 
-	};
-	
-	displayListTrip(g_ListTrip);
-})
+
+	if (w2=="") {
+		console.log("tempList :",tempList);
+	}else{
+		var tempListDif=[]
+		$.each(tempList,function(index,val){
+			 if(val.area==w2) {
+				 tempListDif.push(val)
+				// return
+				
+			};
+
+		})
+		tempList=tempListDif;
+		console.log("tempList : After w1 ",tempList);
+	}
+
+}
+
 
 $("#private_trip").click(function(){
 	console.log("privateTrip")
@@ -2006,7 +2070,8 @@ function signinCallback(authResult) {
 			$('#chars').html(clickedCharachters[0]+" + "+clickedCharachters[1]);
 		};
 		$('#resultTrip ul').empty();
-		var ul = $('.displayTrip');
+		var ulR = $('.displayTripRight');
+		var ulL = $('.displayTripLeft')
 		trip=data;
 		$.each(data,function(index,val){
 			var li = $('<li>');
@@ -2066,7 +2131,11 @@ function signinCallback(authResult) {
 				li.append(imgF);
 				li.append(imgS);
 			}
-			ul.append(li);
+			if(index % 2 ==0){
+				ulR.append(li);
+			}else{
+				ulL.append(li);
+			}
 		});
 favoriteFlagList=0;
 accountCounter=0;
