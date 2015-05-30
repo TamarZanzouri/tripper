@@ -375,23 +375,31 @@ function checkTheList(){
 	var tempFil=1;
 	console.log(w1);
 	console.log(w2);
-	$.each(tripsAfterCharachters,function(index,value){
-		$.each(filter,function(i,val){
-			if (value.trip_filter.indexOf(val)==-1) {
-				// tempList.push(value)
-				// return
-				tempFil=0;
+	if (filter.length === 0) {
+		console.log(filter," empty ")
+		tempList = tripsAfterCharachters;
+	}else{
+		$.each(tripsAfterCharachters,function(index,value){
+			$.each(filter,function(i,val){
 				debugger
-				;
-			};
-		})
-		if (tempFil==1) {
-			tempList.push(value);
+				if (value.trip_filter.indexOf(val)==-1) {
+					// tempList.push(value)
+					// return
+
+					tempFil=0;
+					
+					
+				};
+			})
+			if (tempFil==1) {
+				tempList.push(value);
+				
+			}
 			tempFil=1;
-		}
-	});
+		});
+	}
 	if(w1 ==""){
-		console.log("tempList :",tempList);
+		console.log("no dificullty tempList :",tempList);
 	}else{
 		var tempListDif=[]
 		$.each(tempList,function(index,val){
@@ -408,7 +416,7 @@ function checkTheList(){
 
 
 	if (w2=="") {
-		console.log("tempList :",tempList);
+		console.log("no area tempList :",tempList);
 	}else{
 		var tempListDif=[]
 		$.each(tempList,function(index,val){
@@ -422,7 +430,8 @@ function checkTheList(){
 		tempList=tempListDif;
 		console.log("tempList : After w1 ",tempList);
 	}
-
+	g_ListTrip=tempList;	
+	displayListTrip(g_ListTrip);
 }
 
 
@@ -2069,7 +2078,8 @@ function signinCallback(authResult) {
 			$('#resultTitle').html('תוצאות חיפוש');
 			$('#chars').html(clickedCharachters[0]+" + "+clickedCharachters[1]);
 		};
-		$('#resultTrip ul').empty();
+		$('.displayTripRight').empty();
+		$('.displayTripLeft').empty();
 		var ulR = $('.displayTripRight');
 		var ulL = $('.displayTripLeft')
 		trip=data;
