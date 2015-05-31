@@ -235,7 +235,7 @@ text-align: right !important;
     font-size: 36px;
     padding: 0 6px 0 0;
 }
-.titelNameAccount{
+.titelNameSchedule{
       display: -webkit-box;
   font-weight: 600;
     font-size: 64px;
@@ -1144,7 +1144,7 @@ color:#ffffff;
   .displayTripRight{
       width: 100%;
   }
-  .titelNameAccount{
+  .titelNameSchedule{
     font-size: 48px;
   width: 100%;
 

@@ -43,6 +43,7 @@ var count=1;
 var tripCharacters = [];
 var shareScheduleWithFriends = [];
 var num =0;
+var TRIPPER_DATA=[];
 
 navigator.geolocation.getCurrentPosition(function(position) {
 		//Get Latitude From Geolocation API
@@ -60,7 +61,29 @@ navigator.geolocation.getCurrentPosition(function(position) {
 
 $(document).ready(function(){
 	
+	/******** get data ********/
+	 
+	$.ajax({
+		type: "get",
+    	url: g_domain+"getTripData",// where you wanna post
+    	dataType: "json",
+    	error: function(jqXHR, textStatus, errorMessage) {
+    		console.log(errorMessage)
+    	},
+    	success: function(data) {
+    	// console.log("update success to add to the favorite");
+	    	console.log(data)
+	    	TRIPPER_DATA=data;
+	    	// $.each(data, function(i, val){
+	    	// 	$.each(val, function(i, val){
+	    	// 		TRIPPER_DATA.push(val.name);
+	    	// 		// console.log(val.name)
 
+	    	// 	})
+	    	// });
+	    	// appendTripCharachters();
+    	}
+	}); 
 	$.ajax({
 		type: "get",
     	url: g_domain+"getTripCharachters",// where you wanna post
@@ -70,17 +93,18 @@ $(document).ready(function(){
     	},
     	success: function(data) {
     	// console.log("update success to add to the favorite");
-    	console.log(data)
-    	$.each(data, function(i, val){
-    		$.each(val.trip_charachters, function(i, val){
-    			tripCharacters.push(val.name);
-    			// console.log(val.name)
+	    	//console.log(data)
+	    	$.each(data, function(i, val){
+	    		$.each(val.trip_charachters, function(i, val){
+	    			tripCharacters.push(val.name);
+	    			// console.log(val.name)
 
-    		})
-    	});
-    	appendTripCharachters();
-    }
-});  
+	    		})
+	    	});
+	    	appendTripCharachters();
+    	}
+	}); 
+	/******* end get data *******/
     //  1.tel_aviv 2. north 3. south 
     var locations={}
 
@@ -387,8 +411,8 @@ $("#private_trip").click(function(){
 	console.log("privateTrip")
 		// $('#isPrivate').append('<label id="addUsers">הוסף משתמשים אליהם יפורסם הטיול:<br><textarea placeholder="example@gmail.com" type="text" id="shareEmail" name="shareEmail" >');
 		
-		$('#isPrivate').append('<label id="addUsers" style=" float:right";>שתף את פנינת הטבע עם חברייך:<br><input id="shareEmail"  name="email" type="email" required>');
-		$('#isPrivate').append('<a id="addUser" href="#"> הוסף עוד חבר<a>')
+		$('#isPrivate').append('<label id="addUsers" style=" float:right";>'+TRIPPER_DATA.shareThePearl+'<br><input id="shareEmail"  name="email" type="email" required>');
+		$('#isPrivate').append('<a id="addUser" href="#">'+TRIPPER_DATA.addOne+'<a>')
 		$('#isPrivate').append('<p id="usersList"><p>')
 	})
 
@@ -408,7 +432,7 @@ function initMap(l1,l2){
 	var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
 
 	google.maps.event.addListener(map, 'click', function (e) {
-		alert("המיקום נשמר");
+		alert(TRIPPER_DATA.alertLocation);
 		console.log("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng())
 		mapPoint.lat=e.latLng.lat();
 		mapPoint.lng=e.latLng.lng();
@@ -727,7 +751,7 @@ function displayFullTrip(data){
 	// $('.Trip').append('<input id="imgUpload" type="file" accept="image/*" onchange="uploadImgFromTrip(this)" name="file" class="image_i"><img id="showImage" style="width:20%; margin-top:10px;"  src="" alt="image"/></div></form>');
 	// $('.Trip').append('</form>')
 	if(favoriteFlag==1){
-		$('.Trip').append("<a id='editFavorite'>ערוך טיול כרצונך</a> </br>");
+		$('.Trip').append("<a id='editFavorite'>"+TRIPPER_DATA.editTrip+"</a> </br>");
 		favoriteFlag=0;
 	}
 	$('.Trip').append("<h1>"+g_trip.trip_name+"</h1>");
@@ -737,7 +761,7 @@ function displayFullTrip(data){
 	$('.Trip').append(divImg);
 
 	var articleDes=$('<article>');
-	articleDes.append("<h4>תאור הטיול</h4>");
+	articleDes.append("<h4>"+TRIPPER_DATA.tripDescrition+"</h4>");
 	articleDes.append(g_trip.trip_description);
 	var aside = $('<aside>').addClass('asideFilter')
 	$.each(g_trip.trip_filter, function(i,v){
@@ -801,7 +825,7 @@ function displayFullTrip(data){
 	$('.Trip').append(ulImg);
 
 	var timeline = $('<div>');
-	var h2 = $('<h2>').html('אתרי הפלייליסט').addClass('sitesTitle');
+	var h2 = $('<h2>').html(TRIPPER_DATA.playlistSite).addClass('sitesTitle');
 	 // timeline.append(h2)
 	 timeline.attr({"id":"timeline"})
 	 var ulSites = $('<ul>');
@@ -855,14 +879,14 @@ function displayFullTrip(data){
 
 
 
-	 var h3= $('<h3>').html("לפלייליסט זה התפרסמו "+num+" תגובות");
+	 var h3= $('<h3>').html(TRIPPER_DATA.toThisPlaylist+num+TRIPPER_DATA.comments);
 	 var img = $('<img>').attr({"src":User.image,"id":"myImg"});
-	 var h4 = $('<h4>').html("הוסף תגובה חדשה").attr("id","titleComment");
+	 var h4 = $('<h4>').html(TRIPPER_DATA.addNewComment).attr("id","titleComment");
 
 
 	 var textarea = $('textarea').attr({"type":"text","name":"comment","id":"comment"}).css({"display":"none"})
 	// $('.Trip').append("<textarea type='text' name='comment' id='comment style'display:none'></textarea>");
-	var aSend= $('<a>').attr({"id":"submitComment"}).css({"display":"none"}).html("שלח")
+	var aSend= $('<a>').attr({"id":"submitComment"}).css({"display":"none"}).html(TRIPPER_DATA.send)
 	// $('.Trip').append("<a id='submitComment' style'display:none'>שלח תגובה</a> </br>");
 
 
@@ -1057,7 +1081,7 @@ function updateRate(value){
 		success : function(data) {
 			console.log("update success",data.status);
 			if (data.status==2) {
-				alert("כבר עשית לייק")
+				alert(TRIPPER_DATA.didLike)
 			}
 			
 		},
@@ -1265,7 +1289,7 @@ function removeImmSchedule(){
 $(document).on('click','#mySchedule',function(){
 	if(!User.email)
 	{
-		alert("רק משתמשים רשומים יכולים לצפות בעמוד זה")
+		alert(TRIPPER_DATA.alert);
 	}else{
 
 		$.ajax({
@@ -1305,8 +1329,12 @@ function displayListScheduleTrip(data){
 		$('#friendsemail').append("<div id='emailNum" + i + "'>" + val + "</div>");
 		$('#emailNum' + i).append("<button id='deleteMailFromSchedule'> &#10006 </button>");
 	})
-	$('.titelNameAccount').html('המסלול שלי')	
+	$('.titelNameSchedule').html(TRIPPER_DATA.titelNameSchedule);
 	// var divUser = $('<div>').addClass('userDetailes');
+	$('.divShareSchedule label').html(TRIPPER_DATA.divShareSchedule);
+
+	$('label[for="dpd1"]').text(TRIPPER_DATA.dpd1);
+	$('label[for="dpd2"]').text(TRIPPER_DATA.dpd2);
 	$('.userDetailes').empty();
 	if (User) {
 		// var divUser = $('<div>').addClass('userDetailes');
@@ -1340,7 +1368,7 @@ function displayListScheduleTrip(data){
 			ulSmall.append(liSmall)
 		});
 		li.append(ulSmall);
-		var aTrip =$('<a>').attr({"id":"remove_track","href":"#"}).addClass('remove_track').html("הסר מהמסלול שלי");
+		var aTrip =$('<a>').attr({"id":"remove_track","href":"#"}).addClass('remove_track').html(TRIPPER_DATA.remove_track);
 		li.append(aTrip);
 		ul.append(li);
 	});
@@ -1406,9 +1434,9 @@ num = 0
 	
 
 
-	var h3= $('<h3>').html("שוחח עם חבריך לפלייליסט ");
+	var h3= $('<h3>').html(TRIPPER_DATA.chatWithFriend);
 	var img = $('<img>').attr({"src":User.image,"id":"myImg"});
-	var h4 = $('<h4>').html("הוסף תגובה חדשה").attr("id","titleComment");
+	var h4 = $('<h4>').html(TRIPPER_DATA.addNewComment).attr("id","titleComment");
 
 	
 	var textarea = $('textarea').attr({"type":"text","name":"chat","id":"chat"}).css({"display":"none"})
@@ -1575,7 +1603,7 @@ function updateSharedTrip(){
 $(document).on('click','#moveToFavorite',function(){
 	if(!User.email)
 	{
-		alert("רק משתמשים רשומים יכולים לצפות בעמוד זה")
+		alert(TRIPPER_DATA.alert)
 	}else{
 
 		$.ajax({
@@ -1915,7 +1943,8 @@ $(document).on('click','#home',function(){
 });
 function appendTripCharachters(){
 	$("#groupButton").empty();
-	$("#groupButton").append('<h2>חפש לי מסלול...</h2>')
+	var h2Road=$("<h2>").html(TRIPPER_DATA.homePage);
+	$("#groupButton").append(h2Road)
 	var h2 = $('<h2>').attr("id","genres");
 	$("#groupButton").append(h2);
 	$.each(tripCharacters, function(i, val){
@@ -2002,19 +2031,40 @@ function signinCallback(authResult) {
 			$('.userDetailes').append(imgUser)
 			$('.userDetailes').append(spanUser)
 		}
+		/**** data to result page *****/
+			$('#who_are_you_going_with div button').html(TRIPPER_DATA.who_are_you_going_with);
+			$('label[for="trip_with_animals"]').text(TRIPPER_DATA.trip_with_animals);
+			$('label[for="trip_with_road"]').text(TRIPPER_DATA.trip_with_road);
+			$('label[for="trip_for_children"]').text(TRIPPER_DATA.trip_for_children);
+			
+			$('#trip_kind div button').html(TRIPPER_DATA.trip_kind);
+			$('label[for="trip_with_watter"]').text(TRIPPER_DATA.trip_with_watter);
+			$('label[for="trip_with_bicycle"]').text(TRIPPER_DATA.trip_with_bicycle);
+			$('label[for="trip_with_jeep"]').text(TRIPPER_DATA.trip_with_jeep);
+			$('label[for="trip_for_day"]').text(TRIPPER_DATA.trip_for_day);
+			$('label[for="trip_for_night"]').text(TRIPPER_DATA.trip_for_night);
+			
+			// $('#dificullty button span').html(TRIPPER_DATA.dificullty);
+			// $('#light_trip a').html(TRIPPER_DATA.light_trip);
+			// $('#medium_trip a').html(TRIPPER_DATA.medium_trip);
+			// $('#hard_trip a').html(TRIPPER_DATA.hard_trip);
+			
+			// $('#area button span').html(TRIPPER_DATA.area);
+			
+
+		/****end data to result page *****/
 		if(window.location.hash=='#viewFavorite')
 		{
-			console.log('accountPage');
 			favoriteFlagList=1;
+			$('#resultTitleFavorite').html(TRIPPER_DATA.resultTitleFavorite)
 		}
 		if(window.location.hash=='#accountPage')
 		{
-			console.log('accountPage');
 			accountCounter=1;
 		}
 		console.log(accountCounter)
 		if (accountCounter==0){
-			$('#resultTitle').html('תוצאות חיפוש');
+			$('#resultTitle').html(TRIPPER_DATA.resultTitle);
 			$('#chars').html(clickedCharachters[0]+" + "+clickedCharachters[1]);
 		};
 		$('.displayTripRight').empty();
@@ -2099,7 +2149,7 @@ $(document).on('click','#showTrips',function(){
 	moveToAccountPage();
 	if(!User.email)
 	{
-		alert("רק משתמשים רשומים יכולים לצפות בעמוד זה")
+		alert(TRIPPER_DATA.alert);
 	}else{
 		$('#userName').html(User.name);
 		$('#userImg').attr({"src":User.image,"width":100,"height":100});

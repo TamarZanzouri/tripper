@@ -61,8 +61,7 @@
 			<div class="userDetailes"></div>
 			<!-- application data will goes here -->
 			<div id="groupButton">
-				<h2>חפש לי מסלול...</h2>
-				<h2 id="genres"></h2>
+				<!-- <h2 id="genres"></h2> -->
 			</div>	
 			
 			<section>
@@ -104,23 +103,23 @@
 				<ul id="filtermenu">
 					<li id="who_are_you_going_with">
 						<div class="btn-group filter">
-							<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">עם מי הולכים לטייל <span class="caret"></span></button>
+							<button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span class="caret"></span></button>
 							<ul class="dropdown-menu noclose">
-								<li><label for="trip_with_animals">בע"ח</label><input type="checkbox" id="trip_with_animals" name="who_are_you_going_with[]" value="trip_with_animals"></li>
-								<li><label for="trip_with_road">מסלול סלול</label><input type="checkbox" id="trip_with_road" name="who_are_you_going_with[]" value="trip_with_road"></li>
-								<li><label for="trip_for_children">מותאם לילדים</label><input type="checkbox" id="trip_for_children" name="who_are_you_going_with[]" value="trip_for_children"></li>
+								<li><label for="trip_with_animals"></label><input type="checkbox" id="trip_with_animals" name="who_are_you_going_with[]" value="trip_with_animals"></li>
+								<li><label for="trip_with_road"></label><input type="checkbox" id="trip_with_road" name="who_are_you_going_with[]" value="trip_with_road"></li>
+								<li><label for="trip_for_children"></label><input type="checkbox" id="trip_for_children" name="who_are_you_going_with[]" value="trip_for_children"></li>
 							</ul>
 						</div>
 					</li>
 					<li id="trip_kind">
 						<div class="btn-group filter">
-							<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">סוג טיול <span class="caret"></span></button>
+							<button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span class="caret"></span></button>
 							<ul class="dropdown-menu">
-								<li><label for="trip_with_watter">טיול עם מקורות מים</label><input type="checkbox" id="trip_with_watter" name="trip_kind[]" value="trip_with_watter"></li>
-								<li><label for="trip_with_bicycle">טיול עם אופניים</label><input type="checkbox" id="trip_with_bicycle" name="trip_kind[]" value="trip_with_bicycle"></li>
-								<li><label for="trip_with_jeep">טיול ג'יפים</label><input type="checkbox" id="trip_with_jeep" name="trip_kind[]" value="trip_with_jeep"></li>
-								<li><label for="trip_for_day">טיול יומי</label><input type="checkbox" id="trip_for_day" name="trip_kind[]" value="trip_for_day"></li>
-								<li><label for="trip_for_night">טיול ליילי</label><input type="checkbox" id="trip_for_night" name="trip_kind[]" value="trip_for_night"></li>	
+								<li><label for="trip_with_watter"></label><input type="checkbox" id="trip_with_watter" name="trip_kind[]" value="trip_with_watter"></li>
+								<li><label for="trip_with_bicycle"></label><input type="checkbox" id="trip_with_bicycle" name="trip_kind[]" value="trip_with_bicycle"></li>
+								<li><label for="trip_with_jeep"></label><input type="checkbox" id="trip_with_jeep" name="trip_kind[]" value="trip_with_jeep"></li>
+								<li><label for="trip_for_day"></label><input type="checkbox" id="trip_for_day" name="trip_kind[]" value="trip_for_day"></li>
+								<li><label for="trip_for_night"></label><input type="checkbox" id="trip_for_night" name="trip_kind[]" value="trip_for_night"></li>	
 							</ul>
 						</div>
 					</li>
@@ -230,7 +229,7 @@
 				</ul>
 			</header>
 			<div data-role="content" class="ui-content" id="content">
-				<h1 id="resultTitleFavorite">המועדפים שלי</h1>
+				<h1 id="resultTitleFavorite"></h1>
 				<div class="userDetailes"></div>
 				<section id="resultTrip">
 						<!-- <div id="addingToSchedule" data-role="popup">
@@ -412,23 +411,23 @@
 					</ul>
 				</header>
 				<div data-role="content" class="ui-content" id="content">
-					<h1 class="titelNameAccount"></h1>
+					<h1 class="titelNameSchedule"></h1>
 					<div class="userDetailes"></div>
 					<div class="well">
 						<div class="row">
 							<div class="col-xs-6">
-								<label class="control-label" for="dpd2">תאריך חזרה: </label>
+								<label class="control-label" for="dpd2"></label>
 								<input class="form-control" type="text" id="dpd2" />
 							</div>
 							<div class="col-xs-6">
-								<label class="control-label" for="dpd1">תאריך יציאה: </label>
+								<label class="control-label" for="dpd1"></label>
 								<input class="form-control" type="text" id="dpd1" />
 							</div>
 						</div>
 					</div>
 					<input type="button" id="updateFriendsWithChanges" value="עדכן">
 					<div class="divShareSchedule">
-						<label>ארגן טיול עם חברייך:</label>
+						<label></label>
 						<input id="shareSchedule"  name="email" type="email">
 					</div>
 					<input type="button" id="addFriendToSchedule" value="שלח הזמנה">
