@@ -10,7 +10,7 @@ router.post('/registerUser', function(req, res) {
 	catch(err){
 		console.log("failed to get body " + err);
 	}
-	console.log("try to update " , user.name);
+	console.log("try to update " , user);
 
 	db.model('users').findOne({ email : user.email }, function(err, result){
 		if(err){
@@ -26,8 +26,9 @@ router.post('/registerUser', function(req, res) {
 					console.log("error inserting email: " + user.email);
 					return console.error(err)
 				}
-			})
-			res.json({status:1,res:result})
+				res.json({status:1,res:result})
+			});
+			
 		}
 		else{
 			db.model('users').findOneAndUpdate( { email : user.email }, user, { upsert : false },

@@ -1,6 +1,6 @@
 User={};
 
-g_domain="http://shenkartripper.herokuapp.com/";//"http://127.0.0.1:1337/";//
+g_domain="http://localhost:1337/";//"http://shenkartripper.herokuapp.com/";//
 
 //hashtable for variables in english
 var hashtable = {};
@@ -1976,7 +1976,7 @@ function signinCallback(authResult) {
 
 				console.log(resp);
 				User.name=decodeURI(resp.displayName);
-				User.email=resp.emails[0].value
+				User.email= (resp.emails) ?resp.emails[0].value : resp.id
 				User.image = resp.image.url;
 
 				// (resp.emails)? resp.emails[0].value : "zanzouritamar@gmail.com";
