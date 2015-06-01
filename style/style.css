@@ -623,13 +623,14 @@ body, input, select, textarea, button, .ui-btn{
   font-size: 20px;
 }
 .Trip>article{
+  max-height: 6em;
   font-size: 20px;
     float: right;
   direction: rtl;
   padding: 5px 6px 6px 5px;
   line-height: 25px;
   font-family: 'Alef';
-    height: 248px;
+    /*height: 248px;*/
   width: 48%;
   position: relative;
     margin: 0px 0 10px 0;
