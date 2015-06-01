@@ -1,0 +1,126 @@
+<div data-role="page" id="addTripPage" data-cache="false" data-dom-cache="false">
+	<header data-role="header" data-position="fixed" data-tap-toggle="false">  
+		<a id="headerlogo" href="#home"><img id="logo" src="images/logo.png"></a>
+		<a href="#nav-panel" id="menubtn" data-role="button"></a>  
+		<ul class="nav nav-pills">
+			<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
+			<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
+			<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
+			<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
+			<li id="#" class="ui-btn-active" ><a href="#addTripPage" onclick="moveToAddTrip()"><img src="images/add.png"><span>הוספת טיול</span></a></li>
+		</ul>
+	</header>
+
+	<section id="addTripSec">
+
+		<form action="#" method="post" id="addform" data-cache="false" data-dom-cache="false">
+
+			<label>שם הטיול<br>
+				<input type="text" name="nameTrip" id="trip_name" >
+			</label><br>
+			<label>תאור הטיול<br>
+				<textarea type="text" name="des" id="description"></textarea>
+			</label><br>
+
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup" data-type="horizontal" data-role="fieldcontain">
+					<legend>אזור הטיול:</legend>
+					<input type="radio" name="area" id="radio-choice-1" value="tel_aviv" checked="checked" />
+					<label for="radio-choice-1" id="radio-choice-1L">אזור המרכז</label>
+
+					<input type="radio" name="area" id="radio-choice-2" value="south"  />
+					<label for="radio-choice-2" id="radio-choice-2L">אזור הדרום</label>
+
+					<input type="radio" name="area" id="radio-choice-3" value="north"  />
+					<label for="radio-choice-3" id="radio-choice-3L">אזור הצפון</label>
+
+				</fieldset>
+			</div>	
+			<br>
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup" data-type="horizontal">
+					<legend>בחר את ג'אנר הפלייליסט שלך</legend>
+
+					<label for="firstcharachter">בחר ג'אנר</label>
+					<select name="firstcharachter" id="firstcharachter">
+						<option>בחר ג'אנר</option>
+					</select>
+
+					<label for="secondcharachter">בחר ג'אנר נוסף</label>
+					<select name="secondcharachter" id="secondcharachter">
+						<option>בחר ג'אנר נוסף</option>
+					</select>
+				</fieldset>
+			</div>
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup" data-type="horizontal" class="who_are_you_going_with">
+					<legend>עם מי הולכים לטייל?</legend>
+					<label for="trip_with_animals"  id="trip_with_animals">בע"ח</label>
+					<input type="checkbox" name="who_are_you_going_with[]" value="trip_with_animals" id="trip_with_animals" class="custom" />
+					<label for="trip_with_road"  id="trip_with_roadL">מסלול סלול לאנשים עם מוגבליות או עגלות לתינוקות</label>
+					<input type="checkbox" name="who_are_you_going_with[]" value="trip_with_road" id="trip_with_road" class="custom" />
+					<label for="trip_for_children" id="trip_for_childrenL">מותאם לילדים</label>
+					<input type="checkbox" name="who_are_you_going_with[]" value="trip_for_children"  id="trip_for_children" class="custom" />
+				</fieldset>
+			</div>
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup" class="trip_kind" data-type="horizontal">
+					<legend>סוג טיול</legend>
+					<input type="checkbox" name="trip_kind[]" value="trip_with_watter" id="trip_with_watter" class="custom" />
+					<label for="trip_with_watter">טיול עם מקורות מים</label>
+					<input type="checkbox" name="trip_kind[]" value="trip_for_night" id="trip_for_night" class="custom" />
+					<label for="trip_for_night">טיול עם לילה</label>
+					<input type="checkbox" name="trip_kind[]" value="trip_for_day" id="trip_for_day" class="custom" />
+					<label for="trip_for_day">טיול יומי</label>
+					<input type="checkbox" name="trip_kind[]" value="trip_with_bicycle" id="trip_with_bicycle" class="custom" />
+					<label for="trip_with_bicycle">טיול עם אופניים</label>
+					<input type="checkbox" name="trip_kind[]" value="trip_with_jeep" id="trip_with_jeep" class="custom" />
+					<label for="trip_with_jeep">טיול ג'יפים</label>
+				</fieldset>
+			</div>
+			<div data-role="fieldcontain">
+				<fieldset data-role="controlgroup" class="difficulty" data-type="horizontal" data-role="fieldcontain">
+					<legend>בחר רמת קושי</legend>
+					<input type="radio" name="difficulty" id="light_trip" value="light_trip" checked="checked" />
+					<label for="light_trip" id="light_tripL">קל</label>
+
+					<input type="radio" name="difficulty" id="medium_trip" value="medium_trip"  />
+					<label for="medium_trip" id="medium_tripL">בינוני</label>
+
+					<input type="radio" name="difficulty" id="hard_trip" value="hard_trip"  />
+					<label for="hard_trip" id="hard_tripL">קשה</label>
+				</fieldset>
+			</div>	
+			<div data-role="fieldcontain" id="isPrivate">
+				<fieldset data-role="controlgroup" id="isTripPrivate" data-type="horizontal" data-role="fieldcontain">
+					<input type="radio" name="isTripPrivate" id="public_trip" value="false" checked="checked" />
+					<label for="public_trip">טיול פומבי</label>
+
+					<input type="radio" name="isTripPrivate" id="private_trip" value="true"  />
+					<label for="private_trip">טיול פרטי</label>
+				</fieldset>
+			</div>	
+			<label for="ingredients"> <span class="testRight" id="ingredientsT">אתרי תיירות</span>
+				<span class="formField">
+					<div class="ingredients_wrap">
+
+						<div style="text-align: center;margin: auto;position: relative;align-content: center;">
+							<input type="text" name="ingredients[]" placeholder="אתר" class="firstIngredient ingredients_i" id="firstIngredient" >
+							<input id="imgUpload" type="file" accept="image/*"  onchange="showMyImage(this,'')" name="file" class="image_i" />
+							<br/>
+							<img id="thumbnil" style="width:20%; margin-top:10px;"  src="" alt="image"/>
+						</div>
+					</div> 
+				</span> 
+			</label>
+			<br>
+			<label>בחר מיקום</label>
+			<div id="dvMap" style="width: 500px; height: 500px"></div>
+
+
+			<input type="hidden" name="commodities" id="commodities" value=""/>
+			<input type="submit" data-theme="b" name="submit" value="שלח" class="ui-btn-hidden" aria-disabled="false" id="submitForm" />
+
+		</form>
+	</section>
+</div>

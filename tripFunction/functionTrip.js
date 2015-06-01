@@ -1,7 +1,6 @@
 User={};
 
-g_domain="http://127.0.0.1:1337/";
-//"http://shenkartripper.herokuapp.com/";
+g_domain="http://localhost:1337/";//"http://shenkartripper.herokuapp.com/";//
 
 
 //hashtable for variables in english
@@ -758,8 +757,17 @@ function displayFullTrip(data){
 	}
 	$('.Trip').append("<h1>"+g_trip.trip_name+"</h1>");
 	$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li class='plus'> + </li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
-	var divImg = $('<div>');
-	divImg.attr("id","tripImg").css("background-image","url("+g_trip.tripSites[0].img+")")
+	var divImg = $('<div>').addClass('fotorama');
+	$.each(g_trip.tripSites, function(index,val){
+		var imgFotorama = $('<img>').attr("src",val.img);
+		divImg.append(imgFotorama);
+	})
+	// var imgFotorama = $('<img>').attr("src",g_trip.tripSites[0].img);
+	// var imgFotorama = $('<img>').attr("src",);
+	
+	// divImg.append(imgFotorama);
+
+	// divImg.attr("id","tripImg").css("background-image","url("+g_trip.tripSites[0].img+")")
 	$('.Trip').append(divImg);
 
 	var articleDes=$('<article>');
@@ -988,6 +996,7 @@ function updateFavoritesFromFavoritesList(isFavorite, tripId){
     },
     success: function(data) {
     	g_trip=data;
+    	var tempTrip=data;
     	console.log(g_trip.tripSites)
     	$.ajax({
     		type: "post",
@@ -1007,6 +1016,15 @@ function updateFavoritesFromFavoritesList(isFavorite, tripId){
 
         },
         success: function(data) {
+        	if(isFavorite==true){
+        		User.favorites.push(tempTrip)
+        	}else{
+        		var index = User.favorites.map(function(val){
+        			return val['_id']
+        		}).indexOf(tempTrip._id);
+        		User.favorites.splice(index,1)
+        		
+        	}
         	removeImmediately();
         }
     });
@@ -1273,6 +1291,12 @@ function updateScheduleFromList (bool, tripId){
     	},
     	success: function(data) {
     		console.log("removed from schedule")
+        		var index = User.schedule.map(function(val){
+        			return val['_id']
+        		}).indexOf(tripId);
+        		User.schedule.splice(index,1);
+        		
+        	
 		    removeImmSchedule();
 
     	}
@@ -1321,8 +1345,10 @@ function displayListScheduleTrip(data){
 	$('#friendsemail').empty()
 	g_ListTrip=data;
 	shareScheduleWithFriends = User.tripPatners;
+	if (User.tripScheduleTime.checkInTime && User.tripScheduleTime.checkOutTime) {
 	$('#dpd1').val(User.tripScheduleTime.checkInTime.substring(0, User.tripScheduleTime.checkInTime.length-14));
 	$('#dpd2').val(User.tripScheduleTime.checkOutTime.substring(0, User.tripScheduleTime.checkOutTime.length-14));
+	}
 	// for (i in data) {
 	// 	var tripResult = '<li id='+data[i]._id+' class="listScheduleTrip trip" ><span class="titelName">' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
 	// 	$('#resultTrip .displayTrip').append(tripResult);
@@ -1840,7 +1866,7 @@ if(temp==""){
 	form.append("shareEmail",temp_arr);
 }
 console.log(form)
-moveToHomePage();	
+	
 $.ajax({
 	type: "post",
         url: g_domain+"add",// where you wanna post
@@ -1859,6 +1885,7 @@ $.ajax({
         	edit=false;
         } 
     });
+moveToHomePage();
 return true;
 })
 
