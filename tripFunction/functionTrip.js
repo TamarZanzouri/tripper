@@ -133,15 +133,15 @@ $(document).ready(function(){
     initDatepicker();
 
 
-        $('#info').readmore({
-      moreLink: '<a href="#">Usage, examples, and options</a>',
-      collapsedHeight: 384,
-      afterToggle: function(trigger, element, expanded) {
-        if(! expanded) { // The "Close" link was clicked
-          $('html, body').animate({scrollTop: $(element).offset().top}, {duration: 100});
-        }
-      }
-    });
+    //     $('#info').readmore({
+    //   moreLink: '<a href="#">Usage, examples, and options</a>',
+    //   collapsedHeight: 384,
+    //   afterToggle: function(trigger, element, expanded) {
+    //     if(! expanded) { // The "Close" link was clicked
+    //       $('html, body').animate({scrollTop: $(element).offset().top}, {duration: 100});
+    //     }
+    //   }
+    // });
 
    
 
@@ -764,7 +764,8 @@ function displayFullTrip(data){
 
 	var articleDes=$('<article>');
 	articleDes.append("<h4>"+TRIPPER_DATA.tripDescrition+"</h4>");
-	articleDes.append(g_trip.trip_description);
+	articleDes.append("<p>" + g_trip.trip_description + "</p>");
+	articleDes.append("<a href='#'>קרא עוד</a>")
 	var aside = $('<aside>').addClass('asideFilter')
 	$.each(g_trip.trip_filter, function(i,v){
 		aside.append(hashtable[v])
@@ -1462,10 +1463,11 @@ num = 0
 		$('#chat').show();
 		$('#chatComment').show();
 	});
-    $('article').readmore({
-	  speed: 75,
-	  lessLink: '<a href="#">Read less</a>'
-	});
+
+ //    $('article > p').readmore({
+	//   speed: 75,
+	//   lessLink: '<a href="#">Read less</a>'
+	// });
 // 	    $('article').readmore({
 // 	  afterToggle: function(trigger, element, expanded) {
 // 	    if(! expanded) { // The "Close" link was clicked
@@ -1474,6 +1476,32 @@ num = 0
 // 	  }
 // 	});
  }
+
+$(document).on('click', '.Trip > article > a', function(){
+	if($('.Trip > article > p').hasClass("open-desc")){
+		$('.Trip > article > p').css("max-height", "6em").hide().slideUp("slow", function(){
+			$(this).removeClass("open-desc");
+			$('.Trip > article > p').css({
+			"display" : "block",
+			'max-height' : '6em',
+			'position' : 'relative'
+			});
+		});
+
+	}
+	else{
+		$('.Trip > article > p').slideDown("slow", function(){
+		$(this).addClass("open-desc");
+			$('.Trip > article > p').css({
+			"display" : "block",
+			'max-height' : '100%',
+			'position' : 'relative'
+			});
+	});
+	}
+
+
+});
 
 $(document).on('click', '#deleteMailFromSchedule', function(){
 	console.log("clicked on " + $(this).parent().text());

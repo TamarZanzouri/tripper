@@ -623,7 +623,6 @@ body, input, select, textarea, button, .ui-btn{
   font-size: 20px;
 }
 .Trip>article{
-  max-height: 6em;
   font-size: 20px;
     float: right;
   direction: rtl;
@@ -635,15 +634,22 @@ body, input, select, textarea, button, .ui-btn{
   position: relative;
     margin: 0px 0 10px 0;
 }
+
+.Trip > article > p {
+  max-height: 6em;
+  overflow: hidden;
+}
+
 .asideFilter{
     height: 40px;
   float: right;
-    height: 40px;
+    height: 57px;
   float: right;
   background-color: #22AF87 !important;
   color: #ffffff;
   padding: 3px 6px 0 8px;
   font-size: 18px;
+  width: 43%;
 }
 article> h4 {
     font-size: 30px;
