@@ -2,6 +2,7 @@ User={};
 
 g_domain="http://localhost:1337/";//"http://shenkartripper.herokuapp.com/";//
 
+
 //hashtable for variables in english
 var hashtable = {};
 hashtable.trip_with_animals = "טיול עם בע\"ח";
