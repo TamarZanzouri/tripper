@@ -48,11 +48,6 @@ mongoose.connect(mongopath,options);
 db = mongoose.connection;
 
 
-var usersWS = require('./users_ws'); 
-app.use(usersWS); 
-var tripsWS = require('./trips_ws'); 
-app.use(tripsWS); 
-
 db.on('error', console.error.bind(console, 'connection error:'));
 
 db.on('open', function () {
