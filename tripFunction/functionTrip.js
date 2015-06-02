@@ -1491,8 +1491,14 @@ num = 0
 // 	  }
 // 	});
  }
-
-$(document).on('click', '.divArt > article > a', function(){
+  $( window ).hashchange(function() {
+    var hash = location.hash;
+    console.log(hash)
+    if (hash=="") {
+    	appendTripCharachters();
+    };
+});
+  $(document).on('click', '.divArt > article > a', function(){
 	if($('.divArt > article > p').hasClass("open-desc")){
 		$('.divArt > article > p').css("max-height", "6em").hide().slideUp("slow", function(){
 			$(this).removeClass("open-desc");
