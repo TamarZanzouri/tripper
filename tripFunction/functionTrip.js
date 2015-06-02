@@ -757,17 +757,12 @@ function displayFullTrip(data){
 	}
 	$('.Trip').append("<h1>"+g_trip.trip_name+"</h1>");
 	$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li class='plus'> + </li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
-	var divImg = $('<div>').addClass('fotorama');
+	var divImg = $('<div>');
 	$.each(g_trip.tripSites, function(index,val){
 		var imgFotorama = $('<img>').attr("src",val.img);
 		divImg.append(imgFotorama);
 	})
-	// var imgFotorama = $('<img>').attr("src",g_trip.tripSites[0].img);
-	// var imgFotorama = $('<img>').attr("src",);
-	
-	// divImg.append(imgFotorama);
 
-	// divImg.attr("id","tripImg").css("background-image","url("+g_trip.tripSites[0].img+")")
 	$('.Trip').append(divImg);
 
 	var articleDes=$('<article>');
@@ -1682,102 +1677,6 @@ $(document).on('click','#moveToFavorite',function(){
 	}
 });
 
-
-function updateAreaAfterFilter(){
-	// debugger;
-	var tripsAfterArea = [];
-	if($('#selectArea').val() === ""){
-		displayListTrip(g_ListTrip);	
-	}
-	else{
-		$('#resultTrip ul').empty();
-		for(i in g_ListTrip){
-			// debugger;
-			if($('#selectArea').val() === g_ListTrip[i].area){
-				tripsAfterArea.push(g_ListTrip[i]);	
-			}
-		}
-		g_ListTrip = tripsAfterArea;
-		displayListTrip(g_ListTrip);	
-	}
-}
-
-
-function updateAreaBeforeFilter(){
-	// debugger;
-	var tripsAfterArea = [];
-	if($('#selectArea').val() === ""){
-		displayListTrip(tripsAfterCharachters);	
-	}
-	else{
-		$('#resultTrip ul').empty();
-		for(i in tripsAfterCharachters){
-			// debugger;
-			if($('#selectArea').val() === tripsAfterCharachters[i].area){
-				tripsAfterArea.push(tripsAfterCharachters[i]);	
-			}
-		}
-		g_ListTrip = tripsAfterArea;
-		updateResultByFilterAfterArea()
-		// displayListTrip(g_ListTrip);	
-	}
-}
-
-function updateResultByFilterBeforeArea(){
-
-	var tripsAfterFilter = [];
-	var donsentContainFlag = false;
-
-	$.each(tripsAfterCharachters, function(index,trip){
-		$.each(filter, function(index,val){
-
-			if(!(_.contains(trip.trip_filter, val))){								
-				donsentContainFlag = true;
-				return;
-			}
-
-		})
-
-		if(!donsentContainFlag)
-		{
-			tripsAfterFilter.push(trip);
-		}
-		donsentContainFlag = false;
-	})
-	console.log(tripsAfterFilter);
-	g_ListTrip = tripsAfterFilter;
-	updateAreaAfterFilter();
-	// displayListTrip(g_ListTrip);
-
-}
-
-function updateResultByFilterAfterArea(){
-
-	var tripsAfterFilter = [];
-	var donsentContainFlag = false;
-	if(filter.length>0){
-		$.each(g_trip, function(index,trip){
-			$.each(filter, function(index,val){
-
-				if(!(_.contains(trip.trip_filter, val))){								
-					donsentContainFlag = true;
-					return;
-				}
-
-			})
-
-			if(!donsentContainFlag)
-			{
-				tripsAfterFilter.push(trip);
-			}
-			donsentContainFlag = false;
-		})
-		console.log(tripsAfterFilter);
-		g_ListTrip = tripsAfterFilter;
-	// updateAreaBeforeFilter();
-}
-displayListTrip(g_ListTrip);
-}
 
 $(document).on('click','.btnChar', function(e){
 
