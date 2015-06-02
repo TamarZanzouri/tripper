@@ -1003,10 +1003,19 @@ color:#ffffff;
   float: right;
 }
 @media(max-width: 500px){
- 
+  .locH5{
+    float: right;
+    width: 100%;
+  }
+  #ulTimeLine>li>img{
+    max-height: 50px;
+  }
   .divArt{
       width: 100%;
   } 
+  .smallUL{
+    float: right;
+  }
   #updateFriendsWithChanges{
       top: 0;
   float: left;
@@ -1014,8 +1023,19 @@ color:#ffffff;
   #filtermenu{
     display: none;
   }
+  .topImgStarList {
+    float: right;
+  }
+  .topImgScheduleList{
+    float: right;
+  }
   .titelName{
       float: right;
+      width: 100%;
+  }
+  .titelNameFavorite{
+      float: right;
+      width: 100%;
   }
   .divShareSchedule{
       top: 30px;
@@ -1155,7 +1175,6 @@ color:#ffffff;
  
   #sectionComment{
       position: relative;
-  bottom: 50px;
   }
   #submitComment{
       right: 168px;
