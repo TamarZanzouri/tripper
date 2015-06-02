@@ -543,24 +543,6 @@ function checkIfInArray(filterToCheck){
 	// $('.nav li').click(function(){
 		
 	// });
-// function myLocation() {
-// 	//If HTML5 Geolocation Is Supported In This Browser
-// 	if (navigator.geolocation) {
-// 		//Use HTML5 Geolocation API To Get Current Position
-// 		navigator.geolocation.getCurrentPosition(function(position) {
-// 			//Get Latitude From Geolocation API
-// 			 point1.lat = position.coords.latitude;
-// 			//Get Longitude From Geolocation API
-// 			console.log(point1.lat);
-// 			 point1.lng= position.coords.longitude;
-// 			console.log(point1.lng);
-// 			//Define New Google Map With Lat / Lon
-// 		});
-// 	} else {
-// 		//Otherwise - Gracefully Fall Back If Not Supported... Probably Best Not To Use A JS Alert Though :)
-// 		alert("Geolocation API is not supported in your browser.");
-// 	}
-// }
 
 function distance(lat1,lon1,lat2,lon2) {
 	var R = 6371; // km (change this constant to get miles)
@@ -774,7 +756,7 @@ function displayFullTrip(data){
 
 	// divImg.attr("id","tripImg").css("background-image","url("+g_trip.tripSites[0].img+")")
 	$('.Trip').append(divImg);
-
+	var divArt =$('<div>').addClass('divArt');
 	var articleDes=$('<article>');
 	articleDes.append("<h4>"+TRIPPER_DATA.tripDescrition+"</h4>");
 	articleDes.append("<p>" + g_trip.trip_description + "</p>");
@@ -785,8 +767,9 @@ function displayFullTrip(data){
 		aside.append(' | ')
 	});
 
-	$('.Trip').append(articleDes);
-	$('.Trip').append(aside);
+	divArt.append(articleDes);
+	divArt.append(aside);
+	$('.Trip').append(divArt)
 
 	var ulImg =$ ('<ul>').addClass('ulImages');
 	var liImgF= $('<li>')
@@ -866,9 +849,9 @@ function displayFullTrip(data){
 
 		 $('#ulTimeLine li').hover(function(){
 		 	console.log("hover");
-		 	$(this).css({"top":"0px","border":"1px solid #000000","padding":"12px","background-color":"#ffffff","border-radius":"30px"});
+		 	$(this).css({"top":"0px","border":"1px solid #000000","padding":"12px","background-color":"#ffffff","border-radius":"30px","max-width":"250px"});
 		 	meSpan = $(this).children('span');
-		 	meSpan.css({"font-size":"35px"});
+		 	meSpan.css({"font-size":"20px"});
 		 	meImg = $(this).children('img');
 		 	meImg.attr({"width":125,"height":125}).css({"border-radius":"0px","width":"auto"});
 		 }
@@ -1425,7 +1408,7 @@ function displayListScheduleTrip(data){
 		console.log("hover");
 		$(this).css({"top":"-50px","border":"1px solid #000000","padding":"12px","background-color":"#ffffff","border-radius":"30px"});
 		meSpan = $(this).children('span');
-		meSpan.css({"font-size":"35px","float":"left","padding": "0px 10px 0 2px"});
+		meSpan.css({"font-size":"20px","float":"left","padding": "0px 10px 0 2px"});
 		meImg = $(this).children('img');
 		meImg.attr({"width":125,"height":125}).css({"border-radius":"0px","float":"right"});
 		//$(this).attr({"width":100,"height":100})
@@ -1514,9 +1497,9 @@ num = 0
 // 	});
  }
 
-$(document).on('click', '.Trip > article > a', function(){
-	if($('.Trip > article > p').hasClass("open-desc")){
-		$('.Trip > article > p').css("max-height", "6em").hide().slideUp("slow", function(){
+$(document).on('click', '.divArt > article > a', function(){
+	if($('.divArt > article > p').hasClass("open-desc")){
+		$('.divArt > article > p').css("max-height", "6em").hide().slideUp("slow", function(){
 			$(this).removeClass("open-desc");
 			$('.Trip > article > p').css({
 			"display" : "block",
@@ -1527,9 +1510,9 @@ $(document).on('click', '.Trip > article > a', function(){
 
 	}
 	else{
-		$('.Trip > article > p').slideDown("slow", function(){
+		$('.divArt > article > p').slideDown("slow", function(){
 		$(this).addClass("open-desc");
-			$('.Trip > article > p').css({
+			$('.divArt > article > p').css({
 			"display" : "block",
 			'max-height' : '100%',
 			'position' : 'relative'

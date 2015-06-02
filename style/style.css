@@ -552,6 +552,7 @@ body, input, select, textarea, button, .ui-btn{
   font-family: 'Alef';
   font-weight: 700;
   font-size: 64px;
+    width: 60%;
 }
 .Trip >ul{
   height: 100px;
@@ -569,7 +570,7 @@ body, input, select, textarea, button, .ui-btn{
 .Trip >article{
     float: right;
   width: 48%;
-  /* display: -webkit-inline-box; */
+   display: -webkit-inline-box; 
   position: relative;
   /*height: 200px;*/
     margin: 0px 0 10px 0;
@@ -625,7 +626,7 @@ body, input, select, textarea, button, .ui-btn{
   float: right;
   font-size: 20px;
 }
-.Trip>article{
+.divArt>article{
   font-size: 20px;
     float: right;
   direction: rtl;
@@ -633,12 +634,11 @@ body, input, select, textarea, button, .ui-btn{
   line-height: 25px;
   font-family: 'Alef';
     /*height: 248px;*/
-  width: 48%;
   position: relative;
     margin: 0px 0 10px 0;
 }
 
-.Trip > article > p {
+.divArt > article > p {
   max-height: 6em;
   overflow: hidden;
 }
@@ -646,13 +646,13 @@ body, input, select, textarea, button, .ui-btn{
 .asideFilter{
     height: 40px;
   float: right;
-    height: 57px;
+  height: 57px;
   float: right;
   background-color: #22AF87 !important;
   color: #ffffff;
   padding: 3px 6px 0 8px;
   font-size: 18px;
-  width: 43%;
+  width: 100%;
 }
 article> h4 {
     font-size: 30px;
@@ -704,7 +704,7 @@ article> h4 {
 
 
 #timeline{
-  width: 83%;
+ width:94%;
   height: 265px;
   overflow: hidden;
   margin: 107px auto;
@@ -732,6 +732,7 @@ list-style: none;
   position: relative;
   /* bottom: 20px*/
  top: 67px;
+ max-width:250px;
 }
 #ulTimeLine>li>span{
     font-size:20px;
@@ -982,6 +983,13 @@ margin: 0 7px 0 0px;
 .smallUL > li {
 
 }
+.divArt{  width: 47%;
+  float: right;
+}
+/*.divArt > article{
+  height: 235px;
+}
+*/
 .selectedChar{
 background-color: #22AF87 !important;
 color:#ffffff;
@@ -990,8 +998,15 @@ color:#ffffff;
 #sectionComment{
   float: right;
 }
+.fotorama{
+    width: 47%;
+  float: right;
+}
 @media(max-width: 500px){
-  
+ 
+  .divArt{
+      width: 100%;
+  } 
   #updateFriendsWithChanges{
       top: 0;
   float: left;
