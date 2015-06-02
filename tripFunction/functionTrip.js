@@ -1,6 +1,6 @@
 User={};
 
-g_domain="http://shenkartripper.herokuapp.com/";//"http://localhost:1337/";//
+g_domain="http://localhost:1337/";//"http://shenkartripper.herokuapp.com/";//
 
 
 //hashtable for variables in english
