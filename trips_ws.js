@@ -219,16 +219,17 @@ router.post('/filterByChars', function(req, res) {
 	try{
 		var charachters = req.body.chars;
 		var user = req.body.userId;
-		console.log("trip charachters " + charachters)
+		var numOfCharachters = req.body.numOfCharachters;
+		console.log("trip charachters " + charachters + "num of charachters" + numOfCharachters)
 	}
 	catch(err){
 		console.log("cant get charachters")
 	}
  	
-	// db.model('tripper_playlist').findOne({ email : user.email }, function(err, result){
-	db.model('tripper_playlists').find( {$or : [
-			{$and: [ {trip_charachters: { $in : [charachters[0], charachters[1] ] } }, { trip_isPrivate : false } ] },
-			{$and: [ {trip_charachters: { $in : [charachters[0], charachters[1] ] } }, { trip_isPrivate : true }, { shareEmail : user} ] }, 
+	if(numOfCharachters == 1){
+		db.model('tripper_playlists').find( {$or : [
+		{$and: [ {trip_charachters: charachters[0] }, { trip_isPrivate : false } ] },
+		{$and: [ {trip_charachters: charachters[0] }, { trip_isPrivate : true }, { shareEmail : user} ] }, 
 		]}).sort({ rate : 'ascending'}).exec(function (err, docs)
 		{ 
                 // failure while connecting to sessions collection
@@ -245,6 +246,29 @@ router.post('/filterByChars', function(req, res) {
                 	res.json(docs)
                 }
             });
+	}
+	else{
+		db.model('tripper_playlists').find( {$or : [
+		{$and: [ {trip_charachters: { $all : [charachters[0], charachters[1] ] } }, { trip_isPrivate : false } ] },
+		{$and: [ {trip_charachters: { $all : [charachters[0], charachters[1] ] } }, { trip_isPrivate : true }, { shareEmail : user} ] }, 
+		]}).sort({ rate : 'ascending'}).exec(function (err, docs)
+		{ 
+                // failure while connecting to sessions collection
+                if (err) 
+                {
+                	console.log("cant get results " + err);
+
+                	return;
+                }
+                
+                else
+                {
+                	console.log(docs);
+                	res.json(docs)
+                }
+            });
+	}
+
 	
 });
 

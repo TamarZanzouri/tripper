@@ -1947,8 +1947,9 @@ function signinCallback(authResult) {
 				User.name=decodeURI(resp.displayName);
 				User.email= (resp.emails) ?resp.emails[0].value : resp.id
 				User.image = resp.image.url;
-
+				//Gemail = plus.profile.emails.read
 				// (resp.emails)? resp.emails[0].value : "zanzouritamar@gmail.com";
+				//console.log("email!!!", Gemail)
 				console.log(User);
 				create_user(User);
 
@@ -1967,10 +1968,12 @@ function signinCallback(authResult) {
 
 	function updateTripFromCharchters(tc){
 
+		console.log("charachtrs length ", clickedCharachters.length)
+
 		$.ajax({
 			type: "post",
         url: g_domain+"filterByChars",// where you wanna post
-        data:  {chars:tc, userId:User.email},
+        data:  {chars:tc, userId:User.email, numOfCharachters : clickedCharachters.length},
         dataType: "json",
         //contentType: "application/json",
         error: function(jqXHR, textStatus, errorMessage) {
@@ -1982,6 +1985,7 @@ function signinCallback(authResult) {
         	tripsAfterCharachters = data;
         	g_ListTrip = data;
         	displayListTrip(data);
+        	console.log(data)
         	console.log("listResultTrip")
         	moveTofilterPage();	      
         } 
