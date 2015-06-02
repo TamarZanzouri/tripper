@@ -987,6 +987,9 @@ background-color: #22AF87 !important;
 color:#ffffff;
   border: none !important;
 }
+#sectionComment{
+  float: right;
+}
 @media(max-width: 500px){
   
   #updateFriendsWithChanges{
