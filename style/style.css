@@ -214,7 +214,10 @@ text-align: right !important;
   margin: 8px 8px 8px 8px;
     width: 100%;
 }
-
+.notRegister{
+display: -webkit-inline-box;
+  width: 100%;
+}
 .addToSchedule{
   background-image: url("images/mySchedule.jpg"); 
   background-size: 30%,30%;
@@ -750,6 +753,7 @@ list-style: none;
   position: relative;
   background: url('images/dot2.gif') top 205px left 45px repeat-x;
   top: 67px;
+  display: none;
 }
 #ulTimeLineSchedule{
   /*height: 114px;*/

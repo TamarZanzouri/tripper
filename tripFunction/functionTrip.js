@@ -835,44 +835,46 @@ function displayFullTrip(data){
 	ulImg.append(liImgL);
 	$('.Trip').append(ulImg);
 
-	var timeline = $('<div>');
-	var h2 = $('<h2>').html(TRIPPER_DATA.playlistSite).addClass('sitesTitle');
-	 // timeline.append(h2)
-	 timeline.attr({"id":"timeline"})
-	 var ulSites = $('<ul>');
-	 ulSites.attr({"id":"ulTimeLine"})
-	 $.each(g_trip.tripSites , function(index,val){
-	 	var li = $('<li>');
-	 	var img = $('<img>');
-	 	var span = $('<span>');
-	 	span.html(val.siteName);
-	 	img.attr({"src":val.img, "width":50, "height":50});
-	 	li.append(span)
-	 	li.append(img)
+	if(g_trip.tripSites.length>0){
+		var timeline = $('<div>');
+		var h2 = $('<h2>').html(TRIPPER_DATA.playlistSite).addClass('sitesTitle');
+		 // timeline.append(h2)
+		 timeline.attr({"id":"timeline"})
+		 var ulSites = $('<ul>');
+		 ulSites.attr({"id":"ulTimeLine"})
+		 $.each(g_trip.tripSites , function(index,val){
+		 	var li = $('<li>');
+		 	var img = $('<img>');
+		 	var span = $('<span>');
+		 	span.html(val.siteName);
+		 	img.attr({"src":val.img, "width":50, "height":50});
+		 	li.append(span)
+		 	li.append(img)
 
-	 	ulSites.append(li);
-	 });
-	 timeline.append(ulSites);
-	 $('.Trip').append(h2)
-	 $('.Trip').append(timeline)
-	 var meImg="";
-	 var meSpan="";
+		 	ulSites.append(li);
+		 });
+		 timeline.append(ulSites);
+		 $('.Trip').append(h2)
+		 $('.Trip').append(timeline)
+		 var meImg="";
+		 var meSpan="";
 
-	 $('#ulTimeLine li').hover(function(){
-	 	console.log("hover");
-	 	$(this).css({"top":"0px","border":"1px solid #000000","padding":"12px","background-color":"#ffffff","border-radius":"30px"});
-	 	meSpan = $(this).children('span');
-	 	meSpan.css({"font-size":"35px"});
-	 	meImg = $(this).children('img');
-	 	meImg.attr({"width":125,"height":125}).css({"border-radius":"0px","width":"auto"});
-	 }
-	 , function(){
-	 	$(this).css({"top":"68px","border":"none","background-color":"transparent","padding":"0px"});
-	 	meSpan = $(this).children('span');
-	 	meSpan.css("font-size","20px");
-	 	meImg = $(this).children('img');
-	 	meImg.attr({"width":50,"height":50}).css({"border-radius":"50px",  "width": "50px"});
-	 });
+		 $('#ulTimeLine li').hover(function(){
+		 	console.log("hover");
+		 	$(this).css({"top":"0px","border":"1px solid #000000","padding":"12px","background-color":"#ffffff","border-radius":"30px"});
+		 	meSpan = $(this).children('span');
+		 	meSpan.css({"font-size":"35px"});
+		 	meImg = $(this).children('img');
+		 	meImg.attr({"width":125,"height":125}).css({"border-radius":"0px","width":"auto"});
+		 }
+		 , function(){
+		 	$(this).css({"top":"68px","border":"none","background-color":"transparent","padding":"0px"});
+		 	meSpan = $(this).children('span');
+		 	meSpan.css("font-size","20px");
+		 	meImg = $(this).children('img');
+		 	meImg.attr({"width":50,"height":50}).css({"border-radius":"50px",  "width": "50px"});
+		 });
+	}
 	 num = 0;
 	 var commentSection = $( '<section>').attr("id","sectionComment")
 	 var ul = $('<ul>').addClass("commentList");
@@ -1316,9 +1318,11 @@ function removeImmSchedule(){
 $(document).on('click','#mySchedule',function(){
 	if(!User.email)
 	{
-		alert(TRIPPER_DATA.alert);
-	}else{
+		$('.notRegister').html(TRIPPER_DATA.alert).show();
+		//.css("display","block");
 
+	}else{
+		$('.notRegister').hide();
 		$.ajax({
 			type: "post",
 	        url: g_domain+"getUserSchedule",// where you wanna post
@@ -1372,7 +1376,9 @@ function displayListScheduleTrip(data){
 		$('.userDetailes').append(imgUser)
 		$('.userDetailes').append(spanUser)
 	}
-
+	if (g_ListTrip.length>0) {
+		$('#scheduleTimeLline').css("display","block");
+	
 	var ul = $('#ulTimeLineSchedule');
 	ul.empty();
 	$.each(g_ListTrip, function (index,val){
@@ -1442,7 +1448,7 @@ function displayListScheduleTrip(data){
 		meA = $(this).children('a');
 		meA.css("display","none")
 	});
-
+};
 num = 0
 
 	// var schedulePage= $('#myPageSchedule #content')
@@ -1659,9 +1665,11 @@ function updateSharedTrip(){
 $(document).on('click','#moveToFavorite',function(){
 	if(!User.email)
 	{
-		alert(TRIPPER_DATA.alert)
+		$('.notRegister').html(TRIPPER_DATA.alert).show();
+		$('.displayTripRight').empty();
+		$('.displayTripLeft').empty();
 	}else{
-
+		$('.notRegister').hide();
 		$.ajax({
 			type: "post",
         url: g_domain+"getUserFavorites",// where you wanna post
@@ -2206,8 +2214,11 @@ $(document).on('click','#showTrips',function(){
 	moveToAccountPage();
 	if(!User.email)
 	{
-		alert(TRIPPER_DATA.alert);
+		$('.notRegister').html(TRIPPER_DATA.alert).show();
+		$('.displayTripRight').empty();
+		$('.displayTripLeft').empty();
 	}else{
+		$('.notRegister').hide();
 		$('#userName').html(User.name);
 		$('#userImg').attr({"src":User.image,"width":100,"height":100});
 
