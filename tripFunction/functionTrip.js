@@ -1513,7 +1513,7 @@ num = 0
 
 	}
 	else{
-		$('.divArt > article > p').slideDown("slow", function(){
+		$('.divArt > article > p').cmdlideDown("slow", function(){
 		$(this).addClass("open-desc");
 			$('.divArt > article > p').css({
 			"display" : "block",
