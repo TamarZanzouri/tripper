@@ -29,6 +29,7 @@ g_ListTrip=[];
 var filter = [];
 var tempFilter=[];
 var clickedCharachters = [];
+var janers = [];
 var tripsAfterCharachters = [];
 var date={};
 var point1={},point2={} ;
@@ -1936,8 +1937,9 @@ function signinCallback(authResult) {
 				User.name=decodeURI(resp.displayName);
 				User.email= (resp.emails) ?resp.emails[0].value : resp.id
 				User.image = resp.image.url;
-
+				//Gemail = plus.profile.emails.read
 				// (resp.emails)? resp.emails[0].value : "zanzouritamar@gmail.com";
+				//console.log("email!!!", Gemail)
 				console.log(User);
 				create_user(User);
 
@@ -1956,10 +1958,12 @@ function signinCallback(authResult) {
 
 	function updateTripFromCharchters(tc){
 
+		console.log("charachtrs length ", clickedCharachters.length)
+
 		$.ajax({
 			type: "post",
         url: g_domain+"filterByChars",// where you wanna post
-        data:  {chars:tc, userId:User.email},
+        data:  {chars:tc, userId:User.email, numOfCharachters : clickedCharachters.length},
         dataType: "json",
         //contentType: "application/json",
         error: function(jqXHR, textStatus, errorMessage) {
@@ -1968,9 +1972,13 @@ function signinCallback(authResult) {
 
         },
         success: function(data) {
+        	count=1;
+        	janers = clickedCharachters;
+        	clickedCharachters=[];
         	tripsAfterCharachters = data;
         	g_ListTrip = data;
         	displayListTrip(data);
+        	console.log(data)
         	console.log("listResultTrip")
         	moveTofilterPage();	      
         } 
@@ -2023,7 +2031,7 @@ function signinCallback(authResult) {
 		console.log(accountCounter)
 		if (accountCounter==0){
 			$('#resultTitle').html(TRIPPER_DATA.resultTitle);
-			$('#chars').html(clickedCharachters[0]+" + "+clickedCharachters[1]);
+			$('#chars').html(janers[0]+" + "+janers[1]);
 		};
 		$('.displayTripRight').empty();
 		$('.displayTripLeft').empty();
@@ -2326,6 +2334,7 @@ $(document).on('click','#editFavorite',function(){
 
 	// });
 });
+
 $(document).on('click','#editTripFromAccount',function(){
 	console.log(g_trip)
 	edit=true;
