@@ -1768,7 +1768,6 @@ if(temp==""){
 	form.append("shareEmail",temp_arr);
 }
 console.log(form)
-<<<<<<< HEAD
 	if(editFromAccount){
 		form.append("id" , g_trip._id);
 		form.append("flag" , "account");
@@ -1811,7 +1810,6 @@ console.log(form)
 		    });
 		moveToHomePage();
 	}
-=======
 	
 $.ajax({
 	type: "post",
@@ -1832,7 +1830,6 @@ $.ajax({
         } 
     });
 moveToHomePage();
->>>>>>> parent of a8e5878... fix conflicts
 return true;
 })
 
