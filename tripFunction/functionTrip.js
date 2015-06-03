@@ -29,6 +29,7 @@ g_ListTrip=[];
 var filter = [];
 var tempFilter=[];
 var clickedCharachters = [];
+var janers = [];
 var tripsAfterCharachters = [];
 var date={};
 var point1={},point2={} ;
@@ -1971,6 +1972,9 @@ function signinCallback(authResult) {
 
         },
         success: function(data) {
+        	count=1;
+        	janers = clickedCharachters;
+        	clickedCharachters=[];
         	tripsAfterCharachters = data;
         	g_ListTrip = data;
         	displayListTrip(data);
@@ -2027,7 +2031,7 @@ function signinCallback(authResult) {
 		console.log(accountCounter)
 		if (accountCounter==0){
 			$('#resultTitle').html(TRIPPER_DATA.resultTitle);
-			$('#chars').html(clickedCharachters[0]+" + "+clickedCharachters[1]);
+			$('#chars').html(janers[0]+" + "+janers[1]);
 		};
 		$('.displayTripRight').empty();
 		$('.displayTripLeft').empty();
@@ -2330,6 +2334,7 @@ $(document).on('click','#editFavorite',function(){
 
 	// });
 });
+
 $(document).on('click','#editTripFromAccount',function(){
 	console.log(g_trip)
 	edit=true;
