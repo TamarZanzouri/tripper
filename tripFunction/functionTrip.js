@@ -42,6 +42,7 @@ var isInDdistance;
 var t1 =  32.03952466510527;
 var t2 = 34.83763210941106;
 edit=false;
+editFromAccount=false;
 var count=1;
 var tripCharacters = [];
 var shareScheduleWithFriends = [];
@@ -1789,7 +1790,7 @@ console.log(form)
 		moveToAccountPage();
 	}
 	else{
-		form.append("flag", "favorites")
+		form.append("flag", "favorites");
 		$.ajax({
 			type: "post",
 		        url: g_domain+"add",// where you wanna post
@@ -1810,26 +1811,6 @@ console.log(form)
 		    });
 		moveToHomePage();
 	}
-	
-$.ajax({
-	type: "post",
-        url: g_domain+"add",// where you wanna post
-        data:  form,
-        //dataType: "json",
-        contentType: false,
-        processData:false,
-        error: function(jqXHR, textStatus, errorMessage) {
-        	console.log(errorMessage)
-        },
-        success: function(data) {
-        	console.log(data.res)
-        	if(edit==true){
-        		addToFavoFromEdit(data);
-        	}
-        	edit=false;
-        } 
-    });
-moveToHomePage();
 return true;
 })
 
@@ -2026,60 +2007,70 @@ function signinCallback(authResult) {
         } 
     });
 	}
-	function displayListTrip(data){
-		console.log(data)
-		// if (e.originalEvent.newURL.indexOf("#myPageSchedule") != -1) {
-		// 	console.log("home")
-		// }
-		$('.userDetailes').empty();
-		if (User) {
-			// var divUser = $('<div>').addClass('userDetailes');
-			var spanUser = $('<span>').html(User.name).addClass('nameUser');
-			var imgUser = $('<img>').attr("src",User.image).addClass('imgUser');
-			$('.userDetailes').append(imgUser)
-			$('.userDetailes').append(spanUser)
-		}
-		/**** data to result page *****/
-			$('#who_are_you_going_with div button').html(TRIPPER_DATA.who_are_you_going_with);
-			$('label[for="trip_with_animals"]').text(TRIPPER_DATA.trip_with_animals);
-			$('label[for="trip_with_road"]').text(TRIPPER_DATA.trip_with_road);
-			$('label[for="trip_for_children"]').text(TRIPPER_DATA.trip_for_children);
-			
-			$('#trip_kind div button').html(TRIPPER_DATA.trip_kind);
-			$('label[for="trip_with_watter"]').text(TRIPPER_DATA.trip_with_watter);
-			$('label[for="trip_with_bicycle"]').text(TRIPPER_DATA.trip_with_bicycle);
-			$('label[for="trip_with_jeep"]').text(TRIPPER_DATA.trip_with_jeep);
-			$('label[for="trip_for_day"]').text(TRIPPER_DATA.trip_for_day);
-			$('label[for="trip_for_night"]').text(TRIPPER_DATA.trip_for_night);
-			
-			// $('#dificullty button span').html(TRIPPER_DATA.dificullty);
-			// $('#light_trip a').html(TRIPPER_DATA.light_trip);
-			// $('#medium_trip a').html(TRIPPER_DATA.medium_trip);
-			// $('#hard_trip a').html(TRIPPER_DATA.hard_trip);
-			
-			// $('#area button span').html(TRIPPER_DATA.area);
-			
+function displayListTrip(data){
+	console.log(data)
+	// if (e.originalEvent.newURL.indexOf("#myPageSchedule") != -1) {
+	// 	console.log("home")
+	// }
+	$('.userDetailes').empty();
+	if (User) {
+		// var divUser = $('<div>').addClass('userDetailes');
+		var spanUser = $('<span>').html(User.name).addClass('nameUser');
+		var imgUser = $('<img>').attr("src",User.image).addClass('imgUser');
+		$('.userDetailes').append(imgUser)
+		$('.userDetailes').append(spanUser)
+	}
+	/**** data to result page *****/
+		$('#who_are_you_going_with div button').html(TRIPPER_DATA.who_are_you_going_with);
+		$('label[for="trip_with_animals"]').text(TRIPPER_DATA.trip_with_animals);
+		$('label[for="trip_with_road"]').text(TRIPPER_DATA.trip_with_road);
+		$('label[for="trip_for_children"]').text(TRIPPER_DATA.trip_for_children);
+		
+		$('#trip_kind div button').html(TRIPPER_DATA.trip_kind);
+		$('label[for="trip_with_watter"]').text(TRIPPER_DATA.trip_with_watter);
+		$('label[for="trip_with_bicycle"]').text(TRIPPER_DATA.trip_with_bicycle);
+		$('label[for="trip_with_jeep"]').text(TRIPPER_DATA.trip_with_jeep);
+		$('label[for="trip_for_day"]').text(TRIPPER_DATA.trip_for_day);
+		$('label[for="trip_for_night"]').text(TRIPPER_DATA.trip_for_night);
+		
+		// $('#dificullty button span').html(TRIPPER_DATA.dificullty);
+		// $('#light_trip a').html(TRIPPER_DATA.light_trip);
+		// $('#medium_trip a').html(TRIPPER_DATA.medium_trip);
+		// $('#hard_trip a').html(TRIPPER_DATA.hard_trip);
+		
+		// $('#area button span').html(TRIPPER_DATA.area);
+		
 
-		/****end data to result page *****/
-		if(window.location.hash=='#viewFavorite')
-		{
-			favoriteFlagList=1;
-			$('#resultTitleFavorite').html(TRIPPER_DATA.resultTitleFavorite)
+	/****end data to result page *****/
+	if(window.location.hash=='#viewFavorite')
+	{
+		favoriteFlagList=1;
+		$('#resultTitleFavorite').html(TRIPPER_DATA.resultTitleFavorite)
+	}
+	if(window.location.hash=='#accountPage')
+	{
+		accountCounter=1;
+	}
+	console.log(accountCounter)
+	if (accountCounter==0){
+		$('#resultTitle').html(TRIPPER_DATA.resultTitle);
+		if(janers.length==1){
+			$('#chars').html(janers[0]);
+		}else{
+			$('#chars').html(janers[0]+" + "+janers[1])
 		}
-		if(window.location.hash=='#accountPage')
-		{
-			accountCounter=1;
-		}
-		console.log(accountCounter)
-		if (accountCounter==0){
-			$('#resultTitle').html(TRIPPER_DATA.resultTitle);
-			$('#chars').html(janers[0]+" + "+janers[1]);
-		};
-		$('.displayTripRight').empty();
-		$('.displayTripLeft').empty();
-		var ulR = $('.displayTripRight');
-		var ulL = $('.displayTripLeft')
-		trip=data;
+	};
+	$('.displayTripRight').empty();
+	$('.displayTripLeft').empty();
+	$('#filtermenu').show();
+	var ulR = $('.displayTripRight');
+	var ulL = $('.displayTripLeft')
+	trip=data;
+	if (data.length==0){
+		console.log("haimaajn");
+		$('#resultTitle').html(TRIPPER_DATA.noResult);
+		$('#filtermenu').hide();
+	}else{
 		$.each(data,function(index,val){
 			var li = $('<li>');
 			li.attr({"id":val._id}).addClass('listResultTrip trip');
@@ -2144,6 +2135,7 @@ function signinCallback(authResult) {
 				ulL.append(li);
 			}
 		});
+	}
 favoriteFlagList=0;
 accountCounter=0;
 console.log("after display list",accountCounter)
@@ -2355,14 +2347,13 @@ $(document).on('click','#editFavorite',function(){
 			};
 			if ((i+1)>1) {
 				console.log(i);
-				console.log(val.location,val.siteName);
 				$('#newChild'+(i+1)).val(val.siteName);
-				$('.amount'+(i+1)).val(val.location);
+				$('#thumbnil'+(i+1)).attr("src",val.img);
 			};
 		});
 	}
-	$('#imgUpload').focus();
-	$('#thumbnil').attr("src",g_trip.imageUrl);
+	// $('#imgUpload').focus();
+	// $('#thumbnil').attr("src",g_trip.imageUrl);
 	$('#dvMap').click(function (){
 
 	});
@@ -2378,8 +2369,9 @@ $(document).on('click','#editFavorite',function(){
 });
 
 $(document).on('click','#editTripFromAccount',function(){
+
 	console.log(g_trip)
-	edit=true;
+	editFromAccount=true;
 	moveToAddPage();
 	$('#trip_name').val(g_trip.trip_name);
 	$('#description').val(g_trip.trip_description);
@@ -2424,20 +2416,22 @@ $(document).on('click','#editTripFromAccount',function(){
 	var len = g_trip.tripSites.length;
 	
 	if(len){
+		debugger;
 		$.each(g_trip.tripSites,function(i,val){
 			if ((i+1)==1 ) {
 				firstSites()
 			};
 			if ((i+1)>1) {
+				debugger;
 				console.log(i);
-				console.log(val.location,val.siteName);
+				console.log("haim",val.img,val.siteName);
 				$('#newChild'+(i+1)).val(val.siteName);
-				$('.amount'+(i+1)).val(val.location);
+				$('#thumbnil'+(i+1)).attr("src",val.img);
 			};
 		});
 	}
-	$('#imgUpload').focus();
-	$('#thumbnil').attr("src",g_trip.imageUrl);
+	// $('#imgUpload').focus();
+	// $('#thumbnil').attr("src",g_trip.imageUrl);
 	$('#dvMap').click(function (){
 
 	});
@@ -2453,7 +2447,8 @@ $(document).on('click','#editTripFromAccount',function(){
 });
 function firstSites(){
 	$('.firstIngredient').trigger('focus').val(g_trip.tripSites[0].siteName);
-	$('.amount1').val(g_trip.tripSites[0].location);
+	console.log(g_trip.tripSites[0].img)
+	$('#thumbnil').attr("src",g_trip.tripSites[0].img);
 }
 
 $(document).on('click','.btn-primary',function(){
