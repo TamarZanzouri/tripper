@@ -42,6 +42,7 @@ var isInDdistance;
 var t1 =  32.03952466510527;
 var t2 = 34.83763210941106;
 edit=false;
+editFromAccount=false;
 var count=1;
 var tripCharacters = [];
 var shareScheduleWithFriends = [];
@@ -1768,26 +1769,48 @@ if(temp==""){
 	form.append("shareEmail",temp_arr);
 }
 console.log(form)
-	
-$.ajax({
-	type: "post",
-        url: g_domain+"add",// where you wanna post
-        data:  form,
-        //dataType: "json",
-        contentType: false,
-        processData:false,
-        error: function(jqXHR, textStatus, errorMessage) {
-        	console.log(errorMessage)
-        },
-        success: function(data) {
-        	console.log(data.res)
-        	if(edit==true){
-        		addToFavoFromEdit(data);
-        	}
-        	edit=false;
-        } 
-    });
-moveToHomePage();
+	if(editFromAccount){
+		form.append("id" , g_trip._id);
+		form.append("flag" , "account");
+		$.ajax({
+			type: "post",
+		        url: g_domain+"add",// where you wanna post
+		        data:  form,
+		        //dataType: "json",
+		        contentType: false,
+		        processData:false,
+		        error: function(jqXHR, textStatus, errorMessage) {
+		        	console.log(errorMessage)
+		        },
+		        success: function(data) {
+		        	console.log(data.res)
+		        	editFromAccount=false;
+		        } 
+		    });
+		moveToAccountPage();
+	}
+	else{
+		form.append("flag", "favorites");
+		$.ajax({
+			type: "post",
+		        url: g_domain+"add",// where you wanna post
+		        data:  form,
+		        //dataType: "json",
+		        contentType: false,
+		        processData:false,
+		        error: function(jqXHR, textStatus, errorMessage) {
+		        	console.log(errorMessage)
+		        },
+		        success: function(data) {
+		        	console.log(data.res)
+		        	if(edit==true){
+		        		addToFavoFromEdit(data);
+		        	}
+		        	edit=false;
+		        } 
+		    });
+		moveToHomePage();
+	}
 return true;
 })
 
@@ -2336,8 +2359,9 @@ $(document).on('click','#editFavorite',function(){
 });
 
 $(document).on('click','#editTripFromAccount',function(){
+
 	console.log(g_trip)
-	edit=true;
+	editFromAccount=true;
 	moveToAddPage();
 	$('#trip_name').val(g_trip.trip_name);
 	$('#description').val(g_trip.trip_description);
