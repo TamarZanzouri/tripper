@@ -42,7 +42,6 @@ var isInDdistance;
 var t1 =  32.03952466510527;
 var t2 = 34.83763210941106;
 edit=false;
-editFromAccount=false;
 var count=1;
 var tripCharacters = [];
 var shareScheduleWithFriends = [];
@@ -1769,6 +1768,7 @@ if(temp==""){
 	form.append("shareEmail",temp_arr);
 }
 console.log(form)
+<<<<<<< HEAD
 	if(editFromAccount){
 		form.append("id" , g_trip._id);
 		form.append("flag" , "account");
@@ -1811,6 +1811,28 @@ console.log(form)
 		    });
 		moveToHomePage();
 	}
+=======
+	
+$.ajax({
+	type: "post",
+        url: g_domain+"add",// where you wanna post
+        data:  form,
+        //dataType: "json",
+        contentType: false,
+        processData:false,
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+        },
+        success: function(data) {
+        	console.log(data.res)
+        	if(edit==true){
+        		addToFavoFromEdit(data);
+        	}
+        	edit=false;
+        } 
+    });
+moveToHomePage();
+>>>>>>> parent of a8e5878... fix conflicts
 return true;
 })
 
@@ -2359,9 +2381,8 @@ $(document).on('click','#editFavorite',function(){
 });
 
 $(document).on('click','#editTripFromAccount',function(){
-
 	console.log(g_trip)
-	editFromAccount=true;
+	edit=true;
 	moveToAddPage();
 	$('#trip_name').val(g_trip.trip_name);
 	$('#description').val(g_trip.trip_description);
