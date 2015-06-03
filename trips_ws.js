@@ -15,7 +15,9 @@ cloudinary.config({
   //cdn_subdomain: true
 });
 
-router.post('/add', function(req, res) {
+router.post('/add', function(req, res)
+ {
+
 	//console.log(req.files,req.body)
 	//console.log("haim" + req.body.newTrip + " " + req.body.des);
 	console.log("start to add to DB")
@@ -140,7 +142,9 @@ router.post('/add', function(req, res) {
 						height: 360
                     });
 		}
+	 });
 
+});  
 			// cloudinary.uploader.upload([temp_paths[0],temp_paths[1]], 
    //                         function(result) { console.log(result) 
    //                  });
@@ -207,9 +211,7 @@ router.post('/add', function(req, res) {
 	
 	var file_reader = fs.createReadStream(temp_paths).pipe(stream)
 */
-	 });
 
-});  
 function uploadCallBack(total,size,urls){
 	if (total == size) console.log('urls',urls)
 
