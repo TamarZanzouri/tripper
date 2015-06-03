@@ -2007,6 +2007,7 @@ function signinCallback(authResult) {
         } 
     });
 	}
+
 function displayListTrip(data){
 	console.log(data)
 	// if (e.originalEvent.newURL.indexOf("#myPageSchedule") != -1) {
@@ -2021,17 +2022,19 @@ function displayListTrip(data){
 		$('.userDetailes').append(spanUser)
 	}
 	/**** data to result page *****/
-		$('#who_are_you_going_with div button').html(TRIPPER_DATA.who_are_you_going_with);
-		$('label[for="trip_with_animals"]').text(TRIPPER_DATA.trip_with_animals);
-		$('label[for="trip_with_road"]').text(TRIPPER_DATA.trip_with_road);
-		$('label[for="trip_for_children"]').text(TRIPPER_DATA.trip_for_children);
+
+		// $('#who_are_you_going_with div button').html(TRIPPER_DATA.who_are_you_going_with);
+		// $('label[for="trip_with_animals"]').text(TRIPPER_DATA.trip_with_animals);
+		// $('label[for="trip_with_road"]').text(TRIPPER_DATA.trip_with_road);
+		// $('label[for="trip_for_children"]').text(TRIPPER_DATA.trip_for_children);
 		
-		$('#trip_kind div button').html(TRIPPER_DATA.trip_kind);
-		$('label[for="trip_with_watter"]').text(TRIPPER_DATA.trip_with_watter);
-		$('label[for="trip_with_bicycle"]').text(TRIPPER_DATA.trip_with_bicycle);
-		$('label[for="trip_with_jeep"]').text(TRIPPER_DATA.trip_with_jeep);
-		$('label[for="trip_for_day"]').text(TRIPPER_DATA.trip_for_day);
-		$('label[for="trip_for_night"]').text(TRIPPER_DATA.trip_for_night);
+		// $('#trip_kind div button').html(TRIPPER_DATA.trip_kind);
+		// $('label[for="trip_with_watter"]').text(TRIPPER_DATA.trip_with_watter);
+		// $('label[for="trip_with_bicycle"]').text(TRIPPER_DATA.trip_with_bicycle);
+		// $('label[for="trip_with_jeep"]').text(TRIPPER_DATA.trip_with_jeep);
+		// $('label[for="trip_for_day"]').text(TRIPPER_DATA.trip_for_day);
+		// $('label[for="trip_for_night"]').text(TRIPPER_DATA.trip_for_night);
+
 		
 		// $('#dificullty button span').html(TRIPPER_DATA.dificullty);
 		// $('#light_trip a').html(TRIPPER_DATA.light_trip);
@@ -2039,7 +2042,7 @@ function displayListTrip(data){
 		// $('#hard_trip a').html(TRIPPER_DATA.hard_trip);
 		
 		// $('#area button span').html(TRIPPER_DATA.area);
-		
+
 
 	/****end data to result page *****/
 	if(window.location.hash=='#viewFavorite')
