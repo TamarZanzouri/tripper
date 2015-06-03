@@ -15,8 +15,7 @@ cloudinary.config({
   //cdn_subdomain: true
 });
 
-router.post('/add', function(req, res)
- {
+router.post('/add', function(req, res){
 
 	//console.log(req.files,req.body)
 	//console.log("haim" + req.body.newTrip + " " + req.body.des);

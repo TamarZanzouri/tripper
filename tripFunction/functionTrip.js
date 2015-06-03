@@ -2416,13 +2416,13 @@ $(document).on('click','#editTripFromAccount',function(){
 	var len = g_trip.tripSites.length;
 	
 	if(len){
-		debugger;
+		// debugger;
 		$.each(g_trip.tripSites,function(i,val){
 			if ((i+1)==1 ) {
 				firstSites()
 			};
 			if ((i+1)>1) {
-				debugger;
+				// debugger;
 				console.log(i);
 				console.log("haim",val.img,val.siteName);
 				$('#newChild'+(i+1)).val(val.siteName);
