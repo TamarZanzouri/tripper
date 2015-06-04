@@ -2563,7 +2563,6 @@ $(document).on('click','#editTripFromAccount',function(){
 			if ((i+1)>1) {
 				// debugger;
 				console.log(i);
-				console.log("haim",val.img,val.siteName);
 				$('#newChild'+(i+1)).val(val.siteName);
 				$('#thumbnil'+(i+1)).attr("src",val.img);
 			};
@@ -2571,9 +2570,9 @@ $(document).on('click','#editTripFromAccount',function(){
 	}
 	// $('#imgUpload').focus();
 	// $('#thumbnil').attr("src",g_trip.imageUrl);
-	$('#dvMap').click(function (){
+	// $('#dvMap').click(function (){
 
-	});
+	// });
 	if(g_trip.mapPoint){
 		mapPoint.lat=g_trip.mapPoint.lat;
 		mapPoint.lng=g_trip.mapPoint.lng;
@@ -2586,8 +2585,8 @@ $(document).on('click','#editTripFromAccount',function(){
 });
 function firstSites(){
 	$('.firstIngredient').trigger('focus').val(g_trip.tripSites[0].siteName);
-	console.log(g_trip.tripSites[0].img)
 	$('#thumbnil').attr("src",g_trip.tripSites[0].img);
+	$('#imgUpload').val(g_trip.tripSites[0].img);
 }
 
 $(document).on('click','.btn-primary',function(){

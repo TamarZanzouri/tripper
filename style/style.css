@@ -547,12 +547,21 @@ body, input, select, textarea, button, .ui-btn{
   font-family: 'Alef';
   font-weight: 700;
 }
+.ulImages{
+  position: relative;
+  /*right: 200px;*/
+  float: right;
+  width: 100%;
+  left: 0 !important;
+  height: auto !important;
+}
 .Trip > h1{
   float: right;
   font-family: 'Alef';
   font-weight: 700;
   font-size: 64px;
     width: 60%;
+      margin: 0 !important;
 }
 .Trip >ul{
   height: 100px;
@@ -828,24 +837,22 @@ float: right;
   height: 98px;
     display: block;
 }
-.ulImages{
-  position: relative;
-  right: 200px;
-  float: right;
-    width: 100%;
-}
+
 .ulImages > li{
     float: inherit !important;
   border: none !important;
   margin: 45px 25px 0 25px !important;
+    width: 21%;
 }
 .sitesTitle{
   width: auto;
   position: relative;
   float: right;
-  top: 167px;
+  top: 57px;
   margin: 0 auto;
-  left: 444px;
+  /*left: 444px;*/
+    width: 100% !important;
+  text-align: right;
 }
 #chat{
     position: relative;
@@ -1132,6 +1139,8 @@ width: 45%;
   }
   #userName{
       font-size: 48px;
+        font-size: 48px;
+  margin: 0 0 15px 0 !important;
   }
   .displayTrip > li{
       width: 100%;
@@ -1162,11 +1171,11 @@ width: 45%;
   width: 100%;
     position: relative;
   left: 25px;
-
+margin: 0 20px 0 00 !important;
   }
   .Trip > ul {
       padding: 0 5px 0 0;
-  margin: 0 0 0 0;
+  margin: 0 10px 0 0;
   position: relative;
     top: 10px;
   }
@@ -1191,27 +1200,30 @@ width: 45%;
   .ulImages{
     right: 0;
     top: 40px !important;
-
-  }
-  .ulImages > li{
     margin: 0 !important;
   float: right !important;
+  width: 100%;
   }
-
+.ulImages>li{
+    margin: 20px 5px 20px 5px !important;
+  float: right !important;
+  width: 25%;
+    display:  inline-flex;
+}
   #timeline{
     width: 100%;
     margin: 0;
     left: 0;
-        top: -85px;
   }
   #ulTimeLine >li{
       width: 101px;
   margin: 10px 5px 0 5px;
   font-size: 15px;
   }
- 
+  #groupButton > h2{}
   #sectionComment{
       position: relative;
+        top: 67px;
   }
   #submitComment{
       right: 168px;
@@ -1224,10 +1236,12 @@ width: 45%;
   }
   .displayTripLeft{
       width: 100%;
+      padding: 0;
   }
 
   .displayTripRight{
       width: 100%;
+      padding: 0;
   }
   .titelNameSchedule{
     font-size: 48px;
