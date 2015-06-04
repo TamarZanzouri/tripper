@@ -1,7 +1,7 @@
 User={};
 
-g_domain="http://shenkartripper.herokuapp.com/";//
-//"http://localhost:1337/";
+g_domain="http://localhost:1337/";
+//"http://shenkartripper.herokuapp.com/";//
 
 
 //hashtable for variables in english
@@ -1726,9 +1726,7 @@ $(document).on('click','.btnChar', function(e){
 
 $(document).on('submit','#addform',function(e){
 	e.preventDefault();
-
 	var form = new FormData(this); 
-
 
 	var tempFilter = [];
 
@@ -1749,29 +1747,30 @@ $(document).on('submit','#addform',function(e){
 	if (comms != 0)
 		form.append("sites", JSON.stringify(comms));	
 	else form.append("sites", JSON.stringify([]));	
-//console.log($(this))
-form.append("email",User.email);
-form.append("mapPoint",JSON.stringify(mapPoint));
-$('input[type="checkbox"]').each(function(value) {
-	if($(this).is(':checked')){
-		tempFilter.push($(this).attr('id'));
-	}
-});
-form.append("trip_filter", JSON.stringify(tempFilter));
-var temp_arr =[]
-var temp= $('#usersList').text();
-if(temp==""){
-	form.append("shareEmail",temp_arr)	
-	console.log(temp);
-}else{ 
+	//console.log($(this))
+	form.append("email",User.email);
+	form.append("mapPoint",JSON.stringify(mapPoint));
+	$('input[type="checkbox"]').each(function(value) {
+		if($(this).is(':checked')){
+			tempFilter.push($(this).attr('id'));
+		}
+	});
+	form.append("trip_filter", JSON.stringify(tempFilter));
+	var temp_arr =[]
+	var temp= $('#usersList').text();
+	if(temp==""){
+		form.append("shareEmail",temp_arr)	
+		console.log(temp);
+	}else{ 
 
-	temp_arr = temp.split(" ");
-	console.log(temp_arr);
-	form.append("shareEmail",temp_arr);
-}
-console.log(form)
-	if(editFromAccount){
-		form.append("id" , g_trip._id);
+		temp_arr = temp.split(" ");
+		console.log(temp_arr);
+		form.append("shareEmail",temp_arr);
+	}
+	console.log(form)
+	if(($(this).find('#imgUpload')[0].files.length) > 0){
+		if(editFromAccount){
+		form.append("tripId" , g_trip._id);
 		form.append("flag" , "account");
 		$.ajax({
 			type: "post",
@@ -1790,7 +1789,7 @@ console.log(form)
 		    });
 		moveToAccountPage();
 	}
-	else{
+	else if(edit){
 		form.append("flag", "favorites");
 		$.ajax({
 			type: "post",
@@ -1811,6 +1810,96 @@ console.log(form)
 		        } 
 		    });
 		moveToHomePage();
+	}
+	else{
+		form.append("flag", "addNewTrip");
+		$.ajax({
+			type: "post",
+		        url: g_domain+"add",// where you wanna post
+		        data:  form,
+		        //dataType: "json",
+		        contentType: false,
+		        processData:false,
+		        error: function(jqXHR, textStatus, errorMessage) {
+		        	console.log(errorMessage)
+		        },
+		        success: function(data) {
+		        	console.log(data.res)
+		        	if(edit==true){
+		        		addToFavoFromEdit(data);
+		        	}
+		        	edit=false;
+		        } 
+		    });
+		moveToHomePage();
+	}
+	}
+	else{
+		if(editFromAccount){
+		form.append("tripId" , g_trip._id);
+		form.append("flag" , "account");
+		$.ajax({
+			type: "post",
+		        url: g_domain+"updateTrip",// where you wanna post
+		        data:  form,
+		        //dataType: "json",
+		        contentType: false,
+		        processData:false,
+		        error: function(jqXHR, textStatus, errorMessage) {
+		        	console.log(errorMessage)
+		        },
+		        success: function(data) {
+		        	console.log(data.res)
+		        	editFromAccount=false;
+		        } 
+		    });
+		moveToAccountPage();
+	}
+	else if(edit){
+		form.append("tripId", g_trip._id)
+		form.append("flag", "favorites");
+		$.ajax({
+			type: "post",
+		        url: g_domain+"updateTrip",// where you wanna post
+		        data:  form,
+		        //dataType: "json",
+		        contentType: false,
+		        processData:false,
+		        error: function(jqXHR, textStatus, errorMessage) {
+		        	console.log(errorMessage)
+		        },
+		        success: function(data) {
+		        	console.log(data.res)
+		        	if(edit==true){
+		        		addToFavoFromEdit(data);
+		        	}
+		        	edit=false;
+		        } 
+		    });
+		moveToHomePage();
+	}
+	else{
+		form.append("flag", "addNewTrip");
+		$.ajax({
+			type: "post",
+		        url: g_domain+"add",// where you wanna post
+		        data:  form,
+		        //dataType: "json",
+		        contentType: false,
+		        processData:false,
+		        error: function(jqXHR, textStatus, errorMessage) {
+		        	console.log(errorMessage)
+		        },
+		        success: function(data) {
+		        	console.log(data.res)
+		        	if(edit==true){
+		        		addToFavoFromEdit(data);
+		        	}
+		        	edit=false;
+		        } 
+		    });
+		moveToHomePage();
+	}
 	}
 return true;
 })
