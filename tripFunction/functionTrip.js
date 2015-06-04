@@ -1988,14 +1988,24 @@ function addToFavoFromEdit(tripToUpdate){
 $(window).on('hashchange', function(e) {
 	if (e.originalEvent.newURL.indexOf("#myPageSchedule") != -1) {
 	}
-	
-});
-$(window).on('hashchange', function(e) {
 	if (e.originalEvent.newURL.indexOf("#addTripPage") != -1) {
 		console.log("add")
+		addDataToAddPage();
 	}
-	
 });
+function addDataToAddPage(){
+		$('#who_are_you_going_with div button').html(TRIPPER_DATA.who_are_you_going_with);
+		$('label[for="trip_with_animals"]').text(TRIPPER_DATA.trip_with_animals);
+		$('label[for="trip_with_road"]').text(TRIPPER_DATA.trip_with_road);
+		$('label[for="trip_for_children"]').text(TRIPPER_DATA.trip_for_children);
+		
+		$('#trip_kind div button').html(TRIPPER_DATA.trip_kind);
+		$('label[for="trip_with_watter"]').text(TRIPPER_DATA.trip_with_watter);
+		$('label[for="trip_with_bicycle"]').text(TRIPPER_DATA.trip_with_bicycle);
+		$('label[for="trip_with_jeep"]').text(TRIPPER_DATA.trip_with_jeep);
+		$('label[for="trip_for_day"]').text(TRIPPER_DATA.trip_for_day);
+		$('label[for="trip_for_night"]').text(TRIPPER_DATA.trip_for_night);
+};
 // $(document).on('click','#accountPage',function(){
 // 	accountCounter=1;
 // 	console.log("click to move the account page")
@@ -2157,17 +2167,7 @@ function displayListTrip(data){
 	}
 	/**** data to result page *****/
 
-		// $('#who_are_you_going_with div button').html(TRIPPER_DATA.who_are_you_going_with);
-		// $('label[for="trip_with_animals"]').text(TRIPPER_DATA.trip_with_animals);
-		// $('label[for="trip_with_road"]').text(TRIPPER_DATA.trip_with_road);
-		// $('label[for="trip_for_children"]').text(TRIPPER_DATA.trip_for_children);
-		
-		// $('#trip_kind div button').html(TRIPPER_DATA.trip_kind);
-		// $('label[for="trip_with_watter"]').text(TRIPPER_DATA.trip_with_watter);
-		// $('label[for="trip_with_bicycle"]').text(TRIPPER_DATA.trip_with_bicycle);
-		// $('label[for="trip_with_jeep"]').text(TRIPPER_DATA.trip_with_jeep);
-		// $('label[for="trip_for_day"]').text(TRIPPER_DATA.trip_for_day);
-		// $('label[for="trip_for_night"]').text(TRIPPER_DATA.trip_for_night);
+	addDataToAddPage();
 
 		
 		// $('#dificullty button span').html(TRIPPER_DATA.dificullty);
