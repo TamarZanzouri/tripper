@@ -728,11 +728,11 @@ $(document).on('click', "#previous , #next", function(e) {
 	if ($('#menu').hasScrollBar()) {
 		var leftPos = $('#menu').scrollLeft();
 		// $(".next").css({"backgroundImage" : "url('images/nextH.png')"});
-		if ($(this).attr('id') == "previous")
+		if ($(this).attr('id') == "next")
 			$('#menu').animate({
 				scrollLeft : leftPos - $(window).width()*(46/100)
 			}, 600);
-		else if ($(this).attr('id') == "next")
+		else if ($(this).attr('id') == "previous")
 			$('#menu').animate({
 				scrollLeft : leftPos + $(window).width()*(46/100)
 			}, 600);
@@ -2335,6 +2335,7 @@ function getUserTrip(){
 $(document).on('click','.titelNameFavorite',function(){
 	
 	favoriteFlag=1;
+	accountFlag=0;
 	var result = $(this).parent().attr('id');
 	$.ajax({
 		type: "post",
