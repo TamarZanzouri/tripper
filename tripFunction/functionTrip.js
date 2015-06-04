@@ -917,7 +917,7 @@ function displayFullTrip(data){
 	 var h4 = $('<h4>').html(TRIPPER_DATA.addNewComment).attr("id","titleComment");
 
 
-	 var textarea = $('textarea').attr({"type":"text","name":"comment","id":"comment"}).css({"display":"none"})
+	 var textarea = $('<textarea>').attr({"type":"text","name":"comment","id":"comment"}).css({"display":"none"})
 	// $('.Trip').append("<textarea type='text' name='comment' id='comment style'display:none'></textarea>");
 	var aSend= $('<a>').attr({"id":"submitComment"}).css({"display":"none"}).html(TRIPPER_DATA.send)
 	// $('.Trip').append("<a id='submitComment' style'display:none'>שלח תגובה</a> </br>");
@@ -1494,7 +1494,7 @@ num = 0
 	var h4 = $('<h4>').html(TRIPPER_DATA.addNewComment).attr("id","titleComment");
 
 	
-	var textarea = $('textarea').attr({"type":"text","name":"chat","id":"chat"}).css({"display":"none"})
+	var textarea = $('<textarea>').attr({"type":"text","name":"chat","id":"chat"}).css({"display":"none"})
 	// $('.Trip').append("<textarea type='text' name='comment' id='comment style'display:none'></textarea>");
 	var aSend= $('<a>').attr({"id":"chatComment"}).css({"display":"none"}).html("שלח")
 	// $('.Trip').append("<a id='submitComment' style'display:none'>שלח תגובה</a> </br>");
@@ -1530,11 +1530,16 @@ num = 0
  }
   $( window ).hashchange(function() {
     var hash = location.hash;
-    console.log(hash)
     if (hash=="") {
     	appendTripCharachters();
     };
 });
+//     $( window ).hashchange(function() {
+//     var hash = location.hash;
+//     if (hash=="addTripPage") {
+//     	console.log(hash)
+//     };
+// });
   $(document).on('click', '.divArt > article > a', function(){
 	if($('.divArt > article > p').hasClass("open-desc")){
 		$('.divArt > article > p').css("max-height", "6em").hide().slideUp("slow", function(){
@@ -1982,7 +1987,12 @@ function addToFavoFromEdit(tripToUpdate){
 }
 $(window).on('hashchange', function(e) {
 	if (e.originalEvent.newURL.indexOf("#myPageSchedule") != -1) {
-		console.log("home")
+	}
+	
+});
+$(window).on('hashchange', function(e) {
+	if (e.originalEvent.newURL.indexOf("#addTripPage") != -1) {
+		console.log("add")
 	}
 	
 });
