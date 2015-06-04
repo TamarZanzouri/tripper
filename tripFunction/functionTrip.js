@@ -713,7 +713,30 @@ $(document).on("click", '#nav ', function(e) {
 $(function() {
 	$("[data-role=panel]").enhanceWithin().panel();
 });
-
+(function($) {
+	$.fn.hasScrollBar = function() {
+		return this.get(0).scrollHeight > this.height();
+	};
+})(jQuery);
+$(document).on('click', "#previous , #next", function(e) {
+	e.preventDefault();
+	console.log($('#menu').hasScrollBar());
+	// if($("#menu").scrollLeft() == ($("#menu").width())){
+	// alert('end!');
+	// }
+	if ($('#menu').hasScrollBar()) {
+		var leftPos = $('#menu').scrollLeft();
+		// $(".next").css({"backgroundImage" : "url('images/nextH.png')"});
+		if ($(this).attr('id') == "previous")
+			$('#menu').animate({
+				scrollLeft : leftPos - $(window).width()*(46/100)
+			}, 600);
+		else if ($(this).attr('id') == "next")
+			$('#menu').animate({
+				scrollLeft : leftPos + $(window).width()*(46/100)
+			}, 600);
+	}
+});
 $(document).on("pageinit", "[data-role='page']", function(event) {
 	$("[data-role='panel']").on("panelopen", function(event, ui) {
 		$('body').css("overflow", "hidden").on("touchmove", false);
@@ -746,13 +769,24 @@ function displayFullTrip(data){
 	}
 	$('.Trip').append("<h1>"+g_trip.trip_name+"</h1>");
 	$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li class='plus'> + </li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
-	var divImg = $('<div>');
+	
+	var divImages = $('<div>').addClass('divTripImg')
+	var aPrev = $('<a>').attr("id","previous").html("הקודם");
+	var aNext = $('<a>').attr("id","next").html("הבא");
+	var ulDivImg = $('<ul>').attr('id','menu');
 	$.each(g_trip.tripSites, function(index,val){
-		var imgFotorama = $('<img>').attr("src",val.img);
-		divImg.append(imgFotorama);
+		var imgFotorama = $("<li>").css("background-image","url("+val.img+")")
+		// append($('<img>').attr("src",val.img));
+		ulDivImg.append(imgFotorama);
 	})
+	// divImg.append(aPrev);
+	// divImg.append(aNext);
 
-	$('.Trip').append(divImg);
+	divImages.append(ulDivImg);
+	divImages.append(aPrev);
+	divImages.append(aNext)
+	$('.Trip').append(divImages);
+
 	var divArt =$('<div>').addClass('divArt');
 	var articleDes=$('<article>');
 	articleDes.append("<h4>"+TRIPPER_DATA.tripDescrition+"</h4>");
