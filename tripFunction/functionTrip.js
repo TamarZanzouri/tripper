@@ -2056,6 +2056,7 @@ function moveToSchedule() {
 	});
 }
 function moveToHomePage() {
+	$("#addform")[0].reset();
 	appendTripCharachters()
 	$.mobile.changePage("#homePage", {
 		transition : "none",
