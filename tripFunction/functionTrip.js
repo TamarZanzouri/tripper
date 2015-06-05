@@ -102,8 +102,9 @@ $(document).ready(function(){
 	    	$.each(data, function(i, val){
 	    		$.each(val.trip_charachters, function(i, val){
 	    			tripCharacters.push(val.name);
-	    			// console.log(val.name)
-
+					var selectAppendCharachters = '<option value=' + val.name + '>' + val.name + '</option>';
+	    			$("#firstcharachter").append(selectAppendCharachters);
+					$("#secondcharachter").append(selectAppendCharachters);	
 	    		})
 	    	});
 	    	appendTripCharachters();
@@ -182,7 +183,7 @@ if ($(window).width() < 767) {
 	$('#nav-panel').css("display" , "block");
 	$('.nav').css("display" , "none");
 	$('#menubtn').css("display", "inline-block");
-	$('#filter').css("display", "none");
+	$('#filtermenu').css("display", "none");
 	$('#buttonRadius').css("display", "block")
 }
 
@@ -1921,7 +1922,7 @@ $(document).on('submit','#addform',function(e){
 		form.append("flag", "addNewTrip");
 		$.ajax({
 			type: "post",
-		        url: g_domain+"add",// where you wanna post
+		        url: g_domain+"addTripWithoutImages",// where you wanna post
 		        data:  form,
 		        //dataType: "json",
 		        contentType: false,
@@ -2076,11 +2077,9 @@ function appendTripCharachters(){
 	$("#groupButton").append(h2);
 	$.each(tripCharacters, function(i, val){
 		var buttonAppendCharachters = '<button class="btnChar">' + val + '</button>';
-		var selectAppendCharachters = '<option value=' + val + '>' + val + '</option>';
 		$("#groupButton").append(buttonAppendCharachters);
-		$("#firstcharachter").append(selectAppendCharachters);
-		$("#secondcharachter").append(selectAppendCharachters);		
 	});
+	
 	$('.btnChar').hover(function(){
 		$(this).css({"background":"#EED53D"})
 	},function(){
