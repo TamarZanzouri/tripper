@@ -1545,7 +1545,7 @@ num = 0
 	if($('.divArt > article > p').hasClass("open-desc")){
 		$('.divArt > article > p').css("max-height", "6em").hide().slideUp("slow", function(){
 			$(this).removeClass("open-desc");
-			$('.Trip > article > p').css({
+			$('.divArt > article > p').css({
 			"display" : "block",
 			'max-height' : '6em',
 			'position' : 'relative'
@@ -1759,7 +1759,7 @@ $(document).on('click','.btnChar', function(e){
 		$(this).css({"background-color":"#22AF87","color":"#EED53D"});
 		$(this).children('img').attr("src","images/arrow_2_hover.png");
 	},function(){
-		$(this).css({"background":"transparent","color":"#ffffff"});
+		$(this).css({"color":"#ffffff"});
 		$(this).children('img').attr("src","images/arrow_2.png");
 	})
 });
@@ -2079,7 +2079,7 @@ function appendTripCharachters(){
 		var buttonAppendCharachters = '<button class="btnChar">' + val + '</button>';
 		$("#groupButton").append(buttonAppendCharachters);
 	});
-	
+
 	$('.btnChar').hover(function(){
 		$(this).css({"background":"#EED53D"})
 	},function(){

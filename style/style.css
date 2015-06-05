@@ -229,8 +229,9 @@ display: -webkit-inline-box;
 .titelName{
 	display: -webkit-box;
   font-weight: 600;
-    font-size: 36px;
-    padding: 0 6px 0 0;
+  font-size: 36px;
+  padding: 0 6px 0 0;
+  cursor: pointer;
 }
 .titelNameFavorite{
     display: -webkit-box;
@@ -458,15 +459,20 @@ body, input, select, textarea, button, .ui-btn{
   top: 20px;
 }
 .continue{
-  border: 1px solid #ffffff;
+  /*border: 1px solid #ffffff;*/
+  /*float: left;*/
   direction: rtl;
-  width: inherit;
+  width: 30%;
   padding: 5px 0px 5px 0px;
   color: #ffffff;
   font-size: 20px;
   display: block;
   /*height: 40px;*/
-    margin: 15px 16px 0px 16px !important
+  margin: 9px 430px 0px 16px !important;
+  cursor: pointer;
+  font-size: 28px;
+  letter-spacing: 2px;
+  background-color: #22AF87 !important
 }
 .btnChar {
   color: #ffffff !important;
@@ -585,10 +591,12 @@ body, input, select, textarea, button, .ui-btn{
     margin: 0px 0 10px 0;
 
 }
+
 .topImg{
     float: left;
   position: relative;
     margin: 5px 5px 0px 5px;
+    cursor: pointer;
 }
 .countLike{
     float: left;
@@ -669,9 +677,11 @@ article> h4 {
 }*/
 .topImgStar{
   float: left;
+  cursor: pointer;
 }
 .topImgSchedule{
   float: left;
+  cursor: pointer;
 }
 #RemoveFavPopup{
   float:right;
@@ -791,11 +801,12 @@ list-style: none;
   margin: 3px 10px 10px 15px;
 }
 #titleComment{
-    color: #22AF87 !important;
+  color: #22AF87 !important;
   text-decoration: underline;
-    height: 50px;
+  height: 50px;
   line-height: 50px;
-    font-size: 20px;
+  font-size: 20px;
+  cursor: pointer;
 }
 .commentList{
   position: relative;
@@ -1003,12 +1014,14 @@ color:#ffffff;
   color: #22AF87 !important;
   float: right;
   position: relative;
+  cursor: pointer;
 
 }
 #next{
   color: #22AF87 !important;
   float: left;
   position: relative;
+  cursor: pointer;
 }
     #menu {
   height: 255px;
@@ -1066,9 +1079,14 @@ width: 46%;
   }
   .topImgStarList {
     float: right;
+    cursor: pointer;
   }
   .topImgScheduleList{
     float: right;
+    cursor: pointer;
+  }
+  .topImgStarList .selectedImgStar{
+    cursor: pointer;
   }
   .titelName{
       float: right;
@@ -1196,6 +1214,7 @@ margin: 0 20px 0 00 !important;
   }
   .topImg{
     margin: 0;
+    cursor: pointer;
   } 
   .ulImages{
     right: 0;
