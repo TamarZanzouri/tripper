@@ -183,7 +183,7 @@ if ($(window).width() < 767) {
 	$('#nav-panel').css("display" , "block");
 	$('.nav').css("display" , "none");
 	$('#menubtn').css("display", "inline-block");
-	$('#filtermenu').css("display", "none");
+	$('#filtermenu').css("display", "none !important");
 	$('#buttonRadius').css("display", "block")
 }
 

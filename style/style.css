@@ -393,6 +393,7 @@ header > a :hover{
   float: right;
   width: 80%;
   background-color: #22AF87 !important;
+  display: flex;
 }
 .nav > li{
   text-align: center;
@@ -1075,7 +1076,7 @@ width: 46%;
   float: left;
   }
   #filtermenu{
-    display: none;
+    display: none !important;
   }
   .topImgStarList {
     float: right;
@@ -1095,6 +1096,7 @@ width: 46%;
   .titelNameFavorite{
       float: right;
       width: 100%;
+      cursor: pointer;
   }
   .divShareSchedule{
       top: 30px;
