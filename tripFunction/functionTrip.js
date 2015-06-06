@@ -1823,6 +1823,7 @@ $(document).on('submit','#addform',function(e){
 		        	console.log(errorMessage)
 		        },
 		        success: function(data) {
+		        	$("#addform")[0].reset();
 		        	console.log(data.res)
 		        	editFromAccount=false;
 		        } 
@@ -1880,7 +1881,7 @@ $(document).on('submit','#addform',function(e){
 		form.append("flag" , "account");
 		$.ajax({
 			type: "post",
-		        url: g_domain+"updateTrip",// where you wanna post
+		        url: g_domain+"updateTripWithOutImages",// where you wanna post
 		        data:  form,
 		        //dataType: "json",
 		        contentType: false,
@@ -1889,6 +1890,7 @@ $(document).on('submit','#addform',function(e){
 		        	console.log(errorMessage)
 		        },
 		        success: function(data) {
+		        	$("#addform")[0].reset();		        	
 		        	console.log(data.res)
 		        	editFromAccount=false;
 		        } 
@@ -1900,7 +1902,7 @@ $(document).on('submit','#addform',function(e){
 		form.append("flag", "favorites");
 		$.ajax({
 			type: "post",
-		        url: g_domain+"updateTrip",// where you wanna post
+		        url: g_domain+"addTripWithoutImages",// where you wanna post
 		        data:  form,
 		        //dataType: "json",
 		        contentType: false,
@@ -1943,10 +1945,6 @@ $(document).on('submit','#addform',function(e){
 	}
 return true;
 })
-
-// $(document).on('click','#submitForm', function(){
-// 	location.reload();	
-// })
 
 function addToFavoFromEdit(tripToUpdate){
 
@@ -2456,6 +2454,7 @@ $(document).on('click','#editFavorite',function(){
 
 	$.each(g_trip.trip_filter, function (index,val){
 		$("label[for='"+val+"']").addClass("ui-btn-active ui-checkbox-on");
+		$("label[for='"+val+"']").prev('input').attr("data-cacheval","false");
 		console.log(val);	
 		switch(val) {
 			case 'medium_trip':
@@ -2531,6 +2530,7 @@ $(document).on('click','#editTripFromAccount',function(){
 
 	$.each(g_trip.trip_filter, function (index,val){
 		$("label[for='"+val+"']").addClass("ui-btn-active ui-checkbox-on");
+		$("label[for='"+val+"']").prev('input').attr("data-cacheval","false");
 		console.log(val);	
 		switch(val) {
 			case 'medium_trip':
