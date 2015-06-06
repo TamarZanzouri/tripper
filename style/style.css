@@ -109,7 +109,9 @@ text-align: -webkit-right;
   cursor: pointer;
 }
 #filtermenu{
-  width: 100%;
+    width: 96%;
+  position: relative;
+  left: 5px;
 }
 .filter{
     width: 100%;
@@ -743,7 +745,7 @@ article> h4 {
   position: relative;
   background: url('images/dot2.gif') top 170px left 45px repeat-x;
   top: 67px;
-    left: 45px;
+    left: 20px;
 }
 #ulTimeLine{
   /*height: 114px;*/
@@ -799,14 +801,19 @@ list-style: none;
 list-style: none;
   float: right;
   font-size: 24px;
-  text-align: center;
+  text-align: right;
   margin: 10px 12px 0 15px;
   position: relative;
- top: 67px;
+  top: 67px;
+}
+#ulTimeLineSchedule>li>p{
+    font-size: 17px;
+    margin: 0 20px 9px 0;
 }
 #ulTimeLineSchedule>li>span{
     font-size:20px;
     position: relative;
+      right: 10px;
     
 }
 #ulTimeLineSchedule>li>img{
@@ -815,6 +822,14 @@ list-style: none;
   position: relative;
   margin: 0 auto;
     border-radius: 50px;
+    float: right;
+}
+#ulTimeLineSchedule>li>a{
+
+  margin-left: 12px;
+  position: relative;
+  color:#ff0000;
+  font-size: 18px;
 }
 /*************  comment  **************/
 #myImg{
@@ -980,7 +995,7 @@ float: right;
 }
 .locH5Schedule{
   padding: 0 0 0 5px;
-  font-size: 28px;
+  font-size: 22px;
   margin: 5px 0 5px 10px;
   position: relative;
   right: 10px;
@@ -995,7 +1010,7 @@ dt{
 padding: 0 0px 0px 10px;
 }
 .smallULSchedule{
-margin: 0 7px 0 0px;
+margin: 0 11px 0 0px;
   padding: 0 0 0 0;
   display: inline-block;
     float: right;
@@ -1028,6 +1043,9 @@ color:#ffffff;
   border: none !important;
 }
 #sectionComment{
+  float: right;
+}
+#sectionChat{
   float: right;
 }
 .fotorama{
@@ -1271,6 +1289,10 @@ margin: 0 20px 0 00 !important;
   }
   #groupButton > h2{}
   #sectionComment{
+      position: relative;
+        top: 67px;
+  }
+   #sectionChat{
       position: relative;
         top: 67px;
   }

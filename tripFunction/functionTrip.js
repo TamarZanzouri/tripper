@@ -1403,15 +1403,17 @@ function displayListScheduleTrip(data){
 	ul.empty();
 	$.each(g_ListTrip, function (index,val){
 		var li = $('<li>').addClass('liImeLine').attr("id",val._id);
+		var num =$('<p>').html(index+1).addClass('numberTrip');
 		var span = $('<span>').addClass('moveToTrip');
 		var img = $('<img>').addClass('moveToTrip');
 		
-		span.html(val.trip_name);
+		span.html(val.trip_name).css('display','none');
 		img.attr({"src":val.tripSites[0].img, "width":50, "height":50})
 
 
-		li.append(span);
+		li.append(num);
 		li.append(img);
+		li.append(span);
 		var h5 =$('<h5>').html( hashtable[val.area]).addClass('locH5Schedule').css("display","none").addClass('moveToTrip');;
 		li.append(h5);
 		var ulSmall =$('<dl>').addClass("smallULSchedule").css("display","none");
@@ -1440,22 +1442,26 @@ function displayListScheduleTrip(data){
 		console.log("hover");
 		$(this).css({"top":"-50px","border":"1px solid #000000","padding":"12px","background-color":"#ffffff","border-radius":"30px"});
 		meSpan = $(this).children('span');
-		meSpan.css({"font-size":"20px","float":"left","padding": "0px 10px 0 2px"});
+		meSpan.css({"display":"block","font-size":"22px","padding": "0px 10px 0 2px"});
+		meNum = $(this).children('p');
+		meNum.hide();
+		
 		meImg = $(this).children('img');
 		meImg.attr({"width":125,"height":125}).css({"border-radius":"0px","float":"right"});
 		//$(this).attr({"width":100,"height":100})
 		meArea = $(this).children('h5');
-		meArea.css("display","block");
+		meArea.css("display","table-cell");
 		meUl = $(this).children('dl');
 		meUl.css("display","inline-block");
 		meA = $(this).children('a');
-		meA.css("display","inline-block")
+		meA.css({"display":"inline-block","float": "left"})
 	}
 	, function(){
 		$(this).css({"top":"68px","border":"none","background-color":"transparent","padding":"0px"});
 		meSpan = $(this).children('span');
-		meSpan.css({"font-size":"20px","float":"none","padding": "0"});
-		
+		meSpan.css({"display":"none","font-size":"20px","float":"none","padding": "0"});
+		meNum = $(this).children('p');
+		meNum.show();
 		//me=$(this).attr({"width":50,"height":50});
 		//div.append(me)
 		meImg = $(this).children('img');
@@ -1473,7 +1479,7 @@ num = 0
 
 	// var schedulePage= $('#myPageSchedule #content')
 	
-	var commentSection = $('#sectionComment').empty();
+	var commentSection = $('#sectionChat').empty();
 	var ul = $('<ul>').addClass("commentList");
 	$.each(User.scheduleChat, function(index,val){
 		var li = $('<li>');
