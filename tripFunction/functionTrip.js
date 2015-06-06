@@ -111,6 +111,18 @@ $(document).ready(function(){
 	    	appendTripCharachters();
     	}
 	}); 
+
+	$.ajax({
+		type: "post",
+		url: g_domain + "sendEmail",
+		dataType: "json",
+    	error: function(jqXHR, textStatus, errorMessage) {
+    		console.log(errorMessage)
+    	},
+    	success: function(data) {
+    		console.log("mail sent")
+    	}
+	})
 	/******* end get data *******/
     //  1.tel_aviv 2. north 3. south 
     var locations={}
