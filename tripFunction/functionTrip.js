@@ -2257,10 +2257,10 @@ function displayListTrip(data){
 				if (favorites.indexOf(val._id) > -1)
 				{
 					imgF = $('<img>')
-					imgF.attr({"id":"img"+index+"Id",'src':'images/remove_favorites.png'}).addClass('topImgStarList selectedImgStar'); 
+					imgF.attr({"id":"img"+index+"Id",'src':'images/remove_favorites.png'}).addClass('topImgStarList selectedImgStar imgInList'); 
 				}else{
 					imgF = $('<img>')
-					imgF.attr({"id":"img"+index+"Id",'src':'images/add_favorites.png'}).addClass('topImgStarList'); 
+					imgF.attr({"id":"img"+index+"Id",'src':'images/add_favorites.png'}).addClass('topImgStarList imgInList'); 
 				}
 				var schedules= []
 				$.each(User.schedule, function(i,value){
@@ -2268,10 +2268,10 @@ function displayListTrip(data){
 				})
 				if (schedules.indexOf(val._id) > -1) {
 					imgS = $('<img>')
-					imgS.attr({"id":"imgS"+index+"Id",'src':'images/remove_track.png'}).addClass('topImgScheduleList selectedImgSchedule'); 
+					imgS.attr({"id":"imgS"+index+"Id",'src':'images/remove_track.png'}).addClass('topImgScheduleList selectedImgSchedule imgInList'); 
 				}else{
 					imgS = $('<img>')
-					imgS.attr({"id":"imgS"+index+"Id",'src':'images/add_track.png'}).addClass('topImgScheduleList'); 
+					imgS.attr({"id":"imgS"+index+"Id",'src':'images/add_track.png'}).addClass('topImgScheduleList imgInList'); 
 				}
 				li.append(imgF);
 				li.append(imgS);
