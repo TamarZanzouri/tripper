@@ -754,6 +754,7 @@ function displayFullTrip(data){
 	}
 	if(accountFlag==1){
 		$('.Trip').append("<a id='editTripFromAccount'>"+TRIPPER_DATA.editTrip+"</a> </br>");
+		$('#uploadImgForm').css("display", "block");
 		accountFlag=0;
 	}
 	$('.Trip').append("<h1>"+g_trip.trip_name+"</h1>");
@@ -788,7 +789,7 @@ function displayFullTrip(data){
 	var ulTags = $('<ul>').addClass('asideFilter')
 	var count=g_trip.trip_filter.length;
 	$.each(g_trip.trip_filter, function(i,v){
-		debugger
+		// debugger
 		var liTag=$('<li>');
 		var liPlus =$('<li>').addClass('plus').html("+");
 		if (i!= 0 && i!=count) {
@@ -1806,14 +1807,15 @@ $(document).on('submit','#addform',function(e){
 		console.log(temp_arr);
 		form.append("shareEmail",temp_arr);
 	}
-	console.log(form)
+	console.log(form);
 	if(($(this).find('#imgUpload')[0].files.length) > 0){
+		console.log("uploading images")
 		if(editFromAccount){
 		form.append("tripId" , g_trip._id);
 		form.append("flag" , "account");
 		$.ajax({
 			type: "post",
-		        url: g_domain+"add",// where you wanna post
+		        url: g_domain+"updateTripWithImage",// where you wanna post
 		        data:  form,
 		        //dataType: "json",
 		        contentType: false,
@@ -1844,7 +1846,7 @@ $(document).on('submit','#addform',function(e){
 		        success: function(data) {
 		        	console.log(data.res)
 		        	if(edit==true){
-		        		addToFavoFromEdit(data);
+		        		addToFavoFromEdit(data.res);
 		        	}
 		        	edit=false;
 		        } 
@@ -1865,10 +1867,6 @@ $(document).on('submit','#addform',function(e){
 		        },
 		        success: function(data) {
 		        	console.log(data.res)
-		        	if(edit==true){
-		        		addToFavoFromEdit(data);
-		        	}
-		        	edit=false;
 		        } 
 		    });
 		moveToHomePage();
@@ -1912,7 +1910,7 @@ $(document).on('submit','#addform',function(e){
 		        success: function(data) {
 		        	console.log(data.res)
 		        	if(edit==true){
-		        		addToFavoFromEdit(data);
+		        		addToFavoFromEdit(data.res);
 		        	}
 		        	edit=false;
 		        } 
@@ -1933,10 +1931,6 @@ $(document).on('submit','#addform',function(e){
 		        },
 		        success: function(data) {
 		        	console.log(data.res)
-		        	if(edit==true){
-		        		addToFavoFromEdit(data);
-		        	}
-		        	edit=false;
 		        } 
 		    });
 		moveToHomePage();
@@ -1949,6 +1943,7 @@ function addToFavoFromEdit(tripToUpdate){
 
 	console.log("deleting trip " + g_trip);
 	console.log("trip id: " +g_trip._id)
+	console.log("trip to update", tripToUpdate)
 	$.ajax({
 		type: "post",
     	url: g_domain+"updateTripChangesToUserFavorites",// where you wanna post
@@ -1959,6 +1954,7 @@ function addToFavoFromEdit(tripToUpdate){
     		console.log(errorMessage)
     	},
     	success: function(data) {
+    		console.log("adding trip to favorite")
     		$.ajax({
     			type: "post",
 		        url: g_domain+"updateFavoirte",// where you wanna post
@@ -1968,7 +1964,7 @@ function addToFavoFromEdit(tripToUpdate){
 		        	area:tripToUpdate.area,
 		        	tripSites : tripToUpdate.tripSites           	
 		        }
-		        ,userId:User.email},
+		        ,userId:User.email, isFavorite:true},
 		        dataType: "json",
 		        error: function(jqXHR, textStatus, errorMessage) {
 		        	console.log(errorMessage)
