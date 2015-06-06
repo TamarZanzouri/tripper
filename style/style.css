@@ -104,6 +104,10 @@ text-align: -webkit-right;
     float: right;
   width: 100%;
 }
+
+#editTripFromAccount{
+  cursor: pointer;
+}
 #filtermenu{
   width: 100%;
 }
