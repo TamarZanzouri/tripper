@@ -1,6 +1,23 @@
 
 var express = require('express');
+var mailer = require("nodemailer");
 var router = express.Router();
+
+var smtpTransport = mailer.createTransport("SMTP",{
+    service: "Gmail",
+    auth: {
+        user: "zanzouritamar@gmail.com",
+        pass: "T1A2M3I4"
+    }
+});
+
+var mail = {
+    from: "Yashwant Chavan <zanzouritamar@gmail.com>",
+    to: "haimyyy@gmail.com",
+    subject: "Send Email Using Node.js",
+    text: "Node.js New world for me",
+    html: "<b>Node.js New world for me</b>"
+}
 
 router.post('/registerUser', function(req, res) {
 	console.log("in register user")
@@ -44,6 +61,19 @@ router.post('/registerUser', function(req, res) {
 		}
 	});
 });
+
+router.post('/sendEmail', function  (req, res) {
+
+smtpTransport.sendMail(mail, function(error, response){
+    if(error){
+        console.log(error);
+    }else{
+        console.log("Message sent: " + response.message);
+    }
+    
+    smtpTransport.close();
+});
+})
 
 router.post('/updateMySchedule', function(req, res) {
 	try{
