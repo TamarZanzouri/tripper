@@ -1725,8 +1725,6 @@ $(document).on('click','#moveToFavorite',function(){
 
 $(document).on('click','.btnChar', function(e){
 
-	console.log("picked char")
-	$('.continue').css({'display':'block'});	
 	$(this).addClass('selectedChar');
 
 	if(count==1)
@@ -1735,11 +1733,13 @@ $(document).on('click','.btnChar', function(e){
 		count++;
 		clickedCharachters[0] = $(this).text();
 		var div = $('<div>')
-		div.addClass('continue');
+		
 		var img = $('<img>').attr("src","images/arrow_2.png");
 		var span = $('<span>').html("המשך  ")
 		div.append(span);
 		div.append(img);
+		div.attr("id","continue").css({"display": "-webkit-inline-box","width":"auto","height":"auto"});
+		
 		$('#groupButton').append(div)
 		console.log("continue")
 	}
@@ -1752,10 +1752,10 @@ $(document).on('click','.btnChar', function(e){
 		updateTripFromCharchters(clickedCharachters);
 	}
 
-	$('.continue').click(function(){
+	$('#continue').click(function(){
 		updateTripFromCharchters(clickedCharachters);
 	});
-	$('.continue').hover(function(){
+	$('#continue').hover(function(){
 		$(this).css({"background-color":"#22AF87","color":"#EED53D"});
 		$(this).children('img').attr("src","images/arrow_2_hover.png");
 	},function(){
@@ -2075,11 +2075,12 @@ function appendTripCharachters(){
 	$("#groupButton").append(h2Road)
 	var h2 = $('<h2>').attr("id","genres");
 	$("#groupButton").append(h2);
+	var div = $('<div>').addClass('buttons');
 	$.each(tripCharacters, function(i, val){
 		var buttonAppendCharachters = '<button class="btnChar">' + val + '</button>';
-		$("#groupButton").append(buttonAppendCharachters);
+		div.append(buttonAppendCharachters);
 	});
-
+	$("#groupButton").append(div);
 	$('.btnChar').hover(function(){
 		$(this).css({"background":"#EED53D"})
 	},function(){

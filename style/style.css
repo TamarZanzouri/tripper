@@ -450,34 +450,33 @@ body, input, select, textarea, button, .ui-btn{
   padding: 25px !important;
 }
 #groupButton{
-  text-align: center;
+  text-align: left;
   width: 50%;
   margin: 50px auto;
   position: relative;
-  padding: 2px 5px 35px 5px;
+  padding: 2px 5px 30px 5px;
   background-image: url("images/bg_groupButton.png");
   top: 20px;
 }
-.continue{
-  /*border: 1px solid #ffffff;*/
-  /*float: left;*/
-  direction: rtl;
-  width: 30%;
-  padding: 5px 0px 5px 0px;
+#continue{
+  width: auto;
+  padding: 5px 10px 5px 10px;
   color: #ffffff;
-  font-size: 20px;
-  display: block;
-  /*height: 40px;*/
-  margin: 9px 430px 0px 16px !important;
+  display: none;
+  margin: 9px 13px 10px 16px !important;
   cursor: pointer;
   font-size: 28px;
-  letter-spacing: 2px;
-  background-color: #22AF87 !important
+  letter-spacing: 1px;
+  background-color: #22AF87 !important;
+  position: relative;
+}
+.buttons{
+  text-align: center;
 }
 .btnChar {
   color: #ffffff !important;
   background-color: transparent ;
-  margin: 15px 16px 10px 16px !important;
+  margin: 12px 16px 12px 16px !important;
   height: 48px;
   font-size: 20px;
   border: 1px solid #ffffff;
@@ -485,6 +484,7 @@ body, input, select, textarea, button, .ui-btn{
   padding: 0px 10px 0px 9px;
   width: auto !important;
     display: inline !important;
+    position: relative;
 }
 #groupButton > h2{
   color: #ffffff;
