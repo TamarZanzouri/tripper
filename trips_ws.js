@@ -700,6 +700,127 @@ console.log("start to add to DB")
 });
 });
 
+router.post('/updateTripWithImage', function(req, res){
+	//console.log(req.files,req.body)
+	//console.log("haim" + req.body.newTrip + " " + req.body.des);
+	console.log("start to add to DB")
+	var urlImg="";
+	var dataForm={};
+	var playlistToAdd = {};
+	var tripFilter =[];
+	var form = new formidable.IncomingForm();
+
+	form.parse(req, function(error, fields, files) 
+	{
+		console.log('-->PARSE<--');
+        //logs the file information 
+        console.log("files", JSON.stringify(files));
+        console.log("fields", JSON.stringify(fields));
+        dataForm=fields;
+    });
+
+	form.on('progress', function(bytesReceived, bytesExpected) 
+	{
+		var percent_complete = (bytesReceived / bytesExpected) * 100;
+		// console.log(percent_complete.toFixed(2));
+	});
+
+	form.on('error', function(err) 
+	{
+		console.log("-->ERROR<--");
+		console.error(err);
+	});
+	form.on('end', function(error, fields, files) {
+		var file_names = this.openedFiles;
+		console.log("in end of form")
+	 	console.log(this)
+		var files_temp=[];
+		var temp_paths=[];
+		var tripCharachters = [];
+		for(i in file_names){
+			files_temp.push(file_names[i]);
+			
+		}
+		for(i in files_temp){
+			if(files_temp[i].name==''){
+				var x= files_temp[i]
+			}else{
+				temp_paths[i]=files_temp[i].path;
+			}
+		}
+
+		var urls=[],total=0,size=0;
+		total = temp_paths.length;
+		for(i in temp_paths){
+			console.log(temp_paths[i])
+			cloudinary.uploader.upload(temp_paths[i], 
+                    function(result) { 
+                  		if (result.error) {
+							return;
+						}
+                  		urls.push(result.url);	
+                  		
+                  		++size;
+                  		if (total != size) return;
+                  		
+                  		console.log('urls',urls)
+
+						tripCharachters.push(dataForm.firstcharachter);
+						tripCharachters.push(dataForm.secondcharachter);
+						var sitesName = dataForm.ingredients;
+						// console.log("SSSSSSSSS",sitesName)
+						var loc= dataForm.amount;
+						var sites=JSON.parse(dataForm.sites);
+							for (val in sites){
+								// console.log("############",urls[val]);
+								sites[val].img = urls[val];
+							}
+							console.log("$$$$$$$$",sites)
+
+							var tripFilter=JSON.parse(dataForm.trip_filter);
+							console.log("trip filters " + tripFilter);
+							tripFilter.push(dataForm.difficulty);
+
+							console.log("filters enterd " + tripFilter)
+			db.model('tripper_playlists').findOne({_id : new ObjectId(dataForm.tripId) }, function (err, docs) {
+				if(err){
+					console.error(err);
+					res.json({status:0});
+				}
+				if(docs){
+					docs.trip_name 	= dataForm.nameTrip;
+					docs.trip_description = dataForm.des;
+					docs.address = dataForm.locationTrip;
+					docs.trip_charachters = tripCharachters;
+					docs.mapPoint=(dataForm.mapPoint)?JSON.parse(dataForm.mapPoint):'';
+					if(sites.length > 0)
+						docs.tripSites.push.apply(docs.tripSites, sites);
+					docs.trip_isPrivate = dataForm.isTripPrivate;
+					docs.area = dataForm.area;
+					docs.shareEmail = dataForm.shareEmail;
+					docs.trip_filter = tripFilter;
+					docs.save(function(err, result){
+						if(err)
+						{
+							console.error(err);
+							res.json({status:0})
+						}
+						console.log(result)
+					})
+					console.log("updated trip id ", dataForm.tripId)
+					res.json({status:1})
+					}
+				})
+
+                    },{
+                    	crop: 'limit',
+						width: 640,
+						height: 360
+                    });
+		}
+	 });
+})
+
 router.post('/updateTripWithOutImages', function (req, res) {
 	console.log("start to add to DB")
 	var urlImg="";
@@ -732,22 +853,13 @@ router.post('/updateTripWithOutImages', function (req, res) {
 	form.on('end', function(error, fields, files) {
 		console.log("in end of form")
 		console.log("trip id ",dataForm.tripId)
-		// return;
-		// playlistToAdd.trip_name = dataForm.nameTrip;
-		// playlistToAdd.trip_description = dataForm.des;
-		// playlistToAdd.address = dataForm.locationTrip;
 		tripCharachters.push(dataForm.firstcharachter);
 		tripCharachters.push(dataForm.secondcharachter);
-		// playlistToAdd.trip_charachters = tripCharachters;
 		var sitesName = dataForm.ingredients;
 		console.log("SSSSSSSSS",sitesName)
 		var loc= dataForm.amount;
 		var sites=JSON.parse(dataForm.sites);
 		console.log("sites ", sites)
-		// var noImagePrieview = [];
-		// noImagePrieview.push('images/noimage.jpg');
-		// playlistToAdd.imageUrl = noImagePrieview;
-		// playlistToAdd.mapPoint=(dataForm.mapPoint)?JSON.parse(dataForm.mapPoint):'';
 		if(sites.length > 0){
 			for (val in sites){
 				sites[val].img = 'images/noimage.jpg';

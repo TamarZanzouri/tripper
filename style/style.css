@@ -246,12 +246,14 @@ display: -webkit-inline-box;
   font-weight: 600;
     font-size: 36px;
     padding: 0 6px 0 0;
+    cursor: pointer;
 }
 .titelNameAccount{
     display: -webkit-box;
   font-weight: 600;
     font-size: 36px;
     padding: 0 6px 0 0;
+    cursor: pointer;
 }
 .titelNameSchedule{
       display: -webkit-box;
@@ -261,13 +263,16 @@ display: -webkit-inline-box;
     float: right;
    width: 75%;
    z-index: 99;
+   cursor: pointer;
 }
 .remove_track{
   display: none;
   color:#ff5555;
 }
 
-
+.moveToTrip{
+  cursor: pointer;
+}
 
 
 #submitForm{
@@ -924,6 +929,10 @@ float: right;
       position: relative;
   right: 50px;
 }
+
+#editFavorite{
+  cursor: pointer;
+}
 .details{
     text-align: right;
   margin: 20px 0 20px 0;
@@ -934,6 +943,7 @@ float: right;
   margin: 3px 10px 10px 15px;
     position: relative;
   height: auto;
+  cursor: pointer;
 }
 
 .well{
@@ -1139,11 +1149,7 @@ width: 46%;
       width: 100%;
       cursor: pointer;
   }
-   .titelNameFavorite{
-      float: right;
-      width: 100%;
-      cursor: pointer;
-  }
+
   .divShareSchedule{
       top: 30px;
   right: 0;
