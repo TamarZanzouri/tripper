@@ -24,6 +24,7 @@ var accountCounter=0;
 var favoriteFlag=0;
 var accountFlag=0;
 var favoriteFlagList=0;
+var accountFlagList=0;
 mapPoint={};
 g_trip={};
 g_ListTrip=[];
@@ -197,7 +198,6 @@ $('#shareEmail').emailautocomplete({
 		// domains: ["example.com"] //additional domains (optional)
 	});
 var max_fields = 20;
-	// debugger;
 
 	//maximum input boxes allowed
 	var outer_wrapper = $(".ingredients_wrap");
@@ -205,7 +205,6 @@ var max_fields = 20;
 	var firstIngredient = $(".firstIngredient");
 	wrapper.geocomplete();
 	var x = 1;
-	//$(firstIngredient).focus(function(e){ //on add input button click
 	$(outer_wrapper).on("focus", ".firstIngredient", function(e) {//on add input button click
 		e.preventDefault();
 		console.log("focus " + x);
@@ -235,20 +234,7 @@ var max_fields = 20;
 		$(this).parent('div').remove(); 
 	});
 
-	// $('.filter').click(function(){
-	// 	// debugger;
-	// 	console.log("in filter");
-	// 	filter = [];
-	// 	$('input[type="checkbox"]').each(function(value) {
-	// 		if($(this).is(':checked')){
-	// 			console.log($(this).attr('id'));
-	// 			filter.push($(this).attr('id'));
-	// 		}
-	// 		else return;
-	// 	});
-	// 	console.log(filter);
-	// 	updateResultByFilterBeforeArea();
-	// });
+
 $('#addFriendToSchedule').click(function(){
 	if($('#shareSchedule').val()){
 			// debugger
@@ -731,11 +717,11 @@ $(document).on('click', "#previous , #next", function(e) {
 		// $(".next").css({"backgroundImage" : "url('images/nextH.png')"});
 		if ($(this).attr('id') == "next")
 			$('#menu').animate({
-				scrollLeft : leftPos - $(window).width()*(46/100)
+				scrollLeft : leftPos - $(window).width()*(41/100)
 			}, 600);
 		else if ($(this).attr('id') == "previous")
 			$('#menu').animate({
-				scrollLeft : leftPos + $(window).width()*(46/100)
+				scrollLeft : leftPos + $(window).width()*(41/100)
 			}, 600);
 	}
 });
@@ -764,14 +750,19 @@ function displayFullTrip(data){
 	if(favoriteFlag==1){
 		$('.Trip').append("<a id='editFavorite'>"+TRIPPER_DATA.editTrip+"</a> </br>");
 		favoriteFlag=0;
+
 	}
 	if(accountFlag==1){
 		$('.Trip').append("<a id='editTripFromAccount'>"+TRIPPER_DATA.editTrip+"</a> </br>");
 		accountFlag=0;
 	}
 	$('.Trip').append("<h1>"+g_trip.trip_name+"</h1>");
-	$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li class='plus'> + </li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
-	
+	if(g_trip.trip_charachters[1]=="")
+	{
+		$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li></ul>");
+	}else{
+		$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li class='plus'> + </li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
+	}
 	var divImages = $('<div>').addClass('divTripImg')
 	var aPrev = $('<a>').attr("id","previous").html("הקודם");
 	var aNext = $('<a>').attr("id","next").html("הבא");
@@ -794,14 +785,22 @@ function displayFullTrip(data){
 	articleDes.append("<h4>"+TRIPPER_DATA.tripDescrition+"</h4>");
 	articleDes.append("<p>" + g_trip.trip_description + "</p>");
 	articleDes.append("<a href='#'>קרא עוד</a>")
-	var aside = $('<aside>').addClass('asideFilter')
+	var ulTags = $('<ul>').addClass('asideFilter')
+	var count=g_trip.trip_filter.length;
 	$.each(g_trip.trip_filter, function(i,v){
-		aside.append(hashtable[v])
-		aside.append(' | ')
+		debugger
+		var liTag=$('<li>');
+		var liPlus =$('<li>').addClass('plus').html("+");
+		if (i!= 0 && i!=count) {
+			ulTags.append(liPlus);
+		};
+
+		liTag.append(hashtable[v]);
+		ulTags.append(liTag);
 	});
 
 	divArt.append(articleDes);
-	divArt.append(aside);
+	divArt.append(ulTags);
 	$('.Trip').append(divArt)
 
 	var ulImg =$ ('<ul>').addClass('ulImages');
@@ -1995,12 +1994,12 @@ $(window).on('hashchange', function(e) {
 	}
 });
 function addDataToAddPage(){
-		$('#who_are_you_going_with div button').html(TRIPPER_DATA.who_are_you_going_with);
+		$('#who_are_you_going_with div button .nameF').html(TRIPPER_DATA.who_are_you_going_with);
 		$('label[for="trip_with_animals"]').text(TRIPPER_DATA.trip_with_animals);
 		$('label[for="trip_with_road"]').text(TRIPPER_DATA.trip_with_road);
 		$('label[for="trip_for_children"]').text(TRIPPER_DATA.trip_for_children);
 		
-		$('#trip_kind div button').html(TRIPPER_DATA.trip_kind);
+		$('#trip_kind div button .nameF').html(TRIPPER_DATA.trip_kind);
 		$('label[for="trip_with_watter"]').text(TRIPPER_DATA.trip_with_watter);
 		$('label[for="trip_with_bicycle"]').text(TRIPPER_DATA.trip_with_bicycle);
 		$('label[for="trip_with_jeep"]').text(TRIPPER_DATA.trip_with_jeep);
@@ -2187,7 +2186,7 @@ function displayListTrip(data){
 	}
 	if(window.location.hash=='#accountPage')
 	{
-		accountCounter=1;
+		accountFlagList=1;
 	}
 	console.log(accountCounter)
 	if (accountCounter==0){
@@ -2212,20 +2211,30 @@ function displayListTrip(data){
 		$.each(data,function(index,val){
 			var li = $('<li>');
 			li.attr({"id":val._id}).addClass('listResultTrip trip');
-			var imgTrip=$('<img>').attr({"src":val.tripSites[0].img,"width":"190px","height":"190px"}).addClass('TripImg');
+			var imgTrip=$('<img>').attr({"src":val.tripSites[0].img,"width":"190px","height":"190px"})
+			if(favoriteFlagList==1){
+				imgTrip.addClass('TripImgFavorite ImgT').html(val.trip_name)
+			}else if (accountFlagList==1){
+				imgTrip.addClass('TripImgAccount ImgT').html(val.trip_name)
+			}else{
+				imgTrip.addClass('TripImg ImgT').html(val.trip_name)
+			}
+			
 			li.append(imgTrip);
 			
 
 			var span = $('<span>');
 			if(favoriteFlagList==1){
 				span.addClass('titelNameFavorite').html(val.trip_name)
+			}else if (accountFlagList==1){
+				span.addClass('titelNameAccount').html(val.trip_name)
 			}else{
 				span.addClass('titelName').html(val.trip_name)
 			}
 			li.append(span);
 			var h5 =$('<h5>').html( hashtable[val.area]).addClass('locH5');
 			li.append(h5);
-			if(accountCounter==0 && favoriteFlagList==0){
+			if(accountFlagList==0 && favoriteFlagList==0){
 				var ulSmall =$('<ul>').addClass("smallUL")
 				if(val.trip_filter.length>0){
 					$.each(val.trip_filter,function(i,v){
@@ -2275,7 +2284,7 @@ function displayListTrip(data){
 		});
 	}
 favoriteFlagList=0;
-accountCounter=0;
+accountFlagList=0;
 console.log("after display list",accountCounter)
 }
 $(document).on( "click", "#signOut", function() {
@@ -2355,6 +2364,75 @@ $(document).on('click','.titelNameFavorite',function(){
     });
 	moveToTripPage();
 });
+$(document).on('click','.TripImgFavorite',function(){
+	
+	favoriteFlag=1;
+	accountFlag=0;
+	var result = $(this).parent().attr('id');
+	$.ajax({
+		type: "post",
+        url: g_domain+"getTripById",// where you wanna post
+        data:  {id:result},
+        dataType: "json",
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+
+
+        },
+        success: function(data) {
+        	g_trip=data;
+        	displayFullTrip(data);
+        	
+        }
+    });
+	moveToTripPage();
+});
+$(document).on('click','.titelNameAccount',function(){
+	
+	favoriteFlag=0;
+	accountFlag=1;
+	var result = $(this).parent().attr('id');
+	$.ajax({
+		type: "post",
+        url: g_domain+"getTripById",// where you wanna post
+        data:  {id:result},
+        dataType: "json",
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+
+
+        },
+        success: function(data) {
+        	g_trip=data;
+        	displayFullTrip(data);
+        	
+        }
+    });
+	moveToTripPage();
+});
+$(document).on('click','.TripImgAccount',function(){
+	
+	favoriteFlag=0;
+	accountFlag=1;
+	var result = $(this).parent().attr('id');
+	$.ajax({
+		type: "post",
+        url: g_domain+"getTripById",// where you wanna post
+        data:  {id:result},
+        dataType: "json",
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+
+
+        },
+        success: function(data) {
+        	g_trip=data;
+        	displayFullTrip(data);
+        	
+        }
+    });
+	moveToTripPage();
+});
 $(document).on('click','.titelName',function(){
 	
 	var result = $(this).parent().attr('id');
@@ -2376,7 +2454,27 @@ $(document).on('click','.titelName',function(){
     });
 	moveToTripPage();
 });
+$(document).on('click','.TripImg',function(){
+	
+	var result = $(this).parent().attr('id');
+	$.ajax({
+		type: "post",
+        url: g_domain+"getTripById",// where you wanna post
+        data:  {id:result},
+        dataType: "json",
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
 
+
+        },
+        success: function(data) {
+        	g_trip=data;
+        	displayFullTrip(data);
+        	
+        }
+    });
+	moveToTripPage();
+});
 $(document).on('click','.moveToTrip',function(){
 	
 	var result = $(this).parent().attr('id');
@@ -2555,33 +2653,23 @@ $(document).on('click','#editTripFromAccount',function(){
 	var len = g_trip.tripSites.length;
 	
 	if(len){
-		// debugger;
 		$.each(g_trip.tripSites,function(i,val){
 			if ((i+1)==1 ) {
 				firstSites()
 			};
 			if ((i+1)>1) {
-				// debugger;
 				console.log(i);
 				$('#newChild'+(i+1)).val(val.siteName);
 				$('#thumbnil'+(i+1)).attr("src",val.img);
 			};
 		});
 	}
-	// $('#imgUpload').focus();
-	// $('#thumbnil').attr("src",g_trip.imageUrl);
-	// $('#dvMap').click(function (){
 
-	// });
 	if(g_trip.mapPoint){
 		mapPoint.lat=g_trip.mapPoint.lat;
 		mapPoint.lng=g_trip.mapPoint.lng;
 	}
-		 // $('.firstIngredient').val(g_trip.tripSites[0].siteName)
-	 //  $('.firstAmount').val(g_trip.tripSites[0].location)
-	// $.each(g_trip.sites,function(index,val){
 
-	// });
 });
 function firstSites(){
 	$('.firstIngredient').trigger('focus').val(g_trip.tripSites[0].siteName);

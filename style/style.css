@@ -187,10 +187,12 @@ text-align: right !important;
 .displayTripLeft{
   width: 47%;
   float: right;
+  padding: 0 7px 0 7px;
 }
 .displayTripRight{
   width: 47%;
   float: right;
+  padding: 0 10px 0 7px;
 }
 .displayTripLeft > li{
 	  font-size: 16px;
@@ -239,6 +241,12 @@ display: -webkit-inline-box;
     font-size: 36px;
     padding: 0 6px 0 0;
 }
+.titelNameAccount{
+    display: -webkit-box;
+  font-weight: 600;
+    font-size: 36px;
+    padding: 0 6px 0 0;
+}
 .titelNameSchedule{
       display: -webkit-box;
   font-weight: 600;
@@ -282,6 +290,7 @@ display: -webkit-inline-box;
   margin: 5px 0 5px 10px;
   position: relative;
   right: 5px;
+    display: -webkit-box;
 }
 .userDetailes{
   float: left;
@@ -652,15 +661,22 @@ body, input, select, textarea, button, .ui-btn{
 }
 
 .asideFilter{
-    height: 40px;
+/*height: 40px; */
   float: right;
-  height: 57px;
-  float: right;
-  background-color: #22AF87 !important;
-  color: #ffffff;
-  padding: 3px 6px 0 8px;
+  /* height: 57px; */
+  /* background-color: #22AF87 !important; */
+  /* color: #ffffff; */
+  padding: 0;
   font-size: 18px;
   width: 100%;
+}
+.asideFilter>li{
+  float: right;
+  margin: 15px 4px 11px 4px;
+  padding: 3px 5px 3px 5px;
+  font-family: 'Alef';
+  background-color: #22AF87 ;
+  color: #ffffff;
 }
 article> h4 {
     font-size: 30px;
@@ -670,8 +686,10 @@ article> h4 {
 }
 .plus{
     border: none !important;
-  margin: 20px 0 0 0 !important;
+  margin: 15px 0 0 0 !important;
   padding: 5px 0 0 0 !important;
+    color: #000000!important;
+      background-color: transparent !important;
 }
 /*h4{
   font-family: 'Alef';
@@ -757,10 +775,10 @@ list-style: none;
     border-radius: 50px;
 }
 #scheduleTimeLline{
-  width: 83%;
-  height: 300px;
+   width: 90%;
+  height: 394px;
   overflow: hidden;
-  margin: 107px auto;
+  margin: 107px 0 107px 0;
   position: relative;
   background: url('images/dot2.gif') top 205px left 45px repeat-x;
   top: 67px;
@@ -891,13 +909,14 @@ float: right;
     text-align: right;
   margin: 20px 0 20px 0;
 }
-.TripImg {
+.ImgT {
   display: inline;
   float: right;
   margin: 3px 10px 10px 15px;
     position: relative;
   height: auto;
 }
+
 .well{
   background: transparent !important;
   border: none !important;
@@ -1016,13 +1035,14 @@ color:#ffffff;
   float: right;
   position: relative;
   cursor: pointer;
-
+    right: 25px;
 }
 #next{
   color: #22AF87 !important;
   float: left;
   position: relative;
   cursor: pointer;
+  left:25px;
 }
     #menu {
   height: 255px;
@@ -1041,7 +1061,6 @@ height: 241px;
   background-position: center;
   padding: 10px 0 10px 0;
   background-size: initial;
-  border: 4px solid #22AF87;
   margin: 10px 0 0 0;
     width: 100%;
     }
@@ -1094,6 +1113,11 @@ width: 46%;
       width: 100%;
   }
   .titelNameFavorite{
+      float: right;
+      width: 100%;
+      cursor: pointer;
+  }
+   .titelNameFavorite{
       float: right;
       width: 100%;
       cursor: pointer;
