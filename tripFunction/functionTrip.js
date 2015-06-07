@@ -1408,14 +1408,14 @@ function displayListScheduleTrip(data){
 
 	$('label[for="dpd1"]').text(TRIPPER_DATA.dpd1);
 	$('label[for="dpd2"]').text(TRIPPER_DATA.dpd2);
-	$('.userDetailes').empty();
-	if (User) {
-		// var divUser = $('<div>').addClass('userDetailes');
-		var spanUser = $('<span>').html(User.name).addClass('nameUser');
-		var imgUser = $('<img>').attr("src",User.image).addClass('imgUser');
-		$('.userDetailes').append(imgUser)
-		$('.userDetailes').append(spanUser)
-	}
+	// $('.userDetailes').empty();
+	// if (User) {
+	// 	// var divUser = $('<div>').addClass('userDetailes');
+	// 	var spanUser = $('<span>').html(User.name).addClass('nameUser');
+	// 	var imgUser = $('<img>').attr("src",User.image).addClass('imgUser');
+	// 	$('.userDetailes').append(imgUser)
+	// 	$('.userDetailes').append(spanUser)
+	// }
 	if (g_ListTrip.length>0) {
 		$('#scheduleTimeLline').css("display","block");
 	
@@ -2128,7 +2128,8 @@ function signinCallback(authResult) {
 				//console.log("email!!!", Gemail)
 				console.log(User);
 				create_user(User);
-
+				 $('.nameUser').html(User.name);
+				 $('.imgUser').attr("src",User.image);
 			});
 		});
 	} else {
@@ -2176,14 +2177,14 @@ function displayListTrip(data){
 	// if (e.originalEvent.newURL.indexOf("#myPageSchedule") != -1) {
 	// 	console.log("home")
 	// }
-	$('.userDetailes').empty();
-	if (User) {
-		// var divUser = $('<div>').addClass('userDetailes');
-		var spanUser = $('<span>').html(User.name).addClass('nameUser');
-		var imgUser = $('<img>').attr("src",User.image).addClass('imgUser');
-		$('.userDetailes').append(imgUser)
-		$('.userDetailes').append(spanUser)
-	}
+	// $('.userDetailes').empty();
+	// if (User) {
+	// 	// var divUser = $('<div>').addClass('userDetailes');
+	// 	var spanUser = $('<span>').html(User.name).addClass('nameUser');
+	// 	var imgUser = $('<img>').attr("src",User.image).addClass('imgUser');
+	// 	$('.userDetailes').append(imgUser)
+	// 	$('.userDetailes').append(spanUser)
+	// }
 	/**** data to result page *****/
 
 	addDataToAddPage();
@@ -2339,7 +2340,7 @@ function create_user(user){
        	console.log(data.res);
        	User = data.res;
        	// console.log(User.email + " " + User.favorites)
-
+       	$('.')
        },
        error : function(objRequest, errortype) {
        }
