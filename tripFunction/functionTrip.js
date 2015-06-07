@@ -2012,7 +2012,11 @@ $(window).on('hashchange', function(e) {
 		addDataToAddPage();
 	}
 });
-function addDataToAddPage(){
+$(document).on("click","addTrip",function(){
+	moveToAddPage()
+	addDataToAddPage();
+});
+function addDataFilters(){
 		$('#who_are_you_going_with div button .nameF').html(TRIPPER_DATA.who_are_you_going_with);
 		$('label[for="trip_with_animals"]').text(TRIPPER_DATA.trip_with_animals);
 		$('label[for="trip_with_road"]').text(TRIPPER_DATA.trip_with_road);
@@ -2025,6 +2029,14 @@ function addDataToAddPage(){
 		$('label[for="trip_for_day"]').text(TRIPPER_DATA.trip_for_day);
 		$('label[for="trip_for_night"]').text(TRIPPER_DATA.trip_for_night);
 };
+function addDataToAddPage(){
+	addDataFilters();
+	$('#addTripTitle').html(TRIPPER_DATA.addTripTitle);
+	// $('#trip_name').parent('label').html(TRIPPER_DATA.tripName);
+	// $('#description').parent('label').html(TRIPPER_DATA.tripDescrition);
+
+
+}
 // $(document).on('click','#accountPage',function(){
 // 	accountCounter=1;
 // 	console.log("click to move the account page")
@@ -2187,7 +2199,7 @@ function displayListTrip(data){
 	// }
 	/**** data to result page *****/
 
-	addDataToAddPage();
+	addDataFilters();
 
 		
 		// $('#dificullty button span').html(TRIPPER_DATA.dificullty);
