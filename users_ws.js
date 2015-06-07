@@ -11,12 +11,28 @@ var smtpTransport = mailer.createTransport("SMTP",{
     }
 });
 
-var mail = {
+var welcomeMailNotRegisterd = {
     from: "tripper support <tripperarrangeyourttip@gmail.com>",
-    to: "haimyyy@gmail.com",
-    subject: "Send Email Using Node.js",
-    text: "Node.js New world for me",
-    html: "<b>Node.js New world for me</b>"
+    to: "",
+    subject: "tripper תכנן את הטיול שלך",
+    text: "שותף איתך טיול אך אתה לא רשום לשירות",
+    html: "<b>שותף איתך טיול אך אתה לא רשום לשירות</b>"
+}
+
+var welcomeMail = {
+    from: "tripper support <tripperarrangeyourttip@gmail.com>",
+    to: "",
+    subject: "tripper תכנן את הטיול שלך",
+    text: "תודה שנרשמת לtripper אשר עוזר לך לתכנן את הטיול שלך",
+    html: "<b>תודה שנרשמת לtripper אשר עוזר לך לתכנן את הטיול שלך</b>"
+}
+
+var shareMail = {
+    from: "tripper support <tripperarrangeyourttip@gmail.com>",
+    to: "",
+    subject: "tripper זיהה ששותף איתך טיול",
+    text: "זיהינו שבוצעו שינויים במסלול שלך...",
+    html: "<b>זיהינו שבוצעו שינויים במסלול שלך...</b>"
 }
 
 router.post('/registerUser', function(req, res) {
@@ -43,6 +59,15 @@ router.post('/registerUser', function(req, res) {
 					console.log("error inserting email: " + user.email);
 					return console.error(err)
 				}
+				welcomeMail.to = "user.email";
+				smtpTransport.sendMail(welcomeMail, function(error, response){
+				    if(error){
+				        console.log(error);
+				    }else{
+				        console.log("Message sent: " + response.message);
+				    }
+    			smtpTransport.close();
+				});
 				res.json({status:1,res:result})
 			});
 			
@@ -62,18 +87,18 @@ router.post('/registerUser', function(req, res) {
 	});
 });
 
-router.post('/sendEmail', function  (req, res) {
+// router.post('/sendEmail', function  (req, res) {
 
-smtpTransport.sendMail(mail, function(error, response){
-    if(error){
-        console.log(error);
-    }else{
-        console.log("Message sent: " + response.message);
-    }
+// smtpTransport.sendMail(mail, function(error, response){
+//     if(error){
+//         console.log(error);
+//     }else{
+//         console.log("Message sent: " + response.message);
+//     }
     
-    smtpTransport.close();
-});
-})
+//     smtpTransport.close();
+// });
+// })
 
 router.post('/updateMySchedule', function(req, res) {
 	try{
@@ -219,9 +244,27 @@ router.post('/updateScheduleParticipents', function(req,res){
 			if(err){
 				console.error(err);
 			}
+		shareMail.to = participent;
+		smtpTransport.sendMail(shareMail, function(error, response){
+    	if(error){
+        	console.log(error);
+    	}else{
+        console.log("Message sent: " + response.message);
+    	}  
+    	smtpTransport.close();
+		});
 		})
 	}
 	else{
+		welcomeMailNotRegisterd.to = participent;
+		smtpTransport.sendMail(welcomeMailNotRegisterd, function(error, response){
+    	if(error){
+        	console.log(error);
+    	}else{
+        console.log("Message sent: " + response.message);
+    	}  
+    	smtpTransport.close();
+		});
 		return console.log("user " + participent + " not found");
 	}
 })
