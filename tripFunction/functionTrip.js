@@ -879,8 +879,11 @@ function displayFullTrip(data){
 		 	var li = $('<li>');
 		 	var img = $('<img>');
 		 	var span = $('<span>');
-		 	span.html(val.siteName);
+		 	var h4 = $('<h4>');
+		 	span.html(index+1);
+		 	h4.html(val.siteName);
 		 	img.attr({"src":val.img, "width":50, "height":50});
+		 	li.append(h4)
 		 	li.append(span)
 		 	li.append(img)
 
@@ -891,19 +894,23 @@ function displayFullTrip(data){
 		 $('.Trip').append(timeline)
 		 var meImg="";
 		 var meSpan="";
-
+		 var meH4="";
 		 $('#ulTimeLine li').hover(function(){
 		 	console.log("hover");
 		 	$(this).css({"top":"0px","border":"1px solid #000000","padding":"12px","background-color":"#ffffff","border-radius":"30px","max-width":"250px"});
 		 	meSpan = $(this).children('span');
-		 	meSpan.css({"font-size":"20px"});
+		 	meSpan.css({"font-size":"20px","display":"none"});
+		 	meH4 = $(this).children('h4');
+		 	meH4.css({"display":"block"});
 		 	meImg = $(this).children('img');
 		 	meImg.attr({"width":125,"height":125}).css({"border-radius":"0px","width":"auto"});
 		 }
 		 , function(){
-		 	$(this).css({"top":"68px","border":"none","background-color":"transparent","padding":"0px"});
+		 	$(this).css({"top":"75px","border":"none","background-color":"transparent","padding":"0px"});
 		 	meSpan = $(this).children('span');
-		 	meSpan.css("font-size","20px");
+		 	meSpan.css({"font-size":"20px","display":"block"});
+		 	meH4 = $(this).children('h4');
+		 	meH4.css({"display":"none"});
 		 	meImg = $(this).children('img');
 		 	meImg.attr({"width":50,"height":50}).css({"border-radius":"50px",  "width": "50px"});
 		 });
