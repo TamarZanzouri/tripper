@@ -390,8 +390,9 @@ fieldset > div{
   font-size: 17px;
 }
 #signOut >a {
-    color: #38C;
+    color: blue;
   text-shadow: none;
+  text-decoration: underline;
 }
 
 #logo{
