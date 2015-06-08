@@ -2050,8 +2050,7 @@ function addDataFilters(){
 function addDataToAddPage(){
 	addDataFilters();
 	$('#addTripTitle').html(TRIPPER_DATA.addTripTitle);
-	// $('#trip_name').parent('label').html(TRIPPER_DATA.tripName);
-	// $('#description').parent('label').html(TRIPPER_DATA.tripDescrition);
+	$('#submitForm').val(TRIPPER_DATA.submit);
 
 
 }
