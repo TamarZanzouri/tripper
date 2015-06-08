@@ -16,7 +16,7 @@ var welcomeMailNotRegisterd = {
     to: "",
     subject: "tripper תכנן את הטיול שלך",
     text: "שותף איתך טיול אך אתה לא רשום לשירות",
-    html: "<b>שותף איתך טיול אך אתה לא רשום לשירות</b>"
+    html: "<b style='color:blue'>שותף איתך טיול אך אתה לא רשום לשירות</b>"
 }
 
 var welcomeMail = {

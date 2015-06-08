@@ -103,9 +103,10 @@ $(document).ready(function(){
 	    	$.each(data, function(i, val){
 	    		$.each(val.trip_charachters, function(i, val){
 	    			tripCharacters.push(val.name);
-					var selectAppendCharachters = '<option value=' + val.name + '>' + val.name + '</option>';
-	    			$("#firstcharachter").append(selectAppendCharachters);
-					$("#secondcharachter").append(selectAppendCharachters);	
+	    			var selectAppendCharachters = '<li><label for="' + val.id + '">' + val.name + '</label><input type="checkbox" id="' + val.id + '" name="trip_charachters[]" value="' + val.id + '"></li>';
+					// '<option value=' + val.name + '>' + val.name + '</option>';
+	    			$("#pickJanerul").append(selectAppendCharachters);
+					// $("#secondcharachter").append(selectAppendCharachters);	
 	    		})
 	    	});
 	    	appendTripCharachters();
@@ -458,6 +459,16 @@ $("#home").on({
     mouseleave: function () {
         //stuff to do on mouse leave
     }
+});
+
+$(document).on('change', '#pickJanerul > li', function  () {
+    var max = 2;
+    var checkboxes = $('#pickJanerul > li > input[type=checkbox]');
+    // console.log(checkboxes)            
+    checkboxes.change(function(){
+        var current = checkboxes.filter(':checked').length;
+        checkboxes.filter(':not(:checked)').prop('disabled', current >= max);
+    });
 });
 
 function checkIfHasTripKind(){
@@ -1794,7 +1805,7 @@ $(document).on('submit','#addform',function(e){
 	var form = new FormData(this); 
 
 	var tempFilter = [];
-
+	var tempJaners = [];
 	var wrapper = $(".ingredients_i");
 	// var images = $("image_i");
 	var comms = new Array();
@@ -1821,6 +1832,11 @@ $(document).on('submit','#addform',function(e){
 		}
 	});
 	form.append("trip_filter", JSON.stringify(tempFilter));
+	$('#pickJanerul > li > input[type=checkbox]').each(function(value){
+		if($(this).is(':checked')){
+			tempJaners.push($(this).prev('label').text());
+		}
+	});
 	var temp_arr =[]
 	var temp= $('#usersList').text();
 	if(temp==""){
@@ -1833,6 +1849,8 @@ $(document).on('submit','#addform',function(e){
 		form.append("shareEmail",temp_arr);
 	}
 	console.log(form);
+	console.log(tempJaners, "filter",tempFilter)
+	return
 	if(($(this).find('#imgUpload')[0].files.length) > 0){
 		console.log("uploading images")
 		if(editFromAccount){
