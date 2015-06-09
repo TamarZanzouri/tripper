@@ -193,8 +193,83 @@ float: right;
   font-weight: 400;
   height: inherit;
 }
+.nameTripLabel{
+    width: 250px;
+  display: inline-block!important;
+}
+#isPrivate{
+  width: auto;
+  display: inline-block;
+  margin: 0;
+}
+#isTripPrivate{
+}
+#addUser{
+  display:none;
 
+}
+#addUsers{
+  display:none;
 
+}
+#usersList{
+    display:none;
+
+}
+#tripJaners{
+    background: #ffffff !important;
+  text-align: right !important;
+  font-size: 19px;
+  border: none;
+  border-radius: 0;
+}
+#pickJaner>div{
+width: 200px;
+  font-size: 22px;
+}
+#pickJaner>div>label{
+}
+#pickJanerul{
+  text-align: right !important;
+  position: relative !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0px !important;
+}
+#pickJanerul>li{
+    margin: 0;
+}
+#pickJanerul>li>div{
+    text-align: right;
+  direction: rtl;
+}
+#pickJanerul>li>div>label{
+    background: #ffffff;
+  border: none;
+  direction: rtl;
+  text-align: right;
+}
+#pickJanerul>li>div>input{
+  display: none;
+}
+#pickJanerul>li>label{
+  float: right;
+  display: block;
+  position: relative;
+  width: 160px;
+  /* margin: 0; */
+  padding: 2px 14px 0px 0px;
+  font-family: Alef;
+}
+#pickJanerul>li>input{
+    float: left;
+  display: block;
+  position: relative;
+  width: 26px;
+  height: 18px;
+}
 .selectedLi{
 	font-size:18px;
   background: #1B936E !important;
