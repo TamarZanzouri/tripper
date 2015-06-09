@@ -2054,13 +2054,7 @@ function addDataToAddPage(){
 	addDataFilters();
 	$('#addTripTitle').html(TRIPPER_DATA.addTripTitle);
 	$('#submitForm').val(TRIPPER_DATA.submit);
-	// $.each(tripCharacters, function(i, val){
-	// 	// tripCharacters.push(val.name);
-	// 	var selectAppendCharachters = '<li><label for="' + val.id + '">' + val.name + '</label><input type="checkbox" id="' + val.id + '" name="trip_charachters[]" value="' + val.id + '"></li>';
-	// 	// '<option value=' + val.name + '>' + val.name + '</option>';
-	// 	$("#pickJanerul").append(selectAppendCharachters);
-	// 	// $("#secondcharachter").append(selectAppendCharachters);	
-	// });
+	// $('#imgUpload').text('העלה תמונה')
 }
 // $(document).on('click','#accountPage',function(){
 // 	accountCounter=1;

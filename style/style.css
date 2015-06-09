@@ -86,7 +86,43 @@ li{
   	 font-family: Arial;
 	 font-size: 18px;
 }
+.sites{}
+.site >div:nth-child(2){
+  width: 250px;
+  margin: 0 0px 0 10px;
+  float: right;
+  height: 35px;
+}
+.site>:first-child{
+  float: right;
+  margin: 0 0 0 5px;
+  font-size: 22px;
+}
+.site > div:nth-child(3){
+  float: right;
+  width: 115px;
+  margin: 0 0 0 0;
+  background: transparent;
+}
 
+.file::-webkit-file-upload-button {
+  visibility: hidden;
+}
+#imgUpload::before {
+  content: 'העלה תמונה';
+  display: inline-block;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+.siteName{}
+#thumbnil{}
 
 #homePage{
   position: relative;
