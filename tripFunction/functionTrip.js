@@ -2052,7 +2052,7 @@ function addDataToAddPage(){
 	$('#addTripTitle').html(TRIPPER_DATA.addTripTitle);
 	$('#submitForm').val(TRIPPER_DATA.submit);
 
-
+	$('#imgUpload').text('העלה תמונה')
 }
 // $(document).on('click','#accountPage',function(){
 // 	accountCounter=1;
