@@ -2047,26 +2047,37 @@ function addDataFilters(){
 		$('label[for="trip_for_day"]').text(TRIPPER_DATA.trip_for_day);
 		$('label[for="trip_for_night"]').text(TRIPPER_DATA.trip_for_night);
 };
+var numOfSite=0;
 function addDataToAddPage(){
 	addDataFilters();
 	$('#addTripTitle').html(TRIPPER_DATA.addTripTitle);
 	$('#submitForm').val(TRIPPER_DATA.submit);
-
-	$('#imgUpload').text('העלה תמונה')
+		numOfSite++;
+		var div = $('<div>').addClass('site');
+		var p = $('<p>').html(numOfSite+'.');
+		var inputName =$('<input>').attr({"id":"siteName"+numOfSite,"type":"text","name":"site","placeholder":"אתר","class":"siteName"});
+		var inputFile =$('<input>').attr({"id":"imgUpload"+numOfSite,"type":"file","class":"file","accept":"image/*","value":"העלת תמונה","onchange":"showMyImage(this,"+numOfSite+")","name":"file","class":"image_i"});
+		var img = $('<img>').attr({'id':'thumbnil'+numOfSite}).addClass('thumbnil');
+		div.append(p);
+		div.append(inputName);
+		div.append(inputFile);
+		div.append(img);
+		$('.sites').append(div);
+	$('.addNewSite').click(function(){
+		numOfSite++;
+		var div = $('<div>').addClass('site');
+		var p = $('<p>').html(numOfSite+'.');
+		var inputName =$('<input>').attr({"id":"siteName"+numOfSite,"type":"text","name":"site","placeholder":"אתר","class":"siteName"});
+		var inputFile =$('<input>').attr({"id":"imgUpload"+numOfSite,"type":"file","class":"file","accept":"image/*","value":"העלת תמונה","onchange":"showMyImage(this,"+numOfSite+")","name":"file","class":"image_i"});
+		var img = $('<img>').attr({'id':'thumbnil'+numOfSite}).addClass('thumbnil');
+		div.append(p);
+		div.append(inputName);
+		div.append(inputFile);
+		div.append(img);
+		$('.sites').append(div);
+	})
 }
-// $(document).on('click','#accountPage',function(){
-// 	accountCounter=1;
-// 	console.log("click to move the account page")
-// })
-// $(document).on('click','#accountPage img',function(){
-// 	accountCounter=1;
-// 	console.log("click to move the account page")
-// })
 
-// $(document).on('click','#accountPage span',function(){
-// 	accountCounter=1;
-// 	console.log("click to move the account page")
-// })
 function moveToAddPage() {
 	$.mobile.changePage("#addTripPage", {
 		transition : "none",

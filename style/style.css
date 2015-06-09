@@ -86,32 +86,64 @@ li{
   	 font-family: Arial;
 	 font-size: 18px;
 }
-.sites{}
-.site >div:nth-child(2){
+.sites{
+  width: 100%;
+  display: block;
+  margin: 20px 0 0px 0;
+  height: auto;
+  position: relative;
+}
+.sites>label {
+  position: relative;
+  width: auto;
+  float: right;
+  margin: 0 0px 0 15px !important;
+  font-size: 22px !important;
+}
+/*.site >div:nth-child(2){
   width: 250px;
   margin: 0 0px 0 10px;
   float: right;
   height: 35px;
+  position: relative;
 }
+
+.site > div:nth-child(3){
+float: right;
+  width: 100px;
+  margin: 0 0 0 0;
+  background: transparent;
+  padding: 0 0 0 0;
+  height: 35px;
+  position: relative;
+}*/
 .site>:first-child{
   float: right;
   margin: 0 0 0 5px;
   font-size: 22px;
+  position: relative;
 }
-.site > div:nth-child(3){
+.image_i{
   float: right;
-  width: 115px;
+  width: 107px;
   margin: 0 0 0 0;
-  background: transparent;
+  background: #ffffff;
+  padding: 4px 8px 0 8px;
+  height: 35px;
+  position: relative;
+  border: 1px solid gray;
 }
-
-.file::-webkit-file-upload-button {
+.addNewSite{
+  float: right;
+  position: relative;
+  top: 5px;
+}
+.image_i::-webkit-file-upload-button {
   visibility: hidden;
 }
-#imgUpload::before {
+.image_i::before {
   content: 'העלה תמונה';
-  display: inline-block;
-  padding: 5px 8px;
+  display: block;
   outline: none;
   white-space: nowrap;
   -webkit-user-select: none;
@@ -120,9 +152,37 @@ li{
   font-weight: 700;
   font-size: 17px;
 }
-
-.siteName{}
-#thumbnil{}
+/*#imgUpload::before {
+  content: 'העלה תמונה';
+  display: block;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 17px;
+}*/
+.site{
+    position: relative;
+  float: right;
+  width: 100%;
+  margin: 1px 0 10px 0;
+}
+.siteName{
+    width: 250px;
+  margin: 0 0px 0 10px;
+  float: right;
+  height: 35px;
+  position: relative;
+}
+.thumbnil{
+  width: 125px;
+  height: 125px;
+  margin: 0 15px 0 0px;
+  float: right;
+  position: relative;
+}
 
 #homePage{
   position: relative;
