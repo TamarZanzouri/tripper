@@ -430,13 +430,16 @@ $("#private_trip").click(function(){
 	console.log("privateTrip")
 		// $('#isPrivate').append('<label id="addUsers">הוסף משתמשים אליהם יפורסם הטיול:<br><textarea placeholder="example@gmail.com" type="text" id="shareEmail" name="shareEmail" >');
 		
-		$('#isPrivate').append('<label id="addUsers" style=" float:right";>'+TRIPPER_DATA.shareThePearl+'<br><input id="shareEmail"  name="email" type="email" required>');
-		$('#isPrivate').append('<a id="addUser" href="#">'+TRIPPER_DATA.addOne+'<a>')
-		$('#isPrivate').append('<p id="usersList"><p>')
+		
+		$('#addUser').show()
+		$('#addUsers').show();
+		$('#usersList').show();
 	})
 
 $('#public_trip').click(function(){
-	$('#addUsers').hide();
+	$('#addUser').hide();
+	$('#addUsers').hide()
+	$('#usersList').hide();
 })
 
 });

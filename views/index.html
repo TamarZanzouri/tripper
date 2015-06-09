@@ -273,9 +273,23 @@
 					
 					<form action="#homePage" method="post" id="addform"  >
 						<h1 id="addTripTitle"></h1>
-						<label>שם הטיול<br>
+						<label class="nameTripLabel">שם הטיול<br>
 							<input type="text" name="nameTrip" id="trip_name" required>
-						</label><br>
+						</label>
+						<div data-role="fieldcontain" id="isPrivate">
+							<fieldset data-role="controlgroup" id="isTripPrivate" data-type="horizontal" data-role="fieldcontain">
+								<legend>למי להציג את הטיול</legend>
+								<input type="radio" name="isTripPrivate" id="public_trip" value="false" checked="checked" />
+								<label for="public_trip">טיול ציבורי</label>
+
+								<input type="radio" name="isTripPrivate" id="private_trip" value="true"  />
+								<label for="private_trip">טיול פרטי</label>
+
+								<a id="addUser" href="#">הוסף עוד חבר</a>
+								<label id="addUsers" style=" float:right";>שתף את הפלייליסט עם חברך<br><input id="shareEmail"  name="email" type="email" required></label>
+								<p id="usersList"></p>
+							</fieldset>
+						</div>	
 						<label>תאור הטיול<br>
 							<textarea type="text" name="des" id="description"></textarea>
 						</label><br>
@@ -297,7 +311,8 @@
 						<br>
 						<div id="pickJaner">
 						<div class="btn-group">
-							<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" id="tripJaners">ג'אנר<span></span><span class="caret"></span></button>
+							<labal>ג'אנר</label>
+							<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" id="tripJaners">בחר ג'אנר<span></span><span class="caret"></span></button>
 							<ul class="dropdown-menu noclose" id="pickJanerul">
 
 							</ul>
@@ -342,16 +357,7 @@
 								<label for="hard_trip" id="hard_tripL">קשה</label>
 							</fieldset>
 						</div>	
-						<div data-role="fieldcontain" id="isPrivate">
-							<fieldset data-role="controlgroup" id="isTripPrivate" data-type="horizontal" data-role="fieldcontain">
-								<legend>למי להציג את הטיול</legend>
-								<input type="radio" name="isTripPrivate" id="public_trip" value="false" checked="checked" />
-								<label for="public_trip">טיול ציבורי</label>
-
-								<input type="radio" name="isTripPrivate" id="private_trip" value="true"  />
-								<label for="private_trip">טיול פרטי</label>
-							</fieldset>
-						</div>	
+						
 						<!-- <label for="ingredients"> <span class="testRight" id="ingredientsT">בנה מסלול</span>
 							<span class="formField">
 								<div class="ingredients_wrap">
