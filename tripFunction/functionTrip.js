@@ -68,7 +68,8 @@ navigator.geolocation.getCurrentPosition(function(position) {
 $(document).ready(function(){
 	
 	/******** get data ********/
-	 
+	
+	// $('#groupButton').hide();
 	$.ajax({
 		type: "get",
     	url: g_domain+"getTripData",// where you wanna post
@@ -78,55 +79,31 @@ $(document).ready(function(){
     	},
     	success: function(data) {
     	// console.log("update success to add to the favorite");
-	    	console.log(data)
-	    	TRIPPER_DATA=data;
-	    	// $.each(data, function(i, val){
-	    	// 	$.each(val, function(i, val){
-	    	// 		TRIPPER_DATA.push(val.name);
-	    	// 		// console.log(val.name)
-
-	    	// 	})
-	    	// });
-	    	// appendTripCharachters();
-    	}
-	}); 
-	$.ajax({
-		type: "get",
-    	url: g_domain+"getTripCharachters",// where you wanna post
-    	dataType: "json",
-    	error: function(jqXHR, textStatus, errorMessage) {
-    		console.log(errorMessage)
-    	},
-    	success: function(data) {
-    	// console.log("update success to add to the favorite");
 	    	//console.log(data)
-	    	$.each(data, function(i, val){
-	    		$.each(val.trip_charachters, function(i, val){
+    		console.log(data.tripData)
+    		console.log(data.tripCharachters)
+    		TRIPPER_DATA=data.tripData;
+
+	    	$.each(data.tripCharachters.trip_charachters, function(i, val){
+	    			console.log(val.name)
 	    			tripCharacters.push(val.name);
-	    			var selectAppendCharachters = '<li><label for="' + val.id + '">' + val.name + '</label><input type="checkbox" id="' + val.id + '" name="trip_charachters[]" value="' + val.id + '"></li>';
+	    			 var selectAppendCharachters = '<li><label for="' + val.id + '">' + val.name + '</label><input type="checkbox" id="' + val.id + '" name="trip_charachters[]" value="' + val.id + '"></li>';
 					// '<option value=' + val.name + '>' + val.name + '</option>';
-	    			$("#pickJanerul").append(selectAppendCharachters);
+	    			 $("#pickJanerul").append(selectAppendCharachters);
 					// $("#secondcharachter").append(selectAppendCharachters);	
-	    		})
+	    		// })
 	    	});
 	    	appendTripCharachters();
     	}
 	}); 
 
-	// $.ajax({
-	// 	type: "post",
-	// 	url: g_domain + "sendEmail",
-	// 	dataType: "json",
- //    	error: function(jqXHR, textStatus, errorMessage) {
- //    		console.log(errorMessage)
- //    	},
- //    	success: function(data) {
- //    		console.log("mail sent")
- //    	}
-	// })
 	/******* end get data *******/
     //  1.tel_aviv 2. north 3. south 
     var locations={}
+
+// $("ul.dropdown-menu").on("click", "[data-stopPropagation]", function(e) {
+//     e.stopPropagation();
+// });
 
 
     $('input:radio[name=area]').click(function(){
@@ -330,9 +307,36 @@ $('#updateFriendsWithChanges').click(function(){
 	    })
 	}
 })
+// On dropdown open
+// $(document).on('shown.bs.dropdown', function(event) {
+// 	console.log("click")
+//   var dropdown = $(event.target);
+ 
+//   // Set aria-expanded to true
+//   dropdown.find('.dropdown-menu').attr('aria-expanded', true);
+ 
+//   // Set focus on the first link in the dropdown
+//   setTimeout(function() {
+//     dropdown.find('.dropdown-menu li:first-child a').focus();
+//   }, 10);
+// });
+
+// On dropdown close
+// $(document).on('hidden.bs.dropdown', function(event) {
+//  var dropdown = $(event.target);
+ 
+//  // Set aria-expanded to false 
+//  dropdown.find('.dropdown-menu').attr('aria-expanded', false);
+ 
+//  // Set focus back to dropdown toggle
+//  dropdown.find('.dropdown-toggle').focus();
+// });
+// $('.btn btn-default dropdown-toggle ui-btn ui-shadow ui-corner-all').click(function(){
+// 	$('.btn-group filter').css("display", "block");
+// })
+
 
 $('#filtermenu li').change(function(){
-
 	console.log($(this).attr('id'))
 	filter=[];
 	console.log("in filter");
@@ -978,7 +982,6 @@ function displayFullTrip(data){
 	// article+="</article>"
 	// $('.Trip').append(article);
 }
-
 
 $(document).on("click", '.topImgScheduleList', function() {
 	// if (!User.email) {
@@ -2052,17 +2055,18 @@ function addDataToAddPage(){
 	addDataFilters();
 	$('#addTripTitle').html(TRIPPER_DATA.addTripTitle);
 	$('#submitForm').val(TRIPPER_DATA.submit);
-		numOfSite++;
-		var div = $('<div>').addClass('site');
-		var p = $('<p>').html(numOfSite+'.');
-		var inputName =$('<input>').attr({"id":"siteName"+numOfSite,"type":"text","name":"site","placeholder":"אתר","class":"siteName"});
-		var inputFile =$('<input>').attr({"id":"imgUpload"+numOfSite,"type":"file","class":"file","accept":"image/*","value":"העלת תמונה","onchange":"showMyImage(this,"+numOfSite+")","name":"file","class":"image_i"});
-		var img = $('<img>').attr({'id':'thumbnil'+numOfSite}).addClass('thumbnil');
-		div.append(p);
-		div.append(inputName);
-		div.append(inputFile);
-		div.append(img);
-		$('.sites').append(div);
+
+	numOfSite++;
+	var div = $('<div>').addClass('site');
+	var p = $('<p>').html(numOfSite+'.');
+	var inputName =$('<input>').attr({"id":"siteName"+numOfSite,"type":"text","name":"site","placeholder":"אתר","class":"siteName"});
+	var inputFile =$('<input>').attr({"id":"imgUpload"+numOfSite,"type":"file","class":"file","accept":"image/*","value":"העלת תמונה","onchange":"showMyImage(this,"+numOfSite+")","name":"file","class":"image_i"});
+	var img = $('<img>').attr({'id':'thumbnil'+numOfSite}).addClass('thumbnil');
+	div.append(p);
+	div.append(inputName);
+	div.append(inputFile);
+	div.append(img);
+	$('.sites').append(div);
 	$('.addNewSite').click(function(){
 		numOfSite++;
 		var div = $('<div>').addClass('site');
@@ -2076,6 +2080,7 @@ function addDataToAddPage(){
 		div.append(img);
 		$('.sites').append(div);
 	})
+
 }
 
 function moveToAddPage() {
