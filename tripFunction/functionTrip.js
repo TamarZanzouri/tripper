@@ -68,8 +68,7 @@ navigator.geolocation.getCurrentPosition(function(position) {
 $(document).ready(function(){
 	
 	/******** get data ********/
-	
-	// $('#groupButton').hide();
+	$('#groupButton').hide();
 	$.ajax({
 		type: "get",
     	url: g_domain+"getTripData",// where you wanna post
@@ -83,6 +82,17 @@ $(document).ready(function(){
     		console.log(data.tripData)
     		console.log(data.tripCharachters)
     		TRIPPER_DATA=data.tripData;
+
+			var h1 = $('<h1>').html(TRIPPER_DATA.welcome_h1);
+			var p = $('<p>').html(TRIPPER_DATA.welcome_p);
+			var div = $('<div>')
+			var img = $('<img>').attr("src","images/welcome_errow.png");
+			var span = $('<span>').html(TRIPPER_DATA.welcome_span)
+			$('#welcome').append(h1);
+			$('#welcome').append(p);
+			div.append(span);
+			div.append(img);		
+			$('#welcome').append(div)
 
 	    	$.each(data.tripCharachters.trip_charachters, function(i, val){
 	    			console.log(val.name)
@@ -450,6 +460,11 @@ function initMap(l1,l2){
 		mapPoint.lng=e.latLng.lng();
 	});
 }
+
+$(document).on('click', '#welcome > div', function(){
+		$('#welcome').hide();
+		$('#groupButton').show();
+});
 $(document).on('click','#addUser',function(){
 	console.log(tempEmailUser)
 	var tempEmailUser = $('#shareEmail').val();
