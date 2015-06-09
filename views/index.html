@@ -69,6 +69,7 @@
 			<div id="groupButton">
 				<!-- <h2 id="genres"></h2> -->
 			</div>	
+			<div></div>
 			
 			<section>
 				<span id="signinButton"> <span
@@ -106,7 +107,7 @@
 				<ul id="filtermenu">
 					<li id="who_are_you_going_with">
 						<div class="btn-group filter">
-							<button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span class="nameF"></span><span class="caret"></span></button>
+							<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-haspopup="true" aria-expanded="false"><span class="nameF"></span><span class="caret"></span></button>
 							<ul class="dropdown-menu noclose">
 								<li><label for="trip_with_animals"></label><input type="checkbox" id="trip_with_animals" name="who_are_you_going_with[]" value="trip_with_animals"></li>
 								<li><label for="trip_with_road"></label><input type="checkbox" id="trip_with_road" name="who_are_you_going_with[]" value="trip_with_road"></li>
@@ -270,12 +271,12 @@
 					
 					<form action="#homePage" method="post" id="addform"  >
 						<h1 id="addTripTitle"></h1>
-						<label>שם הטיול
+						<label>שם הטיול<br>
 							<input type="text" name="nameTrip" id="trip_name" required>
-						</label>
-						<label>תאור הטיול
-							<textarea type="text" name="des" id="description" height="100px"></textarea>
-						</label>
+						</label><br>
+						<label>תאור הטיול<br>
+							<textarea type="text" name="des" id="description"></textarea>
+						</label><br>
 
 						<div data-role="fieldcontain">
 							<fieldset data-role="controlgroup" data-type="horizontal" data-role="fieldcontain">
@@ -368,7 +369,7 @@
 
 
 						<input type="hidden" name="commodities" id="commodities" value=""/>
-						<input type="submit" data-theme="b" name="submit" class="ui-btn-hidden" aria-disabled="false" id="submitForm" />
+						<input type="submit" data-theme="b" name="submit" value="שלח" class="ui-btn-hidden" aria-disabled="false" id="submitForm" />
 
 					</form>
 				</section>

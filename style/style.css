@@ -95,6 +95,7 @@ li{
   text-align: center;
   font-family: 'Alef';
   font-weight: 400;
+  height: inherit;
 }
 
 
@@ -450,7 +451,7 @@ color: #337ab7;
 
 }
 #logoImg{
-  width: 125%;
+  width: 100%;
   position: relative;
   float: right;
   margin: 13px 0px 0px 0;
@@ -748,10 +749,11 @@ body, input, select, textarea, button, .ui-btn{
 
 .asideFilter{
   float: right;
-  border: 1px solid grey;
+  /*border: 1px solid grey;*/
   padding: 0;
   font-size: 18px;
   width: 100%;
+  display: table;
 }
 .asideFilter>li{
   float: right;
@@ -844,6 +846,7 @@ list-style: none;
   /* bottom: 20px*/
  top: 67px;
  max-width:250px;
+ overflow: hidden;
 }
 #ulTimeLine>li>span{
     font-size:20px;
