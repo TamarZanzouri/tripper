@@ -635,6 +635,7 @@ body, input, select, textarea, button, .ui-btn{
   padding: 25px !important;
 }
 #groupButton{
+  /*display: none;*/
   text-align: left;
   width: 50%;
   margin: 50px auto;
@@ -643,6 +644,51 @@ body, input, select, textarea, button, .ui-btn{
   background-image: url("images/bg_groupButton.png");
   top: 20px;
 }
+
+#welcome{
+  text-align: right;
+  width: 50%;
+  margin: 50px auto;
+  position: relative;
+  padding: 20px 40px;
+  background-image: url("images/bg_welcome.png");
+  top: 20px;
+}
+
+#welcome > h1{
+  font-size: 54px;
+  font-weight: bold;
+}
+
+#welcome > p{
+  display: inline-table;
+  font-size: 16px;
+  line-height: 25px;
+}
+
+#welcome > div{
+  width: auto;
+  padding: 10px 10px 5px 10px;
+  color: #ffffff;
+  display: none;
+  margin: 9px 0px 10px 16px !important;
+  cursor: pointer;
+  font-size: 28px;
+  letter-spacing: 1px;
+  background-color: #22AF87 !important;
+  position: relative;
+  display: -webkit-box;
+  text-align: center;
+}
+
+#welcome > span{
+  margin: auto 0px;
+}
+
+#welcome > img{
+  margin: auto 0px;
+}
+
 #continue{
   width: auto;
   padding: 5px 10px 5px 10px;
