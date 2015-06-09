@@ -462,6 +462,7 @@ $(document).on('click', '#welcome > div', function(){
 		$('#welcome').hide();
 		$('#groupButton').show();
 });
+
 $(document).on('click','#addUser',function(){
 	console.log(tempEmailUser)
 	var tempEmailUser = $('#shareEmail').val();
