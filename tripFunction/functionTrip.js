@@ -1,6 +1,6 @@
 User={};
 
-g_domain="http://localhost:1337/";//"http://shenkartripper.herokuapp.com/";//
+g_domain="http://shenkartripper.herokuapp.com/";//"http://localhost:1337/";//
 
 
 
