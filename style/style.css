@@ -38,7 +38,7 @@ input{
 }
 #addform >label>div{
   width: 230px;
-  height: 35px;
+  height: 43px;
   border-radius: 0px !important;
    margin: 3px 0 10px 0;
 }
@@ -194,26 +194,33 @@ float: right;
   height: inherit;
 }
 .nameTripLabel{
-    width: 250px;
-  display: inline-block!important;
+width: 272px;
+  display: inline-block !important;
+  position: relative;
+  top: 41px;
+  margin: 0 !important;
 }
 #isPrivate{
-  width: auto;
-  display: inline-block;
+  width: auto !important;
+  display: -webkit-inline-box;
   margin: 0;
+  position: relative;
 }
-#isTripPrivate{
+#preivateT{
+    margin: 0 15px 0 0;
+  width: auto;
+  display: none;
 }
 #addUser{
-  display:none;
+  display: -webkit-inline-box;
 
 }
 #addUsers{
-  display:none;
-
+    display: block;
+  width: 175px;
 }
 #usersList{
-    display:none;
+  display: -webkit-inline-box;
 
 }
 #tripJaners{
@@ -1629,30 +1636,5 @@ margin: 0 20px 0 00 !important;
   }
   .divTripImg {
   width: 100%;
-}
-/*  #updateFriendsWithChanges{
-      top: 0;
-  float: left;
   }
-  #filtermenu{
-    display: none;
-  }
-  .titelName{
-      float: right;
-  }
-  .divShareSchedule{
-      top: 30px;
-  right: 0;
-  }
-  .userDetailes{
-      position: relative;
-  top: 0;
-  left: 0;
-  float: right;
-  right: 10px;
-  }
-  #addFriendToSchedule{
-    float: left;
-  right: 0;
-  }*/
 }

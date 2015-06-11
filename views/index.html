@@ -284,10 +284,12 @@
 
 								<input type="radio" name="isTripPrivate" id="private_trip" value="true"  />
 								<label for="private_trip">טיול פרטי</label>
-
-								<a id="addUser" href="#">הוסף עוד חבר</a>
-								<label id="addUsers" style=" float:right";>שתף את הפלייליסט עם חברך<br><input id="shareEmail"  name="email" type="email" required></label>
-								<p id="usersList"></p>
+								<div id="preivateT">
+									<a id="addUser" href="#">הוסף עוד חבר</a>
+									<label id="addUsers">שתף את הפלייליסט עם חברך</label>
+									<input id="shareEmail"  name="email" type="email">
+									<p id="usersList"></p>
+								</div>
 							</fieldset>
 						</div>	
 						<label>תאור הטיול<br>
@@ -388,7 +390,7 @@
 
 
 						<input type="hidden" name="commodities" id="commodities" value=""/>
-						<input type="submit" data-theme="b" name="submit" value="שלח" class="ui-btn-hidden" aria-disabled="false" id="submitForm" />
+						<input type="submit" data-theme="b" name="submit" value="הוספת מסלול" class="ui-btn-hidden" aria-disabled="false" id="submitForm" />
 
 					</form>
 				</section>

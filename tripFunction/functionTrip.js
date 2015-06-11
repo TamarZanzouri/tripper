@@ -426,21 +426,7 @@ function checkTheList(){
 }
 
 
-$("#private_trip").click(function(){
-	console.log("privateTrip")
-		// $('#isPrivate').append('<label id="addUsers">הוסף משתמשים אליהם יפורסם הטיול:<br><textarea placeholder="example@gmail.com" type="text" id="shareEmail" name="shareEmail" >');
-		
-		
-		$('#addUser').show()
-		$('#addUsers').show();
-		$('#usersList').show();
-	})
 
-$('#public_trip').click(function(){
-	$('#addUser').hide();
-	$('#addUsers').hide()
-	$('#usersList').hide();
-})
 
 });
 function initMap(l1,l2){
@@ -1575,17 +1561,6 @@ num = 0
 		$('#chatComment').show();
 	});
 
- //    $('article > p').readmore({
-	//   speed: 75,
-	//   lessLink: '<a href="#">Read less</a>'
-	// });
-// 	    $('article').readmore({
-// 	  afterToggle: function(trigger, element, expanded) {
-// 	    if(! expanded) { // The "Close" link was clicked
-// 	      $('html, body').animate( { scrollTop: element.offset().top }, {duration: 100 } );
-// 	    }
-// 	  }
-// 	});
  }
   $( window ).hashchange(function() {
     var hash = location.hash;
@@ -1593,12 +1568,7 @@ num = 0
     	appendTripCharachters();
     };
 });
-//     $( window ).hashchange(function() {
-//     var hash = location.hash;
-//     if (hash=="addTripPage") {
-//     	console.log(hash)
-//     };
-// });
+
   $(document).on('click', '.divArt > article > a', function(){
 	if($('.divArt > article > p').hasClass("open-desc")){
 		$('.divArt > article > p').css("max-height", "6em").hide().slideUp("slow", function(){
@@ -1662,95 +1632,6 @@ function updateSharedTrip(){
 		});
 	}
 }
-// $(document).on('click','.listScheduleTrip',function(){
-	
-
-// 	var result = $(this).attr('id');
-// 	$.ajax({
-// 		type: "post",
-//         url: g_domain+"getTripById",// where you wanna post
-//         data:  {id:result},
-//         dataType: "json",
-//         error: function(jqXHR, textStatus, errorMessage) {
-//         	console.log(errorMessage)
-
-
-//         },
-//         success: function(data) {
-//         	g_trip=data;
-//         	displayFullTrip(data);
-
-//         }
-//     });
-// 	moveToTripPage();
-// });
-
-// function displayScheduleTrip(data){
-// 	$('.Trip').empty();
-// 	$('.Trip').append("<h3>הטיול הנבחר </h3>");
-// 	$('.Trip').append($("<img>").attr('src', 'images/smalLike.png').addClass('topImg').css({
-// 			"opacity" : "0.4"
-// 		}));
-// 	$('.Trip').append("<span class='countLike'>" + g_trip.rate.value + "</span>");
-// 	$('.Trip').append($("<img>").attr('src', 'images/star.png').addClass('topImgStar'));
-// 	$.each(User.favorites, function(index,val){
-// 		if (val._id==g_trip._id) {
-// 			$('.topImgStar').attr('src', 'images/yellohStar.png');
-// 		}
-// 	});
-
-// 	$('.Trip').append("<h2>"+g_trip.trip_name+"</h2>");
-// 	$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
-
-// 	$('.Trip').append("<img id='tripImg' src="+g_trip.imageUrl+">");
-// 	var div=('<div>');
-// 	div+=("<h4>תאור הטיול</h4>");
-// 	div+=(g_trip.trip_description);
-// 	$('.Trip').append(div);
-
-// 	var strSites="<ul class=sitesUl>";
-// 	strSites+="<h4>אתרים בטיול</h4>";
-// 	$.each(g_trip.tripSites , function(index,val){
-// 		strSites+="<li>";
-// 		strSites+=" שם האתר :"+val.siteName+", מיקום האתר : \n"+val.location;
-
-// 	});
-
-// 	$('.Trip').append(strSites);
-// 	$('.Trip').append("<label>הוסף תגובה<br><textarea type='text' name='comment' id='comment'></textarea></label>");	
-// 	$('.Trip').append("<a id='submitComment'>שלח תגובה</a> </br>");
-// 	$('.Trip').append("<h3>תגובות המטיילים</h3>");
-// 	var article = "<h3>תגובות המטיילים</h3><article>";
-
-// 	$.each(g_trip.comments,function(i,val){
-// 		console.log("comment");
-// 		article+=val;
-// 		article+="</br>";
-// 	});
-// 	article+="</article>"
-// 	$('.Trip').append(article);
-// }
-
-// $(document).on('click','#removeFromSchedule',function(){
-// 		console.log("start to removing")
-// 		$.ajax({
-// 		type: "post",
-//     	url: g_domain+"removeFromSchedule",// where you wanna post
-//     	data:  {tripId:g_trip._id, userEmail:User.email},
-//     	// ContentType: 'application/json',
-//     	dataType : "json",
-// 	    error: function(jqXHR, textStatus, errorMessage) {
-// 	    	console.log(errorMessage)
-
-
-// 	    },
-// 	    success: function(data) {
-// 	    	// g_trip=data;
-// 	    	// displayFullTrip(data);
-// 	    	moveToSchedule();
-// 	    }
-// 	});
-// });
 
 $(document).on('click','#moveToFavorite',function(){
 	if(!User.email)
@@ -1828,21 +1709,21 @@ $(document).on('submit','#addform',function(e){
 
 	var tempFilter = [];
 	var tempJaners = [];
-	var wrapper = $(".ingredients_i");
+	var wrapper = $(".siteName");
 	// var images = $("image_i");
 	var comms = new Array();
 	for (var i = 0; i < wrapper.length; i++){
 		console.log(i);
-
+		debugger;
 		var comm = {};
-		if (wrapper[i].value.trim() != ''){
+		if (wrapper[i].value){
 			comm['siteName'] = wrapper[i].value;
 			// comm["image"] = images[i].value;
 			comms.push(comm);
 		}
 	}
 	console.log(comms)
-	if (comms != 0)
+	if (comms.length > 0)
 		form.append("sites", JSON.stringify(comms));	
 	else form.append("sites", JSON.stringify([]));	
 	//console.log($(this))
@@ -1872,7 +1753,6 @@ $(document).on('submit','#addform',function(e){
 	}
 	console.log(form);
 	console.log(tempJaners, "filter",tempFilter)
-	return
 	if(($(this).find('#imgUpload')[0].files.length) > 0){
 		console.log("uploading images")
 		if(editFromAccount){
@@ -2071,16 +1951,16 @@ function addDataFilters(){
 };
 var numOfSite=0;
 function addDataToAddPage(){
+	$('#preivateT').hide();
 	addDataFilters();
 	$('#addTripTitle').html(TRIPPER_DATA.addTripTitle);
-	$('#submitForm').val(TRIPPER_DATA.submit);
 
 	numOfSite++;
 	var div = $('<div>').addClass('site');
 	var p = $('<p>').html(numOfSite+'.');
 	var inputName =$('<input>').attr({"id":"siteName"+numOfSite,"type":"text","name":"site","placeholder":"אתר","class":"siteName"});
-	var inputFile =$('<input>').attr({"id":"imgUpload"+numOfSite,"type":"file","class":"file","accept":"image/*","value":"העלת תמונה","onchange":"showMyImage(this,"+numOfSite+")","name":"file","class":"image_i"});
-	var img = $('<img>').attr({'id':'thumbnil'+numOfSite}).addClass('thumbnil');
+	var inputFile =$('<input>').attr({"id":"imgUpload","type":"file","class":"file","accept":"image/*","value":"העלת תמונה","onchange":"showMyImage(this,'')","name":"file","class":"image_i"});
+	var img = $('<img>').attr({'id':'thumbnil'}).addClass('thumbnil');
 	div.append(p);
 	div.append(inputName);
 	div.append(inputFile);
@@ -2099,7 +1979,13 @@ function addDataToAddPage(){
 		div.append(img);
 		$('.sites').append(div);
 	})
+	$("#private_trip").click(function(){
+		$('#preivateT').show();
+	})
 
+	$('#public_trip').click(function(){
+		$('#preivateT').hide();
+	})
 }
 
 function moveToAddPage() {
