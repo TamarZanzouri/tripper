@@ -840,13 +840,7 @@ function displayFullTrip(data){
 	var ulTags = $('<ul>').addClass('asideFilter')
 	var count=g_trip.trip_filter.length;
 	$.each(g_trip.trip_filter, function(i,v){
-		// debugger
 		var liTag=$('<li>');
-		var liPlus =$('<li>').addClass('plus').html("+");
-		if (i!= 0 && i!=count) {
-			ulTags.append(liPlus);
-		};
-
 		liTag.append(hashtable[v]);
 		ulTags.append(liTag);
 	});

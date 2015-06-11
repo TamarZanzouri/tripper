@@ -878,7 +878,7 @@ body, input, select, textarea, button, .ui-btn{
 
 .Trip{
   direction: rtl;
-    padding: 0 5% 0 0px;
+  padding: 0 10% 0 10%;
 }
 .Trip > h2{
     width: 42%;
@@ -909,11 +909,14 @@ body, input, select, textarea, button, .ui-btn{
   padding: 10px 0px 0px 0;
 }
 .Trip > ul >li{
-  float: right;
-  border: 1px solid grey;
-  margin: 22px 10px 11px 10px;
+float: right;
+  /* border: 1px solid grey; */
+  margin: 22px 5px 11px 5px;
   padding: 3px 5px 3px 5px;
   font-family: 'Alef';
+  color: #22AF87;
+  font-size: 30px;
+  font-weight: 700;
 }
 .Trip >article{
     float: right;
@@ -936,6 +939,7 @@ body, input, select, textarea, button, .ui-btn{
   position: relative;
     margin: 7px 10px 0px 5px;
       font-size: 40px;
+  color: #000000;
 }
 #favorite{
   float: left;
@@ -996,8 +1000,9 @@ body, input, select, textarea, button, .ui-btn{
   margin: 15px 4px 11px 4px;
   padding: 3px 5px 3px 5px;
   font-family: 'Alef';
-  background-color: #22AF87 ;
-  color: #ffffff;
+  /* background-color: #22AF87; */
+  /* color: #ffffff; */
+  border: 1px solid gray;
 }
 article> h4 {
     font-size: 30px;
@@ -1006,11 +1011,11 @@ article> h4 {
   bottom: 17px;
 }
 .plus{
-    border: none !important;
+/*    border: none !important;
   margin: 15px 0 0 0 !important;
   padding: 5px 0 0 0 !important;
     color: #000000!important;
-      background-color: transparent !important;
+      background-color: transparent !important;*/
 }
 /*h4{
   font-family: 'Alef';
@@ -1432,6 +1437,7 @@ width: 46%;
 @media(max-width: 500px){
 
   .mobile-header{
+    display: block;
   height: 60px;
   margin: 0;
   padding: 0;
@@ -1473,6 +1479,7 @@ width: 46%;
   .topImgStarList {
     float: right;
     cursor: pointer;
+      left: 0;
   }
   .topImgScheduleList{
     float: right;
@@ -1480,6 +1487,7 @@ width: 46%;
   }
   .topImgStarList .selectedImgStar{
     cursor: pointer;
+
   }
   .titelName{
       float: right;
@@ -1490,7 +1498,10 @@ width: 46%;
       width: 100%;
       cursor: pointer;
   }
-
+  .titelNameAccount{
+    float: right;
+  width: 100%;
+  }
   .divShareSchedule{
       top: 30px;
   right: 0;
@@ -1579,8 +1590,11 @@ width: 46%;
   .form-horizontal{
     width: auto !important;
   }
+  .Trip{
+    padding: 0;
+  }
   .Trip > h1{
-      font-size: 48px;
+      font-size: 44px ;
   width: 100%;
     position: relative;
   left: 25px;
@@ -1593,8 +1607,9 @@ margin: 0 20px 0 00 !important;
     top: 10px;
   }
   .Trip > ul >li{
-      margin: 20px 5px 20px 5px;
-  }
+  font-size: 23px;
+  margin: 0;
+    }
   #tripImg{
     width:100%;
   }
@@ -1630,7 +1645,7 @@ margin: 0 20px 0 00 !important;
     left: 0;
   }
   #ulTimeLine >li{
-      width: 101px;
+      width: auto;
   margin: 10px 5px 0 5px;
   font-size: 15px;
   }
