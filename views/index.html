@@ -54,8 +54,10 @@
 	<div data-role="page" id="homePage" >
 		<header data-role="header" data-position="fixed" data-tap-toggle="false">  
 			<ul class="mobile-header">
-				<li><img id="mobile-logo" src="images/mobile_logo.png"></li>
 				<li><a href="#nav-panel" id="menubtn" data-role="button"></a></li>
+				<li><img id="mobile-logo" src="images/mobile_logo.png"></li>
+				
+				<li class="userDetailes"><img src="" class="imgUser"></li>
 			</ul>
 			<ul class="nav nav-pills">
 				<li id="logo"><a id="headerlogo" href="#homePage"><img id="logoImg" src="images/logo.png"></a></li>
@@ -74,7 +76,8 @@
 						data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"> </span> 
 					</span>
 					<p id="signOut" role="presentation">
-					<a role="menuitem" tabindex="-1" href="#">התנתק</a></p></li>
+					<a role="menuitem" tabindex="-1" href="#">התנתק</a></p>
+				</li>
 			</ul>
 		</header>
 		<div data-role="content" class="ui-content" id="content">

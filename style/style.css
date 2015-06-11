@@ -1427,7 +1427,23 @@ width: 46%;
 @media(max-width: 500px){
 
   .mobile-header{
-    height: 60px
+  height: 60px;
+  margin: 0;
+  padding: 0;
+  }
+  #mobile-logo{
+      width: 100%;
+  }
+  .mobile-header>li{
+  float: right;
+  width: 33%;
+  margin: 0;
+  padding: 10px 0px 10px 0 !important;
+  }
+  .imgUser{
+      float: left;
+        width: 35%;
+    margin: 1px 0px 0 20px;
   }
   .locH5{
     float: right;
@@ -1513,18 +1529,19 @@ width: 46%;
     float : left;
   }
   #menubtn{
-    background-image: url('images/menuButtonMobile.png');
-    /* max-width: none; */
-    position: relative !important;
-    display: block;
-    background-size: 138%, 140% !important;
-    background-repeat: no-repeat;
-    margin: 0 auto;
-    height: 44px;
-    width: 40px;
-    margin-top: 50px;
-    top: 22px !important;
-    left: 11px;
+  background-image: url('images/menuButtonMobile.png');
+  display: block;
+  background-size: 100%, 100% !important;
+  background-repeat: no-repeat;
+    margin: 15px 20px 0 0;
+  height: 25px;
+  width: 38px;
+  box-shadow: none;
+  border: none;
+  float: right;
+  background-color: transparent;
+  border-radius: 0px;
+  text-shadow: none;
   }
   #uploadImgForm{
     display:block;
@@ -1648,8 +1665,9 @@ margin: 0 20px 0 00 !important;
   width: 100%;
   }
   #welcome {
-      width: 90%;
+     width: 96%;
   padding: 5px 18px 10px 16px;
+  margin: 50px 0 0 0;
   }
   #welcome > h1{
       font-size: 45px;
@@ -1663,7 +1681,7 @@ margin: 0 20px 0 00 !important;
       font-size: 30px;
   }
   .btnChar{
-      margin: 5px 5px 5px 5px !important;
+   margin: 7px 7px 7px 7px !important;
   padding: 0 5px 0 5px;
   }
 }
