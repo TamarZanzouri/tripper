@@ -8,7 +8,6 @@ ObjectId = require('mongodb').ObjectID;
 
 app = express();
 
-
 var mongopath = 'mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd';
 
 app.use(express.static(path.join(__dirname, 'views')));
@@ -32,7 +31,7 @@ app.use(function(req, res, next) {
 });
 
 var viewWS = require('./view_ws'); 
-app.use(viewWS); 
+// app.use(viewWS); 
 var usersWS = require('./users_ws'); 
 app.use(usersWS); 
 var tripsWS = require('./trips_ws'); 
@@ -65,6 +64,10 @@ fs.readdirSync(__dirname + '/models').forEach( function( fileName)
 {
 	if (~fileName.indexOf('.js')) require(__dirname + '/models/' + fileName);
 });
+
+app.get('/getTripData', viewWS.getTripData);
+
+
 
 process.on('uncaughtException', function(err) {
 	console.log('Caught exception: ' + err);

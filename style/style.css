@@ -723,11 +723,11 @@ body, input, select, textarea, button, .ui-btn{
 #welcome{
   text-align: right;
   width: 50%;
-  margin: 50px auto;
+  margin: 0px auto;
   position: relative;
   padding: 20px 40px;
   background-image: url("images/bg_welcome.png");
-  top: 20px;
+  top: -15px;
 }
 
 #welcome > h1{
