@@ -2076,7 +2076,9 @@ function appendTripCharachters(){
 		$(this).css("background","transparent")
 	})
 }
-
+$(document).on('click','#logIn',function(){
+	$('#signinButton').click();
+})
 function signinCallback(authResult) {
 	if (authResult['status']['signed_in']) {
 		// Update the app to reflect a signed in user
@@ -2102,6 +2104,7 @@ function signinCallback(authResult) {
 				 $('.nameUser').html(User.name);
 				 $('.imgUser').attr("src",User.image);
 				 $('#signOut').show();
+				 $('#logIn').hide();
 			});
 		});
 	} else {

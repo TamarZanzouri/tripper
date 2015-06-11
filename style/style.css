@@ -652,6 +652,9 @@ header > a {
 header > a :hover{
   background-color: #1B936E !important;
 }
+.mobile-header{
+  display: none;
+}
 .nav{
     padding: 0;
   margin-bottom: 0;
@@ -777,7 +780,9 @@ body, input, select, textarea, button, .ui-btn{
    margin: auto 0px;
   position: relative;
 }
-
+#logIn{
+  text-decoration: underline;
+}
 #continue{
   width: auto;
   padding: 5px 10px 5px 10px;
