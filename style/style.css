@@ -38,7 +38,7 @@ input{
 }
 #addform >label>div{
   width: 230px;
-  height: 35px;
+  height: 43px;
   border-radius: 0px !important;
    margin: 3px 0 10px 0;
 }
@@ -194,26 +194,33 @@ float: right;
   height: inherit;
 }
 .nameTripLabel{
-    width: 250px;
-  display: inline-block!important;
+width: 272px;
+  display: inline-block !important;
+  position: relative;
+  top: 41px;
+  margin: 0 !important;
 }
 #isPrivate{
-  width: auto;
-  display: inline-block;
+  width: auto !important;
+  display: -webkit-inline-box;
   margin: 0;
+  position: relative;
 }
-#isTripPrivate{
+#preivateT{
+    margin: 0 15px 0 0;
+  width: auto;
+  display: none;
 }
 #addUser{
-  display:none;
+  display: -webkit-inline-box;
 
 }
 #addUsers{
-  display:none;
-
+    display: block;
+  width: 175px;
 }
 #usersList{
-    display:none;
+  display: -webkit-inline-box;
 
 }
 #tripJaners{

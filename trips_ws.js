@@ -88,7 +88,7 @@ router.post('/add', function(req, res){
 						tripCharachters.push(dataForm.firstcharachter);
 						tripCharachters.push(dataForm.secondcharachter);
 						playlistToAdd.trip_charachters = tripCharachters;
-						var sitesName = dataForm.ingredients;
+						// var sitesName = dataForm.ingredients;
 						// console.log("SSSSSSSSS",sitesName)
 						var loc= dataForm.amount;
 						var sites=JSON.parse(dataForm.sites);
