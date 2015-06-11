@@ -447,6 +447,20 @@ function initMap(l1,l2){
 	});
 }
 
+$(document).on('change', 'ul.dropdown-menu li input[type=checkbox]', function() {
+    	console.log("changed")
+        // $(this).change(function() {
+            var line = "";
+            $("ul.dropdown-menu li input[type=checkbox]").each(function() {
+                if($(this).is(":checked")) {
+                    line += $(this).prev('label').text() + ",";
+                }
+                console.log(line)
+            });
+            $(this).parent().parent().parent().parent().children().first('span.nameF').text(line);
+        // });
+});
+
 $(document).on('click', '#welcome > div', function(){
 		$('#welcome').hide();
 		$('#groupButton').show();
@@ -1714,7 +1728,7 @@ $(document).on('submit','#addform',function(e){
 	var comms = new Array();
 	for (var i = 0; i < wrapper.length; i++){
 		console.log(i);
-		debugger;
+		// debugger;
 		var comm = {};
 		if (wrapper[i].value){
 			comm['siteName'] = wrapper[i].value;
@@ -1729,11 +1743,13 @@ $(document).on('submit','#addform',function(e){
 	//console.log($(this))
 	form.append("email",User.email);
 	form.append("mapPoint",JSON.stringify(mapPoint));
-	$('input[type="checkbox"]').each(function(value) {
+	// debugger;
+	$('input[type=checkbox][id!="pickJanerul"]').each(function(value) {
 		if($(this).is(':checked')){
 			tempFilter.push($(this).attr('id'));
 		}
 	});
+	console.log(tempFilter)
 	form.append("trip_filter", JSON.stringify(tempFilter));
 	$('#pickJanerul > li > input[type=checkbox]').each(function(value){
 		if($(this).is(':checked')){

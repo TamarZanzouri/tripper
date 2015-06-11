@@ -125,10 +125,10 @@ float: right;
 }
 .image_i{
   float: right;
-  width: 107px;
+  width: 100px;
   margin: 0 0 0 0;
   background: #ffffff;
-  padding: 4px 8px 0 8px;
+  padding: 4px 5px 0 10px;
   height: 35px;
   position: relative;
   border: 1px solid gray;
@@ -1423,6 +1423,10 @@ width: 46%;
   margin: 0 0px 0 12px;
 }
 @media(max-width: 500px){
+
+  .mobile-header{
+    height: 60px
+  }
   .locH5{
     float: right;
     width: 100%;
@@ -1507,7 +1511,7 @@ width: 46%;
     float : left;
   }
   #menubtn{
-    background-image: url('images/menu_button.png');
+    background-image: url('images/menuButtonMobile.png');
     /* max-width: none; */
     position: relative !important;
     display: block;
