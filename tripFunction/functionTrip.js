@@ -449,16 +449,52 @@ function initMap(l1,l2){
 $(document).on('change', 'ul.dropdown-menu li input[type=checkbox]', function() {
     	console.log("changed")
         // $(this).change(function() {
-            var line = "";
-            $("ul.dropdown-menu li input[type=checkbox]").each(function() {
-                if($(this).is(":checked")) {
-                    line += $(this).prev('label').text() + ",";
-                }
-                console.log(line)
+            var line_trip_kind = "";
+            var line_trip_with_who = "";
+            var line_janers = "";
+            // debugger
+            console.log($(this))
+            console.log("jkhdsfkjsdhgs", $(this).parent().parent().parent().parent().parent().attr('id'));
+            console.log($("ul.dropdown-menu").parent().parent().attr("id"));
+            if($(this).parent().parent().parent().parent().parent().attr('id') === "who_are_you_going_with"){
+            	console.log("who");
+            	$('#who_are_you_going_with input:checked').each(function() {
+            	// var line = "";
+            		console.log("checkbox")
+                // if($(this).is(":checked")) {
+                    line_trip_with_who += $(this).prev('label').text() + "; ";
+                // }
+                	console.log(line_trip_with_who)
+            	});
+     	     	$(this).parent().parent().parent().parent().children().first('span.nameF').text(line_trip_with_who);
+            }
+            else if($(this).parent().parent().parent().parent().parent().attr('id') === "trip_kind"){
+            	console.log("else")
+            	$('#trip_kind input:checked').each(function() {
+            	// var line = "";
+                // if($(this).is(":checked")) {
+                    line_trip_kind += $(this).prev('label').text() + "; ";
+                // }
+                console.log(line_trip_kind)
             });
-            $(this).parent().parent().parent().parent().children().first('span.nameF').text(line);
-        // });
+          	$(this).parent().parent().parent().parent().children().first('span.nameF').text(line_trip_kind);
+
+            }
+            else if($(this).parent().parent().parent().parent().parent().parent().attr('id') === "pickJaner"){
+            	console.log("pickJaner");
+            	$('#pickJaner input:checked').each(function() {
+            	// var line = "";
+                // if($(this).is(":checked")) {
+                line_janers += $(this).prev('label').text() + "; ";
+                // }
+                console.log(line_janers)
+            });
+          	$(this).parent().parent().parent().parent().children().first('span').text(line_janers);
+            }
+
 });
+
+
 
 $(document).on('click', '#welcome > div', function(){
 		$('#welcome').hide();
