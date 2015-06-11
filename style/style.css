@@ -738,13 +738,13 @@ body, input, select, textarea, button, .ui-btn{
 }
 
 #welcome > h1{
-  font-size: 54px;
+  font-size: 64px;
   font-weight: bold;
 }
 
 #welcome > p{
   display: inline-table;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 25px;
 }
 
@@ -759,16 +759,21 @@ body, input, select, textarea, button, .ui-btn{
   letter-spacing: 1px;
   background-color: #22AF87 !important;
   position: relative;
-  display: -webkit-box;
+  display: block;
   text-align: center;
 }
 
-#welcome > span{
-  margin: auto 0px;
+#welcome >div> span{
+ margin: auto 0px;
+  display: block;
+  text-align: center;
+  position: relative;
+  font-size: 42px;
 }
 
-#welcome > img{
-  margin: auto 0px;
+#welcome >div> img{
+   margin: auto 0px;
+  position: relative;
 }
 
 #continue{
