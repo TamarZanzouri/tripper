@@ -746,11 +746,17 @@ $(document).on("click", '#nav ', function(e) {
 $(function() {
 	$("[data-role=panel]").enhanceWithin().panel();
 });
+
 (function($) {
 	$.fn.hasScrollBar = function() {
 		return this.get(0).scrollHeight > this.height();
 	};
 })(jQuery);
+
+$(document).on('click', '#nav li', function(){
+	$('menubtn').click();
+});
+
 $(document).on('click', "#previous , #next", function(e) {
 	e.preventDefault();
 	console.log($('#menu').hasScrollBar());
