@@ -163,7 +163,7 @@ $(document).ready(function(){
 	// });
 
 $('#us3').locationpicker({
-	location: {latitude: t1, longitude: t2 },
+	location: {latitude: 32.08973379436282,longitude: 34.80341009795666 },
 	radius: 3000,
 	inputBinding: {
 	        // latitudeInput: $('#us3-lat'),
@@ -174,7 +174,6 @@ $('#us3').locationpicker({
 	    enableAutocomplete: true,
 	    
 	});
-console.log(t1 + t2)
 $('#us6-dialog').on('shown.bs.modal', function() {
 	$('#us3').locationpicker('autosize');
 });
@@ -2080,6 +2079,7 @@ function signinCallback(authResult) {
 				create_user(User);
 				 $('.nameUser').html(User.name);
 				 $('.imgUser').attr("src",User.image);
+				 $('#signOut').show();
 			});
 		});
 	} else {

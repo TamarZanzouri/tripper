@@ -471,28 +471,28 @@ display: -webkit-inline-box;
 	display: -webkit-box;
   font-weight: 600;
   font-size: 36px;
-  padding: 0 6px 0 0;
+    padding: 0 6px 0 6px;
   cursor: pointer;
 }
 .titelNameFavorite{
     display: -webkit-box;
   font-weight: 600;
     font-size: 36px;
-    padding: 0 6px 0 0;
+    padding: 0 6px 0 6px;
     cursor: pointer;
 }
 .titelNameAccount{
     display: -webkit-box;
   font-weight: 600;
     font-size: 36px;
-    padding: 0 6px 0 0;
+    padding: 0 6px 0 6px;
     cursor: pointer;
 }
 .titelNameSchedule{
       display: -webkit-box;
   font-weight: 600;
     font-size: 64px;
-    padding: 0 6px 0 0;
+    padding: 0 6px 0 6px;
     float: right;
    width: 75%;
    z-index: 99;
@@ -538,9 +538,7 @@ display: -webkit-inline-box;
     display: -webkit-box;
 }
 .userDetailes{
-  float: left;
-  position: absolute;
-  top: 21px;
+  padding: 22px 10px 0px !important;
 }
 .imgUser{
     border-radius: 50px;
@@ -549,10 +547,11 @@ display: -webkit-inline-box;
 .nameUser{
   font-size: 15px;
   /* font-weight: 600; */
-  padding: 0 12px 0 10px;
+  padding: 0 12px 0 15px;
   display: -webkit-inline-box;
   float: right;
-  margin: 5px 0 0 0;
+  margin: 5px 0px 0 12px;
+  position: relative;
 
 }
 #resultTitle{
@@ -614,10 +613,13 @@ color: #337ab7;
 
 /*********home page********/
 #signOut{
-    margin: 0 8px 0 0;
+  margin: 0 9px 0 0;
   float: right;
   color: #38c;
   font-size: 17px;
+  /* width: 123px; */
+  position: relative;
+  display:none;
 }
 #signOut >a {
     color: blue;
@@ -1542,7 +1544,6 @@ width: 46%;
       font-size: 48px;
   }
   #us6-dialog{
-      position: relative;
   width: 100%;
   }
   #resultTitle{
@@ -1641,5 +1642,24 @@ margin: 0 20px 0 00 !important;
   }
   .divTripImg {
   width: 100%;
+  }
+  #welcome {
+      width: 90%;
+  padding: 5px 18px 10px 16px;
+  }
+  #welcome > h1{
+      font-size: 45px;
+  margin: 0 !important;
+  }
+  #welcome > div>img{
+      width: 200px;
+  height: auto;
+  }
+  #welcome > div>span{
+      font-size: 30px;
+  }
+  .btnChar{
+      margin: 5px 5px 5px 5px !important;
+  padding: 0 5px 0 5px;
   }
 }
