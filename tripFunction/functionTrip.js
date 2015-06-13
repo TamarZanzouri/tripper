@@ -1398,9 +1398,10 @@ function signinCallback(authResult) {
 				console.log(User);
 				create_user(User);
 				 $('.nameUser').html(User.name);
-				 $('.imgUser').attr("src",User.image);
+				 $('.imgUser').attr("src",User.image).show();
 				 $('.loogOut').show();
 				 $('.loogIn').hide();
+				 $('.loogInMonbile').hide();
 				 moveToHomePage();
 			});
 		});

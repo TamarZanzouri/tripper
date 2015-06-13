@@ -967,7 +967,9 @@ body, input, select, textarea, button, .ui-btn{
   position: relative;
   width: 100%;
 }*/
-
+.loogInMonbile{
+  display: none;
+}
 .sitesUl{
     float: right;
   padding: 0 0 0 0;
@@ -1462,8 +1464,15 @@ width: 46%;
   }
   .imgUser{
       float: left;
-        width: 35%;
+      width: 35%;
     margin: 1px 0px 0 20px;
+    display:none;
+  }
+  .loogOut {
+      width: 98% !important;
+  }
+  .loogOut > a{
+      color: #ffffff !important;
   }
   .locH5{
     float: right;
@@ -1593,8 +1602,10 @@ width: 46%;
   width: 100%;
   }
   #resultTitle{
-    font-size: 48px;
-    width: 100%;
+
+      font-size: 48px;
+  width: 100%;
+  margin: 10px 0px 15px 20px !important;
   }
   .form-horizontal{
     width: auto !important;
@@ -1611,7 +1622,7 @@ margin: 0 20px 0 00 !important;
   }
   .Trip > ul {
       padding: 0 5px 0 0;
-  margin: 0 10px 0 0;
+  margin: 0 25px 0 0;
   position: relative;
     top: 10px;
   }
@@ -1680,7 +1691,9 @@ margin: 0 20px 0 00 !important;
       width: 100%;
       padding: 0;
   }
-
+  .loogInMonbile{
+    display: block;
+  }
   .displayTripRight{
       width: 100%;
       padding: 0;
@@ -1723,5 +1736,8 @@ margin: 0 20px 0 00 !important;
     position: relative;
     color: #ffffff !important;
     padding: 3px 6px 6px 6px;
+  }
+  #addform > label > textarea{
+    width: 92%;
   }
 }
