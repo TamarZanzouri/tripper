@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+// var express = require('express');
+// var router = express.Router();
 var multiparty = require('multiparty');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
@@ -15,7 +15,8 @@ cloudinary.config({
   //cdn_subdomain: true
 });
 
-router.post('/add', function(req, res){
+// router.post('/add', function(req, res){
+exports.addTrip = function(req, res){
 
 	//console.log(req.files,req.body)
 	//console.log("haim" + req.body.newTrip + " " + req.body.des);
@@ -132,9 +133,6 @@ router.post('/add', function(req, res){
 									return ;
 								}
 							});
-                  		// save into the database
-                       	//console.log(result) 
-
                     },{
                     	crop: 'limit',
 						width: 640,
@@ -143,80 +141,15 @@ router.post('/add', function(req, res){
 		}
 	 });
 
-});
-			// cloudinary.uploader.upload([temp_paths[0],temp_paths[1]], 
-   //                         function(result) { console.log(result) 
-   //                  });
-
-		/* The file name of the uploaded file */
-		// var file_name = this.openedFiles;
-		// console.log("file_name: " , file_names);
-		
-		
-		/*/*var stream = cloudinary.uploader.upload_stream(function(result) {
-			console.log("result from cloudinary " + result) 
-			urlImg=result.url;
-
-			playlistToAdd.trip_name = dataForm.nameTrip;
-			playlistToAdd.trip_description = dataForm.des;
-			playlistToAdd.address = dataForm.locationTrip;
-			var tripCharachters = [];
-			tripCharachters.push(dataForm.firstcharachter);
-			tripCharachters.push(dataForm.secondcharachter);
-			playlistToAdd.trip_charachters = tripCharachters;
-			var sitesName = dataForm.ingredients;
-			var loc= dataForm.amount;
-			var sites=JSON.parse(dataForm.sites);
-			playlistToAdd.mapPoint=(dataForm.mapPoint)?JSON.parse(dataForm.mapPoint):'';
-			if(sitesName)
-				for (val in sitesName){
-					sites.push({sitesName:sitesName[val],loc:loc[val]});
-				}
-
-				playlistToAdd.trip_isPrivate = dataForm.isTripPrivate;
-				playlistToAdd.area = dataForm.area;
-				var tripFilter =[];
-				playlistToAdd.email =dataForm.email;
-
-				var privte = dataForm.isTripPrivate;
-				var areaLocition = dataForm.area;
-				userEmail =dataForm.email;
-				var shareEmail=dataForm.shareEmail;
-				playlistToAdd.shareEmail=shareEmail;
-				var tripFilter=JSON.parse(dataForm.trip_filter);
-				console.log("trip filters " + tripFilter);
-				tripFilter.push(dataForm.difficulty);
-
-				console.log("filters enterd " + tripFilter)
-				playlistToAdd.trip_filter = tripFilter;
-				playlistToAdd.tripSites = sites;
-				playlistToAdd.imageUrl = urlImg;
-				console.log("inage url on cloudinary " + urlImg)
-				var newTrip = new Playlist(playlistToAdd);
-				console.log("new trip before insert " + newTrip)
-				newTrip.save(function(err, docs) {
-					if (err) {
-						console.log("found error inserting");
-						res.json({status:0,err:err})
-						return;
-					}
-					if(docs){
-						console.log('insert seccessfuly')
-						res.json({status:1},docs)
-						return ;
-					}
-				});
-			});
-	
-	var file_reader = fs.createReadStream(temp_paths).pipe(stream)
-*/
+}
 
 function uploadCallBack(total,size,urls){
 	if (total == size) console.log('urls',urls)
 
 }
 
-router.post('/filterByChars', function(req, res) {
+// router.post('/filterByChars', function(req, res) {
+exports.filterByChars = function(req, res){
 	try{
 		var charachters = req.body.chars;
 		var user = req.body.userId;
@@ -271,11 +204,11 @@ router.post('/filterByChars', function(req, res) {
 	}
 
 	
-});
+}
 
 //addComment
-
-router.post('/addComment', function(req, res) {
+// router.post('/addComment', function(req, res) {
+exports.addComment = function(req, res){
 	try{
 		var user = req.body.user;
 		var trip_id = req.body.trip_id;
@@ -305,9 +238,10 @@ router.post('/addComment', function(req, res) {
 		return;
 	});
 
-});
+}
 
-app.post('/getTripById', function(req, res) {
+// app.post('/getTripById', function(req, res) {
+exports.getTripById = function(req, res){
 	try{
 		var tripId = req.body.id;
 		console.log(tripId);		
@@ -330,10 +264,11 @@ app.post('/getTripById', function(req, res) {
                 	res.json(docs);
                 }
             });
-});
+}
 
 
-app.get('/findTripByUser/:email?', function(req, res) {
+// app.get('/findTripByUser/:email?', function(req, res) {
+exports.findTripByUser = function(req, res){
 	try{
 		userEmail = req.query.email;
 		console.log(userEmail);
@@ -357,9 +292,10 @@ app.get('/findTripByUser/:email?', function(req, res) {
                 	res.json(docs)
                 }
             });
-});
-router.post("/updateRate", function(req, res) 
-{
+}
+
+// router.post("/updateRate", function(req, res) 
+exports.updateRate = function(req, res){
     var data=req.body.value;
     var tripId=req.body.tripId;
     var userEmail=req.body.userEmail;
@@ -452,34 +388,10 @@ router.post("/updateRate", function(req, res)
 	           		}
 	        	};
             });
-		//  if (data==0) {
-		
-		// temp_trip.rate.userEmail.splice(userEmail, 1);
-		// temp_trip.rate.value--;
-		// temp=temp_trip.rate;
-		//   db.model('tripper_playlists').findOneAndUpdate({ _id : new ObjectId(tripId) }, {$set : {rate : temp}}, function(err, result)
-	 //        {
-	 //            if (err) 
-	 //            {
-	 //                console.log("--> Err <-- : " + err);
-	 //                r.status = 0;
-	 //                r.desc = "--> Err <-- : " + err;
-	 //                res.json(r);
-	 //            }
-	            
-	 //            if (result)
-	 //            {
-	 //                console.log("the result is: " + result.length);
-	 //                r.status = 1;
-	 //                r.info = (result.length)?result[0]:[];
-	 //                res.json(r);
-	 //            }
-  //       });
-  //  }
-});
+}
 
-router.post('/uploadImageToTrip', function(req, res){
-
+// router.post('/uploadImageToTrip', function(req, res){
+exports.uploadImageToTrip = function(req, res){
 	var form = new formidable.IncomingForm();
 	
 	form.parse(req, function(error, fields, files) 
@@ -529,9 +441,12 @@ router.post('/uploadImageToTrip', function(req, res){
 	});
 	var file_reader = fs.createReadStream(temp_path).pipe(stream)
 })
-})
 
-router.post('/updateTrip', function(req, res){
+}
+
+// router.post('/updateTrip', function(req, res){
+exports.updateTrip = function(req, res){
+
 console.log("start to add to DB")
 	var urlImg="";
 	var dataForm={};
@@ -607,9 +522,10 @@ console.log("start to add to DB")
 		});
 
                     });
-});
+}
 
-router.post('/addTripWithoutImages', function(req, res){
+// router.post('/addTripWithoutImages', function(req, res){
+exports.addTripWithoutImages = function(req, res){
 console.log("start to add to DB")
 	var urlImg="";
 	var dataForm={};
@@ -698,9 +614,10 @@ console.log("start to add to DB")
 				}
 			});
 });
-});
+}
 
-router.post('/updateTripWithImage', function(req, res){
+// router.post('/updateTripWithImage', function(req, res){
+exports.updateTripWithImage = function(req, res){
 	//console.log(req.files,req.body)
 	//console.log("haim" + req.body.newTrip + " " + req.body.des);
 	console.log("start to add to DB")
@@ -819,9 +736,10 @@ router.post('/updateTripWithImage', function(req, res){
                     });
 		}
 	 });
-})
+}
 
-router.post('/updateTripWithOutImages', function (req, res) {
+// router.post('/updateTripWithOutImages', function (req, res) {
+exports.updateTripWithOutImages = function(req, res){
 	console.log("start to add to DB")
 	var urlImg="";
 	var dataForm={};
@@ -902,5 +820,5 @@ router.post('/updateTripWithOutImages', function (req, res) {
 				}
 			})
 });	
-})
-module.exports = router;
+}
+// module.exports = router;
