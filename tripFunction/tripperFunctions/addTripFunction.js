@@ -51,7 +51,6 @@ $(document).on('submit','#addform',function(e){
 	}
 	console.log(form);
 	console.log("janers", tempJaners, "filter",tempFilter)
-	return
 	if(($(this).find('#imgUpload')[0].files.length) > 0){
 		console.log("uploading images")
 		if(editFromAccount){
