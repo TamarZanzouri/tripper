@@ -1,7 +1,7 @@
 
-var express = require('express');
+// var express = require('express');
 var mailer = require("nodemailer");
-var router = express.Router();
+// var router = express.Router();
 
 var smtpTransport = mailer.createTransport("SMTP",{
     service: "Gmail",

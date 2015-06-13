@@ -909,14 +909,16 @@ body, input, select, textarea, button, .ui-btn{
     width: 60%;
       margin: 0 !important;
 }
+
 .Trip >ul{
   height: 100px;
   position: relative;
-  left: 20px;
+  left: 14%;
   padding: 10px 0px 0px 0;
 }
+
 .Trip > ul >li{
-float: right;
+  float: right;
   /* border: 1px solid grey; */
   margin: 22px 5px 11px 5px;
   padding: 3px 5px 3px 5px;
