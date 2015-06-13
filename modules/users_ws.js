@@ -35,7 +35,8 @@ var shareMail = {
     html: "<b>זיהינו שבוצעו שינויים במסלול שלך...</b>"
 }
 
-router.post('/registerUser', function(req, res) {
+// router.post('/registerUser', function(req, res) {
+exports.registerUser = function(req, res){
 	console.log("in register user")
 	try{
 		var user = req.body;
@@ -85,22 +86,10 @@ router.post('/registerUser', function(req, res) {
 				})		
 		}
 	});
-});
+}
 
-// router.post('/sendEmail', function  (req, res) {
-
-// smtpTransport.sendMail(mail, function(error, response){
-//     if(error){
-//         console.log(error);
-//     }else{
-//         console.log("Message sent: " + response.message);
-//     }
-    
-//     smtpTransport.close();
-// });
-// })
-
-router.post('/updateMySchedule', function(req, res) {
+// router.post('/updateMySchedule', function(req, res) {
+exports.updateMySchedule = function(req, res){
 	try{
 		var user = req.body.userId;
 		var trip = req.body.trip;
@@ -206,9 +195,10 @@ router.post('/updateMySchedule', function(req, res) {
 	}
 
 })
-});
+}
 
-router.post('/updateScheduleParticipents', function(req,res){
+// router.post('/updateScheduleParticipents', function(req,res){
+exports.updateScheduleParticipents = function(req, res){
 	console.log("updating")
 	try{
 		tripParticipents = req.body.sharedEmail;
@@ -270,9 +260,10 @@ router.post('/updateScheduleParticipents', function(req,res){
 })
 	})
 	res.json({status:1});	
-})
+}
 
-router.post('/saveTimeSchedule', function(req, res){
+// router.post('/saveTimeSchedule', function(req, res){
+exports.saveTimeSchedule = function(req, res){
 	try{
 		user = req.body.userId;
 		tripDate = req.body.tripTime;
@@ -291,9 +282,10 @@ router.post('/saveTimeSchedule', function(req, res){
 		res.json({status:1});
 	});
 
-});
+}
 
-router.post('/updateFavoirte', function(req, res){
+// router.post('/updateFavoirte', function(req, res){
+exports.updateFavoirte = function(req, res){
 	try{
 		var trip = req.body.trip;
 		var user = req.body.userId;
@@ -363,9 +355,10 @@ else{
 	});
 }
 
-})
+}
 
-router.post('/getUserSchedule', function(req, res) {
+// router.post('/getUserSchedule', function(req, res) {
+exports.getUserSchedule = function(req, res){
 	try{
 		var userEmail = req.body.email;
 		console.log(userEmail);
@@ -391,9 +384,10 @@ router.post('/getUserSchedule', function(req, res) {
                 }
             });
 
-});
+}
 
-router.post('/getUserFavorites', function(req, res) {
+// router.post('/getUserFavorites', function(req, res) {
+exports.getUserFavorites = function(req, res){
 	try{
 		var userEmail = req.body.email;
 		console.log(userEmail);
@@ -418,9 +412,10 @@ router.post('/getUserFavorites', function(req, res) {
                 	res.json(docs)
                 }
             });
-});
+}
 
-router.post('/updateTripChangesToUserFavorites', function(req, res){
+// router.post('/updateTripChangesToUserFavorites', function(req, res){
+exports.updateTripChangesToUserFavorites = function(req, res){
 	console.log("updating trip");
 	try{
 		var userEmail = req.body.userId;
@@ -442,10 +437,11 @@ router.post('/updateTripChangesToUserFavorites', function(req, res){
 		}
 	})
 
-});
+}
 
 
-router.post('/removeFromSchedule', function(req, res){
+// router.post('/removeFromSchedule', function(req, res){
+exports.removeFromSchedule = function(req, res){
 	try{
 		var userEmail = req.body.userEmail;
 		var tripToDelete = req.body.tripId;
@@ -483,10 +479,10 @@ router.post('/removeFromSchedule', function(req, res){
 			}
 		}
 	});
-});
+}
 
-
-router.post('/removeEmailFromTripPartners', function(req, res){
+// router.post('/removeEmailFromTripPartners', function(req, res){
+exports.removeEmailFromTripPartners = function(req, res){
 	console.log("in remove email")
 	try{
 		var updatedTripPartners = req.body.trippartners;
@@ -539,9 +535,10 @@ router.post('/removeEmailFromTripPartners', function(req, res){
 		})	
 	}
 
-});
+}
 
-router.post('/addChatComment', function(req, res){
+// router.post('/addChatComment', function(req, res){
+exports.addChatComment = function(req, res){
 	try{
 		var user = req.body.user;
 		var comment = req.body.chat;
@@ -586,6 +583,6 @@ router.post('/addChatComment', function(req, res){
 					})
 				})
 		})
-	});
+}
 
-module.exports = router;
+// module.exports = router;
