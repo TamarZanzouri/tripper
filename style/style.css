@@ -163,6 +163,14 @@ float: right;
   font-weight: 700;
   font-size: 17px;
 }*/
+
+/********** google *********/
+#signinButton{
+  top: 25px;
+  position: relative;
+}
+/****  end google  ****/
+
 .site{
     position: relative;
   float: right;
@@ -1703,5 +1711,12 @@ margin: 0 20px 0 00 !important;
   .btnChar{
    margin: 7px 7px 7px 7px !important;
   padding: 0 5px 0 5px;
+  }
+  #isPrivate{}
+  .nameTripLabel{
+    top: 0;
+  }
+  .titleForLoc{
+    display: none;
   }
 }

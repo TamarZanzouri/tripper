@@ -65,16 +65,17 @@
 				<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
 				<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
 				<li id="addTrip" ><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
-				<li class="userDetailes"><img src="" class="imgUser"><span class="nameUser"></span>	<p id="signOut" role="presentation">
+				<li class="userDetailes"><img src="" class="imgUser"><span class="nameUser"></span>	
+					<p class="loogOut" id="signOut" role="presentation">
 					<a role="menuitem" tabindex="-1" href="#">התנתק</a></p>
-					<a href="#" id="logIn" data-callback="signinCallback">התחבר ל-Tripper<span id="signinButton"> 
+					<div class="loogIn"><span id="signinButton"> 
 						<span
 						class="g-signin"
 						data-callback="signinCallback"
 						data-clientid="573156814655-734l8cl9gau167f6p4h59d9m00f48roc.apps.googleusercontent.com"
 						data-cookiepolicy="single_host_origin"
 						data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"> </span> 
-					</span></a>
+					</span></div>
 				</li>
 			</ul>
 		</header>
@@ -88,7 +89,7 @@
 			<div id="groupButton">
 				<!-- <h2 id="genres"></h2> -->
 			</div>				
-			<section>
+			<!-- <section>
 				<span id="signinButton"> 
 						<span
 						class="g-signin"
@@ -97,7 +98,7 @@
 						data-cookiepolicy="single_host_origin"
 						data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"> </span> 
 					</span>
-			</section>
+			</section> -->
 				
 			</div>
 		</div>
@@ -106,18 +107,32 @@
 
 
 		<div data-role="page" id="resultTripPqge" >
-			<header data-role="header" data-position="fixed" data-tap-toggle="false">  
-			<ul class="nav nav-pills">
-				<li id="logo"><a id="headerlogo" href="#homePage"><img id="logoImg" src="images/logo.png"></a></li>
-				<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
-				<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
-				<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
-				<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
-				<li id="addTrip" ><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
-				<li class="userDetailes"><img src="" class="imgUser"><span class="nameUser"></span><p id="signOut" role="presentation"><a role="menuitem" tabindex="-1" href="#">התנתק</a></p></li>
-			</ul>
-	
-			</header>
+				<header data-role="header" data-position="fixed" data-tap-toggle="false">  
+					<ul class="mobile-header">
+						<li><a href="#nav-panel" id="menubtn" data-role="button"></a></li>
+						<li><img id="mobile-logo" src="images/mobile_logo.png"></li>
+						<li class="userDetailes"><img src="" class="imgUser"></li>
+					</ul>
+					<ul class="nav nav-pills">
+						<li id="logo"><a id="headerlogo" href="#homePage"><img id="logoImg" src="images/logo.png"></a></li>
+						<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
+						<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
+						<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
+						<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
+						<li id="addTrip" ><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
+						<li class="userDetailes"><img src="" class="imgUser"><span class="nameUser"></span>	<p  class="loogOut" id="signOut" role="presentation">
+							<a role="menuitem" tabindex="-1" href="#">התנתק</a></p>
+							<div class="loogIn"><span id="signinButton"> 
+								<span
+								class="g-signin"
+								data-callback="signinCallback"
+								data-clientid="573156814655-734l8cl9gau167f6p4h59d9m00f48roc.apps.googleusercontent.com"
+								data-cookiepolicy="single_host_origin"
+								data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"> </span> 
+							</span></div>
+						</li>
+					</ul>
+				</header>
 			<div data-role="content" class="ui-content" id="content">
 				<h1 id="resultTitle"></h1>
 				<h2 id="chars" ></h2>
@@ -218,17 +233,32 @@
 
 
 		<div data-role="page" id="theTrip" >
-			<header data-role="header" data-position="fixed" data-tap-toggle="false">  
-				<ul class="nav nav-pills">
-					<li id="logo"><a id="headerlogo" href="#homePage"><img id="logoImg" src="images/logo.png"></a></li>
-					<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
-					<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
-					<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
-					<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
-					<li id="addTrip" ><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
-					<li class="userDetailes"><img src="" class="imgUser"><span class="nameUser"></span><p id="signOut" role="presentation"><a role="menuitem" tabindex="-1" href="#">התנתק</a></p></li>
-				</ul>
-			</header>
+				<header data-role="header" data-position="fixed" data-tap-toggle="false">  
+			<ul class="mobile-header">
+				<li><a href="#nav-panel" id="menubtn" data-role="button"></a></li>
+				<li><img id="mobile-logo" src="images/mobile_logo.png"></li>
+				<li class="userDetailes"><img src="" class="imgUser"></li>
+			</ul>
+			<ul class="nav nav-pills">
+				<li id="logo"><a id="headerlogo" href="#homePage"><img id="logoImg" src="images/logo.png"></a></li>
+				<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
+				<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
+				<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
+				<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
+				<li id="addTrip" ><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
+				<li class="userDetailes"><img src="" class="imgUser"><span class="nameUser"></span>	<p class="loogOut" id="signOut" role="presentation">
+					<a role="menuitem" tabindex="-1" href="#">התנתק</a></p>
+					<div class="loogIn"><span id="signinButton"> 
+						<span
+						class="g-signin"
+						data-callback="signinCallback"
+						data-clientid="573156814655-734l8cl9gau167f6p4h59d9m00f48roc.apps.googleusercontent.com"
+						data-cookiepolicy="single_host_origin"
+						data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"> </span> 
+					</span></div>
+				</li>
+			</ul>
+		</header>
 			<div data-role="content" class="ui-content" id="content">
 				<div class="userDetailes"></div>
 	<!-- 			<a href="#" id="next">next</a>
@@ -243,17 +273,32 @@
 
 
 		<div data-role="page" id="viewFavorite" >
-			<header data-role="header" data-position="fixed" data-tap-toggle="false">  
-				<ul class="nav nav-pills">
-					<li id="logo"><a id="headerlogo" href="#homePage"><img id="logoImg" src="images/logo.png"></a></li>
-					<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
-					<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
-					<li id="moveToFavorite" class="ui-btn-active"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
-					<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
-					<li id="addTrip" ><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
-					<li class="userDetailes"><img src="" class="imgUser"><span class="nameUser"></span><p id="signOut" role="presentation"><a role="menuitem" tabindex="-1" href="#">התנתק</a></p></li>
-				</ul>
-			</header>
+				<header data-role="header" data-position="fixed" data-tap-toggle="false">  
+					<ul class="mobile-header">
+						<li><a href="#nav-panel" id="menubtn" data-role="button"></a></li>
+						<li><img id="mobile-logo" src="images/mobile_logo.png"></li>
+						<li class="userDetailes"><img src="" class="imgUser"></li>
+					</ul>
+					<ul class="nav nav-pills">
+						<li id="logo"><a id="headerlogo" href="#homePage"><img id="logoImg" src="images/logo.png"></a></li>
+						<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
+						<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
+						<li id="moveToFavorite" class="ui-btn-active"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
+						<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
+						<li id="addTrip" ><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
+						<li class="userDetailes"><img src="" class="imgUser"><span class="nameUser"></span>	<p class="loogOut" id="signOut" role="presentation">
+							<a role="menuitem" tabindex="-1" href="#">התנתק</a></p>
+							<div class="loogIn"><span id="signinButton"> 
+								<span
+								class="g-signin"
+								data-callback="signinCallback"
+								data-clientid="573156814655-734l8cl9gau167f6p4h59d9m00f48roc.apps.googleusercontent.com"
+								data-cookiepolicy="single_host_origin"
+								data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"> </span> 
+							</span></div>
+						</li>
+					</ul>
+				</header>
 			<div data-role="content" class="ui-content" id="content">
 				<h1 id="resultTitleFavorite"></h1>
 				<h2 class="notRegister"></h2>
@@ -270,19 +315,34 @@
 				</div>
 			</div>
 
-
+ 
 
 			<div data-role="page" id="addTripPage" data-cache="false" data-dom-cache="false">
-				<header data-role="header" data-position="fixed" data-tap-toggle="false">  
-				<ul class="nav nav-pills">
-					<li id="logo"><a id="headerlogo" href="#homePage"><img id="logoImg" src="images/logo.png"></a></li>
-					<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
-					<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
-					<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
-					<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
-					<li id="addTrip" class="ui-btn-active"><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
-					<li class="userDetailes"><img src="" class="imgUser"><span class="nameUser"></span><p id="signOut" role="presentation"><a role="menuitem" tabindex="-1" href="#">התנתק</a></p></li>
-				</ul>
+					<header data-role="header" data-position="fixed" data-tap-toggle="false">  
+					<ul class="mobile-header">
+						<li><a href="#nav-panel" id="menubtn" data-role="button"></a></li>
+						<li><img id="mobile-logo" src="images/mobile_logo.png"></li>
+						<li class="userDetailes"><img src="" class="imgUser"></li>
+					</ul>
+					<ul class="nav nav-pills">
+						<li id="logo"><a id="headerlogo" href="#homePage"><img id="logoImg" src="images/logo.png"></a></li>
+						<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
+						<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
+						<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
+						<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
+						<li id="addTrip" class="ui-btn-active"><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
+						<li class="userDetailes"><img src="" class="imgUser"><span class="nameUser"></span>	<p class="loogOut" id="signOut" role="presentation">
+							<a role="menuitem" tabindex="-1" href="#">התנתק</a></p>
+							<div class="loogIn"><span id="signinButton"> 
+								<span
+								class="g-signin"
+								data-callback="signinCallback"
+								data-clientid="573156814655-734l8cl9gau167f6p4h59d9m00f48roc.apps.googleusercontent.com"
+								data-cookiepolicy="single_host_origin"
+								data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"> </span> 
+							</span></div>
+						</li>
+					</ul>
 				</header>
 
 				<section id="addTripSec">
@@ -401,7 +461,7 @@
 							</div>-->
 						</section>
 						<br>
-						<label>בחר מיקום</label>
+						<label class="titleForLoc">בחר מיקום</label>
 						<div id="dvMap" style="width: 500px; height: 500px"></div>
 
 
@@ -413,17 +473,32 @@
 			</div>
 
 			<div data-role="page" id="accountPage" >
-				<header data-role="header" data-position="fixed" data-tap-toggle="false">  
-					<ul class="nav nav-pills">
-						<li id="logo"><a id="headerlogo" href="#homePage"><img id="logoImg" src="images/logo.png"></a></li>
-						<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
-						<li id="showTrips" class="ui-btn-active"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
-						<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
-						<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
-						<li id="addTrip" ><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
-						<li class="userDetailes"><img src="" class="imgUser"><span class="nameUser"></span><p id="signOut" role="presentation"><a role="menuitem" tabindex="-1" href="#">התנתק</a></p></li>
-					</ul>
-				</header>
+					<header data-role="header" data-position="fixed" data-tap-toggle="false">  
+						<ul class="mobile-header">
+							<li><a href="#nav-panel" id="menubtn" data-role="button"></a></li>
+							<li><img id="mobile-logo" src="images/mobile_logo.png"></li>
+							<li class="userDetailes"><img src="" class="imgUser"></li>
+						</ul>
+						<ul class="nav nav-pills">
+							<li id="logo"><a id="headerlogo" href="#homePage"><img id="logoImg" src="images/logo.png"></a></li>
+							<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
+							<li id="showTrips" class="ui-btn-active"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
+							<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
+							<li id="mySchedule"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
+							<li id="addTrip" ><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
+							<li class="userDetailes"><img src="" class="imgUser"><span class="nameUser"></span>	<p class="loogOut" id="signOut" role="presentation">
+								<a role="menuitem" tabindex="-1" href="#">התנתק</a></p>
+								<div class="loogIn"><span id="signinButton"> 
+								<span
+								class="g-signin"
+								data-callback="signinCallback"
+								data-clientid="573156814655-734l8cl9gau167f6p4h59d9m00f48roc.apps.googleusercontent.com"
+								data-cookiepolicy="single_host_origin"
+								data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"> </span> 
+							</span></div>
+							</li>
+						</ul>
+					</header>
 				<div data-role="content" class="ui-content" id="content">
 					<h2 class="notRegister"></h2>
 					<div class="details">
@@ -440,16 +515,32 @@
 			</div>
 
 			<div data-role="page" id="myPageSchedule" >
-				<header data-role="header" data-position="fixed" data-tap-toggle="false">  
-					<ul class="nav nav-pills">
-						<li id="logo"><a id="headerlogo" href="#homePage"><img id="logoImg" src="images/logo.png"></a></li>
-						<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
-						<li id="showTrips" ><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
-						<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
-						<li id="mySchedule" class="ui-btn-active"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
-						<li id="addTrip" ><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
-						<li class="userDetailes"><img src="" class="imgUser"><span class="nameUser"></span><p id="signOut" role="presentation"><a role="menuitem" tabindex="-1" href="#">התנתק</a></p></li>
-					</ul>
+					<header data-role="header" data-position="fixed" data-tap-toggle="false">  
+						<ul class="mobile-header">
+							<li><a href="#nav-panel" id="menubtn" data-role="button"></a></li>
+							<li><img id="mobile-logo" src="images/mobile_logo.png"></li>
+							<li class="userDetailes"><img src="" class="imgUser"></li>
+						</ul>
+						<ul class="nav nav-pills">
+							<li id="logo"><a id="headerlogo" href="#homePage"><img id="logoImg" src="images/logo.png"></a></li>
+							<li id="home" ><a href="#homePage"><img src="images/search.png"><span>חיפוש טיול</span></a></li>
+							<li id="showTrips"><a href="#accountPage"><img src="images/account.png"><span>החשבון שלי</span></a></li>
+							<li id="moveToFavorite"><a href="#viewFavorite"><img src="images/favorites.png"><span>המועדפים שלי</span></a></li>
+							<li id="mySchedule" class="ui-btn-active"><a href="#myPageSchedule"><img src="images/my_track.png"><span>המסלול שלי</span></a></li>
+							<li id="addTrip" ><a href="#addTripPage"><img src="images/add.png"><span>הוספת טיול</span></a></li>
+							<li class="userDetailes"><img src="" class="imgUser"><span class="nameUser"></span>	<p class="loogOut" id="signOut" role="presentation">
+								<a role="menuitem" tabindex="-1" href="#">התנתק</a></p>
+								<div class="loogIn"><span id="signinButton"> 
+								<span
+								class="g-signin"
+								data-callback="signinCallback"
+								data-clientid="573156814655-734l8cl9gau167f6p4h59d9m00f48roc.apps.googleusercontent.com"
+								data-cookiepolicy="single_host_origin"
+								data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"> </span> 
+							</span></div>
+							</li>
+						</ul>
+					</header>
 				</header>
 				<div data-role="content" class="ui-content" id="content">
 					<h1 class="titelNameSchedule"></h1>
@@ -475,13 +566,6 @@
 					<input type="button" id="addFriendToSchedule" value="שלח הזמנה">
 					<div id="friendsemail" ></div>
 
-
-			<!-- <section id="resultTrip">
-				<ul class="displayTrip">
-				</ul>
-			</section> -->
-			
-			
 			
 			<div id="scheduleTimeLline">
 				<ul id="ulTimeLineSchedule"></ul>
