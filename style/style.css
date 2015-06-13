@@ -166,7 +166,7 @@ float: right;
 
 /********** google *********/
 #signinButton{
-  top: 25px;
+top:10px;
   position: relative;
 }
 /****  end google  ****/
@@ -545,21 +545,20 @@ display: -webkit-inline-box;
   right: 5px;
     display: -webkit-box;
 }
-.userDetailes{
-  padding: 22px 10px 0px !important;
+.userDetailes{  
+  padding: 21px 10px 0px !important;
+  text-align: right !important;
 }
 .imgUser{
-    border-radius: 50px;
-      float: right;
+  border-radius: 50px;
+  display: -webkit-inline-box;
 }
 .nameUser{
   font-size: 14px;
-  /* font-weight: 600; */
   padding: 0 12px 0 15px;
   display: -webkit-inline-box;
-  /* float: right; */
-  /* margin: 5px 0px 0 12px; */
   position: relative;
+  width: 120px;
 }
 #resultTitle{
   font-size: 64px;
@@ -620,13 +619,14 @@ color: #337ab7;
 
 /*********home page********/
 #signOut{
-  margin: 0 9px 0 0;
-  float: right;
+margin: 0 9px 0 0; */
   color: #38c;
-  font-size: 17px;
-  /* width: 123px; */
+  font-size: 15px;
   position: relative;
-  display:none;
+  text-align: center;
+  width: auto;
+  float: right;
+  display: none;
 }
 #signOut >a {
     color: blue;
