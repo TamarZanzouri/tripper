@@ -149,45 +149,6 @@ $(document).ready(function(){
 		$('#us3').locationpicker('autosize');
 	});
 
-	// $("#shareSchedule").emailautocomplete({
-	// 	suggClass: "custom-classname" //default: "eac-sugg". your custom classname (optional)
-	// 	// domains: ["example.com"] //additional domains (optional)
-	// });
-
-	// $('#shareEmail').emailautocomplete({
-	// 		suggClass: "custom-classname" //default: "eac-sugg". your custom classname (optional)
-	// 		// domains: ["example.com"] //additional domains (optional)
-	// });
-
-
-	// $('#addFriendToSchedule').click(function(){
-	// 	if($('#shareSchedule').val())
-	// 	{
-	// 			// debugger
-	// 		shareScheduleWithFriends.push($('#shareSchedule').val());
-	// 		$('#shareSchedule').val("");
-	// 		if(!(_.contains(shareScheduleWithFriends, User.email))){
-	// 			console.log(shareScheduleWithFriends)
-	// 			shareScheduleWithFriends.push(User.email)
-	// 		}	
-	// 		console.log("sending email")
-	// 		$.ajax({
-	// 			type: "post",
-	//         url: g_domain+"updateScheduleParticipents",// where you wanna post
-	//         data:  {trips:g_ListTrip, sharedEmail:shareScheduleWithFriends, dateOfTrip : date},
-	//         dataType: 'json',
-	//         error: function(jqXHR, textStatus, errorMessage) {
-	//         	console.log(errorMessage)
-	//         },
-	//         success: function(data) {
-	//         	console.log("update success");
-	//         	updateSharedTrip();
-	//         }
-
-	// 	    });
-	// 	}	
-	// 		return
-	// });
 
 	$('.option1 li').click(function(){
 		var i = $(this).parents('.select').attr('id');
@@ -212,32 +173,6 @@ $(document).ready(function(){
 		w2= w2.attr('id');
 		checkTheList();
 	});
-
-	// $('#updateFriendsWithChanges').click(function(){
-	// 	console.log(g_ListTrip)
-	// 	if(!(_.contains(shareScheduleWithFriends, User.email ))){
-	// 		shareScheduleWithFriends.push(User.email)
-	// 	}	
-
-	// 	if(shareScheduleWithFriends.length>0)
-	// 	{
-	// 		console.log("sending email")
-	// 		$.ajax({
-	// 			type: "post",
-	// 	        url: g_domain+"updateScheduleParticipents",// where you wanna post
-	// 	        data:  {trips:g_ListTrip, sharedEmail:shareScheduleWithFriends, dateOfTrip : date},
-	// 	        dataType: 'json',
-	// 	        error: function(jqXHR, textStatus, errorMessage) {
-	// 	        	console.log(errorMessage)
-	// 	        },
-	// 	        success: function(data) {
-	// 	        	console.log("update success");
-	// 	        }
-	// 	    });
-	// 	}
-	// });
-
-
 
 	$('#filtermenu li').change(function(){
 		console.log($(this).attr('id'))
@@ -266,12 +201,7 @@ function checkTheList(){
 		$.each(tripsAfterCharachters,function(index,value){
 			$.each(filter,function(i,val){
 				if (value.trip_filter.indexOf(val)==-1) {
-					// tempList.push(value)
-					// return
-
 					tempFil=0;
-					
-					
 				};
 			})
 			if (tempFil==1) {
@@ -288,8 +218,6 @@ function checkTheList(){
 		$.each(tempList,function(index,val){
 			 if(val.trip_filter.indexOf(w1)>-1) {
 				 tempListDif.push(val)
-				// return
-				
 			};
 
 		})
@@ -305,8 +233,6 @@ function checkTheList(){
 		$.each(tempList,function(index,val){
 			 if(val.area==w2) {
 				 tempListDif.push(val)
-				// return
-				
 			};
 
 		})
@@ -316,10 +242,6 @@ function checkTheList(){
 	g_ListTrip=tempList;	
 	displayListTrip(g_ListTrip);
 }
-
-
-
-
 
 function initMap(l1,l2){
 	var mapOptions = {
@@ -339,19 +261,6 @@ function initMap(l1,l2){
 	});
 }
 
-// $('dropdown-toggle.dropdown-menu li').on('click', function (event) {
-// 	console.log("clicked")
-//     $(this).parent().toggleClass('open');
-// });
-
-// $('body').on('click', function (e) {
-//     if (!$('li.dropdown.mega-dropdown').is(e.target) 
-//         && $('li.dropdown.mega-dropdown').has(e.target).length === 0 
-//         && $('.open').has(e.target).length === 0
-//     ) {
-//         $('li.dropdown.mega-dropdown').removeClass('open');
-//     }
-// });
 
 $(document).on('change', 'ul.dropdown-menu li input[type=checkbox]', function() {
     	console.log("changed")
@@ -1176,64 +1085,6 @@ $(document).on('click','#submitComment', function(){
 });
 
 });
-// $(document).on('click','#chatComment', function(){
-// 	var chat = $('#chat').val();
-// 	console.log()
-// //	g_trip.comments.push(User.name + " : " + comment)
-// $('#chat').val("");
-// console.log(chat, User, g_trip);
-
-// $.ajax({
-// 	type: "post",
-//         url: g_domain+"addChatComment",// where you wanna post
-//         data:  {user:User,
-//         	chat:chat
-//         },
-//         dataType: "json",
-//         error: function(jqXHR, textStatus, errorMessage) {
-//         	console.log(errorMessage)
-
-
-//         },
-//         success: function(data) {
-//         	console.log("add comment success");
-//         	var ul = $('.commentList');
-//         	var li = $('<li>');
-//         	var img = $('<img>');
-//         	var h5 = $('<h5>');
-//         	img.attr({"src" : User.image});
-//         	h5.html((num+1)+". "+chat);
-//         	li.append(img);
-//         	li.append(h5);
-//         	ul.append(li);        	
-// 		// $('#tripComments').append(User.name + " : " + comment);
-// 		console.log(data)
-// 	}
-// });
-
-// });
-
-// $(document).on('click' ,'.saveSchedule',function(){
-
-
-// 	$.ajax({
-// 		type: "post",
-//         url: g_domain+"saveTimeSchedule",// where you wanna post
-//         data:  {userId:User.email,
-//         	tripTime:date},
-//         	ContentType: 'application/json', 
-
-//         	error: function(jqXHR, textStatus, errorMessage) {
-//         		console.log(errorMessage)
-
-
-//         	},
-//         	success: function(data) {
-//         		console.log("update schedule success");
-//         	}
-//         });
-
-// });
 
 function updateSchedule (bool){
 	if(bool){
@@ -1333,201 +1184,6 @@ function updateScheduleFromList (bool, tripId){
 };
 
 
-// function removeImmSchedule(){
-// 	if(window.location.hash=='#myPageSchedule')
-// 	{
-// 		console.log(User.schedule)
-// 		displayListScheduleTrip(User.schedule)
-// 	}
-// }
-// $(document).on('click','#mySchedule',function(){
-// 	if(!User.email)
-// 	{
-// 		$('.notRegister').html(TRIPPER_DATA.alert).show();
-// 		//.css("display","block");
-
-// 	}else{
-// 		$('.notRegister').hide();
-// 		$.ajax({
-// 			type: "post",
-// 	        url: g_domain+"getUserSchedule",// where you wanna post
-// 	        data:  {email:User.email},
-// 	        dataType: "json",
-// 	        error: function(jqXHR, textStatus, errorMessage) {
-// 	        	console.log(errorMessage)
-
-
-// 	        },
-// 	        success: function(data) {
-// 	        	console.log(data.schedule)
-// 	        	displayListScheduleTrip(data.schedule);
-// 	        }
-// 	    });
-
-// 		moveToSchedule();
-// 	}
-// });
-
-// function displayListScheduleTrip(data){
-// 	console.log("data " + data)
-// 	$('#resultTrip ul').empty();
-// 	$('#friendsemail').empty()
-// 	g_ListTrip=data;
-// 	shareScheduleWithFriends = User.tripPatners;
-// 	if (User.tripScheduleTime.checkInTime && User.tripScheduleTime.checkOutTime) {
-// 	$('#dpd1').val(User.tripScheduleTime.checkInTime.substring(0, User.tripScheduleTime.checkInTime.length-14));
-// 	$('#dpd2').val(User.tripScheduleTime.checkOutTime.substring(0, User.tripScheduleTime.checkOutTime.length-14));
-// 	}
-// 	// for (i in data) {
-// 	// 	var tripResult = '<li id='+data[i]._id+' class="listScheduleTrip trip" ><span class="titelName">' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
-// 	// 	$('#resultTrip .displayTrip').append(tripResult);
-// 	// };
-// 	$.each(User.tripPatners, function(i, val){
-// 		console.log(val)
-// 		$('#friendsemail').append("<div id='emailNum" + i + "'>" + val + "</div>");
-// 		$('#emailNum' + i).append("<button id='deleteMailFromSchedule'> &#10006 </button>");
-// 	})
-// 	$('.titelNameSchedule').html(TRIPPER_DATA.titelNameSchedule);
-// 	// var divUser = $('<div>').addClass('userDetailes');
-// 	$('.divShareSchedule label').html(TRIPPER_DATA.divShareSchedule);
-
-// 	$('label[for="dpd1"]').text(TRIPPER_DATA.dpd1);
-// 	$('label[for="dpd2"]').text(TRIPPER_DATA.dpd2);
-// 	// $('.userDetailes').empty();
-// 	// if (User) {
-// 	// 	// var divUser = $('<div>').addClass('userDetailes');
-// 	// 	var spanUser = $('<span>').html(User.name).addClass('nameUser');
-// 	// 	var imgUser = $('<img>').attr("src",User.image).addClass('imgUser');
-// 	// 	$('.userDetailes').append(imgUser)
-// 	// 	$('.userDetailes').append(spanUser)
-// 	// }
-// 	if (g_ListTrip.length>0) {
-// 		$('#scheduleTimeLline').css("display","block");
-	
-// 	var ul = $('#ulTimeLineSchedule');
-// 	ul.empty();
-// 	$.each(g_ListTrip, function (index,val){
-// 		var li = $('<li>').addClass('liImeLine').attr("id",val._id);
-// 		var num =$('<p>').html(index+1).addClass('numberTrip');
-// 		var span = $('<span>').addClass('moveToTrip');
-// 		var img = $('<img>').addClass('moveToTrip');
-		
-// 		span.html(val.trip_name).css('display','none');
-// 		img.attr({"src":val.tripSites[0].img, "width":50, "height":50})
-
-
-// 		li.append(num);
-// 		li.append(img);
-// 		li.append(span);
-// 		var h5 =$('<h5>').html( hashtable[val.area]).addClass('locH5Schedule').css("display","none").addClass('moveToTrip');;
-// 		li.append(h5);
-// 		var ulSmall =$('<dl>').addClass("smallULSchedule").css("display","none");
-// 		$.each(val.trip_filter,function(i,v){
-// 			var liSmall = $('<dt>')
-// 			var imgVi= $('<img>').attr({"src":"images/vi.png"}).addClass("viSchedule");
-// 			liSmall.append(imgVi);
-// 			liSmall.append( hashtable[v])
-// 			ulSmall.append(liSmall)
-// 		});
-// 		li.append(ulSmall);
-// 		var aTrip =$('<a>').attr({"id":"remove_track","href":"#"}).addClass('remove_track').html(TRIPPER_DATA.remove_track);
-// 		li.append(aTrip);
-// 		ul.append(li);
-// 	});
-// 	var meImg="";
-// 	var meSpan="";
-// 	var meArea="";
-// 	var meUl="";
-// 	var meA = "";
-// 	$('.remove_track').click(function(){
-// 		console.log($(this).parent().attr('id'))
-// 		updateScheduleFromList(false,$(this).parent().attr('id'));
-// 	});
-// 	$('#ulTimeLineSchedule li').hover(function(){
-// 		console.log("hover");
-// 		$(this).css({"top":"-50px","border":"1px solid #000000","padding":"12px","background-color":"#ffffff","border-radius":"30px"});
-// 		meSpan = $(this).children('span');
-// 		meSpan.css({"display":"block","font-size":"22px","padding": "0px 10px 0 2px"});
-// 		meNum = $(this).children('p');
-// 		meNum.hide();
-		
-// 		meImg = $(this).children('img');
-// 		meImg.attr({"width":125,"height":125}).css({"border-radius":"0px","float":"right"});
-// 		//$(this).attr({"width":100,"height":100})
-// 		meArea = $(this).children('h5');
-// 		meArea.css("display","table-cell");
-// 		meUl = $(this).children('dl');
-// 		meUl.css("display","inline-block");
-// 		meA = $(this).children('a');
-// 		meA.css({"display":"inline-block","float": "left"})
-// 	}
-// 	, function(){
-// 		$(this).css({"top":"68px","border":"none","background-color":"transparent","padding":"0px"});
-// 		meSpan = $(this).children('span');
-// 		meSpan.css({"display":"none","font-size":"20px","float":"none","padding": "0"});
-// 		meNum = $(this).children('p');
-// 		meNum.show();
-// 		//me=$(this).attr({"width":50,"height":50});
-// 		//div.append(me)
-// 		meImg = $(this).children('img');
-// 		meImg.attr({"width":50,"height":50}).css({"border-radius":"50px","float":"none"});
-// 		//$(this).attr({"width":50,"height":50});
-// 		meArea = $(this).children('h5');
-// 		meArea.css("display","none");
-// 		meUl = $(this).children('dl');
-// 		meUl.css("display","none");
-// 		meA = $(this).children('a');
-// 		meA.css("display","none")
-// 	});
-// };
-// num = 0
-
-// 	// var schedulePage= $('#myPageSchedule #content')
-	
-// 	var commentSection = $('#sectionChat').empty();
-// 	var ul = $('<ul>').addClass("commentList");
-// 	$.each(User.scheduleChat, function(index,val){
-// 		var li = $('<li>');
-// 		var img = $('<img>');
-// 		var p = $('<h5>');
-// 		img.attr({"src":val.userImg});
-// 		p.html((index+1)+". "+val.comment);
-// 		li.append(img);
-// 		li.append(p);
-// 		ul.append(li);
-// 		num++;
-// 	});
-	
-
-
-// 	var h3= $('<h3>').html(TRIPPER_DATA.chatWithFriend);
-// 	var img = $('<img>').attr({"src":User.image,"id":"myImg"});
-// 	var h4 = $('<h4>').html(TRIPPER_DATA.addNewComment).attr("id","titleComment");
-
-	
-// 	var textarea = $('<textarea>').attr({"type":"text","name":"chat","id":"chat"}).css({"display":"none"})
-// 	// $('.Trip').append("<textarea type='text' name='comment' id='comment style'display:none'></textarea>");
-// 	var aSend= $('<a>').attr({"id":"chatComment"}).css({"display":"none"}).html("שלח")
-// 	// $('.Trip').append("<a id='submitComment' style'display:none'>שלח תגובה</a> </br>");
-
-
-
-
-// 	commentSection.append(h3);
-// 	commentSection.append(img);
-// 	commentSection.append(h4);
-// 	commentSection.append(textarea);
-// 	commentSection.append(aSend);
-// 	commentSection.append(ul)
-
-
-// 	// schedulePage.append(commentSection);
-// 	$('#titleComment').click(function(){
-// 		$('#chat').show();
-// 		$('#chatComment').show();
-// 	});
-
-//  }
   $( window ).hashchange(function() {
     var hash = location.hash;
     if (hash=="") {
@@ -1560,73 +1216,6 @@ function updateScheduleFromList (bool, tripId){
 
 
 });
-
-// $(document).on('click', '#deleteMailFromSchedule', function(){
-// 	console.log("clicked on " + $(this).parent().text());
-// 	// var mail  = $(this).parent().text();
-// 	var mailToRemove = $(this).parent().text().slice(0, -3);
-// 	console.log(mailToRemove)
-// 	console.log(shareScheduleWithFriends.indexOf(mailToRemove));
-// 	shareScheduleWithFriends.splice(shareScheduleWithFriends.indexOf(mailToRemove), 1);
-// 	User.tripPatners = shareScheduleWithFriends;
-// 	console.log(shareScheduleWithFriends)
-// 	$.ajax({
-// 		type : "post",
-// 		url : g_domain + "removeEmailFromTripPartners",
-// 		data : {trippartners : shareScheduleWithFriends,
-// 			triptoremove : mailToRemove},
-// 			dataType : "json",
-// 			error: function(jqXHR, textStatus, errorMessage) {
-// 				console.log(errorMessage)
-// 			},
-// 			success: function(data) {
-// 				console.log("removed mail from schedule")
-// 				updateSharedTrip();
-// 			}
-// 		})
-// })
-
-// function updateSharedTrip(){
-// 	console.log("if update shared trip ", User.tripPatners.length)
-// 	$('#friendsemail').empty();
-// 	if(User.tripPatners.length > 0){
-// 		console.log("in if")
-// 		$.each(User.tripPatners, function(i, val){
-// 			console.log(val)
-// 			$('#friendsemail').append("<div id='emailNum" + i + "'>" + val + "</div>");
-// 			$('#emailNum' + i).append("<button id='deleteMailFromSchedule'> &#10006 </button>");
-// 		});
-// 	}
-// }
-
-// $(document).on('click','#moveToFavorite',function(){
-// 	if(!User.email)
-// 	{
-// 		$('.notRegister').html(TRIPPER_DATA.alert).show();
-// 		$('.displayTripRight').empty();
-// 		$('.displayTripLeft').empty();
-// 	}else{
-// 		$('.notRegister').hide();
-// 		$.ajax({
-// 			type: "post",
-//         url: g_domain+"getUserFavorites",// where you wanna post
-//         data:  {email:User.email},
-//         dataType: "json",
-//         error: function(jqXHR, textStatus, errorMessage) {
-//         	console.log(errorMessage)
-
-
-//         },
-//         success: function(data) {
-//         	console.log(data.favorites);
-//         	g_ListTrip=data.favorites;
-//         	displayListTrip(data.favorites);
-//         }
-//     });
-// 		moveToFavorite();
-// 	}
-// });
-
 
 $(document).on('click','.btnChar', function(e){
 
@@ -1668,189 +1257,6 @@ $(document).on('click','.btnChar', function(e){
 		$(this).children('img').attr("src","images/arrow_2.png");
 	})
 });
-
-// $(document).on('submit','#addform',function(e){
-// 	e.preventDefault();
-// 	var form = new FormData(this); 
-
-// 	var tempFilter = [];
-// 	var tempJaners = [];
-// 	var wrapper = $(".siteName");
-// 	// var images = $("image_i");
-// 	var comms = new Array();
-// 	for (var i = 0; i < wrapper.length; i++){
-// 		console.log(i);
-// 		// debugger;
-// 		var comm = {};
-// 		if (wrapper[i].value){
-// 			comm['siteName'] = wrapper[i].value;
-// 			// comm["image"] = images[i].value;
-// 			comms.push(comm);
-// 		}
-// 	}
-// 	console.log(comms)
-// 	if (comms.length > 0)
-// 		form.append("sites", JSON.stringify(comms));	
-// 	else form.append("sites", JSON.stringify([]));	
-// 	//console.log($(this))
-// 	form.append("email",User.email);
-// 	form.append("mapPoint",JSON.stringify(mapPoint));
-// 	// debugger;
-// 	$('input[type=checkbox][id!="pickJanerul"]').each(function(value) {
-// 		if($(this).is(':checked')){
-// 			tempFilter.push($(this).attr('id'));
-// 		}
-// 	});
-// 	console.log(tempFilter)
-// 	form.append("trip_filter", JSON.stringify(tempFilter));
-// 	$('#pickJanerul > li > input[type=checkbox]').each(function(value){
-// 		if($(this).is(':checked')){
-// 			tempJaners.push($(this).prev('label').text());
-// 		}
-// 	});
-// 	var temp_arr =[]
-// 	var temp= $('#usersList').text();
-// 	if(temp==""){
-// 		form.append("shareEmail",temp_arr)	
-// 		console.log(temp);
-// 	}else{ 
-
-// 		temp_arr = temp.split(" ");
-// 		console.log(temp_arr);
-// 		form.append("shareEmail",temp_arr);
-// 	}
-// 	console.log(form);
-// 	console.log(tempJaners, "filter",tempFilter)
-// 	if(($(this).find('#imgUpload')[0].files.length) > 0){
-// 		console.log("uploading images")
-// 		if(editFromAccount){
-// 		form.append("tripId" , g_trip._id);
-// 		form.append("flag" , "account");
-// 		$.ajax({
-// 			type: "post",
-// 		        url: g_domain+"updateTripWithImage",// where you wanna post
-// 		        data:  form,
-// 		        //dataType: "json",
-// 		        contentType: false,
-// 		        processData:false,
-// 		        error: function(jqXHR, textStatus, errorMessage) {
-// 		        	console.log(errorMessage)
-// 		        },
-// 		        success: function(data) {
-// 		        	$("#addform")[0].reset();
-// 		        	console.log(data.res)
-// 		        	editFromAccount=false;
-// 		        } 
-// 		    });
-// 		moveToAccountPage();
-// 	}
-// 	else if(edit){
-// 		form.append("flag", "favorites");
-// 		$.ajax({
-// 			type: "post",
-// 		        url: g_domain+"add",// where you wanna post
-// 		        data:  form,
-// 		        //dataType: "json",
-// 		        contentType: false,
-// 		        processData:false,
-// 		        error: function(jqXHR, textStatus, errorMessage) {
-// 		        	console.log(errorMessage)
-// 		        },
-// 		        success: function(data) {
-// 		        	console.log(data.res)
-// 		        	if(edit==true){
-// 		        		addToFavoFromEdit(data.res);
-// 		        	}
-// 		        	edit=false;
-// 		        } 
-// 		    });
-// 		moveToHomePage();
-// 	}
-// 	else{
-// 		form.append("flag", "addNewTrip");
-// 		$.ajax({
-// 			type: "post",
-// 		        url: g_domain+"add",// where you wanna post
-// 		        data:  form,
-// 		        //dataType: "json",
-// 		        contentType: false,
-// 		        processData:false,
-// 		        error: function(jqXHR, textStatus, errorMessage) {
-// 		        	console.log(errorMessage)
-// 		        },
-// 		        success: function(data) {
-// 		        	console.log(data.res)
-// 		        } 
-// 		    });
-// 		moveToHomePage();
-// 	}
-// 	}
-// 	else{
-// 		if(editFromAccount){
-// 		form.append("tripId" , g_trip._id);
-// 		form.append("flag" , "account");
-// 		$.ajax({
-// 			type: "post",
-// 		        url: g_domain+"updateTripWithOutImages",// where you wanna post
-// 		        data:  form,
-// 		        //dataType: "json",
-// 		        contentType: false,
-// 		        processData:false,
-// 		        error: function(jqXHR, textStatus, errorMessage) {
-// 		        	console.log(errorMessage)
-// 		        },
-// 		        success: function(data) {
-// 		        	$("#addform")[0].reset();		        	
-// 		        	console.log(data.res)
-// 		        	editFromAccount=false;
-// 		        } 
-// 		    });
-// 		moveToAccountPage();
-// 	}
-// 	else if(edit){
-// 		form.append("tripId", g_trip._id)
-// 		form.append("flag", "favorites");
-// 		$.ajax({
-// 			type: "post",
-// 		        url: g_domain+"addTripWithoutImages",// where you wanna post
-// 		        data:  form,
-// 		        //dataType: "json",
-// 		        contentType: false,
-// 		        processData:false,
-// 		        error: function(jqXHR, textStatus, errorMessage) {
-// 		        	console.log(errorMessage)
-// 		        },
-// 		        success: function(data) {
-// 		        	console.log(data.res)
-// 		        	if(edit==true){
-// 		        		addToFavoFromEdit(data.res);
-// 		        	}
-// 		        	edit=false;
-// 		        } 
-// 		    });
-// 		moveToHomePage();
-// 	}
-// 	else{
-// 		form.append("flag", "addNewTrip");
-// 		$.ajax({
-// 			type: "post",
-// 		        url: g_domain+"addTripWithoutImages",// where you wanna post
-// 		        data:  form,
-// 		        //dataType: "json",
-// 		        contentType: false,
-// 		        processData:false,
-// 		        error: function(jqXHR, textStatus, errorMessage) {
-// 		        	console.log(errorMessage)
-// 		        },
-// 		        success: function(data) {
-// 		        	console.log(data.res)
-// 		        } 
-// 		    });
-// 		moveToHomePage();
-// 	}
-// 	}
-// return true;
-// })
 
 function addToFavoFromEdit(tripToUpdate){
 
@@ -1900,61 +1306,6 @@ $(window).on('hashchange', function(e) {
 		addDataToAddPage();
 	}
 });
-// $(document).on("click","addTrip",function(){
-// 	moveToAddPage()
-// 	addDataToAddPage();
-// });
-// function addDataFilters(){
-// 		$('#who_are_you_going_with div button .nameF').html(TRIPPER_DATA.who_are_you_going_with);
-// 		$('label[for="trip_with_animals"]').text(TRIPPER_DATA.trip_with_animals);
-// 		$('label[for="trip_with_road"]').text(TRIPPER_DATA.trip_with_road);
-// 		$('label[for="trip_for_children"]').text(TRIPPER_DATA.trip_for_children);
-		
-// 		$('#trip_kind div button .nameF').html(TRIPPER_DATA.trip_kind);
-// 		$('label[for="trip_with_watter"]').text(TRIPPER_DATA.trip_with_watter);
-// 		$('label[for="trip_with_bicycle"]').text(TRIPPER_DATA.trip_with_bicycle);
-// 		$('label[for="trip_with_jeep"]').text(TRIPPER_DATA.trip_with_jeep);
-// 		$('label[for="trip_for_day"]').text(TRIPPER_DATA.trip_for_day);
-// 		$('label[for="trip_for_night"]').text(TRIPPER_DATA.trip_for_night);
-// };
-// var numOfSite=0;
-// function addDataToAddPage(){
-// 	$('#preivateT').hide();
-// 	addDataFilters();
-// 	$('#addTripTitle').html(TRIPPER_DATA.addTripTitle);
-
-// 	numOfSite++;
-// 	var div = $('<div>').addClass('site');
-// 	var p = $('<p>').html(numOfSite+'.');
-// 	var inputName =$('<input>').attr({"id":"siteName"+numOfSite,"type":"text","name":"site","placeholder":"אתר","class":"siteName"});
-// 	var inputFile =$('<input>').attr({"id":"imgUpload","type":"file","class":"file","accept":"image/*","value":"העלת תמונה","onchange":"showMyImage(this,'')","name":"file","class":"image_i"});
-// 	var img = $('<img>').attr({'id':'thumbnil'}).addClass('thumbnil');
-// 	div.append(p);
-// 	div.append(inputName);
-// 	div.append(inputFile);
-// 	div.append(img);
-// 	$('.sites').append(div);
-// 	$('.addNewSite').click(function(){
-// 		numOfSite++;
-// 		var div = $('<div>').addClass('site');
-// 		var p = $('<p>').html(numOfSite+'.');
-// 		var inputName =$('<input>').attr({"id":"siteName"+numOfSite,"type":"text","name":"site","placeholder":"אתר","class":"siteName"});
-// 		var inputFile =$('<input>').attr({"id":"imgUpload"+numOfSite,"type":"file","class":"file","accept":"image/*","value":"העלת תמונה","onchange":"showMyImage(this,"+numOfSite+")","name":"file","class":"image_i"});
-// 		var img = $('<img>').attr({'id':'thumbnil'+numOfSite}).addClass('thumbnil');
-// 		div.append(p);
-// 		div.append(inputName);
-// 		div.append(inputFile);
-// 		div.append(img);
-// 		$('.sites').append(div);
-// 	})
-// 	$("#private_trip").click(function(){
-// 		$('#preivateT').show();
-// 	})
-
-// 	$('#public_trip').click(function(){
-// 		$('#preivateT').hide();
-// 	})
-// }
 
 function moveToAddPage() {
 	$.mobile.changePage("#addTripPage", {
@@ -2438,8 +1789,6 @@ $(document).on('click', '.addToSchedule', function(){
 	        	dataType: "json",
 	        	error: function(jqXHR, textStatus, errorMessage) {
 	        		console.log(errorMessage)
-
-
 	        	},
 	        	success: function(data) {
 	        		// $( "#addingToSchedule" ).popup( "close" );
@@ -2450,152 +1799,4 @@ $(document).on('click', '.addToSchedule', function(){
     });
 
 })
-
-// $(document).on('click','#editFavorite',function(){
-// 	console.log(g_trip)
-// 	edit=true;
-// 	moveToAddPage();
-// 	$('#trip_name').val(g_trip.trip_name);
-// 	$('#description').val(g_trip.trip_description);
-// 	$('#trip_address').val(g_trip.address);
-// 	switch(g_trip.area) {
-// 		case 'tel_aviv':
-// 		$('#radio-choice-1L').click();
-// 		break;
-// 		case 'south':
-// 		$('#radio-choice-2L').click();
-// 		break;
-// 		case 'north':
-// 		$('#radio-choice-3L').click();
-// 		break;
-// 	}
-// 	$('#firstcharachter').val(g_trip.trip_charachters[0]).change();
-// 	$('#secondcharachter').val(g_trip.trip_charachters[1]).change();
-
-// 	$.each(g_trip.trip_filter, function (index,val){
-// 		$("label[for='"+val+"']").addClass("ui-btn-active ui-checkbox-on");
-// 		$("label[for='"+val+"']").prev('input').attr("data-cacheval","false");
-// 		console.log(val);	
-// 		switch(val) {
-// 			case 'medium_trip':
-// 			$("label[for='"+val+"']").click();
-// 			break;
-// 			case 'light_trip':
-// 			$("label[for='"+val+"']").click();
-// 			break;
-// 			case 'hard_trip':
-// 			$("label[for='"+val+"']").click();
-// 			break;
-// 		}
-// 	});
-// 	$("label[for='public_trip']").click();
-// 	if(g_trip.trip_isPrivate){
-// 		$("label[for='private_trip']").click();
-// 		$("#shareEmail").val(g_trip.shareEmail);
-
-// 	}else{
-// 		$("label[for='public_trip']").click();
-// 	}
-// 	var len = g_trip.tripSites.length;
-	
-// 	if(len){
-// 		$.each(g_trip.tripSites,function(i,val){
-// 			if ((i+1)==1 ) {
-// 				firstSites()
-// 			};
-// 			if ((i+1)>1) {
-// 				console.log(i);
-// 				$('#newChild'+(i+1)).val(val.siteName);
-// 				$('#thumbnil'+(i+1)).attr("src",val.img);
-// 			};
-// 		});
-// 	}
-// 	// $('#imgUpload').focus();
-// 	// $('#thumbnil').attr("src",g_trip.imageUrl);
-// 	$('#dvMap').click(function (){
-
-// 	});
-// 	if(g_trip.mapPoint){
-// 		mapPoint.lat=g_trip.mapPoint.lat;
-// 		mapPoint.lng=g_trip.mapPoint.lng;
-// 	}
-// 		 // $('.firstIngredient').val(g_trip.tripSites[0].siteName)
-// 	 //  $('.firstAmount').val(g_trip.tripSites[0].location)
-// 	// $.each(g_trip.sites,function(index,val){
-
-// 	// });
-// });
-
-// $(document).on('click','#editTripFromAccount',function(){
-
-// 	console.log(g_trip)
-// 	editFromAccount=true;
-// 	moveToAddPage();
-// 	$('#trip_name').val(g_trip.trip_name);
-// 	$('#description').val(g_trip.trip_description);
-// 	$('#trip_address').val(g_trip.address);
-// 	switch(g_trip.area) {
-// 		case 'tel_aviv':
-// 		$('#radio-choice-1L').click();
-// 		break;
-// 		case 'south':
-// 		$('#radio-choice-2L').click();
-// 		break;
-// 		case 'north':
-// 		$('#radio-choice-3L').click();
-// 		break;
-// 	}
-// 	$('#firstcharachter').val(g_trip.trip_charachters[0]).change();
-// 	$('#secondcharachter').val(g_trip.trip_charachters[1]).change();
-
-// 	$.each(g_trip.trip_filter, function (index,val){
-// 		$("label[for='"+val+"']").addClass("ui-btn-active ui-checkbox-on");
-// 		$("label[for='"+val+"']").prev('input').attr("data-cacheval","false");
-// 		console.log(val);	
-// 		switch(val) {
-// 			case 'medium_trip':
-// 			$("label[for='"+val+"']").click();
-// 			break;
-// 			case 'light_trip':
-// 			$("label[for='"+val+"']").click();
-// 			break;
-// 			case 'hard_trip':
-// 			$("label[for='"+val+"']").click();
-// 			break;
-// 		}
-// 	});
-// 	$("label[for='public_trip']").click();
-// 	if(g_trip.trip_isPrivate){
-// 		$("label[for='private_trip']").click();
-// 		$("#shareEmail").val(g_trip.shareEmail);
-
-// 	}else{
-// 		$("label[for='public_trip']").click();
-// 	}
-// 	var len = g_trip.tripSites.length;
-	
-// 	if(len){
-// 		$.each(g_trip.tripSites,function(i,val){
-// 			if ((i+1)==1 ) {
-// 				firstSites()
-// 			};
-// 			if ((i+1)>1) {
-// 				console.log(i);
-// 				$('#newChild'+(i+1)).val(val.siteName);
-// 				$('#thumbnil'+(i+1)).attr("src",val.img);
-// 			};
-// 		});
-// 	}
-
-// 	if(g_trip.mapPoint){
-// 		mapPoint.lat=g_trip.mapPoint.lat;
-// 		mapPoint.lng=g_trip.mapPoint.lng;
-// 	}
-
-// });
-// function firstSites(){
-// 	$('.firstIngredient').trigger('focus').val(g_trip.tripSites[0].siteName);
-// 	$('#thumbnil').attr("src",g_trip.tripSites[0].img);
-// 	$('#imgUpload').val(g_trip.tripSites[0].img);
-// }
 
