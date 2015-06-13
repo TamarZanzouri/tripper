@@ -45,7 +45,7 @@ input{
 #addform > label > textarea{
     height: 100px !important;
   border-radius: 0;
-  width: 230px;
+   width: 478px;
   margin: 3px 0 10px 0;
 }
 fieldset > div >legend{
@@ -619,7 +619,6 @@ color: #337ab7;
 
 /*********home page********/
 #signOut{
-margin: 0 9px 0 0; */
   color: #38c;
   font-size: 15px;
   position: relative;
@@ -627,6 +626,7 @@ margin: 0 9px 0 0; */
   width: auto;
   float: right;
   display: none;
+    margin: 0 3px 0 0;
 }
 #signOut >a {
     color: blue;
@@ -1717,5 +1717,10 @@ margin: 0 20px 0 00 !important;
   }
   .titleForLoc{
     display: none;
+  }
+  .btn-primary{
+    position: relative;
+    color: #ffffff !important;
+    padding: 3px 6px 6px 6px;
   }
 }

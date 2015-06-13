@@ -5,7 +5,7 @@ g_domain="http://localhost:1337/";//"http://shenkartripper.herokuapp.com/";//
 
 
 //hashtable for variables in english
-var hashtable = {};
+hashtable = {};
 hashtable.trip_with_animals = "טיול עם בע\"ח";
 hashtable.trip_with_road = "מסלול סלול";
 hashtable.trip_for_children = "מותאם לילדים";
@@ -47,9 +47,9 @@ edit=false;
 editFromAccount=false;
 var count=1;
 var tripCharacters = [];
-var shareScheduleWithFriends = [];
+shareScheduleWithFriends = [];
 var num =0;
-var TRIPPER_DATA=[];
+TRIPPER_DATA=[];
 
 navigator.geolocation.getCurrentPosition(function(position) {
 		//Get Latitude From Geolocation API
@@ -63,7 +63,7 @@ navigator.geolocation.getCurrentPosition(function(position) {
 		//Define New Google Map With Lat / Lon
 		mapPoint.lat=point1.lat;
 		mapPoint.lng=point1.lng;
-	});
+});
 
 $(document).ready(function(){
 	
@@ -85,14 +85,14 @@ $(document).ready(function(){
 
 			var h1 = $('<h1>').html(TRIPPER_DATA.welcome_h1);
 			var p = $('<p>').html(TRIPPER_DATA.welcome_p);
-			var div = $('<div>')
+			var div = $('<div>');
 			var img = $('<img>').attr("src","images/welcome_errow.png");
-			var span = $('<span>').html(TRIPPER_DATA.welcome_span)
+			var span = $('<span>').html(TRIPPER_DATA.welcome_span);
 			$('#welcome').append(h1);
 			$('#welcome').append(p);
 			div.append(span);
 			div.append(img);		
-			$('#welcome').append(div)
+			$('#welcome').append(div);
 
 	    	$.each(data.tripCharachters.trip_charachters, function(i, val){
 	    			console.log(val.name)
@@ -106,18 +106,19 @@ $(document).ready(function(){
 	    	appendTripCharachters();
     	}
 	}); 
-
+	
 	/******* end get data *******/
+	if ($(window).width() < 767) {
+		console.log("in mobile")
+		$('#nav-panel').css("display" , "block");
+		$('.nav').css("display" , "none");
+		$('#menubtn').css("display", "inline-block");
+		$('#filtermenu').css("display", "none !important");
+		$('#buttonRadius').css("display", "block")
+	}
     //  1.tel_aviv 2. north 3. south 
     var locations={}
-
-// $("ul.dropdown-menu").on("click", "[data-stopPropagation]", function(e) {
-//     e.stopPropagation();
-// });
-
-
     $('input:radio[name=area]').click(function(){
-    	console.log($(this).val());	
     	var tempLocation = $(this).val();
     	if(tempLocation=="tel_aviv"){
     		var tel_aviv=[32.020593632526015,34.83983516693115];
@@ -129,238 +130,130 @@ $(document).ready(function(){
     		var south=[31.195769601269923,34.957380294799805];
     		locations=south;			
     	}
-    	console.log(locations[0])
     	initMap(locations[0],locations[1]);
     });
     initMap(32.020593632526015,34.83983516693115);
-
-
     initDatepicker();
 
+	$('#us3').locationpicker({
+		location: {latitude: 32.08973379436282,longitude: 34.80341009795666 },
+		radius: 3000,
+		inputBinding: {
+	        radiusInput: $('#us3-radius'),
+	    },
+	    enableAutocomplete: true
+		    
+	});
 
-    //     $('#info').readmore({
-    //   moreLink: '<a href="#">Usage, examples, and options</a>',
-    //   collapsedHeight: 384,
-    //   afterToggle: function(trigger, element, expanded) {
-    //     if(! expanded) { // The "Close" link was clicked
-    //       $('html, body').animate({scrollTop: $(element).offset().top}, {duration: 100});
-    //     }
-    //   }
-    // });
+	$('#us6-dialog').on('shown.bs.modal', function() {
+		$('#us3').locationpicker('autosize');
+	});
 
-   
-
-
-	// border-bottom: 5px solid #EED53D;
-			//Use HTML5 Geolocation API To Get Current Position
-
-
-			/********TimeLine*********/
-	// $(function(){
-	// 	$().timelinr({
-	// 		arrowKeys: 'true'
-	// 	})
+	// $("#shareSchedule").emailautocomplete({
+	// 	suggClass: "custom-classname" //default: "eac-sugg". your custom classname (optional)
+	// 	// domains: ["example.com"] //additional domains (optional)
 	// });
 
-$('#us3').locationpicker({
-	location: {latitude: 32.08973379436282,longitude: 34.80341009795666 },
-	radius: 3000,
-	inputBinding: {
-	        // latitudeInput: $('#us3-lat'),
-	        // longitudeInput: $('#us3-lon'),
-	        radiusInput: $('#us3-radius'),
-	        //locationNameInput: $('#us3-address')
-	    },
-	    enableAutocomplete: true,
-	    
-	});
-$('#us6-dialog').on('shown.bs.modal', function() {
-	$('#us3').locationpicker('autosize');
-});
+	// $('#shareEmail').emailautocomplete({
+	// 		suggClass: "custom-classname" //default: "eac-sugg". your custom classname (optional)
+	// 		// domains: ["example.com"] //additional domains (optional)
+	// });
 
-if ($(window).width() < 767) {
-	console.log("in mobile")
-	$('#nav-panel').css("display" , "block");
-	$('.nav').css("display" , "none");
-	$('#menubtn').css("display", "inline-block");
-	$('#filtermenu').css("display", "none !important");
-	$('#buttonRadius').css("display", "block")
-}
 
-$("#shareSchedule").emailautocomplete({
-		suggClass: "custom-classname", //default: "eac-sugg". your custom classname (optional)
-		// domains: ["example.com"] //additional domains (optional)
-	});
+	// $('#addFriendToSchedule').click(function(){
+	// 	if($('#shareSchedule').val())
+	// 	{
+	// 			// debugger
+	// 		shareScheduleWithFriends.push($('#shareSchedule').val());
+	// 		$('#shareSchedule').val("");
+	// 		if(!(_.contains(shareScheduleWithFriends, User.email))){
+	// 			console.log(shareScheduleWithFriends)
+	// 			shareScheduleWithFriends.push(User.email)
+	// 		}	
+	// 		console.log("sending email")
+	// 		$.ajax({
+	// 			type: "post",
+	//         url: g_domain+"updateScheduleParticipents",// where you wanna post
+	//         data:  {trips:g_ListTrip, sharedEmail:shareScheduleWithFriends, dateOfTrip : date},
+	//         dataType: 'json',
+	//         error: function(jqXHR, textStatus, errorMessage) {
+	//         	console.log(errorMessage)
+	//         },
+	//         success: function(data) {
+	//         	console.log("update success");
+	//         	updateSharedTrip();
+	//         }
 
-$('#shareEmail').emailautocomplete({
-		suggClass: "custom-classname", //default: "eac-sugg". your custom classname (optional)
-		// domains: ["example.com"] //additional domains (optional)
-	});
-var max_fields = 20;
+	// 	    });
+	// 	}	
+	// 		return
+	// });
 
-	//maximum input boxes allowed
-	var outer_wrapper = $(".ingredients_wrap");
-	var wrapper = $(".ingredients_i");
-	var firstIngredient = $(".firstIngredient");
-	wrapper.geocomplete();
-	var x = 1;
-	$(outer_wrapper).on("focus", ".firstIngredient", function(e) {//on add input button click
-		e.preventDefault();
-		console.log("focus " + x);
-		if (x < max_fields) { //max input box allowed
-			x++;
-			$(this).off('focus');
-			$(outer_wrapper).append('<div style="text-align: center;margin: auto;position: relative;align-content: center;"><input id="newChild' + x + '" class="ingredients_i gapper ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset newChild" style="text-align:center;margin:auto;width:100%" type="text" placeholder="אתר" name="ingredients[]"><div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input id="imgUpload'+x+'" type="file" accept="image/*" onchange="showMyImage(this,'+x+')" name="file" class="image_i"><img id="thumbnil'+x+'" style="width:20%; margin-top:10px;"  src="" alt="image"/></div><a href="#" class="remove_field"> X </a></div>');	
-
-		}
+	$('.option1 li').click(function(){
+		var i = $(this).parents('.select').attr('id');
+		var v = $(this).children().text();
+		var o = $(this).attr('id');
+		$('#'+i+' .selected').attr('id',o);
+		 w1 = $('#'+i+' .selected').attr('id',o);
+		$('#'+i+' .selected').text(v);
+		w1=w1.attr('id');
+		checkTheList();
 	});
 
-	$(outer_wrapper).on("focus", ".newChild", function(e) {//on add input button click
-		wrapper = $(".ingredients_i");
-		wrapper.geocomplete();
-		console.log(wrapper[wrapper.length-1]);
-		console.log(wrapper[wrapper.length-1].id);
-		if (this.id == wrapper[wrapper.length-1].id){				
-			console.log("focus " + x);
-			x++;
-
-			$(outer_wrapper).append('<div style="text-align: center;margin: auto;position: relative;align-content: center;"><input id="newChild' + x + '" class="ingredients_i gapper ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset newChild" style="text-align:center;margin:auto;width:100%" type="text" placeholder="אתר" name="ingredients[]"><div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset"><input id="imgUpload'+x+'" type="file" accept="image/*" onchange="showMyImage(this,'+x+')" name="file" class="image_i"><img id="thumbnil'+x+'" style="width:20%; margin-top:10px;"  src="" alt="image"/><a href="#" class="remove_field"> X </a></div>');	
-		}
-	});		
-
-	$(outer_wrapper).on("click", ".remove_field", function(e) {//on add input button click			
-		e.preventDefault(); 
-		$(this).parent('div').remove(); 
+	$('.option2 li').click(function(){
+		console.log("inside click")
+		var i = $(this).parents('.select').attr('id');
+		var v = $(this).children().text();
+		var o = $(this).attr('id');
+		$('#'+i+' .selected').attr('id',o);
+		 w2 = $('#'+i+' .selected').attr('id',o);
+		$('#'+i+' .selected').text(v);
+		console.log(w2.attr('id'))
+		w2= w2.attr('id');
+		checkTheList();
 	});
 
+	// $('#updateFriendsWithChanges').click(function(){
+	// 	console.log(g_ListTrip)
+	// 	if(!(_.contains(shareScheduleWithFriends, User.email ))){
+	// 		shareScheduleWithFriends.push(User.email)
+	// 	}	
 
-$('#addFriendToSchedule').click(function(){
-	if($('#shareSchedule').val()){
-			// debugger
-			shareScheduleWithFriends.push($('#shareSchedule').val());
-			$('#shareSchedule').val("");
-			console.log(shareScheduleWithFriends)
-			console.log(User.tripPatners)
-			console.log(g_ListTrip)
-			if(!(_.contains(shareScheduleWithFriends, User.email))){
-				console.log(shareScheduleWithFriends)
-				shareScheduleWithFriends.push(User.email)
-			}	
-			console.log("sending email")
-			$.ajax({
-				type: "post",
-	        url: g_domain+"updateScheduleParticipents",// where you wanna post
-	        data:  {trips:g_ListTrip, sharedEmail:shareScheduleWithFriends, dateOfTrip : date},
-	        dataType: 'json',
-	        error: function(jqXHR, textStatus, errorMessage) {
-	        	console.log(errorMessage)
-	        },
-	        success: function(data) {
-	        	console.log("update success");
-	        	updateSharedTrip();
-	        }
+	// 	if(shareScheduleWithFriends.length>0)
+	// 	{
+	// 		console.log("sending email")
+	// 		$.ajax({
+	// 			type: "post",
+	// 	        url: g_domain+"updateScheduleParticipents",// where you wanna post
+	// 	        data:  {trips:g_ListTrip, sharedEmail:shareScheduleWithFriends, dateOfTrip : date},
+	// 	        dataType: 'json',
+	// 	        error: function(jqXHR, textStatus, errorMessage) {
+	// 	        	console.log(errorMessage)
+	// 	        },
+	// 	        success: function(data) {
+	// 	        	console.log("update success");
+	// 	        }
+	// 	    });
+	// 	}
+	// });
 
-	    })
-		}	
-		return
+
+
+	$('#filtermenu li').change(function(){
+		console.log($(this).attr('id'))
+		filter=[];
+		console.log("in filter");
+		$('input[type="checkbox"]').each(function(value) {
+			if($(this).is(':checked')){
+				checkIfInArray($(this).attr('id'));
+			}
+		});
+
+		var area = w2;
+		checkTheList();
+
 	})
-
-$('.option1 li').click(function(){
-	console.log("inside click")
-	var i = $(this).parents('.select').attr('id');
-	var v = $(this).children().text();
-	var o = $(this).attr('id');
-	$('#'+i+' .selected').attr('id',o);
-	 w1 = $('#'+i+' .selected').attr('id',o);
-	$('#'+i+' .selected').text(v);
-	console.log(w1.attr('id'))
-	w1=w1.attr('id');
-	checkTheList();
-
 });
-$('.option2 li').click(function(){
-	console.log("inside click")
-	var i = $(this).parents('.select').attr('id');
-	var v = $(this).children().text();
-	var o = $(this).attr('id');
-	$('#'+i+' .selected').attr('id',o);
-	 w2 = $('#'+i+' .selected').attr('id',o);
-	$('#'+i+' .selected').text(v);
-	console.log(w2.attr('id'))
-	w2= w2.attr('id');
-	checkTheList();
-});
-$('#updateFriendsWithChanges').click(function(){
-	console.log(g_ListTrip)
-	if(!(_.contains(shareScheduleWithFriends, User.email))){
-		console.log(shareScheduleWithFriends)
-		shareScheduleWithFriends.push(User.email)
-	}	
-
-	if(shareScheduleWithFriends.length>0){
-		console.log("sending email")
-		$.ajax({
-			type: "post",
-	        url: g_domain+"updateScheduleParticipents",// where you wanna post
-	        data:  {trips:g_ListTrip, sharedEmail:shareScheduleWithFriends, dateOfTrip : date},
-	        dataType: 'json',
-	        error: function(jqXHR, textStatus, errorMessage) {
-	        	console.log(errorMessage)
-
-
-	        },
-	        success: function(data) {
-	        	console.log("update success");
-	        }
-
-	    })
-	}
-})
-// On dropdown open
-// $(document).on('shown.bs.dropdown', function(event) {
-// 	console.log("click")
-//   var dropdown = $(event.target);
- 
-//   // Set aria-expanded to true
-//   dropdown.find('.dropdown-menu').attr('aria-expanded', true);
- 
-//   // Set focus on the first link in the dropdown
-//   setTimeout(function() {
-//     dropdown.find('.dropdown-menu li:first-child a').focus();
-//   }, 10);
-// });
-
-// On dropdown close
-// $(document).on('hidden.bs.dropdown', function(event) {
-//  var dropdown = $(event.target);
- 
-//  // Set aria-expanded to false 
-//  dropdown.find('.dropdown-menu').attr('aria-expanded', false);
- 
-//  // Set focus back to dropdown toggle
-//  dropdown.find('.dropdown-toggle').focus();
-// });
-// $('.btn btn-default dropdown-toggle ui-btn ui-shadow ui-corner-all').click(function(){
-// 	$('.btn-group filter').css("display", "block");
-// })
-
-
-$('#filtermenu li').change(function(){
-	console.log($(this).attr('id'))
-	filter=[];
-	console.log("in filter");
-	$('input[type="checkbox"]').each(function(value) {
-		if($(this).is(':checked')){
-			checkIfInArray($(this).attr('id'));
-		}
-	});
-
-	var area = w2;
-	checkTheList();
-
-})
-
-
 function checkTheList(){
 	var tempList= [];
 	var tempFil=1;
@@ -427,7 +320,7 @@ function checkTheList(){
 
 
 
-});
+
 function initMap(l1,l2){
 	var mapOptions = {
 		center: new google.maps.LatLng(	l1, l2),
@@ -615,22 +508,29 @@ function checkIfInArray(filterToCheck){
 	    filter.push(filterToCheck);
 	}
 }
-// var arr=["#addTrip","#mySchedule","#moveToFavorite","#showTrips","#home"];
-// $(document).on('click','.nav li',function(){
-// 	console.log("li clicked")
-// 	var me = $(this);
 
-// 	$.each(arr, function(index,val){
-// 		console.log(val)
-// 		if($(val).hasClass('ui-btn-active'))
-// 			console.log(val)
-// 			$(val).removeClass('ui-btn-active');
-// 	});
-// 	$(me).addClass('ui-btn-active');
-// })
-	// $('.nav li').click(function(){
-		
-	// });
+$(document).on('click','.btn-primary',function(){
+	r = $('#us3-radius').val();
+	r = r;
+	console.log(g_ListTrip)
+	var tempList=[];
+	$.each(g_ListTrip,function(index,val){
+		isInDdistance = distance(t1,t2,val.mapPoint.lat,val.mapPoint.lng);
+		console.log(isInDdistance);
+		isInDdistance=isInDdistance*100;
+		console.log(isInDdistance);
+		if( r > isInDdistance ){
+			console.log("trip is in the redius",val)
+			tempList.push(val);
+		}
+		else{
+			console.log("trip is'not in the redius",val)	
+		}	
+	});
+	console.log(g_ListTrip)
+	displayListTrip(tempList);
+	console.log(tempList);
+});
 
 function distance(lat1,lon1,lat2,lon2) {
 	var R = 6371; // km (change this constant to get miles)
@@ -1276,64 +1176,64 @@ $(document).on('click','#submitComment', function(){
 });
 
 });
-$(document).on('click','#chatComment', function(){
-	var chat = $('#chat').val();
-	console.log()
-//	g_trip.comments.push(User.name + " : " + comment)
-$('#chat').val("");
-console.log(chat, User, g_trip);
+// $(document).on('click','#chatComment', function(){
+// 	var chat = $('#chat').val();
+// 	console.log()
+// //	g_trip.comments.push(User.name + " : " + comment)
+// $('#chat').val("");
+// console.log(chat, User, g_trip);
 
-$.ajax({
-	type: "post",
-        url: g_domain+"addChatComment",// where you wanna post
-        data:  {user:User,
-        	chat:chat
-        },
-        dataType: "json",
-        error: function(jqXHR, textStatus, errorMessage) {
-        	console.log(errorMessage)
-
-
-        },
-        success: function(data) {
-        	console.log("add comment success");
-        	var ul = $('.commentList');
-        	var li = $('<li>');
-        	var img = $('<img>');
-        	var h5 = $('<h5>');
-        	img.attr({"src" : User.image});
-        	h5.html((num+1)+". "+chat);
-        	li.append(img);
-        	li.append(h5);
-        	ul.append(li);        	
-		// $('#tripComments').append(User.name + " : " + comment);
-		console.log(data)
-	}
-});
-
-});
-
-$(document).on('click' ,'.saveSchedule',function(){
+// $.ajax({
+// 	type: "post",
+//         url: g_domain+"addChatComment",// where you wanna post
+//         data:  {user:User,
+//         	chat:chat
+//         },
+//         dataType: "json",
+//         error: function(jqXHR, textStatus, errorMessage) {
+//         	console.log(errorMessage)
 
 
-	$.ajax({
-		type: "post",
-        url: g_domain+"saveTimeSchedule",// where you wanna post
-        data:  {userId:User.email,
-        	tripTime:date},
-        	ContentType: 'application/json', 
+//         },
+//         success: function(data) {
+//         	console.log("add comment success");
+//         	var ul = $('.commentList');
+//         	var li = $('<li>');
+//         	var img = $('<img>');
+//         	var h5 = $('<h5>');
+//         	img.attr({"src" : User.image});
+//         	h5.html((num+1)+". "+chat);
+//         	li.append(img);
+//         	li.append(h5);
+//         	ul.append(li);        	
+// 		// $('#tripComments').append(User.name + " : " + comment);
+// 		console.log(data)
+// 	}
+// });
 
-        	error: function(jqXHR, textStatus, errorMessage) {
-        		console.log(errorMessage)
+// });
+
+// $(document).on('click' ,'.saveSchedule',function(){
 
 
-        	},
-        	success: function(data) {
-        		console.log("update schedule success");
-        	}
-        });
+// 	$.ajax({
+// 		type: "post",
+//         url: g_domain+"saveTimeSchedule",// where you wanna post
+//         data:  {userId:User.email,
+//         	tripTime:date},
+//         	ContentType: 'application/json', 
 
-});
+//         	error: function(jqXHR, textStatus, errorMessage) {
+//         		console.log(errorMessage)
+
+
+//         	},
+//         	success: function(data) {
+//         		console.log("update schedule success");
+//         	}
+//         });
+
+// });
 
 function updateSchedule (bool){
 	if(bool){
@@ -1433,201 +1333,201 @@ function updateScheduleFromList (bool, tripId){
 };
 
 
-function removeImmSchedule(){
-	if(window.location.hash=='#myPageSchedule')
-	{
-		console.log(User.schedule)
-		displayListScheduleTrip(User.schedule)
-	}
-}
-$(document).on('click','#mySchedule',function(){
-	if(!User.email)
-	{
-		$('.notRegister').html(TRIPPER_DATA.alert).show();
-		//.css("display","block");
+// function removeImmSchedule(){
+// 	if(window.location.hash=='#myPageSchedule')
+// 	{
+// 		console.log(User.schedule)
+// 		displayListScheduleTrip(User.schedule)
+// 	}
+// }
+// $(document).on('click','#mySchedule',function(){
+// 	if(!User.email)
+// 	{
+// 		$('.notRegister').html(TRIPPER_DATA.alert).show();
+// 		//.css("display","block");
 
-	}else{
-		$('.notRegister').hide();
-		$.ajax({
-			type: "post",
-	        url: g_domain+"getUserSchedule",// where you wanna post
-	        data:  {email:User.email},
-	        dataType: "json",
-	        error: function(jqXHR, textStatus, errorMessage) {
-	        	console.log(errorMessage)
+// 	}else{
+// 		$('.notRegister').hide();
+// 		$.ajax({
+// 			type: "post",
+// 	        url: g_domain+"getUserSchedule",// where you wanna post
+// 	        data:  {email:User.email},
+// 	        dataType: "json",
+// 	        error: function(jqXHR, textStatus, errorMessage) {
+// 	        	console.log(errorMessage)
 
 
-	        },
-	        success: function(data) {
-	        	console.log(data.schedule)
-	        	displayListScheduleTrip(data.schedule);
-	        }
-	    });
+// 	        },
+// 	        success: function(data) {
+// 	        	console.log(data.schedule)
+// 	        	displayListScheduleTrip(data.schedule);
+// 	        }
+// 	    });
 
-		moveToSchedule();
-	}
-});
+// 		moveToSchedule();
+// 	}
+// });
 
-function displayListScheduleTrip(data){
-	console.log("data " + data)
-	$('#resultTrip ul').empty();
-	$('#friendsemail').empty()
-	g_ListTrip=data;
-	shareScheduleWithFriends = User.tripPatners;
-	if (User.tripScheduleTime.checkInTime && User.tripScheduleTime.checkOutTime) {
-	$('#dpd1').val(User.tripScheduleTime.checkInTime.substring(0, User.tripScheduleTime.checkInTime.length-14));
-	$('#dpd2').val(User.tripScheduleTime.checkOutTime.substring(0, User.tripScheduleTime.checkOutTime.length-14));
-	}
-	// for (i in data) {
-	// 	var tripResult = '<li id='+data[i]._id+' class="listScheduleTrip trip" ><span class="titelName">' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
-	// 	$('#resultTrip .displayTrip').append(tripResult);
-	// };
-	$.each(User.tripPatners, function(i, val){
-		console.log(val)
-		$('#friendsemail').append("<div id='emailNum" + i + "'>" + val + "</div>");
-		$('#emailNum' + i).append("<button id='deleteMailFromSchedule'> &#10006 </button>");
-	})
-	$('.titelNameSchedule').html(TRIPPER_DATA.titelNameSchedule);
-	// var divUser = $('<div>').addClass('userDetailes');
-	$('.divShareSchedule label').html(TRIPPER_DATA.divShareSchedule);
+// function displayListScheduleTrip(data){
+// 	console.log("data " + data)
+// 	$('#resultTrip ul').empty();
+// 	$('#friendsemail').empty()
+// 	g_ListTrip=data;
+// 	shareScheduleWithFriends = User.tripPatners;
+// 	if (User.tripScheduleTime.checkInTime && User.tripScheduleTime.checkOutTime) {
+// 	$('#dpd1').val(User.tripScheduleTime.checkInTime.substring(0, User.tripScheduleTime.checkInTime.length-14));
+// 	$('#dpd2').val(User.tripScheduleTime.checkOutTime.substring(0, User.tripScheduleTime.checkOutTime.length-14));
+// 	}
+// 	// for (i in data) {
+// 	// 	var tripResult = '<li id='+data[i]._id+' class="listScheduleTrip trip" ><span class="titelName">' + data[i].trip_name + '</span>' + ' מיקום: ' + data[i].address +'</li>';
+// 	// 	$('#resultTrip .displayTrip').append(tripResult);
+// 	// };
+// 	$.each(User.tripPatners, function(i, val){
+// 		console.log(val)
+// 		$('#friendsemail').append("<div id='emailNum" + i + "'>" + val + "</div>");
+// 		$('#emailNum' + i).append("<button id='deleteMailFromSchedule'> &#10006 </button>");
+// 	})
+// 	$('.titelNameSchedule').html(TRIPPER_DATA.titelNameSchedule);
+// 	// var divUser = $('<div>').addClass('userDetailes');
+// 	$('.divShareSchedule label').html(TRIPPER_DATA.divShareSchedule);
 
-	$('label[for="dpd1"]').text(TRIPPER_DATA.dpd1);
-	$('label[for="dpd2"]').text(TRIPPER_DATA.dpd2);
-	// $('.userDetailes').empty();
-	// if (User) {
-	// 	// var divUser = $('<div>').addClass('userDetailes');
-	// 	var spanUser = $('<span>').html(User.name).addClass('nameUser');
-	// 	var imgUser = $('<img>').attr("src",User.image).addClass('imgUser');
-	// 	$('.userDetailes').append(imgUser)
-	// 	$('.userDetailes').append(spanUser)
-	// }
-	if (g_ListTrip.length>0) {
-		$('#scheduleTimeLline').css("display","block");
+// 	$('label[for="dpd1"]').text(TRIPPER_DATA.dpd1);
+// 	$('label[for="dpd2"]').text(TRIPPER_DATA.dpd2);
+// 	// $('.userDetailes').empty();
+// 	// if (User) {
+// 	// 	// var divUser = $('<div>').addClass('userDetailes');
+// 	// 	var spanUser = $('<span>').html(User.name).addClass('nameUser');
+// 	// 	var imgUser = $('<img>').attr("src",User.image).addClass('imgUser');
+// 	// 	$('.userDetailes').append(imgUser)
+// 	// 	$('.userDetailes').append(spanUser)
+// 	// }
+// 	if (g_ListTrip.length>0) {
+// 		$('#scheduleTimeLline').css("display","block");
 	
-	var ul = $('#ulTimeLineSchedule');
-	ul.empty();
-	$.each(g_ListTrip, function (index,val){
-		var li = $('<li>').addClass('liImeLine').attr("id",val._id);
-		var num =$('<p>').html(index+1).addClass('numberTrip');
-		var span = $('<span>').addClass('moveToTrip');
-		var img = $('<img>').addClass('moveToTrip');
+// 	var ul = $('#ulTimeLineSchedule');
+// 	ul.empty();
+// 	$.each(g_ListTrip, function (index,val){
+// 		var li = $('<li>').addClass('liImeLine').attr("id",val._id);
+// 		var num =$('<p>').html(index+1).addClass('numberTrip');
+// 		var span = $('<span>').addClass('moveToTrip');
+// 		var img = $('<img>').addClass('moveToTrip');
 		
-		span.html(val.trip_name).css('display','none');
-		img.attr({"src":val.tripSites[0].img, "width":50, "height":50})
+// 		span.html(val.trip_name).css('display','none');
+// 		img.attr({"src":val.tripSites[0].img, "width":50, "height":50})
 
 
-		li.append(num);
-		li.append(img);
-		li.append(span);
-		var h5 =$('<h5>').html( hashtable[val.area]).addClass('locH5Schedule').css("display","none").addClass('moveToTrip');;
-		li.append(h5);
-		var ulSmall =$('<dl>').addClass("smallULSchedule").css("display","none");
-		$.each(val.trip_filter,function(i,v){
-			var liSmall = $('<dt>')
-			var imgVi= $('<img>').attr({"src":"images/vi.png"}).addClass("viSchedule");
-			liSmall.append(imgVi);
-			liSmall.append( hashtable[v])
-			ulSmall.append(liSmall)
-		});
-		li.append(ulSmall);
-		var aTrip =$('<a>').attr({"id":"remove_track","href":"#"}).addClass('remove_track').html(TRIPPER_DATA.remove_track);
-		li.append(aTrip);
-		ul.append(li);
-	});
-	var meImg="";
-	var meSpan="";
-	var meArea="";
-	var meUl="";
-	var meA = "";
-	$('.remove_track').click(function(){
-		console.log($(this).parent().attr('id'))
-		updateScheduleFromList(false,$(this).parent().attr('id'));
-	});
-	$('#ulTimeLineSchedule li').hover(function(){
-		console.log("hover");
-		$(this).css({"top":"-50px","border":"1px solid #000000","padding":"12px","background-color":"#ffffff","border-radius":"30px"});
-		meSpan = $(this).children('span');
-		meSpan.css({"display":"block","font-size":"22px","padding": "0px 10px 0 2px"});
-		meNum = $(this).children('p');
-		meNum.hide();
+// 		li.append(num);
+// 		li.append(img);
+// 		li.append(span);
+// 		var h5 =$('<h5>').html( hashtable[val.area]).addClass('locH5Schedule').css("display","none").addClass('moveToTrip');;
+// 		li.append(h5);
+// 		var ulSmall =$('<dl>').addClass("smallULSchedule").css("display","none");
+// 		$.each(val.trip_filter,function(i,v){
+// 			var liSmall = $('<dt>')
+// 			var imgVi= $('<img>').attr({"src":"images/vi.png"}).addClass("viSchedule");
+// 			liSmall.append(imgVi);
+// 			liSmall.append( hashtable[v])
+// 			ulSmall.append(liSmall)
+// 		});
+// 		li.append(ulSmall);
+// 		var aTrip =$('<a>').attr({"id":"remove_track","href":"#"}).addClass('remove_track').html(TRIPPER_DATA.remove_track);
+// 		li.append(aTrip);
+// 		ul.append(li);
+// 	});
+// 	var meImg="";
+// 	var meSpan="";
+// 	var meArea="";
+// 	var meUl="";
+// 	var meA = "";
+// 	$('.remove_track').click(function(){
+// 		console.log($(this).parent().attr('id'))
+// 		updateScheduleFromList(false,$(this).parent().attr('id'));
+// 	});
+// 	$('#ulTimeLineSchedule li').hover(function(){
+// 		console.log("hover");
+// 		$(this).css({"top":"-50px","border":"1px solid #000000","padding":"12px","background-color":"#ffffff","border-radius":"30px"});
+// 		meSpan = $(this).children('span');
+// 		meSpan.css({"display":"block","font-size":"22px","padding": "0px 10px 0 2px"});
+// 		meNum = $(this).children('p');
+// 		meNum.hide();
 		
-		meImg = $(this).children('img');
-		meImg.attr({"width":125,"height":125}).css({"border-radius":"0px","float":"right"});
-		//$(this).attr({"width":100,"height":100})
-		meArea = $(this).children('h5');
-		meArea.css("display","table-cell");
-		meUl = $(this).children('dl');
-		meUl.css("display","inline-block");
-		meA = $(this).children('a');
-		meA.css({"display":"inline-block","float": "left"})
-	}
-	, function(){
-		$(this).css({"top":"68px","border":"none","background-color":"transparent","padding":"0px"});
-		meSpan = $(this).children('span');
-		meSpan.css({"display":"none","font-size":"20px","float":"none","padding": "0"});
-		meNum = $(this).children('p');
-		meNum.show();
-		//me=$(this).attr({"width":50,"height":50});
-		//div.append(me)
-		meImg = $(this).children('img');
-		meImg.attr({"width":50,"height":50}).css({"border-radius":"50px","float":"none"});
-		//$(this).attr({"width":50,"height":50});
-		meArea = $(this).children('h5');
-		meArea.css("display","none");
-		meUl = $(this).children('dl');
-		meUl.css("display","none");
-		meA = $(this).children('a');
-		meA.css("display","none")
-	});
-};
-num = 0
+// 		meImg = $(this).children('img');
+// 		meImg.attr({"width":125,"height":125}).css({"border-radius":"0px","float":"right"});
+// 		//$(this).attr({"width":100,"height":100})
+// 		meArea = $(this).children('h5');
+// 		meArea.css("display","table-cell");
+// 		meUl = $(this).children('dl');
+// 		meUl.css("display","inline-block");
+// 		meA = $(this).children('a');
+// 		meA.css({"display":"inline-block","float": "left"})
+// 	}
+// 	, function(){
+// 		$(this).css({"top":"68px","border":"none","background-color":"transparent","padding":"0px"});
+// 		meSpan = $(this).children('span');
+// 		meSpan.css({"display":"none","font-size":"20px","float":"none","padding": "0"});
+// 		meNum = $(this).children('p');
+// 		meNum.show();
+// 		//me=$(this).attr({"width":50,"height":50});
+// 		//div.append(me)
+// 		meImg = $(this).children('img');
+// 		meImg.attr({"width":50,"height":50}).css({"border-radius":"50px","float":"none"});
+// 		//$(this).attr({"width":50,"height":50});
+// 		meArea = $(this).children('h5');
+// 		meArea.css("display","none");
+// 		meUl = $(this).children('dl');
+// 		meUl.css("display","none");
+// 		meA = $(this).children('a');
+// 		meA.css("display","none")
+// 	});
+// };
+// num = 0
 
-	// var schedulePage= $('#myPageSchedule #content')
+// 	// var schedulePage= $('#myPageSchedule #content')
 	
-	var commentSection = $('#sectionChat').empty();
-	var ul = $('<ul>').addClass("commentList");
-	$.each(User.scheduleChat, function(index,val){
-		var li = $('<li>');
-		var img = $('<img>');
-		var p = $('<h5>');
-		img.attr({"src":val.userImg});
-		p.html((index+1)+". "+val.comment);
-		li.append(img);
-		li.append(p);
-		ul.append(li);
-		num++;
-	});
+// 	var commentSection = $('#sectionChat').empty();
+// 	var ul = $('<ul>').addClass("commentList");
+// 	$.each(User.scheduleChat, function(index,val){
+// 		var li = $('<li>');
+// 		var img = $('<img>');
+// 		var p = $('<h5>');
+// 		img.attr({"src":val.userImg});
+// 		p.html((index+1)+". "+val.comment);
+// 		li.append(img);
+// 		li.append(p);
+// 		ul.append(li);
+// 		num++;
+// 	});
 	
 
 
-	var h3= $('<h3>').html(TRIPPER_DATA.chatWithFriend);
-	var img = $('<img>').attr({"src":User.image,"id":"myImg"});
-	var h4 = $('<h4>').html(TRIPPER_DATA.addNewComment).attr("id","titleComment");
+// 	var h3= $('<h3>').html(TRIPPER_DATA.chatWithFriend);
+// 	var img = $('<img>').attr({"src":User.image,"id":"myImg"});
+// 	var h4 = $('<h4>').html(TRIPPER_DATA.addNewComment).attr("id","titleComment");
 
 	
-	var textarea = $('<textarea>').attr({"type":"text","name":"chat","id":"chat"}).css({"display":"none"})
-	// $('.Trip').append("<textarea type='text' name='comment' id='comment style'display:none'></textarea>");
-	var aSend= $('<a>').attr({"id":"chatComment"}).css({"display":"none"}).html("שלח")
-	// $('.Trip').append("<a id='submitComment' style'display:none'>שלח תגובה</a> </br>");
+// 	var textarea = $('<textarea>').attr({"type":"text","name":"chat","id":"chat"}).css({"display":"none"})
+// 	// $('.Trip').append("<textarea type='text' name='comment' id='comment style'display:none'></textarea>");
+// 	var aSend= $('<a>').attr({"id":"chatComment"}).css({"display":"none"}).html("שלח")
+// 	// $('.Trip').append("<a id='submitComment' style'display:none'>שלח תגובה</a> </br>");
 
 
 
 
-	commentSection.append(h3);
-	commentSection.append(img);
-	commentSection.append(h4);
-	commentSection.append(textarea);
-	commentSection.append(aSend);
-	commentSection.append(ul)
+// 	commentSection.append(h3);
+// 	commentSection.append(img);
+// 	commentSection.append(h4);
+// 	commentSection.append(textarea);
+// 	commentSection.append(aSend);
+// 	commentSection.append(ul)
 
 
-	// schedulePage.append(commentSection);
-	$('#titleComment').click(function(){
-		$('#chat').show();
-		$('#chatComment').show();
-	});
+// 	// schedulePage.append(commentSection);
+// 	$('#titleComment').click(function(){
+// 		$('#chat').show();
+// 		$('#chatComment').show();
+// 	});
 
- }
+//  }
   $( window ).hashchange(function() {
     var hash = location.hash;
     if (hash=="") {
@@ -1661,71 +1561,71 @@ num = 0
 
 });
 
-$(document).on('click', '#deleteMailFromSchedule', function(){
-	console.log("clicked on " + $(this).parent().text());
-	// var mail  = $(this).parent().text();
-	var mailToRemove = $(this).parent().text().slice(0, -3);
-	console.log(mailToRemove)
-	console.log(shareScheduleWithFriends.indexOf(mailToRemove));
-	shareScheduleWithFriends.splice(shareScheduleWithFriends.indexOf(mailToRemove), 1);
-	User.tripPatners = shareScheduleWithFriends;
-	console.log(shareScheduleWithFriends)
-	$.ajax({
-		type : "post",
-		url : g_domain + "removeEmailFromTripPartners",
-		data : {trippartners : shareScheduleWithFriends,
-			triptoremove : mailToRemove},
-			dataType : "json",
-			error: function(jqXHR, textStatus, errorMessage) {
-				console.log(errorMessage)
-			},
-			success: function(data) {
-				console.log("removed mail from schedule")
-				updateSharedTrip();
-			}
-		})
-})
+// $(document).on('click', '#deleteMailFromSchedule', function(){
+// 	console.log("clicked on " + $(this).parent().text());
+// 	// var mail  = $(this).parent().text();
+// 	var mailToRemove = $(this).parent().text().slice(0, -3);
+// 	console.log(mailToRemove)
+// 	console.log(shareScheduleWithFriends.indexOf(mailToRemove));
+// 	shareScheduleWithFriends.splice(shareScheduleWithFriends.indexOf(mailToRemove), 1);
+// 	User.tripPatners = shareScheduleWithFriends;
+// 	console.log(shareScheduleWithFriends)
+// 	$.ajax({
+// 		type : "post",
+// 		url : g_domain + "removeEmailFromTripPartners",
+// 		data : {trippartners : shareScheduleWithFriends,
+// 			triptoremove : mailToRemove},
+// 			dataType : "json",
+// 			error: function(jqXHR, textStatus, errorMessage) {
+// 				console.log(errorMessage)
+// 			},
+// 			success: function(data) {
+// 				console.log("removed mail from schedule")
+// 				updateSharedTrip();
+// 			}
+// 		})
+// })
 
-function updateSharedTrip(){
-	console.log("if update shared trip ", User.tripPatners.length)
-	$('#friendsemail').empty();
-	if(User.tripPatners.length > 0){
-		console.log("in if")
-		$.each(User.tripPatners, function(i, val){
-			console.log(val)
-			$('#friendsemail').append("<div id='emailNum" + i + "'>" + val + "</div>");
-			$('#emailNum' + i).append("<button id='deleteMailFromSchedule'> &#10006 </button>");
-		});
-	}
-}
+// function updateSharedTrip(){
+// 	console.log("if update shared trip ", User.tripPatners.length)
+// 	$('#friendsemail').empty();
+// 	if(User.tripPatners.length > 0){
+// 		console.log("in if")
+// 		$.each(User.tripPatners, function(i, val){
+// 			console.log(val)
+// 			$('#friendsemail').append("<div id='emailNum" + i + "'>" + val + "</div>");
+// 			$('#emailNum' + i).append("<button id='deleteMailFromSchedule'> &#10006 </button>");
+// 		});
+// 	}
+// }
 
-$(document).on('click','#moveToFavorite',function(){
-	if(!User.email)
-	{
-		$('.notRegister').html(TRIPPER_DATA.alert).show();
-		$('.displayTripRight').empty();
-		$('.displayTripLeft').empty();
-	}else{
-		$('.notRegister').hide();
-		$.ajax({
-			type: "post",
-        url: g_domain+"getUserFavorites",// where you wanna post
-        data:  {email:User.email},
-        dataType: "json",
-        error: function(jqXHR, textStatus, errorMessage) {
-        	console.log(errorMessage)
+// $(document).on('click','#moveToFavorite',function(){
+// 	if(!User.email)
+// 	{
+// 		$('.notRegister').html(TRIPPER_DATA.alert).show();
+// 		$('.displayTripRight').empty();
+// 		$('.displayTripLeft').empty();
+// 	}else{
+// 		$('.notRegister').hide();
+// 		$.ajax({
+// 			type: "post",
+//         url: g_domain+"getUserFavorites",// where you wanna post
+//         data:  {email:User.email},
+//         dataType: "json",
+//         error: function(jqXHR, textStatus, errorMessage) {
+//         	console.log(errorMessage)
 
 
-        },
-        success: function(data) {
-        	console.log(data.favorites);
-        	g_ListTrip=data.favorites;
-        	displayListTrip(data.favorites);
-        }
-    });
-		moveToFavorite();
-	}
-});
+//         },
+//         success: function(data) {
+//         	console.log(data.favorites);
+//         	g_ListTrip=data.favorites;
+//         	displayListTrip(data.favorites);
+//         }
+//     });
+// 		moveToFavorite();
+// 	}
+// });
 
 
 $(document).on('click','.btnChar', function(e){
@@ -1769,188 +1669,188 @@ $(document).on('click','.btnChar', function(e){
 	})
 });
 
-$(document).on('submit','#addform',function(e){
-	e.preventDefault();
-	var form = new FormData(this); 
+// $(document).on('submit','#addform',function(e){
+// 	e.preventDefault();
+// 	var form = new FormData(this); 
 
-	var tempFilter = [];
-	var tempJaners = [];
-	var wrapper = $(".siteName");
-	// var images = $("image_i");
-	var comms = new Array();
-	for (var i = 0; i < wrapper.length; i++){
-		console.log(i);
-		// debugger;
-		var comm = {};
-		if (wrapper[i].value){
-			comm['siteName'] = wrapper[i].value;
-			// comm["image"] = images[i].value;
-			comms.push(comm);
-		}
-	}
-	console.log(comms)
-	if (comms.length > 0)
-		form.append("sites", JSON.stringify(comms));	
-	else form.append("sites", JSON.stringify([]));	
-	//console.log($(this))
-	form.append("email",User.email);
-	form.append("mapPoint",JSON.stringify(mapPoint));
-	// debugger;
-	$('input[type=checkbox][id!="pickJanerul"]').each(function(value) {
-		if($(this).is(':checked')){
-			tempFilter.push($(this).attr('id'));
-		}
-	});
-	console.log(tempFilter)
-	form.append("trip_filter", JSON.stringify(tempFilter));
-	$('#pickJanerul > li > input[type=checkbox]').each(function(value){
-		if($(this).is(':checked')){
-			tempJaners.push($(this).prev('label').text());
-		}
-	});
-	var temp_arr =[]
-	var temp= $('#usersList').text();
-	if(temp==""){
-		form.append("shareEmail",temp_arr)	
-		console.log(temp);
-	}else{ 
+// 	var tempFilter = [];
+// 	var tempJaners = [];
+// 	var wrapper = $(".siteName");
+// 	// var images = $("image_i");
+// 	var comms = new Array();
+// 	for (var i = 0; i < wrapper.length; i++){
+// 		console.log(i);
+// 		// debugger;
+// 		var comm = {};
+// 		if (wrapper[i].value){
+// 			comm['siteName'] = wrapper[i].value;
+// 			// comm["image"] = images[i].value;
+// 			comms.push(comm);
+// 		}
+// 	}
+// 	console.log(comms)
+// 	if (comms.length > 0)
+// 		form.append("sites", JSON.stringify(comms));	
+// 	else form.append("sites", JSON.stringify([]));	
+// 	//console.log($(this))
+// 	form.append("email",User.email);
+// 	form.append("mapPoint",JSON.stringify(mapPoint));
+// 	// debugger;
+// 	$('input[type=checkbox][id!="pickJanerul"]').each(function(value) {
+// 		if($(this).is(':checked')){
+// 			tempFilter.push($(this).attr('id'));
+// 		}
+// 	});
+// 	console.log(tempFilter)
+// 	form.append("trip_filter", JSON.stringify(tempFilter));
+// 	$('#pickJanerul > li > input[type=checkbox]').each(function(value){
+// 		if($(this).is(':checked')){
+// 			tempJaners.push($(this).prev('label').text());
+// 		}
+// 	});
+// 	var temp_arr =[]
+// 	var temp= $('#usersList').text();
+// 	if(temp==""){
+// 		form.append("shareEmail",temp_arr)	
+// 		console.log(temp);
+// 	}else{ 
 
-		temp_arr = temp.split(" ");
-		console.log(temp_arr);
-		form.append("shareEmail",temp_arr);
-	}
-	console.log(form);
-	console.log(tempJaners, "filter",tempFilter)
-	if(($(this).find('#imgUpload')[0].files.length) > 0){
-		console.log("uploading images")
-		if(editFromAccount){
-		form.append("tripId" , g_trip._id);
-		form.append("flag" , "account");
-		$.ajax({
-			type: "post",
-		        url: g_domain+"updateTripWithImage",// where you wanna post
-		        data:  form,
-		        //dataType: "json",
-		        contentType: false,
-		        processData:false,
-		        error: function(jqXHR, textStatus, errorMessage) {
-		        	console.log(errorMessage)
-		        },
-		        success: function(data) {
-		        	$("#addform")[0].reset();
-		        	console.log(data.res)
-		        	editFromAccount=false;
-		        } 
-		    });
-		moveToAccountPage();
-	}
-	else if(edit){
-		form.append("flag", "favorites");
-		$.ajax({
-			type: "post",
-		        url: g_domain+"add",// where you wanna post
-		        data:  form,
-		        //dataType: "json",
-		        contentType: false,
-		        processData:false,
-		        error: function(jqXHR, textStatus, errorMessage) {
-		        	console.log(errorMessage)
-		        },
-		        success: function(data) {
-		        	console.log(data.res)
-		        	if(edit==true){
-		        		addToFavoFromEdit(data.res);
-		        	}
-		        	edit=false;
-		        } 
-		    });
-		moveToHomePage();
-	}
-	else{
-		form.append("flag", "addNewTrip");
-		$.ajax({
-			type: "post",
-		        url: g_domain+"add",// where you wanna post
-		        data:  form,
-		        //dataType: "json",
-		        contentType: false,
-		        processData:false,
-		        error: function(jqXHR, textStatus, errorMessage) {
-		        	console.log(errorMessage)
-		        },
-		        success: function(data) {
-		        	console.log(data.res)
-		        } 
-		    });
-		moveToHomePage();
-	}
-	}
-	else{
-		if(editFromAccount){
-		form.append("tripId" , g_trip._id);
-		form.append("flag" , "account");
-		$.ajax({
-			type: "post",
-		        url: g_domain+"updateTripWithOutImages",// where you wanna post
-		        data:  form,
-		        //dataType: "json",
-		        contentType: false,
-		        processData:false,
-		        error: function(jqXHR, textStatus, errorMessage) {
-		        	console.log(errorMessage)
-		        },
-		        success: function(data) {
-		        	$("#addform")[0].reset();		        	
-		        	console.log(data.res)
-		        	editFromAccount=false;
-		        } 
-		    });
-		moveToAccountPage();
-	}
-	else if(edit){
-		form.append("tripId", g_trip._id)
-		form.append("flag", "favorites");
-		$.ajax({
-			type: "post",
-		        url: g_domain+"addTripWithoutImages",// where you wanna post
-		        data:  form,
-		        //dataType: "json",
-		        contentType: false,
-		        processData:false,
-		        error: function(jqXHR, textStatus, errorMessage) {
-		        	console.log(errorMessage)
-		        },
-		        success: function(data) {
-		        	console.log(data.res)
-		        	if(edit==true){
-		        		addToFavoFromEdit(data.res);
-		        	}
-		        	edit=false;
-		        } 
-		    });
-		moveToHomePage();
-	}
-	else{
-		form.append("flag", "addNewTrip");
-		$.ajax({
-			type: "post",
-		        url: g_domain+"addTripWithoutImages",// where you wanna post
-		        data:  form,
-		        //dataType: "json",
-		        contentType: false,
-		        processData:false,
-		        error: function(jqXHR, textStatus, errorMessage) {
-		        	console.log(errorMessage)
-		        },
-		        success: function(data) {
-		        	console.log(data.res)
-		        } 
-		    });
-		moveToHomePage();
-	}
-	}
-return true;
-})
+// 		temp_arr = temp.split(" ");
+// 		console.log(temp_arr);
+// 		form.append("shareEmail",temp_arr);
+// 	}
+// 	console.log(form);
+// 	console.log(tempJaners, "filter",tempFilter)
+// 	if(($(this).find('#imgUpload')[0].files.length) > 0){
+// 		console.log("uploading images")
+// 		if(editFromAccount){
+// 		form.append("tripId" , g_trip._id);
+// 		form.append("flag" , "account");
+// 		$.ajax({
+// 			type: "post",
+// 		        url: g_domain+"updateTripWithImage",// where you wanna post
+// 		        data:  form,
+// 		        //dataType: "json",
+// 		        contentType: false,
+// 		        processData:false,
+// 		        error: function(jqXHR, textStatus, errorMessage) {
+// 		        	console.log(errorMessage)
+// 		        },
+// 		        success: function(data) {
+// 		        	$("#addform")[0].reset();
+// 		        	console.log(data.res)
+// 		        	editFromAccount=false;
+// 		        } 
+// 		    });
+// 		moveToAccountPage();
+// 	}
+// 	else if(edit){
+// 		form.append("flag", "favorites");
+// 		$.ajax({
+// 			type: "post",
+// 		        url: g_domain+"add",// where you wanna post
+// 		        data:  form,
+// 		        //dataType: "json",
+// 		        contentType: false,
+// 		        processData:false,
+// 		        error: function(jqXHR, textStatus, errorMessage) {
+// 		        	console.log(errorMessage)
+// 		        },
+// 		        success: function(data) {
+// 		        	console.log(data.res)
+// 		        	if(edit==true){
+// 		        		addToFavoFromEdit(data.res);
+// 		        	}
+// 		        	edit=false;
+// 		        } 
+// 		    });
+// 		moveToHomePage();
+// 	}
+// 	else{
+// 		form.append("flag", "addNewTrip");
+// 		$.ajax({
+// 			type: "post",
+// 		        url: g_domain+"add",// where you wanna post
+// 		        data:  form,
+// 		        //dataType: "json",
+// 		        contentType: false,
+// 		        processData:false,
+// 		        error: function(jqXHR, textStatus, errorMessage) {
+// 		        	console.log(errorMessage)
+// 		        },
+// 		        success: function(data) {
+// 		        	console.log(data.res)
+// 		        } 
+// 		    });
+// 		moveToHomePage();
+// 	}
+// 	}
+// 	else{
+// 		if(editFromAccount){
+// 		form.append("tripId" , g_trip._id);
+// 		form.append("flag" , "account");
+// 		$.ajax({
+// 			type: "post",
+// 		        url: g_domain+"updateTripWithOutImages",// where you wanna post
+// 		        data:  form,
+// 		        //dataType: "json",
+// 		        contentType: false,
+// 		        processData:false,
+// 		        error: function(jqXHR, textStatus, errorMessage) {
+// 		        	console.log(errorMessage)
+// 		        },
+// 		        success: function(data) {
+// 		        	$("#addform")[0].reset();		        	
+// 		        	console.log(data.res)
+// 		        	editFromAccount=false;
+// 		        } 
+// 		    });
+// 		moveToAccountPage();
+// 	}
+// 	else if(edit){
+// 		form.append("tripId", g_trip._id)
+// 		form.append("flag", "favorites");
+// 		$.ajax({
+// 			type: "post",
+// 		        url: g_domain+"addTripWithoutImages",// where you wanna post
+// 		        data:  form,
+// 		        //dataType: "json",
+// 		        contentType: false,
+// 		        processData:false,
+// 		        error: function(jqXHR, textStatus, errorMessage) {
+// 		        	console.log(errorMessage)
+// 		        },
+// 		        success: function(data) {
+// 		        	console.log(data.res)
+// 		        	if(edit==true){
+// 		        		addToFavoFromEdit(data.res);
+// 		        	}
+// 		        	edit=false;
+// 		        } 
+// 		    });
+// 		moveToHomePage();
+// 	}
+// 	else{
+// 		form.append("flag", "addNewTrip");
+// 		$.ajax({
+// 			type: "post",
+// 		        url: g_domain+"addTripWithoutImages",// where you wanna post
+// 		        data:  form,
+// 		        //dataType: "json",
+// 		        contentType: false,
+// 		        processData:false,
+// 		        error: function(jqXHR, textStatus, errorMessage) {
+// 		        	console.log(errorMessage)
+// 		        },
+// 		        success: function(data) {
+// 		        	console.log(data.res)
+// 		        } 
+// 		    });
+// 		moveToHomePage();
+// 	}
+// 	}
+// return true;
+// })
 
 function addToFavoFromEdit(tripToUpdate){
 
@@ -2000,61 +1900,61 @@ $(window).on('hashchange', function(e) {
 		addDataToAddPage();
 	}
 });
-$(document).on("click","addTrip",function(){
-	moveToAddPage()
-	addDataToAddPage();
-});
-function addDataFilters(){
-		$('#who_are_you_going_with div button .nameF').html(TRIPPER_DATA.who_are_you_going_with);
-		$('label[for="trip_with_animals"]').text(TRIPPER_DATA.trip_with_animals);
-		$('label[for="trip_with_road"]').text(TRIPPER_DATA.trip_with_road);
-		$('label[for="trip_for_children"]').text(TRIPPER_DATA.trip_for_children);
+// $(document).on("click","addTrip",function(){
+// 	moveToAddPage()
+// 	addDataToAddPage();
+// });
+// function addDataFilters(){
+// 		$('#who_are_you_going_with div button .nameF').html(TRIPPER_DATA.who_are_you_going_with);
+// 		$('label[for="trip_with_animals"]').text(TRIPPER_DATA.trip_with_animals);
+// 		$('label[for="trip_with_road"]').text(TRIPPER_DATA.trip_with_road);
+// 		$('label[for="trip_for_children"]').text(TRIPPER_DATA.trip_for_children);
 		
-		$('#trip_kind div button .nameF').html(TRIPPER_DATA.trip_kind);
-		$('label[for="trip_with_watter"]').text(TRIPPER_DATA.trip_with_watter);
-		$('label[for="trip_with_bicycle"]').text(TRIPPER_DATA.trip_with_bicycle);
-		$('label[for="trip_with_jeep"]').text(TRIPPER_DATA.trip_with_jeep);
-		$('label[for="trip_for_day"]').text(TRIPPER_DATA.trip_for_day);
-		$('label[for="trip_for_night"]').text(TRIPPER_DATA.trip_for_night);
-};
-var numOfSite=0;
-function addDataToAddPage(){
-	$('#preivateT').hide();
-	addDataFilters();
-	$('#addTripTitle').html(TRIPPER_DATA.addTripTitle);
+// 		$('#trip_kind div button .nameF').html(TRIPPER_DATA.trip_kind);
+// 		$('label[for="trip_with_watter"]').text(TRIPPER_DATA.trip_with_watter);
+// 		$('label[for="trip_with_bicycle"]').text(TRIPPER_DATA.trip_with_bicycle);
+// 		$('label[for="trip_with_jeep"]').text(TRIPPER_DATA.trip_with_jeep);
+// 		$('label[for="trip_for_day"]').text(TRIPPER_DATA.trip_for_day);
+// 		$('label[for="trip_for_night"]').text(TRIPPER_DATA.trip_for_night);
+// };
+// var numOfSite=0;
+// function addDataToAddPage(){
+// 	$('#preivateT').hide();
+// 	addDataFilters();
+// 	$('#addTripTitle').html(TRIPPER_DATA.addTripTitle);
 
-	numOfSite++;
-	var div = $('<div>').addClass('site');
-	var p = $('<p>').html(numOfSite+'.');
-	var inputName =$('<input>').attr({"id":"siteName"+numOfSite,"type":"text","name":"site","placeholder":"אתר","class":"siteName"});
-	var inputFile =$('<input>').attr({"id":"imgUpload","type":"file","class":"file","accept":"image/*","value":"העלת תמונה","onchange":"showMyImage(this,'')","name":"file","class":"image_i"});
-	var img = $('<img>').attr({'id':'thumbnil'}).addClass('thumbnil');
-	div.append(p);
-	div.append(inputName);
-	div.append(inputFile);
-	div.append(img);
-	$('.sites').append(div);
-	$('.addNewSite').click(function(){
-		numOfSite++;
-		var div = $('<div>').addClass('site');
-		var p = $('<p>').html(numOfSite+'.');
-		var inputName =$('<input>').attr({"id":"siteName"+numOfSite,"type":"text","name":"site","placeholder":"אתר","class":"siteName"});
-		var inputFile =$('<input>').attr({"id":"imgUpload"+numOfSite,"type":"file","class":"file","accept":"image/*","value":"העלת תמונה","onchange":"showMyImage(this,"+numOfSite+")","name":"file","class":"image_i"});
-		var img = $('<img>').attr({'id':'thumbnil'+numOfSite}).addClass('thumbnil');
-		div.append(p);
-		div.append(inputName);
-		div.append(inputFile);
-		div.append(img);
-		$('.sites').append(div);
-	})
-	$("#private_trip").click(function(){
-		$('#preivateT').show();
-	})
+// 	numOfSite++;
+// 	var div = $('<div>').addClass('site');
+// 	var p = $('<p>').html(numOfSite+'.');
+// 	var inputName =$('<input>').attr({"id":"siteName"+numOfSite,"type":"text","name":"site","placeholder":"אתר","class":"siteName"});
+// 	var inputFile =$('<input>').attr({"id":"imgUpload","type":"file","class":"file","accept":"image/*","value":"העלת תמונה","onchange":"showMyImage(this,'')","name":"file","class":"image_i"});
+// 	var img = $('<img>').attr({'id':'thumbnil'}).addClass('thumbnil');
+// 	div.append(p);
+// 	div.append(inputName);
+// 	div.append(inputFile);
+// 	div.append(img);
+// 	$('.sites').append(div);
+// 	$('.addNewSite').click(function(){
+// 		numOfSite++;
+// 		var div = $('<div>').addClass('site');
+// 		var p = $('<p>').html(numOfSite+'.');
+// 		var inputName =$('<input>').attr({"id":"siteName"+numOfSite,"type":"text","name":"site","placeholder":"אתר","class":"siteName"});
+// 		var inputFile =$('<input>').attr({"id":"imgUpload"+numOfSite,"type":"file","class":"file","accept":"image/*","value":"העלת תמונה","onchange":"showMyImage(this,"+numOfSite+")","name":"file","class":"image_i"});
+// 		var img = $('<img>').attr({'id':'thumbnil'+numOfSite}).addClass('thumbnil');
+// 		div.append(p);
+// 		div.append(inputName);
+// 		div.append(inputFile);
+// 		div.append(img);
+// 		$('.sites').append(div);
+// 	})
+// 	$("#private_trip").click(function(){
+// 		$('#preivateT').show();
+// 	})
 
-	$('#public_trip').click(function(){
-		$('#preivateT').hide();
-	})
-}
+// 	$('#public_trip').click(function(){
+// 		$('#preivateT').hide();
+// 	})
+// }
 
 function moveToAddPage() {
 	$.mobile.changePage("#addTripPage", {
@@ -2164,60 +2064,39 @@ function signinCallback(authResult) {
 		}
 	}
 
-	function updateTripFromCharchters(tc){
-
-		console.log("charachtrs length ", clickedCharachters.length)
-
-		$.ajax({
-			type: "post",
-        url: g_domain+"filterByChars",// where you wanna post
-        data:  {chars:tc, userId:User.email, numOfCharachters : clickedCharachters.length},
-        dataType: "json",
-        //contentType: "application/json",
-        error: function(jqXHR, textStatus, errorMessage) {
-        	console.log(errorMessage)
+function updateTripFromCharchters(tc){
+	console.log("charachtrs length ", clickedCharachters.length)
+	$.ajax({
+		type: "post",
+	    url: g_domain+"filterByChars",// where you wanna post
+	    data:  {chars:tc, userId:User.email, numOfCharachters : clickedCharachters.length},
+	    dataType: "json",
+	    //contentType: "application/json",
+	    error: function(jqXHR, textStatus, errorMessage) {
+	    	console.log(errorMessage)
 
 
-        },
-        success: function(data) {
-        	count=1;
-        	janers = clickedCharachters;
-        	clickedCharachters=[];
-        	tripsAfterCharachters = data;
-        	g_ListTrip = data;
-        	displayListTrip(data);
-        	console.log(data)
-        	console.log("listResultTrip")
-        	moveTofilterPage();	      
-        } 
-    });
-	}
-
+	    },
+	    success: function(data) {
+	    	count=1;
+	    	janers = clickedCharachters;
+	    	clickedCharachters=[];
+	    	tripsAfterCharachters = data;
+	    	g_ListTrip = data;
+	    	displayListTrip(data);
+	    	console.log(data)
+	    	console.log("listResultTrip")
+	    	moveTofilterPage();	      
+	    } 
+	});
+}
+/********  display trip on The Trip Page *********/
 function displayListTrip(data){
 	console.log(data)
-	// if (e.originalEvent.newURL.indexOf("#myPageSchedule") != -1) {
-	// 	console.log("home")
-	// }
-	// $('.userDetailes').empty();
-	// if (User) {
-	// 	// var divUser = $('<div>').addClass('userDetailes');
-	// 	var spanUser = $('<span>').html(User.name).addClass('nameUser');
-	// 	var imgUser = $('<img>').attr("src",User.image).addClass('imgUser');
-	// 	$('.userDetailes').append(imgUser)
-	// 	$('.userDetailes').append(spanUser)
-	// }
+
 	/**** data to result page *****/
 
 	addDataFilters();
-
-		
-		// $('#dificullty button span').html(TRIPPER_DATA.dificullty);
-		// $('#light_trip a').html(TRIPPER_DATA.light_trip);
-		// $('#medium_trip a').html(TRIPPER_DATA.medium_trip);
-		// $('#hard_trip a').html(TRIPPER_DATA.hard_trip);
-		
-		// $('#area button span').html(TRIPPER_DATA.area);
-
 
 	/****end data to result page *****/
 	if(window.location.hash=='#viewFavorite')
@@ -2349,7 +2228,21 @@ $(document).on('click','#showTrips',function(){
 		getUserTrip();
 	}
 });
-
+function getUserTrip(){
+	$.ajax({
+		type : "get",
+		url : g_domain+"findTripByUser?email="+User.email,
+       // contentType: "application/json",
+       success : function(data) {
+       	console.log(data);
+       	g_ListTrip=data;
+       	displayListTrip(data);
+       	
+       },
+       error : function(objRequest, errortype) {
+       }
+   });
+}
 function create_user(user){
 	$.ajax({
 		type : "POST",
@@ -2367,21 +2260,7 @@ function create_user(user){
        }
    });
 }
-function getUserTrip(){
-	$.ajax({
-		type : "get",
-		url : g_domain+"findTripByUser?email="+User.email,
-       // contentType: "application/json",
-       success : function(data) {
-       	console.log(data);
-       	g_ListTrip=data;
-       	displayListTrip(data);
-       	
-       },
-       error : function(objRequest, errortype) {
-       }
-   });
-}
+
 $(document).on('click','.titelNameFavorite',function(){
 	
 	favoriteFlag=1;
@@ -2572,173 +2451,151 @@ $(document).on('click', '.addToSchedule', function(){
 
 })
 
-$(document).on('click','#editFavorite',function(){
-	console.log(g_trip)
-	edit=true;
-	moveToAddPage();
-	$('#trip_name').val(g_trip.trip_name);
-	$('#description').val(g_trip.trip_description);
-	$('#trip_address').val(g_trip.address);
-	switch(g_trip.area) {
-		case 'tel_aviv':
-		$('#radio-choice-1L').click();
-		break;
-		case 'south':
-		$('#radio-choice-2L').click();
-		break;
-		case 'north':
-		$('#radio-choice-3L').click();
-		break;
-	}
-	$('#firstcharachter').val(g_trip.trip_charachters[0]).change();
-	$('#secondcharachter').val(g_trip.trip_charachters[1]).change();
+// $(document).on('click','#editFavorite',function(){
+// 	console.log(g_trip)
+// 	edit=true;
+// 	moveToAddPage();
+// 	$('#trip_name').val(g_trip.trip_name);
+// 	$('#description').val(g_trip.trip_description);
+// 	$('#trip_address').val(g_trip.address);
+// 	switch(g_trip.area) {
+// 		case 'tel_aviv':
+// 		$('#radio-choice-1L').click();
+// 		break;
+// 		case 'south':
+// 		$('#radio-choice-2L').click();
+// 		break;
+// 		case 'north':
+// 		$('#radio-choice-3L').click();
+// 		break;
+// 	}
+// 	$('#firstcharachter').val(g_trip.trip_charachters[0]).change();
+// 	$('#secondcharachter').val(g_trip.trip_charachters[1]).change();
 
-	$.each(g_trip.trip_filter, function (index,val){
-		$("label[for='"+val+"']").addClass("ui-btn-active ui-checkbox-on");
-		$("label[for='"+val+"']").prev('input').attr("data-cacheval","false");
-		console.log(val);	
-		switch(val) {
-			case 'medium_trip':
-			$("label[for='"+val+"']").click();
-			break;
-			case 'light_trip':
-			$("label[for='"+val+"']").click();
-			break;
-			case 'hard_trip':
-			$("label[for='"+val+"']").click();
-			break;
-		}
-	});
-	$("label[for='public_trip']").click();
-	if(g_trip.trip_isPrivate){
-		$("label[for='private_trip']").click();
-		$("#shareEmail").val(g_trip.shareEmail);
+// 	$.each(g_trip.trip_filter, function (index,val){
+// 		$("label[for='"+val+"']").addClass("ui-btn-active ui-checkbox-on");
+// 		$("label[for='"+val+"']").prev('input').attr("data-cacheval","false");
+// 		console.log(val);	
+// 		switch(val) {
+// 			case 'medium_trip':
+// 			$("label[for='"+val+"']").click();
+// 			break;
+// 			case 'light_trip':
+// 			$("label[for='"+val+"']").click();
+// 			break;
+// 			case 'hard_trip':
+// 			$("label[for='"+val+"']").click();
+// 			break;
+// 		}
+// 	});
+// 	$("label[for='public_trip']").click();
+// 	if(g_trip.trip_isPrivate){
+// 		$("label[for='private_trip']").click();
+// 		$("#shareEmail").val(g_trip.shareEmail);
 
-	}else{
-		$("label[for='public_trip']").click();
-	}
-	var len = g_trip.tripSites.length;
+// 	}else{
+// 		$("label[for='public_trip']").click();
+// 	}
+// 	var len = g_trip.tripSites.length;
 	
-	if(len){
-		$.each(g_trip.tripSites,function(i,val){
-			if ((i+1)==1 ) {
-				firstSites()
-			};
-			if ((i+1)>1) {
-				console.log(i);
-				$('#newChild'+(i+1)).val(val.siteName);
-				$('#thumbnil'+(i+1)).attr("src",val.img);
-			};
-		});
-	}
-	// $('#imgUpload').focus();
-	// $('#thumbnil').attr("src",g_trip.imageUrl);
-	$('#dvMap').click(function (){
+// 	if(len){
+// 		$.each(g_trip.tripSites,function(i,val){
+// 			if ((i+1)==1 ) {
+// 				firstSites()
+// 			};
+// 			if ((i+1)>1) {
+// 				console.log(i);
+// 				$('#newChild'+(i+1)).val(val.siteName);
+// 				$('#thumbnil'+(i+1)).attr("src",val.img);
+// 			};
+// 		});
+// 	}
+// 	// $('#imgUpload').focus();
+// 	// $('#thumbnil').attr("src",g_trip.imageUrl);
+// 	$('#dvMap').click(function (){
 
-	});
-	if(g_trip.mapPoint){
-		mapPoint.lat=g_trip.mapPoint.lat;
-		mapPoint.lng=g_trip.mapPoint.lng;
-	}
-		 // $('.firstIngredient').val(g_trip.tripSites[0].siteName)
-	 //  $('.firstAmount').val(g_trip.tripSites[0].location)
-	// $.each(g_trip.sites,function(index,val){
+// 	});
+// 	if(g_trip.mapPoint){
+// 		mapPoint.lat=g_trip.mapPoint.lat;
+// 		mapPoint.lng=g_trip.mapPoint.lng;
+// 	}
+// 		 // $('.firstIngredient').val(g_trip.tripSites[0].siteName)
+// 	 //  $('.firstAmount').val(g_trip.tripSites[0].location)
+// 	// $.each(g_trip.sites,function(index,val){
 
-	// });
-});
+// 	// });
+// });
 
-$(document).on('click','#editTripFromAccount',function(){
+// $(document).on('click','#editTripFromAccount',function(){
 
-	console.log(g_trip)
-	editFromAccount=true;
-	moveToAddPage();
-	$('#trip_name').val(g_trip.trip_name);
-	$('#description').val(g_trip.trip_description);
-	$('#trip_address').val(g_trip.address);
-	switch(g_trip.area) {
-		case 'tel_aviv':
-		$('#radio-choice-1L').click();
-		break;
-		case 'south':
-		$('#radio-choice-2L').click();
-		break;
-		case 'north':
-		$('#radio-choice-3L').click();
-		break;
-	}
-	$('#firstcharachter').val(g_trip.trip_charachters[0]).change();
-	$('#secondcharachter').val(g_trip.trip_charachters[1]).change();
+// 	console.log(g_trip)
+// 	editFromAccount=true;
+// 	moveToAddPage();
+// 	$('#trip_name').val(g_trip.trip_name);
+// 	$('#description').val(g_trip.trip_description);
+// 	$('#trip_address').val(g_trip.address);
+// 	switch(g_trip.area) {
+// 		case 'tel_aviv':
+// 		$('#radio-choice-1L').click();
+// 		break;
+// 		case 'south':
+// 		$('#radio-choice-2L').click();
+// 		break;
+// 		case 'north':
+// 		$('#radio-choice-3L').click();
+// 		break;
+// 	}
+// 	$('#firstcharachter').val(g_trip.trip_charachters[0]).change();
+// 	$('#secondcharachter').val(g_trip.trip_charachters[1]).change();
 
-	$.each(g_trip.trip_filter, function (index,val){
-		$("label[for='"+val+"']").addClass("ui-btn-active ui-checkbox-on");
-		$("label[for='"+val+"']").prev('input').attr("data-cacheval","false");
-		console.log(val);	
-		switch(val) {
-			case 'medium_trip':
-			$("label[for='"+val+"']").click();
-			break;
-			case 'light_trip':
-			$("label[for='"+val+"']").click();
-			break;
-			case 'hard_trip':
-			$("label[for='"+val+"']").click();
-			break;
-		}
-	});
-	$("label[for='public_trip']").click();
-	if(g_trip.trip_isPrivate){
-		$("label[for='private_trip']").click();
-		$("#shareEmail").val(g_trip.shareEmail);
+// 	$.each(g_trip.trip_filter, function (index,val){
+// 		$("label[for='"+val+"']").addClass("ui-btn-active ui-checkbox-on");
+// 		$("label[for='"+val+"']").prev('input').attr("data-cacheval","false");
+// 		console.log(val);	
+// 		switch(val) {
+// 			case 'medium_trip':
+// 			$("label[for='"+val+"']").click();
+// 			break;
+// 			case 'light_trip':
+// 			$("label[for='"+val+"']").click();
+// 			break;
+// 			case 'hard_trip':
+// 			$("label[for='"+val+"']").click();
+// 			break;
+// 		}
+// 	});
+// 	$("label[for='public_trip']").click();
+// 	if(g_trip.trip_isPrivate){
+// 		$("label[for='private_trip']").click();
+// 		$("#shareEmail").val(g_trip.shareEmail);
 
-	}else{
-		$("label[for='public_trip']").click();
-	}
-	var len = g_trip.tripSites.length;
+// 	}else{
+// 		$("label[for='public_trip']").click();
+// 	}
+// 	var len = g_trip.tripSites.length;
 	
-	if(len){
-		$.each(g_trip.tripSites,function(i,val){
-			if ((i+1)==1 ) {
-				firstSites()
-			};
-			if ((i+1)>1) {
-				console.log(i);
-				$('#newChild'+(i+1)).val(val.siteName);
-				$('#thumbnil'+(i+1)).attr("src",val.img);
-			};
-		});
-	}
+// 	if(len){
+// 		$.each(g_trip.tripSites,function(i,val){
+// 			if ((i+1)==1 ) {
+// 				firstSites()
+// 			};
+// 			if ((i+1)>1) {
+// 				console.log(i);
+// 				$('#newChild'+(i+1)).val(val.siteName);
+// 				$('#thumbnil'+(i+1)).attr("src",val.img);
+// 			};
+// 		});
+// 	}
 
-	if(g_trip.mapPoint){
-		mapPoint.lat=g_trip.mapPoint.lat;
-		mapPoint.lng=g_trip.mapPoint.lng;
-	}
+// 	if(g_trip.mapPoint){
+// 		mapPoint.lat=g_trip.mapPoint.lat;
+// 		mapPoint.lng=g_trip.mapPoint.lng;
+// 	}
 
-});
-function firstSites(){
-	$('.firstIngredient').trigger('focus').val(g_trip.tripSites[0].siteName);
-	$('#thumbnil').attr("src",g_trip.tripSites[0].img);
-	$('#imgUpload').val(g_trip.tripSites[0].img);
-}
+// });
+// function firstSites(){
+// 	$('.firstIngredient').trigger('focus').val(g_trip.tripSites[0].siteName);
+// 	$('#thumbnil').attr("src",g_trip.tripSites[0].img);
+// 	$('#imgUpload').val(g_trip.tripSites[0].img);
+// }
 
-$(document).on('click','.btn-primary',function(){
-	r = $('#us3-radius').val();
-	r = r;
-	console.log(g_ListTrip)
-	var tempList=[];
-	$.each(g_ListTrip,function(index,val){
-		isInDdistance = distance(t1,t2,val.mapPoint.lat,val.mapPoint.lng);
-		console.log(isInDdistance);
-		isInDdistance=isInDdistance*100;
-		console.log(isInDdistance);
-		if( r > isInDdistance ){
-			console.log("trip is in the redius",val)
-			tempList.push(val);
-		}
-		else{
-			console.log("trip is'not in the redius",val)	
-		}	
-	});
-	console.log(g_ListTrip)
-	displayListTrip(tempList);
-	console.log(tempList);
-});

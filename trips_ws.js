@@ -231,7 +231,7 @@ router.post('/filterByChars', function(req, res) {
 		db.model('tripper_playlists').find( {$or : [
 		{$and: [ {trip_charachters: charachters[0] }, { trip_isPrivate : false } ] },
 		{$and: [ {trip_charachters: charachters[0] }, { trip_isPrivate : true }, { shareEmail : user} ] }, 
-		]},{ _id : true, trip_name : true, area : true, trip_filter : true, tripSites : true}).sort({ rate : 'ascending'}).exec(function (err, docs)
+		]},{ _id : true, trip_name : true, area : true, trip_filter : true, tripSites : true, mapPoint : true}).sort({ rate : 'ascending'}).exec(function (err, docs)
 		{ 
                 // failure while connecting to sessions collection
                 if (err) 
@@ -252,7 +252,7 @@ router.post('/filterByChars', function(req, res) {
 		db.model('tripper_playlists').find( {$or : [
 		{$and: [ {trip_charachters: { $all : [charachters[0], charachters[1] ] } }, { trip_isPrivate : false } ] },
 		{$and: [ {trip_charachters: { $all : [charachters[0], charachters[1] ] } }, { trip_isPrivate : true }, { shareEmail : user} ] }, 
-		]},{ _id : true, trip_name : true, area : true, trip_filter : true, tripSites : true}).sort({ rate : 'ascending'}).exec(function (err, docs)
+		]},{ _id : true, trip_name : true, area : true, trip_filter : true, tripSites : true, mapPoint : true}).sort({ rate : 'ascending'}).exec(function (err, docs)
 		{ 
                 // failure while connecting to sessions collection
                 if (err) 
