@@ -446,17 +446,34 @@ function initMap(l1,l2){
 	});
 }
 
+// $('dropdown-toggle.dropdown-menu li').on('click', function (event) {
+// 	console.log("clicked")
+//     $(this).parent().toggleClass('open');
+// });
+
+// $('body').on('click', function (e) {
+//     if (!$('li.dropdown.mega-dropdown').is(e.target) 
+//         && $('li.dropdown.mega-dropdown').has(e.target).length === 0 
+//         && $('.open').has(e.target).length === 0
+//     ) {
+//         $('li.dropdown.mega-dropdown').removeClass('open');
+//     }
+// });
+
 $(document).on('change', 'ul.dropdown-menu li input[type=checkbox]', function() {
     	console.log("changed")
         // $(this).change(function() {
             var line_trip_kind = "";
             var line_trip_with_who = "";
             var line_janers = "";
+            var parentOfThisFilters = $(this).parent().parent().parent().parent().parent().attr('id');
+            var parentOfThisJarenrs = $(this).parent().parent().parent().parent().parent().parent().attr('id');
+            var appendTextToParentLabel = $(this).parent().parent().parent().parent().children();
             // debugger
-            console.log($(this))
+            // console.log($(this))
             console.log("jkhdsfkjsdhgs", $(this).parent().parent().parent().parent().parent().attr('id'));
-            console.log($("ul.dropdown-menu").parent().parent().attr("id"));
-            if($(this).parent().parent().parent().parent().parent().attr('id') === "who_are_you_going_with"){
+            // console.log($("ul.dropdown-menu").parent().parent().attr("id"));
+            if(parentOfThisFilters === "who_are_you_going_with"){
             	console.log("who");
             	$('#who_are_you_going_with input:checked').each(function() {
             	// var line = "";
@@ -466,9 +483,9 @@ $(document).on('change', 'ul.dropdown-menu li input[type=checkbox]', function() 
                 // }
                 	console.log(line_trip_with_who)
             	});
-     	     	$(this).parent().parent().parent().parent().children().first('span.nameF').text(line_trip_with_who);
+     	     	appendTextToParentLabel.first('span.nameF').text(line_trip_with_who);
             }
-            else if($(this).parent().parent().parent().parent().parent().attr('id') === "trip_kind"){
+            else if(parentOfThisFilters === "trip_kind"){
             	console.log("else")
             	$('#trip_kind input:checked').each(function() {
             	// var line = "";
@@ -477,10 +494,10 @@ $(document).on('change', 'ul.dropdown-menu li input[type=checkbox]', function() 
                 // }
                 console.log(line_trip_kind)
             });
-          	$(this).parent().parent().parent().parent().children().first('span.nameF').text(line_trip_kind);
+          	appendTextToParentLabel.first('span.nameF').text(line_trip_kind);
 
             }
-            else if($(this).parent().parent().parent().parent().parent().parent().attr('id') === "pickJaner"){
+            else if(parentOfThisJarenrs === "pickJaner"){
             	console.log("pickJaner");
             	$('#pickJaner input:checked').each(function() {
             	// var line = "";
@@ -489,7 +506,7 @@ $(document).on('change', 'ul.dropdown-menu li input[type=checkbox]', function() 
                 // }
                 console.log(line_janers)
             });
-          	$(this).parent().parent().parent().parent().children().first('span').text(line_janers);
+          	appendTextToParentLabel.first('span').text(line_janers);
             }
 
 });
