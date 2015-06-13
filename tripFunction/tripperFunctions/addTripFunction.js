@@ -256,9 +256,15 @@ $(document).on('click','#editFavorite',function(){
 		$('#radio-choice-3L').click();
 		break;
 	}
-	$('#firstcharachter').val(g_trip.trip_charachters[0]).change();
-	$('#secondcharachter').val(g_trip.trip_charachters[1]).change();
-
+	for (i=0; i<11;i++){
+		if($('label[for='+(i+1)+']').text()==g_trip.trip_charachters[0])
+		{
+			console.log($('label[for='+(i+1)+']').text())
+			$('label[for='+(i+1)+']').parent().children('input').click();
+		}else if($('label[for='+(i+1)+']').text()==g_trip.trip_charachters[1]){
+			$('label[for='+(i+1)+']').parent().children('input').click();
+		}
+	}
 	$.each(g_trip.trip_filter, function (index,val){
 		$("label[for='"+val+"']").addClass("ui-btn-active ui-checkbox-on");
 		$("label[for='"+val+"']").prev('input').attr("data-cacheval","false");
@@ -286,19 +292,17 @@ $(document).on('click','#editFavorite',function(){
 	var len = g_trip.tripSites.length;
 	
 	if(len){
-		$.each(g_trip.tripSites,function(i,val){
+			$.each(g_trip.tripSites,function(i,val){
 			if ((i+1)==1 ) {
 				firstSites()
-			};
-			if ((i+1)>1) {
+			}else {
 				console.log(i);
-				$('#newChild'+(i+1)).val(val.siteName);
+				$('.addNewSite').click();
+				$('#siteName'+(i+1)).val(val.siteName);
 				$('#thumbnil'+(i+1)).attr("src",val.img);
 			};
 		});
 	}
-	// $('#imgUpload').focus();
-	// $('#thumbnil').attr("src",g_trip.imageUrl);
 	$('#dvMap').click(function (){
 
 	});
@@ -306,15 +310,11 @@ $(document).on('click','#editFavorite',function(){
 		mapPoint.lat=g_trip.mapPoint.lat;
 		mapPoint.lng=g_trip.mapPoint.lng;
 	}
-		 // $('.firstIngredient').val(g_trip.tripSites[0].siteName)
-	 //  $('.firstAmount').val(g_trip.tripSites[0].location)
-	// $.each(g_trip.sites,function(index,val){
 
-	// });
 });
 
 $(document).on('click','#editTripFromAccount',function(){
-
+	$('.addNewSite').click();
 	console.log(g_trip)
 	editFromAccount=true;
 	moveToAddPage();
@@ -332,9 +332,14 @@ $(document).on('click','#editTripFromAccount',function(){
 		$('#radio-choice-3L').click();
 		break;
 	}
-	$('#firstcharachter').val(g_trip.trip_charachters[0]).change();
-	$('#secondcharachter').val(g_trip.trip_charachters[1]).change();
-
+	for (i=0; i<11;i++){
+		if($('label[for='+(i+1)+']').text()==g_trip.trip_charachters[0])
+		{
+			$('label[for='+(i+1)+']').parent().children('input').click();
+		}else if($('label[for='+(i+1)+']').text()==g_trip.trip_charachters[1]){
+			$('label[for='+(i+1)+']').parent().children('input').click();
+		}
+	}
 	$.each(g_trip.trip_filter, function (index,val){
 		$("label[for='"+val+"']").addClass("ui-btn-active ui-checkbox-on");
 		$("label[for='"+val+"']").prev('input').attr("data-cacheval","false");
@@ -351,7 +356,6 @@ $(document).on('click','#editTripFromAccount',function(){
 			break;
 		}
 	});
-	$("label[for='public_trip']").click();
 	if(g_trip.trip_isPrivate){
 		$("label[for='private_trip']").click();
 		$("#shareEmail").val(g_trip.shareEmail);
@@ -365,10 +369,10 @@ $(document).on('click','#editTripFromAccount',function(){
 		$.each(g_trip.tripSites,function(i,val){
 			if ((i+1)==1 ) {
 				firstSites()
-			};
-			if ((i+1)>1) {
+			}else {
 				console.log(i);
-				$('#newChild'+(i+1)).val(val.siteName);
+				$('.addNewSite').click();
+				$('#siteName'+(i+1)).val(val.siteName);
 				$('#thumbnil'+(i+1)).attr("src",val.img);
 			};
 		});
@@ -381,7 +385,7 @@ $(document).on('click','#editTripFromAccount',function(){
 
 });
 function firstSites(){
-	$('.firstIngredient').trigger('focus').val(g_trip.tripSites[0].siteName);
+	$('#siteName1').val(g_trip.tripSites[0].siteName);
 	$('#thumbnil').attr("src",g_trip.tripSites[0].img);
-	$('#imgUpload').val(g_trip.tripSites[0].img);
+	// $('#imgUpload').val(g_trip.tripSites[0].img);	
 }
