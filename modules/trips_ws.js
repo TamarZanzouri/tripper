@@ -86,9 +86,9 @@ exports.addTrip = function(req, res){
                   		playlistToAdd.trip_name = dataForm.nameTrip;
 						playlistToAdd.trip_description = dataForm.des;
 						playlistToAdd.address = dataForm.locationTrip;
-						tripCharachters.push(dataForm.firstcharachter);
-						tripCharachters.push(dataForm.secondcharachter);
-						playlistToAdd.trip_charachters = tripCharachters;
+						var trip_charachters = JSON.parse(dataForm.trip_charachters);
+						console.log(trip_charachters)
+						playlistToAdd.trip_charachters = trip_charachters;
 						// var sitesName = dataForm.ingredients;
 						// console.log("SSSSSSSSS",sitesName)
 						var loc= dataForm.amount;
@@ -111,6 +111,7 @@ exports.addTrip = function(req, res){
 							var shareEmail=dataForm.shareEmail;
 							playlistToAdd.shareEmail=shareEmail;
 							var tripFilter=JSON.parse(dataForm.trip_filter);
+
 							console.log("trip filters " + tripFilter);
 							tripFilter.push(dataForm.difficulty);
 
@@ -557,10 +558,10 @@ console.log("start to add to DB")
 		playlistToAdd.trip_name = dataForm.nameTrip;
 		playlistToAdd.trip_description = dataForm.des;
 		playlistToAdd.address = dataForm.locationTrip;
-		var tripCharachters = [];
-		tripCharachters.push(dataForm.firstcharachter);
-		tripCharachters.push(dataForm.secondcharachter);
-		playlistToAdd.trip_charachters = tripCharachters;
+		// var tripCharachters = [];
+		var trip_charachters = JSON.parse(dataForm.trip_charachters);
+		console.log(trip_charachters)
+		playlistToAdd.trip_charachters = trip_charachters;
 		var sitesName = dataForm.ingredients;
 		console.log("SSSSSSSSS",sitesName)
 		var loc= dataForm.amount;
@@ -653,7 +654,7 @@ exports.updateTripWithImage = function(req, res){
 	 	console.log(this)
 		var files_temp=[];
 		var temp_paths=[];
-		var tripCharachters = [];
+		// var tripCharachters = [];
 		for(i in file_names){
 			files_temp.push(file_names[i]);
 			
@@ -681,9 +682,7 @@ exports.updateTripWithImage = function(req, res){
                   		if (total != size) return;
                   		
                   		console.log('urls',urls)
-
-						tripCharachters.push(dataForm.firstcharachter);
-						tripCharachters.push(dataForm.secondcharachter);
+						// tripCharachters = JSON.parse(dataForm.trip_charachters);
 						var sitesName = dataForm.ingredients;
 						// console.log("SSSSSSSSS",sitesName)
 						var loc= dataForm.amount;
@@ -708,7 +707,7 @@ exports.updateTripWithImage = function(req, res){
 					docs.trip_name 	= dataForm.nameTrip;
 					docs.trip_description = dataForm.des;
 					docs.address = dataForm.locationTrip;
-					docs.trip_charachters = tripCharachters;
+					docs.trip_charachters = JSON.parse(dataForm.trip_charachters);;
 					docs.mapPoint=(dataForm.mapPoint)?JSON.parse(dataForm.mapPoint):'';
 					if(sites.length > 0)
 						docs.tripSites.push.apply(docs.tripSites, sites);
@@ -771,8 +770,8 @@ exports.updateTripWithOutImages = function(req, res){
 	form.on('end', function(error, fields, files) {
 		console.log("in end of form")
 		console.log("trip id ",dataForm.tripId)
-		tripCharachters.push(dataForm.firstcharachter);
-		tripCharachters.push(dataForm.secondcharachter);
+		// tripCharachters.push(dataForm.firstcharachter);
+		// tripCharachters.push(dataForm.secondcharachter);
 		var sitesName = dataForm.ingredients;
 		console.log("SSSSSSSSS",sitesName)
 		var loc= dataForm.amount;
@@ -799,7 +798,7 @@ exports.updateTripWithOutImages = function(req, res){
 					docs.trip_name 	= dataForm.nameTrip;
 					docs.trip_description = dataForm.des;
 					docs.address = dataForm.locationTrip;
-					docs.trip_charachters = tripCharachters;
+					docs.trip_charachters = JSON.parse(dataForm.trip_charachters);
 					docs.mapPoint=(dataForm.mapPoint)?JSON.parse(dataForm.mapPoint):'';
 					if(sites.length > 0)
 						docs.tripSites.push.apply(docs.tripSites, sites);

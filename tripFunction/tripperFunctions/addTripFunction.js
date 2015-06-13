@@ -24,19 +24,19 @@ $(document).on('submit','#addform',function(e){
 	//console.log($(this))
 	form.append("email",User.email);
 	form.append("mapPoint",JSON.stringify(mapPoint));
-	debugger;
-	$('input[type=checkbox][id!="pickJanerul"]').each(function(value) {
-		if($(this).is(':checked')){
+	// debugger;
+	$('.who_are_you_going_with input:checked').each(function(value) {
 			tempFilter.push($(this).attr('id'));
-		}
+	});
+	$('.trip_kind input:checked').each(function(value) {
+			tempFilter.push($(this).attr('id'));
 	});
 	console.log(tempFilter)
 	form.append("trip_filter", JSON.stringify(tempFilter));
-	$('#pickJanerul > li > input[type=checkbox]').each(function(value){
-		if($(this).is(':checked')){
-			tempJaners.push($(this).prev('label').text());
-		}
+	$('#pickJanerul input:checked').each(function(){
+		tempJaners.push($(this).prev('label').text());
 	});
+	console.log(tempJaners)
 	form.append("trip_charachters", JSON.stringify(tempJaners));
 	var temp_arr =[]
 	var temp= $('#usersList').text();
@@ -50,7 +50,7 @@ $(document).on('submit','#addform',function(e){
 		form.append("shareEmail",temp_arr);
 	}
 	console.log(form);
-	console.log(tempJaners, "filter",tempFilter)
+	console.log("janers", tempJaners, "filter",tempFilter)
 	if(($(this).find('#imgUpload')[0].files.length) > 0){
 		console.log("uploading images")
 		if(editFromAccount){
