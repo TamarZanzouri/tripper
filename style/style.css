@@ -152,17 +152,6 @@ float: right;
   font-weight: 700;
   font-size: 17px;
 }
-/*#imgUpload::before {
-  content: 'העלה תמונה';
-  display: block;
-  outline: none;
-  white-space: nowrap;
-  -webkit-user-select: none;
-  cursor: pointer;
-  text-shadow: 1px 1px #fff;
-  font-weight: 700;
-  font-size: 17px;
-}*/
 
 /********** google *********/
 #signinButton{
@@ -348,6 +337,9 @@ text-align: -webkit-right;
 
 #editTripFromAccount{
   cursor: pointer;
+}
+#editTripFromAccount > img {
+    margin: 10px 2px 0 0;
 }
 #filtermenu{
     width: 96%;
@@ -901,23 +893,24 @@ body, input, select, textarea, button, .ui-btn{
   left: 0 !important;
   height: auto !important;
 }
-.Trip > h1{
-  float: right;
+.Trip >  .divHead> h1{
+    position: relative;
   font-family: 'Alef';
   font-weight: 700;
   font-size: 64px;
-    width: 60%;
-      margin: 0 !important;
+  width: 100%;
+  margin: 10px 0 0px 0 !important;
+  float: inherit;
 }
 
-.Trip >ul{
-  height: 100px;
-  position: relative;
-  left: 14%;
-  padding: 10px 0px 0px 0;
+.Trip >.divHead> ul{
+  position: inherit;
+  width: 100%;
+  float: initial;
+  padding: 0px 0px 0px 0;
+  height: 72px;
 }
-
-.Trip > ul >li{
+.Trip >.divHead> ul >li{
   float: right;
   /* border: 1px solid grey; */
   margin: 22px 5px 11px 5px;
@@ -1445,6 +1438,12 @@ width: 46%;
   position: relative;
   margin: 0 0px 0 12px;
 }
+.divHead {
+  width: 100%;
+  border-bottom: 1px solid #000000;
+  border-top: 1px solid #000000;
+  margin: 0 0 20px 0;
+}
 @media(max-width: 500px){
 
   .mobile-header{
@@ -1578,8 +1577,13 @@ width: 46%;
   text-shadow: none;
   }
   #uploadImgForm{
-    display:block;
-  }
+display: block;
+  margin: 0 0 0 0;
+  display: inline;
+  position: relative;
+    left: 10px;
+  top: 10px;
+}
   #userName{
       font-size: 48px;
         font-size: 48px;
@@ -1613,20 +1617,17 @@ width: 46%;
   .Trip{
     padding: 0;
   }
-  .Trip > h1{
+  .Trip>.divHead > h1{
       font-size: 44px ;
   width: 100%;
     position: relative;
-  left: 25px;
-margin: 0 20px 0 00 !important;
   }
-  .Trip > ul {
+  .Trip >.divHead> ul {
       padding: 0 5px 0 0;
-  margin: 0 25px 0 0;
   position: relative;
     top: 10px;
   }
-  .Trip > ul >li{
+  .Trip > .divHead> ul >li{
   font-size: 23px;
   margin: 0;
     }
@@ -1653,12 +1654,12 @@ margin: 0 20px 0 00 !important;
   float: right !important;
   width: 100%;
   }
-.ulImages>li{
-    margin: 20px 5px 20px 5px !important;
-  float: right !important;
-  width: 25%;
-    display:  inline-flex;
-}
+  .ulImages>li{
+      margin: 20px 5px 20px 5px !important;
+    float: right !important;
+    width: 25%;
+      display:  inline-flex;
+  }
   #timeline{
     width: 100%;
     margin: 0;
@@ -1739,5 +1740,24 @@ margin: 0 20px 0 00 !important;
   }
   #addform > label > textarea{
     width: 92%;
+  }
+  #editTripFromAccount{
+    cursor: pointer;
+    position: relative;
+    left: 50px;
+  }
+  #imgUploadMobile::before {
+   visibility: hidden;
+  }
+  #imgUploadMobile{
+    background: transparent;
+    background-repeat: no-repeat;
+    width: 50px;
+    height: 44px;
+    border: none;
+    background-image: url("images/add_pic.png");  
+  }
+  #imgUploadMobile:hover{
+    background-image: url("images/add_pic_hover.png");  
   }
 }

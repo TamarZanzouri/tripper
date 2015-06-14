@@ -651,32 +651,51 @@ $(document).on("pageinit", "[data-role='page']", function(event) {
 		return false;
 	}
 });
-
+$(document).on('mouseenter',"#editTripFromAccount", function(){
+	$("#editTripFromAccount img").attr("src", "images/edit_hover.png");
+});
+$(document).on('mouseleave',"#editTripFromAccount", function(){
+	$("#editTripFromAccount img").attr("src", "images/edit.png");
+});
+$(document).on('mouseenter',"#editFavorite", function(){
+	$("#editFavorite img").attr("src", "images/edit_hover.png");
+});
+$(document).on('mouseleave',"#editFavorite", function(){
+	$("#editFavorite img").attr("src", "images/edit.png");
+});
+// $(document).on('mouseenter',"#uploadImgForm input", function(){
+// 	$('#imgUploadMobile').css({"background-image":"images/add_pic_hover.png"});
+// });
+// $(document).on('mouseleave',"#uploadImgForm input", function(){
+// 	$('#imgUploadMobile').css({"background-image":"images/add_pic.png"});
+// });
 function displayFullTrip(data){
 	console.log(data)
 	console.log("id: ", data._id)
 	$('.Trip').empty();
-	$('.Trip').append('<form action="#" method="post" id="uploadImgForm"><input id="imgUpload" type="file" accept="image/*" onchange="uploadImgFromTrip(this)"' +
+	var divHead = $('<div>').addClass('divHead');
+	divHead.append('<form action="#" method="post" id="uploadImgForm" ><input id="imgUploadMobile"  type="file" accept="image/*" onchange="uploadImgFromTrip(this)"' +
 		'name="file" class="image_i"></div><input type="submit" value="submit" style="visibility : hidden"/>  </form>')
 	// $('.Trip').append('<input id="imgUpload" type="file" accept="image/*" onchange="uploadImgFromTrip(this)" name="file" class="image_i"><img id="showImage" style="width:20%; margin-top:10px;"  src="" alt="image"/></div></form>');
 	// $('.Trip').append('</form>')
 	if(favoriteFlag==1){
-		$('.Trip').append("<a id='editFavorite'>"+TRIPPER_DATA.editTrip+"</a> </br>");
+		divHead.append("<a id='editFavorite'><img src='images/edit.png'></a> </br>");
 		favoriteFlag=0;
 
 	}
 	if(accountFlag==1){
-		$('.Trip').append("<a id='editTripFromAccount'>"+TRIPPER_DATA.editTrip+"</a> </br>");
+		divHead.append("<a id='editTripFromAccount'><img src='images/edit.png'></a> </br>");
 		$('#uploadImgForm').css("display", "block");
 		accountFlag=0;
 	}
-	$('.Trip').append("<h1>"+g_trip.trip_name+"</h1>");
+	divHead.append("<h1>"+g_trip.trip_name+"</h1>");
 	if(g_trip.trip_charachters[1]=="")
 	{
-		$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li></ul>");
+		divHead.append("<ul><li>"+g_trip.trip_charachters[0]+"</li></ul>");
 	}else{
-		$('.Trip').append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li class='plus'> + </li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
+		divHead.append("<ul><li>"+g_trip.trip_charachters[0]+"</li><li class='plus'> + </li><li>"+g_trip.trip_charachters[1] +"</li></ul>");
 	}
+	$('.Trip').append(divHead);
 	var divImages = $('<div>').addClass('divTripImg')
 	var aPrev = $('<a>').attr("id","previous").html("הקודם");
 	var aNext = $('<a>').attr("id","next").html("הבא");
