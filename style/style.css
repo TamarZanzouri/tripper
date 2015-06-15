@@ -685,6 +685,13 @@ header > a :hover{
   background-color: #1B936E !important;
   color: #EED53D !important;
 }
+#headerlogo:hover{
+  background-color: #22AF87 !important;
+  color: #EED53D !important;
+}
+#logoImg:hover{
+  background-color: #22AF87 !important;
+}
 .nav > li > a > span{
     max-width: none;
   display: block;

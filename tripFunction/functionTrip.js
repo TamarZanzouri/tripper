@@ -406,6 +406,12 @@ $(document).on('mouseenter',"#addTrip", function(){
 $(document).on('mouseleave',"#addTrip", function(){
 	$("#addTrip a img").attr("src", "images/add.png");
 });
+$(document).on('mouseenter',"#logoImg", function(){
+	$("#logoImg").attr("src", "images/logo_hover.png");
+});
+$(document).on('mouseleave',"#logoImg", function(){
+	$("#logoImg").attr("src", "images/logo.png");
+});
 function checkIfInArray(filterToCheck){
 	console.log(filterToCheck, filter)
 	var found = jQuery.inArray(filterToCheck, filter);
@@ -663,6 +669,9 @@ $(document).on('mouseenter',"#editFavorite", function(){
 $(document).on('mouseleave',"#editFavorite", function(){
 	$("#editFavorite img").attr("src", "images/edit.png");
 });
+
+
+
 // $(document).on('mouseenter',"#uploadImgForm input", function(){
 // 	$('#imgUploadMobile').css({"background-image":"images/add_pic_hover.png"});
 // });
