@@ -14,29 +14,36 @@ $(document).ready(function(){
 		if($('#shareSchedule').val())
 		{
 				// debugger
-			shareScheduleWithFriends.push($('#shareSchedule').val());
-			$('#shareSchedule').val("");
-			if(!(_.contains(shareScheduleWithFriends, User.email))){
-				console.log(shareScheduleWithFriends)
-				shareScheduleWithFriends.push(User.email)
-			}	
+			// shareScheduleWithFriends.push($('#shareSchedule').val());
+			var checkMail = $('#shareSchedule').val();
+			console.log(checkMail)
+			if(!checkIfUserIsInPartners(checkMail)){
+				if(!(_.contains(shareScheduleWithFriends, User.email))){
+					console.log(shareScheduleWithFriends)
+					shareScheduleWithFriends.push(User.email)
+			}
 			console.log("sending email")
 			$.ajax({
 				type: "post",
 	        url: g_domain+"updateScheduleParticipents",// where you wanna post
-	        data:  {trips:g_ListTrip, sharedEmail:shareScheduleWithFriends, dateOfTrip : date},
+	        data:  {trips:g_ListTrip, sharedEmail:shareScheduleWithFriends, dateOfTrip : date, checkIfUserExists : checkMail},
 	        dataType: 'json',
 	        error: function(jqXHR, textStatus, errorMessage) {
 	        	console.log(errorMessage)
 	        },
 	        success: function(data) {
 	        	console.log("update success");
+	        	$('#shareSchedule').val("");
 	        	updateSharedTrip();
 	        }
 
 		    });
-		}	
-			return
+		}
+		else{
+			console.log("user in participents")
+		}
+	}	
+	return
 	});
 
 	$('#updateFriendsWithChanges').click(function(){
@@ -257,6 +264,10 @@ num = 0
 	});
 
 });
+
+function checkIfUserIsInPartners(checkMail){
+	return (_.contains(shareScheduleWithFriends, checkMail));
+} 
 
 function removeImmSchedule(){
 	if(window.location.hash=='#myPageSchedule')
