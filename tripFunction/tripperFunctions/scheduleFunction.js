@@ -14,7 +14,6 @@ $(document).ready(function(){
 		if($('#shareSchedule').val())
 		{
 				// debugger
-			// shareScheduleWithFriends.push($('#shareSchedule').val());
 			var checkMail = $('#shareSchedule').val();
 			console.log(checkMail)
 			if(!checkIfUserIsInPartners(checkMail)){
@@ -32,6 +31,10 @@ $(document).ready(function(){
 	        	console.log(errorMessage)
 	        },
 	        success: function(data) {
+	        	if(data === 1){
+	        		shareScheduleWithFriends.push(checkMail);
+	        		console.log(shareScheduleWithFriends);
+	        	}
 	        	console.log("update success");
 	        	$('#shareSchedule').val("");
 	        	updateSharedTrip();
@@ -103,7 +106,7 @@ function displayListScheduleTrip(data){
 	// 	$('.userDetailes').append(imgUser)
 	// 	$('.userDetailes').append(spanUser)
 	// }
-	if (g_ListTrip.length>0) {
+	if (g_ListTrip.length > 0) {
 		$('#scheduleTimeLline').css("display","block");
 	
 	var ul = $('#ulTimeLineSchedule');

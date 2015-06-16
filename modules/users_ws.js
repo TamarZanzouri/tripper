@@ -98,102 +98,121 @@ exports.updateMySchedule = function(req, res){
 		console.log("failed to get user and trip " + err);
 	}
 	console.log("update the schedule",trip)
-	db.model('users').findOne({email:user}).exec(function (err, docs){
+	db.model('users').findOneAndUpdate({email:user}, {$push : {schedule : trip}}).exec(function (err, docs){
 		if(err){
 			res.json({status:0})
 			return console.error(err);
 		}
 		console.log("schedule : " + (docs.schedule).length)
 		console.log("trip partners ", docs.tripPatners)
+		tripPatnersArray = docs.tripPatners;
+		// tripsInScheduleArray = docs.schedule;
+		// console.log("partners ", tripPatnersArray, "trips ", tripsInScheduleArray)
 		if( docs.tripPatners.length > 0 ){
 			console.log("in if")
-			docs.tripPatners.forEach(function(participent){
-				console.log(participent)
-				db.model('users').findOne({email : participent}, function(err, subdocs){
-					if((subdocs.schedule).length == 0){
-						console.log("%%%%%%%%%%%%%%%schedule is empty")
-						subdocs.schedule.push(trip);
-						subdocs.save(function(err, result){
-							if(err){
-								return console.error(err)
-							}	
-							console.log("enterd trip to participent", participent)
-						})
-						return
-					}
-					else{
-						console.log("###############trip is with data")
-						var addToSchedule = subdocs.schedule.every(function(tripsInSchedule){
-							console.log("in trip")
-							console.log("req trip id", trip._id, "trip in schedule", tripsInSchedule._id)
-							if(tripsInSchedule._id == trip._id){
-								console.log("trip allready in schedule")
-								return false
-							}
-							return true
-						});
-						if(addToSchedule){
-							console.log("trip not found")
-							subdocs.schedule.push(trip);
-							subdocs.save(function(err, result){
-								if(err) {
-									return console.error(err)
-								}
-								console.log("enterd trip to ", participent)
-							})
-							return
-						}
-						else{
-							console.log("trip found return")
-						}
-					}
-				})
-			})
-				res.json({status:1})
-		}
-		else{
-				//if user dosent have partenrs is trip update only him
-		if((docs.schedule).length == 0){		//if the schedule is empty create a new schedule and save it
-			console.log("%%%%%%%%%%%%%%%schedule is empty")
-			docs.schedule.push(trip);
-			docs.save(function(err, result){
+			db.model('users').update({email : {$in : tripPatnersArray}}, {$push : {schedule : trip}}, function(err, subdocs){
 				if(err){
-					return console.error(err)
-				}	
-				console.log("enterd trip to ", user)
-			})
-
-		}										//if trip has trips in schedule check if trip is uniqe and insert it to array
-		else{									
-			console.log("###############trip is with data")
-			var addToSchedule = docs.schedule.every(function(tripsInSchedule){
-				console.log("in trip")
-				console.log("req trip id", trip._id, "trip in schedule", tripsInSchedule._id)
-				if(tripsInSchedule._id == trip._id){
-					console.log("trip allready in schedule")
-					return false
+					console.error(err);
+					res.json({status:0})
 				}
-				return true
-			});
-			if(addToSchedule){
-				console.log("trip not found")
-				docs.schedule.push(trip);
-				docs.save(function(err, result){
-					if(err) {
-						return console.error(err)
-					}
-					console.log("enterd trip to ", user)
-				})
-			}
-			else{
-				console.log("trip found return")
-				res.json({status:1})
-			}
-		}	
-	}
-
-})
+				console.log("trip enterd successfuly ", subdocs)
+				res.json({status:1});
+			})
+		}
+	})
 }
+			// docs.tripPatners.forEach(function(participent){
+				// console.log(participent)
+				// db.model('users').findOne({email : participent}, function(err, subdocs){
+					// if((subdocs.schedule).length == 0){
+						// console.log("%%%%%%%%%%%%%%%schedule is empty")
+						// subdocs.schedule.push(trip);
+						// subdocs.save(function(err, result){
+						// 	if(err){
+						// 		return console.error(err)
+						// 	}	
+						// 	console.log("enterd trip to participent", participent)
+						// })
+						// return
+					
+					// else{
+					// 	console.log("###############trip is with data")
+					// 	var addToSchedule = subdocs.schedule.every(function(tripsInSchedule){
+					// 		console.log("in trip")
+					// 		console.log("req trip id", trip._id, "trip in schedule", tripsInSchedule._id)
+					// 		if(tripsInSchedule._id == trip._id){
+					// 			console.log("trip allready in schedule")
+					// 			return false
+					// 		}
+					// 		return true
+					// 	});
+					// 	if(addToSchedule){
+					// 		console.log("trip not found")
+					// 		subdocs.schedule.push(trip);
+					// 		subdocs.save(function(err, result){
+					// 			if(err) {
+					// 				return console.error(err)
+					// 			}
+					// 			console.log("enterd trip to ", participent)
+					// 		})
+					// 		return
+					// 	}
+					// 	else{
+					// 		console.log("trip found return")
+					// 	}
+					// }
+		// 		})
+		// 	})
+		// 		res.json({status:1})
+		// }
+		// else{
+			// db.model('users').findOneAndUpdate({email : {$in : docs.tripPatners}}, {$addToSet : {docs.schedule : trip}}, function(err, subdocs){
+			// 	if(err){
+			// 		console.error(err);
+			// 		res.json({status:0})
+			// 	}
+			// 	res.json({status:1});
+			// })
+		// 	//if user dosent have partenrs is trip update only him
+		// 	if((docs.schedule).length == 0){		//if the schedule is empty create a new schedule and save it
+				// console.log("%%%%%%%%%%%%%%%schedule is empty")
+				// docs.schedule.addToSet(trip);
+				// docs.save(function(err, result){
+				// 	if(err){
+				// 		return console.error(err)
+				// 	}	
+				// 	console.log("enterd trip to ", user)
+				// })
+
+		// }										
+			//if trip has trips in schedule check if trip is uniqe and insert it to array
+		// 	else{									
+		// 	console.log("###############trip is with data")
+		// 	var addToSchedule = docs.schedule.every(function(tripsInSchedule){
+		// 		console.log("in trip")
+		// 		console.log("req trip id", trip._id, "trip in schedule", tripsInSchedule._id)
+		// 		if(tripsInSchedule._id == trip._id){
+		// 			console.log("trip allready in schedule")
+		// 			return false
+		// 		}
+		// 		return true
+		// 	});
+		// 	if(addToSchedule){
+		// 		console.log("trip not found")
+		// 		docs.schedule.push(trip);
+		// 		docs.save(function(err, result){
+		// 			if(err) {
+		// 				return console.error(err)
+		// 			}
+		// 			console.log("enterd trip to ", user)
+		// 		})
+		// 	}
+		// 	else{
+		// 		console.log("trip found return")
+		// 		res.json({status:1})
+		// 	}
+		// }	
+	// }
 
 // router.post('/updateScheduleParticipents', function(req,res){
 exports.updateScheduleParticipents = function(req, res){
@@ -205,6 +224,15 @@ exports.updateScheduleParticipents = function(req, res){
 		timeForTrip = req.body.dateOfTrip;
 		checkIfUserExists = req.body.checkIfUserExists;
 		console.log("trip participents " + tripParticipents + " trips " + tripsInSchedule + "check " + checkIfUserExists)
+		if(tripsInSchedule == null || typeof tripsInSchedule === undefined){
+			var tripsInScheduleArray = [];
+			console.log("trip time is null")
+		}
+		if(timeForTrip == null || typeof timeForTrip === undefined){
+			timeForTrip = {};
+			console.log("trip time is null")
+		}
+		console.log(timeForTrip, " " ,tripsInScheduleArray)
 	}
 	catch(err){
 		console.log("failed to get params")
@@ -215,26 +243,28 @@ exports.updateScheduleParticipents = function(req, res){
 		}
 		if(docs){
 			tripParticipents.push(checkIfUserExists);
+			console.log(tripParticipents)
 			db.model('users').update({email : { $in : tripParticipents}},
-				{$push : { tripPatners : checkIfUserExists }, schedule : tripsInSchedule, tripScheduleTime : timeForTrip},
+				{$set : {tripPatners : tripParticipents},
+				$set : {schedule : tripsInScheduleArray},
+				tripScheduleTime : timeForTrip},
 				{multi : true}, 
 				function(err, subdocs){
 					if(err){
 						console.error(err);
 					}
-					// if(subdocs){
-					// shareMail.to = participent;
-					// smtpTransport.sendMail(shareMail, function(error, response){
-			  //   	if(error){
-			  //       	console.log(error);
-			  //   	}else{
-			  //       console.log("Message sent: " + response.message);
-			  //   	}  
-			  //   	smtpTransport.close();
-					// });
-					// }
+					console.log(subdocs, " updated")
+					shareMail.bcc = tripParticipents;
+					smtpTransport.sendMail(shareMail, function(error, response){
+			    	if(error){
+			        	console.log(error);
+			    	}else{
+			        console.log("Message sent: " + response.message);
+			    	}  
+			    	smtpTransport.close();
+					});
+					});
 					res.json({status:1})
-				})
 		}
 		else{
 			welcomeMailNotRegisterd.to = participent;
@@ -250,6 +280,7 @@ exports.updateScheduleParticipents = function(req, res){
 			res.json({status:2});
 		}
 	})
+}
 	// tripParticipents.forEach(function(participent){
 	// 	console.log(participent)
 	// 	db.model('users').findOne({email : participent}, function(err, docs){
@@ -303,7 +334,7 @@ exports.updateScheduleParticipents = function(req, res){
 // })
 // 	})
 // 	res.json({status:1});	
-}
+// }
 
 // router.post('/saveTimeSchedule', function(req, res){
 exports.saveTimeSchedule = function(req, res){
@@ -315,7 +346,7 @@ exports.saveTimeSchedule = function(req, res){
 	catch(err){
 		console.log("failed to get params " + err);
 	}
-	db.model('users').findOneAndUpdate({email:user}, {$set : {tripScheduleTime : tripDate}}, function(err, docs){
+	db.model('users').findOneAndUpdate({email:user}, {tripScheduleTime : tripDate}, function(err, docs){
 		if(err){
 			console.log("error updating trip time schedule");
 			res.json({status:0});
@@ -538,45 +569,46 @@ exports.removeEmailFromTripPartners = function(req, res){
 	console.log(typeof updatedTripPartners)
 	if(typeof updatedTripPartners !== 'undefined'){
 		console.log("in if ")
-		updatedTripPartners.forEach(function(participent){
-			console.log(participent)
-			db.model('users').findOne({email : participent}, function(err, docs){
+		// updatedTripPartners.forEach(function(participent){
+			// console.log(participent)
+			db.model('users').update({ email : {$in : updatedTripPartners}}, {$pull : {tripPatners : mailToRemove}},{multi : true}, function(err, docs){
 				if(err){
-					console.log("found error inserting");
+					// console.log("found error inserting");
 					res.json({status:0})
 					return console.error(err);
 				}
 				if(docs){
 					console.log("found")
-					docs.tripPatners = updatedTripPartners;
-					docs.save(function(err){
-						if(err){
-							console.error(err);
-						}
-						console.log("participent ", participent, "updated")
-					})
+					// docs.tripPatners = updatedTripPartners;
+					// docs.save(function(err){
+					// 	if(err){
+					// 		console.error(err);
+					// 	}
+					// 	console.log("participent ", participent, "updated")
+					// })
 				}
 				else{
 					return console.log("user " + participent + " not found");
 				}
-			})
-		});
-		db.model('users').findOneAndUpdate({email : mailToRemove}, {tripPatners : mailToRemove}, function(err, docs){
+			});
+		// });
+		db.model('users').findOneAndUpdate({email : mailToRemove}, {$set : {tripPatners : []}}, function(err, docs){
 			if(err){
 				console.error(err)
 			}
 			console.log("mail ", mailToRemove, "removed ", docs)
 			res.json({status : 1})
-		})
+		});
 	}
 	else{
-		db.model('users').findOneAndUpdate({email : mailToRemove}, {tripParticipents : mailToRemove}, function(err, docs){
+		db.model('users').findOneAndUpdate({email : mailToRemove}, {$set : {tripPatners : []}}, function(err, docs){
 			if(err){
 				console.error(err)
 			}
 			res.json({status : 1})
 		})	
 	}
+
 
 }
 
