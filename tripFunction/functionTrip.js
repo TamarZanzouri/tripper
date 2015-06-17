@@ -252,12 +252,22 @@ function initMap(l1,l2){
 	var infoWindow = new google.maps.InfoWindow();
 	var latlngbounds = new google.maps.LatLngBounds();
 	var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
-
+	var alert = $('<div id=div_alert>'+TRIPPER_DATA.alertLocation+'</div>');
 	google.maps.event.addListener(map, 'click', function (e) {
-		alert(TRIPPER_DATA.alertLocation);
-		console.log("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng())
+		// alert(TRIPPER_DATA.alertLocation);\
+		$('#dvMap').append(alert);
+		if(alert.hasClass('visible')){
+			alert.removeClass('visible');
+		}else{
+			alert.addClass('visible');
+		}
+		$('#dvMap').append(alert)
+		console.log("Latitude: " + e.latLng.lat() + "\r\nLongitude: " + e.latLng.lng());
 		mapPoint.lat=e.latLng.lat();
 		mapPoint.lng=e.latLng.lng();
+	});
+	$('#div_alert button').click(function(){
+		alert.removeClass('visible');
 	});
 }
 
@@ -694,8 +704,11 @@ function displayFullTrip(data){
 	}
 	if(accountFlag==1){
 		divHead.append("<a id='editTripFromAccount'><img src='images/edit.png'></a> </br>");
-		$('#uploadImgForm').css("display", "block");
+		$('form#uploadImgForm').show();
+		console.log("come from account page")
 		accountFlag=0;
+	}else{
+		$('form#uploadImgForm').css({"display":"none"});
 	}
 	divHead.append("<h1>"+g_trip.trip_name+"</h1>");
 	if(g_trip.trip_charachters[1]=="")
