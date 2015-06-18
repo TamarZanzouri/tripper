@@ -35,5 +35,5 @@ fs.readdirSync(__dirname + '/models').forEach( function( fileName)
 });
 
 process.on('uncaughtException', function(err) {
-	console.log('Caught exception: ' + err);
+	console.log('Caught exception: ' , err);
 });

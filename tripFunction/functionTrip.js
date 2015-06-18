@@ -252,7 +252,7 @@ function initMap(l1,l2){
 	var infoWindow = new google.maps.InfoWindow();
 	var latlngbounds = new google.maps.LatLngBounds();
 	var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
-	var alert = $('<div id=div_alert>'+TRIPPER_DATA.alertLocation+'</div>');
+	var alert = $('<div id=div_alert>המיקום התווסף בהצלחה</div>');
 	google.maps.event.addListener(map, 'click', function (e) {
 		// alert(TRIPPER_DATA.alertLocation);\
 		$('#dvMap').append(alert);
@@ -607,6 +607,8 @@ $.ajax({
 			success: function(data) {
 				console.log(data.imageUrl);
 				g_trip.imageUrl.push(data.imageUrl);
+				var imgFotorama = $("<li>").css("background-image","url("+data.img+")")
+				$('#menu').append(imgFotorama);
 				console.log("img uploaded")      	
 			}
 		});
@@ -695,22 +697,26 @@ function displayFullTrip(data){
 	console.log("id: ", data._id)
 	$('.Trip').empty();
 	var divHead = $('<div>').addClass('divHead');
-	divHead.append('<form action="#" method="post" id="uploadImgForm" ><input id="imgUploadMobile"  type="file" accept="image/*" onchange="uploadImgFromTrip(this)"' +
-		'name="file" class="image_i"></div><input type="submit" value="submit" style="visibility : hidden"/>  </form>')
+	var form =$('<form>').attr({"id":"uploadImgForm","method":"post","action":"#"}).append('<input id="imgUploadMobile"  type="file" accept="image/*" onchange="uploadImgFromTrip(this)" name="file" class="image_i"></div><input type="submit" value="submit" style="visibility : hidden"/>');
+	// divHead.append('<form action="#" method="post" id="uploadImgForm" ><input id="imgUploadMobile"  type="file" accept="image/*" onchange="uploadImgFromTrip(this)" name="file" class="image_i"></div><input type="submit" value="submit" style="visibility : hidden"/>  </form>');
 	// $('.Trip').append('<input id="imgUpload" type="file" accept="image/*" onchange="uploadImgFromTrip(this)" name="file" class="image_i"><img id="showImage" style="width:20%; margin-top:10px;"  src="" alt="image"/></div></form>');
 	// $('.Trip').append('</form>')
+	divHead.append(form);
 	if(favoriteFlag==1){
 		divHead.append("<a id='editFavorite'><img src='images/edit.png'></a> </br>");
 		favoriteFlag=0;
 
 	}
 	if(accountFlag==1){
+		// debugger;
 		divHead.append("<a id='editTripFromAccount'><img src='images/edit.png'></a> </br>");
-		$('form#uploadImgForm').show();
+		$('#uploadImgForm').addClass('inAccount');
 		console.log("come from account page")
 		accountFlag=0;
 	}else{
-		$('form#uploadImgForm').css({"display":"none"});
+		// debugger;
+		$('#uploadImgForm').removeClass('inAccount');
+		console.log("come not from account page")
 	}
 	divHead.append("<h1>"+g_trip.trip_name+"</h1>");
 	if(g_trip.trip_charachters[1]=="")
@@ -725,6 +731,11 @@ function displayFullTrip(data){
 	var aNext = $('<a>').attr("id","next").html("הבא");
 	var ulDivImg = $('<ul>').attr('id','menu');
 	$.each(g_trip.tripSites, function(index,val){
+		var imgFotorama = $("<li>").css("background-image","url("+val.img+")")
+		// append($('<img>').attr("src",val.img));
+		ulDivImg.append(imgFotorama);
+	})
+	$.each(g_trip.imageUrl, function(index,val){
 		var imgFotorama = $("<li>").css("background-image","url("+val.img+")")
 		// append($('<img>').attr("src",val.img));
 		ulDivImg.append(imgFotorama);
@@ -1608,7 +1619,7 @@ $(document).on( "click", "#signOut", function() {
 });	
 
 $(document).on('click','#showTrips',function(){
-	accountFlag=1;
+	// accountFlag=1;
 	moveToAccountPage();
 	if(!User.email)
 	{

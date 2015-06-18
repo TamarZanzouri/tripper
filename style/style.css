@@ -678,7 +678,7 @@ header > a :hover{
   right: 175px;
   top: 200px;
   text-align: center;
-  padding: 9px 0 0 0;
+  padding: 15px 0 0 0;
   font-size: 18px;
   border: 1px solid gray;
 }
@@ -1102,10 +1102,12 @@ article> h4 {
 #buttonRadius{
   display: none;
 }
-/*#uploadImgForm{
+#uploadImgForm{
   display:none;
-}*/
-
+}
+.inAccount{
+  display:block !important;
+}
 
 #timeline{
  width:94%;
