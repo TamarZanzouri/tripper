@@ -605,6 +605,8 @@ $.ajax({
 
 			},
 			success: function(data) {
+				console.log(data.imageUrl);
+				g_trip.imageUrl.push(data.imageUrl);
 				console.log("img uploaded")      	
 			}
 		});

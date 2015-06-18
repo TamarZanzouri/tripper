@@ -1,5 +1,3 @@
-// var express = require('express');
-// var router = express.Router();
 var multiparty = require('multiparty');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
@@ -11,7 +9,8 @@ var fs = require('fs');
 cloudinary.config({ 
 	cloud_name: 'dxgyixsmg', 
 	api_key: '862129673261382', 
-	api_secret: 'g-0pnDM6ZVHf_noES9RWrudPr64' 
+	api_secret: 'g-0pnDM6ZVHf_noES9RWrudPr64'
+	// cloudinary : 'sync_static'
   //cdn_subdomain: true
 });
 
@@ -437,7 +436,7 @@ exports.uploadImageToTrip = function(req, res){
 	 		res.json({status:0})
 	 	}
 	 	console.log("enterd image to trip")
-	 	res.json({status:1})
+	 	res.json({status:1, imageUrl : urlImg})
 	 })
 	});
 	var file_reader = fs.createReadStream(temp_path).pipe(stream)
@@ -820,4 +819,3 @@ exports.updateTripWithOutImages = function(req, res){
 			})
 });	
 }
-// module.exports = router;
