@@ -710,12 +710,12 @@ function displayFullTrip(data){
 	if(accountFlag==1){
 		// debugger;
 		divHead.append("<a id='editTripFromAccount'><img src='images/edit.png'></a> </br>");
-		$('#uploadImgForm').addClass('inAccount');
+		form.addClass('inAccount');
 		console.log("come from account page")
 		accountFlag=0;
 	}else{
 		// debugger;
-		$('#uploadImgForm').removeClass('inAccount');
+		form.removeClass('inAccount');
 		console.log("come not from account page")
 	}
 	divHead.append("<h1>"+g_trip.trip_name+"</h1>");

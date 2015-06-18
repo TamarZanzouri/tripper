@@ -1103,7 +1103,14 @@ article> h4 {
   display: none;
 }
 #uploadImgForm{
-  display:none;
+   display: none;
+  float: right;
+  width: 52px;
+  margin: 0 10px 0 0;
+  position: relative;
+  left: 10px;
+  top: 10px;
+  height: 30px;
 }
 .inAccount{
   display:block !important;
