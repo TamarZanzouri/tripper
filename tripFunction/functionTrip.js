@@ -252,10 +252,11 @@ function initMap(l1,l2){
 	var infoWindow = new google.maps.InfoWindow();
 	var latlngbounds = new google.maps.LatLngBounds();
 	var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
-	var alert = $('<div id=div_alert>המיקום התווסף בהצלחה</div>');
+	var alert = $('<div>').attr("id","div_alert");
 	google.maps.event.addListener(map, 'click', function (e) {
-		// alert(TRIPPER_DATA.alertLocation);\
+		alert.html(TRIPPER_DATA.alertLocation);
 		$('#dvMap').append(alert);
+		console.log(TRIPPER_DATA.alertLocation)
 		if(alert.hasClass('visible')){
 			alert.removeClass('visible');
 		}else{
@@ -887,9 +888,7 @@ function displayFullTrip(data){
 
 
 	 var textarea = $('<textarea>').attr({"type":"text","name":"comment","id":"comment"}).css({"display":"none"})
-	// $('.Trip').append("<textarea type='text' name='comment' id='comment style'display:none'></textarea>");
 	var aSend= $('<a>').attr({"id":"submitComment"}).css({"display":"none"}).html(TRIPPER_DATA.send)
-	// $('.Trip').append("<a id='submitComment' style'display:none'>שלח תגובה</a> </br>");
 
 
 
@@ -907,21 +906,11 @@ function displayFullTrip(data){
 		$('#comment').show();
 		$('#submitComment').show();
 	});
-	// var article = "<h3>תגובות המטיילים</h3><article id='tripComments'>";
-	// $.each(g_trip.comments,function(i,val){
-	// 	console.log("comment");
-	// 	article+=val;
-	// 	article+="</br>";
-	// });
-	// article+="</article>"
-	// $('.Trip').append(article);
+
 }
 
 $(document).on("click", '.topImgScheduleList', function() {
-	// if (!User.email) {
-	// 	alert("אנא התחבר למערכת")
-	// 	return;
-	// }
+
 	if ($(this).hasClass("selectedImgSchedule")) {
 		$(this).removeClass("selectedImgSchedule").attr({'src':'images/add_track.png'});
 		updateScheduleFromList(false, $(this).parent().attr('id'));
@@ -932,10 +921,7 @@ $(document).on("click", '.topImgScheduleList', function() {
 	}
 });
 $(document).on("click", '.topImgStarList', function() {
-	// if (!User.email) {
-	// 	alert("אנא התחבר למערכת")
-	// 	return;
-	// }
+
 	if ($(this).hasClass("selectedImgStar")) {
 		$(this).removeClass("selectedImgStar").attr({'src':'images/add_favorites.png'});
 		updateFavoritesFromFavoritesList(false, $(this).parent().attr('id'));
