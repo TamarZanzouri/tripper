@@ -149,7 +149,6 @@ $(document).ready(function(){
 		$('#us3').locationpicker('autosize');
 	});
 
-
 	$('.option1 li').click(function(){
 		var i = $(this).parents('.select').attr('id');
 		var v = $(this).children().text();
@@ -325,6 +324,9 @@ $(document).on('change', 'ul.dropdown-menu li input[type=checkbox]', function() 
 });
 
 
+$(document).on('focus', '.siteName', function(){
+		$(this).geocomplete();
+});
 
 $(document).on('click', '#welcome > div', function(){
 		$('#welcome').hide();
