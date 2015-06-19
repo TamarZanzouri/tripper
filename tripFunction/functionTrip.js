@@ -597,22 +597,22 @@ $.ajax({
 	type : "post",
 	url: g_domain+"uploadImageToTrip",
 	data : form,
-			// dataType : "json",
-			contentType: false,
-			processData:false,
-			error: function(jqXHR, textStatus, errorMessage) {
-				console.log(errorMessage)
+	// dataType : "json",
+	contentType: false,
+	processData:false,
+	error: function(jqXHR, textStatus, errorMessage) {
+		console.log(errorMessage)
 
 
-			},
-			success: function(data) {
-				console.log(data.imageUrl);
-				g_trip.imageUrl.push(data.imageUrl);
-				var imgFotorama = $("<li>").css("background-image","url("+data.img+")")
-				$('#menu').append(imgFotorama);
-				console.log("img uploaded")      	
-			}
-		});
+	},
+	success: function(data) {
+		console.log(data.imageUrl);
+		g_trip.imageUrl.push(data.imageUrl);
+		var imgFotorama = $("<li>").css("background-image","url("+data.imageUrl+")")
+		$('#menu').append(imgFotorama);
+		console.log("img uploaded")      	
+	}
+});
 });
 
 function uploadImgFromTrip(fileInput) {
@@ -735,11 +735,13 @@ function displayFullTrip(data){
 		var imgFotorama = $("<li>").css("background-image","url("+val.img+")")
 		// append($('<img>').attr("src",val.img));
 		ulDivImg.append(imgFotorama);
+		// console.log(ulDivImg)
 	})
 	$.each(g_trip.imageUrl, function(index,val){
-		var imgFotorama = $("<li>").css("background-image","url("+val.img+")")
+		var imgFotorama = $("<li>").css("background-image","url("+val+")")
 		// append($('<img>').attr("src",val.img));
 		ulDivImg.append(imgFotorama);
+		// console.log(ulDivImg)
 	})
 	// divImg.append(aPrev);
 	// divImg.append(aNext);
