@@ -111,6 +111,8 @@ $(document).ready(function(){
 	if ($(window).width() < 767) {
 		console.log("in mobile")
 		$('#nav-panel').css("display" , "block");
+		$(".ui-listview>li>a").removeClass("ui-btn-icon-right")
+		// $('.ui-listview>li>a').removeClass("ui-btn ui-btn-icon-right ui-icon-carat-r");
 		$('.nav').css("display" , "none");
 		$('#menubtn').css("display", "inline-block");
 		$('#filtermenu').css("display", "none !important");
@@ -321,11 +323,6 @@ $(document).on('change', 'ul.dropdown-menu li input[type=checkbox]', function() 
           	appendTextToParentLabel.first('span').text(line_janers);
             }
 
-});
-
-
-$(document).on('focus', '.siteName', function(){
-		$(this).geocomplete();
 });
 
 $(document).on('click', '#welcome > div', function(){

@@ -182,6 +182,10 @@ $(document).on('submit','#addform',function(e){
 return true;
 })
 
+$(document).on('focus', '.siteName', function(){
+		$(this).geocomplete();
+});
+
 $(document).on("click","addTrip",function(){
 	moveToAddPage()
 	addDataToAddPage();

@@ -1,19 +1,18 @@
 $(document).ready(function(){
 		$("#shareSchedule").emailautocomplete({
-		suggClass: "custom-classname" //default: "eac-sugg". your custom classname (optional)
-		// domains: ["example.com"] //additional domains (optional)
+		suggClass: "custom-classname", //default: "eac-sugg". your custom classname (optional)
+		domains: ["example.com"] //additional domains (optional)
 	});
 
 	$('#shareEmail').emailautocomplete({
-			suggClass: "custom-classname" //default: "eac-sugg". your custom classname (optional)
-			// domains: ["example.com"] //additional domains (optional)
+			suggClass: "custom-classname", //default: "eac-sugg". your custom classname (optional)
+			domains: ["example.com"] //additional domains (optional)
 	});
 
 
 	$('#addFriendToSchedule').click(function(){
 		if($('#shareSchedule').val())
 		{
-				// debugger
 			var checkMail = $('#shareSchedule').val();
 			console.log(checkMail)
 			if(!checkIfUserIsInPartners(checkMail)){
@@ -31,8 +30,10 @@ $(document).ready(function(){
 	        	console.log(errorMessage)
 	        },
 	        success: function(data) {
-	        	if(data === 1){
+	        	if(data.status === 1){
+	        		console.log("1 return")
 	        		shareScheduleWithFriends.push(checkMail);
+	        		User.tripPatners.push(checkMail);
 	        		console.log(shareScheduleWithFriends);
 	        	}
 	        	console.log("update success");

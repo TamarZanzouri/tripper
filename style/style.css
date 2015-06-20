@@ -620,7 +620,7 @@ color: #337ab7;
         background-color: #fff;
         padding: 5px;
         border: 1px solid #999;
-      }
+  }
 
 /*********home page********/
 #signOut{
@@ -1357,7 +1357,7 @@ float: right;
 #updateFriendsWithChanges{
   float: right;
   position: relative;
-  top: 56px;
+  top: 50px;
   width: 50px;
   height: 34px;
   color: #ffffff;
@@ -1371,7 +1371,7 @@ float: right;
 #addFriendToSchedule{
     float: right;
   position: relative;
-  top: 56px;
+  top: 50px;
   /* width: 50px; */
   height: 34px;
   color: #ffffff;
@@ -1501,6 +1501,21 @@ width: 46%;
 }
 @media(max-width: 500px){
 
+#nav-panel{
+  background-color: #22AF87;
+  border-left: 1px transparent;
+  color: white; 
+}
+
+.ui-listview > li > a{
+  padding-top: 20px;
+  color: white;
+  font-weight: 400;
+}
+
+.ui-listview > li{
+  border: 0px transparent;
+}
   .mobile-header{
     display: block;
   height: 60px;

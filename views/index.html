@@ -556,23 +556,17 @@
 		</div>
 	</div>
 	
-	<div data-role="panel" data-position="right" data-display="overlay" data-swipe-close="true" data-theme="b" id="nav-panel" class="ui-responsive-panel">
+	<div data-role="panel" data-position="right" data-display="push" data-swipe-close="true" id="nav-panel">
 		<ul data-role="listview" >
-			<li id="home"><a href="#homePage">חיפוש טיול</a></li>
-			<li id="showTrips"><a href="#accountPage">החשבון שלי</a></li>
-			<li id="moveToFavorite"><a href="#viewFavorite">המועדפים שלי</a></li>
-			<li id="mySchedule"><a href="#myPageSchedule">המסלול שלי</a></li>
-			<li id="addTrip"><a href="#addTripPage">הוספת טיול</a></li>
-			<li class="loogOut" id="signOut" role="presentation">	
-				<a role="menuitem" tabindex="-1" href="#">התנתק</a>
+			<li id="home" data-icon="false"><a href="#homePage"><img src="images/searchM.png">חיפוש טיול</a></li>
+			<li id="showTrips" data-icon="false"><a href="#accountPage"><img src="images/my_accountM.png">החשבון שלי</a></li>
+			<li id="moveToFavorite" data-icon="false"><a href="#viewFavorite"><img src="images/my_favoritesM.png">המועדפים שלי</a></li>
+			<li id="mySchedule" data-icon="false"><a href="#myPageSchedule"><img src="images/my_trackM.png">המסלול שלי</a></li>
+			<li id="addTrip" data-icon="false"><a href="#addTripPage"><img src="images/addM.png">הוספת טיול</a></li>
+			<li class="loogOut" id="signOut" role="presentation" data-icon="false">	
+				<a role="menuitem" tabindex="-1" href="#"><img src="images/logoutM.png">התנתק</a>
 			</li>
-<!--                 <li>
-                    <a href="#" id="opendialog" data-rel="dialog" >מי אנחנו</a>
-                </li>
-                <li>
-                    <a href="#" onclick="exitApp();">צא מהאפליקציה</a>
-                </li> -->
-            </ul>
+        </ul>
         </div>
     </body>
 
