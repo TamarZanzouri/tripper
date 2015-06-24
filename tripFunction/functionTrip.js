@@ -111,7 +111,7 @@ $(document).ready(function(){
 	if ($(window).width() < 767) {
 		console.log("in mobile")
 		$('#nav-panel').css("display" , "block");
-		$(".ui-listview>li>a").removeClass("ui-btn-icon-right")
+		// $(".ui-listview>li>a").removeClass("ui-btn-icon-right")
 		// $('.ui-listview>li>a').removeClass("ui-btn ui-btn-icon-right ui-icon-carat-r");
 		$('.nav').css("display" , "none");
 		$('#menubtn').css("display", "inline-block");

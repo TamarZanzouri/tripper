@@ -217,6 +217,7 @@ exports.updateMySchedule = function(req, res){
 // router.post('/updateScheduleParticipents', function(req,res){
 exports.updateScheduleParticipents = function(req, res){
 	console.log("updating")
+	var tripsInScheduleArray =[];
 	// var foundParticipents = [];
 	try{
 		tripParticipents = req.body.sharedEmail;
@@ -225,7 +226,7 @@ exports.updateScheduleParticipents = function(req, res){
 		checkIfUserExists = req.body.checkIfUserExists;
 		console.log("trip participents " + tripParticipents + " trips " + tripsInSchedule + "check " + checkIfUserExists)
 		if(tripsInSchedule == null || typeof tripsInSchedule === undefined){
-			var tripsInScheduleArray = [];
+			tripsInScheduleArray = [];
 			console.log("trip time is null")
 		}
 		if(timeForTrip == null || typeof timeForTrip === undefined){
@@ -237,17 +238,20 @@ exports.updateScheduleParticipents = function(req, res){
 	catch(err){
 		console.log("failed to get params")
 	}
+	console.log("partners, ", tripParticipents, "trips, ", tripsInScheduleArray, "time, " ,timeForTrip );
 	db.model('users').findOne({email : checkIfUserExists}, function(err, docs){
-		if(err){
+		if(err){tripsInScheduleArray
 			console.error(err);
 		}
 		if(docs){
 			tripParticipents.push(checkIfUserExists);
 			console.log(tripParticipents)
 			db.model('users').update({email : { $in : tripParticipents}},
-				{$set : {tripPatners : tripParticipents},
-				$set : {schedule : tripsInScheduleArray},
-				tripScheduleTime : timeForTrip},
+			{
+				$set : {tripPatners : tripParticipents,
+				schedule : tripsInScheduleArray},
+				tripScheduleTime : timeForTrip
+			},
 				{multi : true}, 
 				function(err, subdocs){
 					if(err){

@@ -20,10 +20,10 @@ exports.addTrip = function(req, res){
 	//console.log(req.files,req.body)
 	//console.log("haim" + req.body.newTrip + " " + req.body.des);
 	console.log("start to add to DB")
-	var urlImg="";
-	var dataForm={};
+	var urlImg		  = "";
+	var dataForm	  = {};
 	var playlistToAdd = {};
-	var form = new formidable.IncomingForm();
+	var form 		  = new formidable.IncomingForm();
 
 	form.parse(req, function(error, fields, files) 
 	{
