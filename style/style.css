@@ -358,7 +358,7 @@ text-align: -webkit-right;
 #filtermenu{
     width: 96%;
   position: relative;
-  left: 5px;
+  left: 30px;
 }
 .filter{
     width: 100%;
@@ -765,7 +765,7 @@ body, input, select, textarea, button, .ui-btn{
   overflow: hidden !important;
 }
 #content{
-  padding: 25px !important;
+padding: 0 10% 0 10% !important;
 }
 #groupButton{
   /*display: none;*/

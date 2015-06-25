@@ -1180,9 +1180,10 @@ function updateScheduleFromList (bool, tripId){
 		    	console.log(g_trip)
 		    	$.ajax({
 		    		type: "post",
-		    url: g_domain+"updateMySchedule",// where you wanna post
-		    data:  {trip:g_trip
-		    	,userId:User.email},
+				    url: g_domain+"updateMySchedule",// where you wanna post
+				    data:  {trip:g_trip
+				    	,userId:User.email
+				    },
 		    	dataType: "json",
 		    	error: function(jqXHR, textStatus, errorMessage) {
 		    		console.log(errorMessage)
@@ -1191,6 +1192,8 @@ function updateScheduleFromList (bool, tripId){
 		    	},
 		    	success: function(data) {
 		    		console.log("update success");
+		    		User.schedule.push(g_trip)
+
 		    	}
 		    });
    		  }
