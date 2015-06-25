@@ -109,8 +109,10 @@ exports.updateMySchedule = function(req, res){
 		// tripsInScheduleArray = docs.schedule;
 		// console.log("partners ", tripPatnersArray, "trips ", tripsInScheduleArray)
 		if( docs.tripPatners.length > 0 ){
+			tripPatnersArray.splice(user, 1)
+			console.log(tripPatnersArray)
 			console.log("in if")
-			db.model('users').update({email : {$in : tripPatnersArray}}, {$push : {schedule : trip}}, function(err, subdocs){
+			db.model('users').update({email : { $in : tripPatnersArray}}, {$push : {schedule : trip}}, function(err, subdocs){
 				if(err){
 					console.error(err);
 					res.json({status:0})
@@ -217,7 +219,7 @@ exports.updateMySchedule = function(req, res){
 // router.post('/updateScheduleParticipents', function(req,res){
 exports.updateScheduleParticipents = function(req, res){
 	console.log("updating")
-	var tripsInScheduleArray =[];
+	var tripsInSchedule =[];
 	// var foundParticipents = [];
 	try{
 		tripParticipents = req.body.sharedEmail;
@@ -226,8 +228,8 @@ exports.updateScheduleParticipents = function(req, res){
 		checkIfUserExists = req.body.checkIfUserExists;
 		console.log("trip participents " + tripParticipents + " trips " + tripsInSchedule + "check " + checkIfUserExists)
 		if(tripsInSchedule == null || typeof tripsInSchedule === undefined){
-			tripsInScheduleArray = [];
-			console.log("trip time is null")
+			tripsInSchedule = [];
+			console.log("trip is null")
 		}
 		if(timeForTrip == null || typeof timeForTrip === undefined){
 			timeForTrip = {};
@@ -238,7 +240,7 @@ exports.updateScheduleParticipents = function(req, res){
 	catch(err){
 		console.log("failed to get params")
 	}
-	console.log("partners, ", tripParticipents, "trips, ", tripsInScheduleArray, "time, " ,timeForTrip );
+	console.log("partners, ", tripParticipents, "trips, ", tripsInSchedule, "time, " ,timeForTrip );
 	db.model('users').findOne({email : checkIfUserExists}, function(err, docs){
 		if(err){tripsInScheduleArray
 			console.error(err);
@@ -249,7 +251,7 @@ exports.updateScheduleParticipents = function(req, res){
 			db.model('users').update({email : { $in : tripParticipents}},
 			{
 				$set : {tripPatners : tripParticipents,
-				schedule : tripsInScheduleArray},
+				schedule : tripsInSchedule},
 				tripScheduleTime : timeForTrip
 			},
 				{multi : true}, 
