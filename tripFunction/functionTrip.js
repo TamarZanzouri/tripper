@@ -1193,7 +1193,6 @@ function updateScheduleFromList (bool, tripId){
 		    	success: function(data) {
 		    		console.log("update success");
 		    		User.schedule.push(g_trip)
-
 		    	}
 		    });
    		  }

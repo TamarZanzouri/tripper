@@ -344,6 +344,7 @@ function updateSharedTrip(){
 	if(User.tripPatners.length > 0){
 		console.log("in if")
 		$.each(User.tripPatners, function(i, val){
+			debugger
 			console.log(val)
 			$('#friendsemail').append("<div id='emailNum" + i + "'>" + val + "</div>");
 			$('#emailNum' + i).append("<button id='deleteMailFromSchedule'> &#10006 </button>");
