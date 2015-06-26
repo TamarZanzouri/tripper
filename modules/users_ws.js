@@ -112,14 +112,17 @@ exports.updateMySchedule = function(req, res){
 			tripPatnersArray.splice(user, 1)
 			console.log(tripPatnersArray)
 			console.log("in if")
-			db.model('users').update({email : { $in : tripPatnersArray}}, {$push : {schedule : trip}}, function(err, subdocs){
-				if(err){
-					console.error(err);
-					res.json({status:0})
-				}
-				console.log("trip enterd successfuly ", subdocs)
-				res.json({status:1});
-			})
+			tripPatnersArray.forEach(function(participent){
+				db.model('users').findOneAndUpdate({email : participent}, {$push : {schedule : trip}}, function(err, subdocs){
+					if(err){
+						console.error(err);
+						res.json({status:0})
+					}
+					console.log("trip enterd successfuly ", subdocs)
+				})		
+			});
+			res.json({status:1});
+
 		}
 	})
 }
@@ -226,13 +229,16 @@ exports.updateScheduleParticipents = function(req, res){
 		tripsInSchedule = req.body.trips;
 		timeForTrip = req.body.dateOfTrip;
 		checkIfUserExists = req.body.checkIfUserExists;
-		console.log("trip participents " + tripParticipents + " trips " + tripsInSchedule + "check " + checkIfUserExists)
+		console.log("trip participents " + tripParticipents + " trips " + tripsInSchedule + "check " + checkIfUserExists + "time" + timeForTrip)
 		if(tripsInSchedule == null || typeof tripsInSchedule === undefined){
 			tripsInSchedule = [];
 			console.log("trip is null")
 		}
 		if(timeForTrip == null || typeof timeForTrip === undefined){
-			timeForTrip = {};
+			timeForTrip = {
+				checkInTime : null,
+				checkOutTime : null
+			};
 			console.log("trip time is null")
 		}
 		console.log(timeForTrip, " " ,tripsInScheduleArray)
@@ -242,7 +248,7 @@ exports.updateScheduleParticipents = function(req, res){
 	}
 	console.log("partners, ", tripParticipents, "trips, ", tripsInSchedule, "time, " ,timeForTrip );
 	db.model('users').findOne({email : checkIfUserExists}, function(err, docs){
-		if(err){tripsInScheduleArray
+		if(err){
 			console.error(err);
 		}
 		if(docs){
@@ -251,8 +257,8 @@ exports.updateScheduleParticipents = function(req, res){
 			db.model('users').update({email : { $in : tripParticipents}},
 			{
 				$set : {tripPatners : tripParticipents,
-				schedule : tripsInSchedule},
-				tripScheduleTime : timeForTrip
+				schedule : tripsInSchedule,
+				tripScheduleTime : timeForTrip}
 			},
 				{multi : true}, 
 				function(err, subdocs){
@@ -273,7 +279,7 @@ exports.updateScheduleParticipents = function(req, res){
 					res.json({status:1})
 		}
 		else{
-			welcomeMailNotRegisterd.to = participent;
+			welcomeMailNotRegisterd.to = checkIfUserExists;
 			smtpTransport.sendMail(welcomeMailNotRegisterd, function(error, response){
 	    	if(error){
 	        	console.log(error);
@@ -282,7 +288,7 @@ exports.updateScheduleParticipents = function(req, res){
 	    	}  
 	    	smtpTransport.close();
 			});
-			return console.log("user " + participent + " not found");
+			return console.log("user " + checkIfUserExists + " not found");
 			res.json({status:2});
 		}
 	})
