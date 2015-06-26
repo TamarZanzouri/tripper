@@ -10,45 +10,7 @@ $(document).ready(function(){
 	});
 
 
-	$('#addFriendToSchedule').click(function(){
-		if($('#shareSchedule').val())
-		{
-			var checkMail = $('#shareSchedule').val();
-			console.log(checkMail)
-			if(!checkIfUserIsInPartners(checkMail)){
-				if(!(_.contains(shareScheduleWithFriends, User.email))){
-					console.log(shareScheduleWithFriends)
-					shareScheduleWithFriends.push(User.email)
-			}
-			console.log("sending email")
-			$.ajax({
-				type: "post",
-	        url: g_domain+"updateScheduleParticipents",// where you wanna post
-	        data:  {trips:g_ListTrip, sharedEmail:shareScheduleWithFriends, dateOfTrip : date, checkIfUserExists : checkMail},
-	        dataType: 'json',
-	        error: function(jqXHR, textStatus, errorMessage) {
-	        	console.log(errorMessage)
-	        },
-	        success: function(data) {
-	        	if(data.status === 1){
-	        		console.log("1 return")
-	        		shareScheduleWithFriends.push(checkMail);
-	        		User.tripPatners.push(checkMail);
-	        		console.log(shareScheduleWithFriends);
-	        	}
-	        	console.log("update success");
-	        	$('#shareSchedule').val("");
-	        	updateSharedTrip();
-	        }
 
-		    });
-		}
-		else{
-			console.log("user in participents")
-		}
-	}	
-	return
-	});
 
 	$('#updateFriendsWithChanges').click(function(){
 		console.log(g_ListTrip)
@@ -74,6 +36,47 @@ $(document).ready(function(){
 		}
 	});
 });
+$(document).on('click','#addFriendToSchedule',function(){
+	if($('#shareSchedule').val())
+	{
+		var checkMail = $('#shareSchedule').val();
+		console.log(checkMail)
+		if(!checkIfUserIsInPartners(checkMail)){
+			if(!(_.contains(shareScheduleWithFriends, User.email))){
+				console.log(shareScheduleWithFriends)
+				shareScheduleWithFriends.push(User.email)
+		}
+		console.log("sending email",shareScheduleWithFriends)
+		$.ajax({
+			type: "post",
+        url: g_domain+"updateScheduleParticipents",// where you wanna post
+        data:  {trips:g_ListTrip, sharedEmail:shareScheduleWithFriends, dateOfTrip : date, checkIfUserExists : checkMail},
+        dataType: 'json',
+        error: function(jqXHR, textStatus, errorMessage) {
+        	console.log(errorMessage)
+        },
+        success: function(data) {
+        	if(data.status === 1){
+        		console.log("1 return")
+        		console.log("###",shareScheduleWithFriends);
+        		shareScheduleWithFriends.push(checkMail);
+        		// User.tripPatners.push(checkMail);
+        		console.log(shareScheduleWithFriends,User.tripPatners);
+        	}
+        	console.log("update success");
+        	$('#shareSchedule').val("");
+        	updateSharedTrip();
+        }
+
+	    });
+	}
+	else{
+		console.log("user in participents")
+	}
+}	
+return
+});
+
 function displayListScheduleTrip(data){
 	console.log("data " + data)
 	$('#resultTrip ul').empty();
