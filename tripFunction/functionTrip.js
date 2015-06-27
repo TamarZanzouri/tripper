@@ -563,6 +563,8 @@ $(document).on('click', '#nav li', function(){
 	$('menubtn').click();
 });
 
+//******** Gallery *********
+
 $(document).on('click', "#previous , #next", function(e) {
 	e.preventDefault();
 	console.log($('#menu').hasScrollBar());
@@ -582,6 +584,8 @@ $(document).on('click', "#previous , #next", function(e) {
 			}, 600);
 	}
 });
+
+//******** mobile menu *********
 $(document).on("pageinit", "[data-role='page']", function(event) {
 	$("[data-role='panel']").on("panelopen", function(event, ui) {
 		$('body').css("overflow", "hidden").on("touchmove", false);
@@ -595,6 +599,8 @@ $(document).on("pageinit", "[data-role='page']", function(event) {
 		return false;
 	}
 });
+
+//******** hover functins *********
 $(document).on('mouseenter',"#editTripFromAccount", function(){
 	$("#editTripFromAccount img").attr("src", "images/edit_hover.png");
 });
@@ -608,23 +614,14 @@ $(document).on('mouseleave',"#editFavorite", function(){
 	$("#editFavorite img").attr("src", "images/edit.png");
 });
 
+//******** display  trip - fukk trip with all data  *********
 
-
-// $(document).on('mouseenter',"#uploadImgForm input", function(){
-// 	$('#imgUploadMobile').css({"background-image":"images/add_pic_hover.png"});
-// });
-// $(document).on('mouseleave',"#uploadImgForm input", function(){
-// 	$('#imgUploadMobile').css({"background-image":"images/add_pic.png"});
-// });
 function displayFullTrip(data){
 	console.log(data)
 	console.log("id: ", data._id)
 	$('.Trip').empty();
 	var divHead = $('<div>').addClass('divHead');
 	var form =$('<form>').attr({"id":"uploadImgForm","method":"post","action":"#"}).append('<input id="imgUploadMobile"  type="file" accept="image/*" onchange="uploadImgFromTrip(this)" name="file" class="image_i"></div><input type="submit" value="submit" style="visibility : hidden"/>');
-	// divHead.append('<form action="#" method="post" id="uploadImgForm" ><input id="imgUploadMobile"  type="file" accept="image/*" onchange="uploadImgFromTrip(this)" name="file" class="image_i"></div><input type="submit" value="submit" style="visibility : hidden"/>  </form>');
-	// $('.Trip').append('<input id="imgUpload" type="file" accept="image/*" onchange="uploadImgFromTrip(this)" name="file" class="image_i"><img id="showImage" style="width:20%; margin-top:10px;"  src="" alt="image"/></div></form>');
-	// $('.Trip').append('</form>')
 	divHead.append(form);
 	if(favoriteFlag==1){
 		divHead.append("<a id='editFavorite'><img src='images/edit.png'></a> </br>");
@@ -632,13 +629,11 @@ function displayFullTrip(data){
 
 	}
 	if(accountFlag==1){
-		// debugger;
 		divHead.append("<a id='editTripFromAccount'><img src='images/edit.png'></a> </br>");
 		form.addClass('inAccount');
 		console.log("come from account page")
 		accountFlag=0;
 	}else{
-		// debugger;
 		form.removeClass('inAccount');
 		console.log("come not from account page")
 	}
@@ -656,19 +651,12 @@ function displayFullTrip(data){
 	var ulDivImg = $('<ul>').attr('id','menu');
 	$.each(g_trip.tripSites, function(index,val){
 		var imgFotorama = $("<li>").css("background-image","url("+val.img+")")
-		// append($('<img>').attr("src",val.img));
 		ulDivImg.append(imgFotorama);
-		// console.log(ulDivImg)
 	})
 	$.each(g_trip.imageUrl, function(index,val){
 		var imgFotorama = $("<li>").css("background-image","url("+val+")")
-		// append($('<img>').attr("src",val.img));
 		ulDivImg.append(imgFotorama);
-		// console.log(ulDivImg)
 	})
-	// divImg.append(aPrev);
-	// divImg.append(aNext);
-
 	divImages.append(ulDivImg);
 	divImages.append(aPrev);
 	divImages.append(aNext)
@@ -707,8 +695,6 @@ function displayFullTrip(data){
 		imgL.attr('src', 'images/like.png').addClass('topImg');
 	}
 	var spanLike = $('<span>').addClass('countLike').html(g_trip.rate.value)
-	// $('.Trip').append("<span class='countLike'>" + g_trip.rate.value + "</span>");
-
 	var imgF="";
 	var imgS="";
 	var favorites= []
@@ -743,6 +729,7 @@ function displayFullTrip(data){
 	ulImg.append(liImgL);
 	$('.Trip').append(ulImg);
 
+	//******** initialize Time-line wite the sites *********
 	if(g_trip.tripSites.length>0){
 		var timeline = $('<div>');
 		var h2 = $('<h2>').html(TRIPPER_DATA.playlistSite).addClass('sitesTitle');
@@ -790,6 +777,7 @@ function displayFullTrip(data){
 		 	meImg.attr({"width":50,"height":50}).css({"border-radius":"50px",  "width": "50px"});
 		 });
 	}
+	//******** comments on trip *********
 	 num = 0;
 	 var commentSection = $( '<section>').attr("id","sectionComment")
 	 var ul = $('<ul>').addClass("commentList");
@@ -804,28 +792,17 @@ function displayFullTrip(data){
 	 	ul.append(li);
 	 	num++;
 	 });
-
-
-
-	 var h3= $('<h3>').html(TRIPPER_DATA.toThisPlaylist+num+TRIPPER_DATA.comments);
-	 var img = $('<img>').attr({"src":User.image,"id":"myImg"});
-	 var h4 = $('<h4>').html(TRIPPER_DATA.addNewComment).attr("id","titleComment");
-
-
-	 var textarea = $('<textarea>').attr({"type":"text","name":"comment","id":"comment"}).css({"display":"none"})
+	var h3= $('<h3>').html(TRIPPER_DATA.toThisPlaylist+num+TRIPPER_DATA.comments);
+	var img = $('<img>').attr({"src":User.image,"id":"myImg"});
+	var h4 = $('<h4>').html(TRIPPER_DATA.addNewComment).attr("id","titleComment");
+    var textarea = $('<textarea>').attr({"type":"text","name":"comment","id":"comment"}).css({"display":"none"})
 	var aSend= $('<a>').attr({"id":"submitComment"}).css({"display":"none"}).html(TRIPPER_DATA.send)
-
-
-
-
 	commentSection.append(h3);
 	commentSection.append(img);
 	commentSection.append(h4);
 	commentSection.append(textarea);
 	commentSection.append(aSend);
 	commentSection.append(ul)
-
-
 	$('.Trip').append(commentSection);
 	$('#titleComment').click(function(){
 		$('#comment').show();
@@ -834,6 +811,7 @@ function displayFullTrip(data){
 
 }
 
+//******** event click on add to schedule from list *********
 $(document).on("click", '.topImgScheduleList', function() {
 
 	if ($(this).hasClass("selectedImgSchedule")) {
@@ -845,6 +823,8 @@ $(document).on("click", '.topImgScheduleList', function() {
 		updateScheduleFromList(true, $(this).parent().attr('id'));
 	}
 });
+
+//******** event click on add to favorites from list *********
 $(document).on("click", '.topImgStarList', function() {
 
 	if ($(this).hasClass("selectedImgStar")) {
@@ -856,11 +836,10 @@ $(document).on("click", '.topImgStarList', function() {
 		updateFavoritesFromFavoritesList(true, $(this).parent().attr('id'));
 	}
 });
+
+//******** event click on add to schhedule *********
 $(document).on("click", '.topImgSchedule', function() {
-	// if (!User.email) {
-	// 	alert("אנא התחבר למערכת")
-	// 	return;
-	// }
+
 	if ($(this).hasClass("selectedImgSchedule")) {
 		$(this).removeClass("selectedImgSchedule").attr({'src':'images/add_track.png'});
 		updateSchedule(false);
@@ -870,11 +849,10 @@ $(document).on("click", '.topImgSchedule', function() {
 		updateSchedule(true);
 	}
 });
+
+//******** event click on add to favorites *********
 $(document).on("click", '.topImgStar', function() {
-	// if (!User.email) {
-	// 	alert("אנא התחבר למערכת")
-	// 	return;
-	// }
+
 	if ($(this).hasClass("selectedImgStar")) {
 		$(this).removeClass("selectedImgStar").attr({'src':'images/add_favorites.png'});
 		updateFavorites(false);
@@ -884,6 +862,7 @@ $(document).on("click", '.topImgStar', function() {
 		updateFavorites(true);
 	}
 });
+//******** query add to favorites *********
 function updateFavoritesFromFavoritesList(isFavorite, tripId){
 	// var result = $(this).parent().attr('id');
 	console.log(isFavorite, tripId)
@@ -933,6 +912,7 @@ function updateFavoritesFromFavoritesList(isFavorite, tripId){
     }
 });
 }
+//******** remove immediately favorites *********
 function removeImmediately (){
 	if(window.location.hash=='#viewFavorite')
 		{
@@ -940,6 +920,8 @@ function removeImmediately (){
 			displayListTrip(User.favorites);
 		}
 }
+
+//******** query to update favorites *********
 function updateFavorites (bool){
 	console.log(bool)
 	$.ajax({
@@ -964,11 +946,9 @@ function updateFavorites (bool){
         }
     });
 };
+//******** event click on 'LIKE' *********
 $(document).on("click", '.topImg', function() {
-	// if (!g_user.email) {
-	// 	alert("אנא התחבר למערכת")
-	// 	return;
-	// }
+
 	if ($(this).hasClass("selectedImg")) {
 		temp_rate=updateRate(0);
 		console.log(temp_rate)
@@ -990,6 +970,7 @@ $(document).on("click", '.topImg', function() {
 		
 	}
 });
+//******** query to update the LIKE *********
 function updateRate(value){
 	$.ajax({
 		type : "post",
@@ -1014,6 +995,7 @@ function updateRate(value){
 	});
 }
 
+//******** query to update new comment for trip *********
 $(document).on('click','#submitComment', function(){
 	var comment = $('#comment').val();
 	g_trip.comments.push(User.name + " : " + comment)
@@ -1030,8 +1012,6 @@ $(document).on('click','#submitComment', function(){
         dataType: "json",
         error: function(jqXHR, textStatus, errorMessage) {
         	console.log(errorMessage)
-
-
         },
         success: function(data) {
         	console.log("add comment success");
@@ -1044,13 +1024,14 @@ $(document).on('click','#submitComment', function(){
         	li.append(img);
         	li.append(h5);
         	ul.append(li);        	
-		// $('#tripComments').append(User.name + " : " + comment);
-		console.log(data)
-	}
-});
+			// $('#tripComments').append(User.name + " : " + comment);
+			console.log(data)
+		}
+	});
 
 });
 
+//******** query to update the schedule *********
 function updateSchedule (bool){
 	if(bool){
 		$.ajax({
@@ -1061,8 +1042,6 @@ function updateSchedule (bool){
 	    	dataType: "json",
 	    	error: function(jqXHR, textStatus, errorMessage) {
 	    		console.log(errorMessage)
-
-
 	    	},
 	    	success: function(data) {
 	    		console.log("update success");
@@ -1072,21 +1051,20 @@ function updateSchedule (bool){
 	else{
 		$.ajax({
 			type: "post",
-    	url: g_domain+"removeFromSchedule",// where you wanna post
-    	data:  {tripId:g_trip._id, userEmail:User.email},
-    	// ContentType: 'application/json',
-    	dataType : "json",
-    	error: function(jqXHR, textStatus, errorMessage) {
-    		console.log(errorMessage)
-
-
-    	},
-    	success: function(data) {
-    		console.log("removed from schedule")
-    	}
-    });
+	    	url: g_domain+"removeFromSchedule",// where you wanna post
+	    	data:  {tripId:g_trip._id, userEmail:User.email},
+	    	// ContentType: 'application/json',
+	    	dataType : "json",
+	    	error: function(jqXHR, textStatus, errorMessage) {
+	    		console.log(errorMessage)
+	    	},
+	    	success: function(data) {
+	    		console.log("removed from schedule")
+	    	}
+	    });
 	}
 }
+//******** query to update the schedule from list *********
 
 function updateScheduleFromList (bool, tripId){
 	console.log(bool, tripId)
@@ -1151,14 +1129,16 @@ function updateScheduleFromList (bool, tripId){
 };
 
 
-  $( window ).hashchange(function() {
+$( window ).hashchange(function() {
     var hash = location.hash;
     if (hash=="") {
     	appendTripCharachters();
     };
 });
 
-  $(document).on('click', '.divArt > article > a', function(){
+//******** continue reading *********
+
+$(document).on('click', '.divArt > article > a', function(){
 	if($('.divArt > article > p').hasClass("open-desc")){
 		$('.divArt > article > p').css("max-height", "6em").hide().slideUp("slow", function(){
 			$(this).removeClass("open-desc");
@@ -1178,16 +1158,13 @@ function updateScheduleFromList (bool, tripId){
 			'max-height' : '100%',
 			'position' : 'relative'
 			});
-	});
+		});
 	}
-
-
 });
 
+//******** event click to choose Janer *********
 $(document).on('click','.btnChar', function(e){
-
 	$(this).addClass('selectedChar');
-
 	if(count==1)
 	{
 		$('#genres').html($(this).text())
@@ -1225,6 +1202,8 @@ $(document).on('click','.btnChar', function(e){
 	})
 });
 
+//******** query to update favorites after editing trip that he is favorites *********
+
 function addToFavoFromEdit(tripToUpdate){
 
 	console.log("deleting trip " + g_trip);
@@ -1254,8 +1233,6 @@ function addToFavoFromEdit(tripToUpdate){
 		        dataType: "json",
 		        error: function(jqXHR, textStatus, errorMessage) {
 		        	console.log(errorMessage)
-
-
 		        },
 		        success: function(data) {
 		        	console.log("update success to add to the favorite");
@@ -1265,6 +1242,9 @@ function addToFavoFromEdit(tripToUpdate){
     	}
     });
 }
+
+//******** moving between pages *********
+
 $(window).on('hashchange', function(e) {
 	if (e.originalEvent.newURL.indexOf("#myPageSchedule") != -1) {
 	}
@@ -1317,12 +1297,13 @@ function moveToHomePage() {
 		transition : "none",
 		changeHash : true
 	});
-
 }
 $(document).on('click','#home',function(){
 	console.log("homeP")
 	moveToHomePage();
 });
+
+//******** append Janers from database to home page *********
 function appendTripCharachters(){
 	$("#groupButton").empty();
 	var h2Road=$("<h2>").html(TRIPPER_DATA.homePage);
@@ -1341,7 +1322,7 @@ function appendTripCharachters(){
 		$(this).css("background","transparent")
 	})
 }
-
+//******** sign in with google plus *********
 function signinCallback(authResult) {
 	if (authResult['status']['signed_in']) {
 		// Update the app to reflect a signed in user
@@ -1381,7 +1362,15 @@ function signinCallback(authResult) {
 		 console.log('Sign-in state: ' + authResult['error']);
 
 		}
-	}
+}	
+
+//******** sign out google plus *********
+$(document).on( "click", "#signOut", function() {
+	console.log("signOut")
+	gapi.auth.signOut();
+});	
+
+//******** query bring trips after Janers *********
 
 function updateTripFromCharchters(tc){
 	console.log("charachtrs length ", clickedCharachters.length)
@@ -1409,6 +1398,7 @@ function updateTripFromCharchters(tc){
 	    } 
 	});
 }
+
 /********  display trip on The Trip Page *********/
 function displayListTrip(data){
 	console.log(data)
@@ -1522,15 +1512,12 @@ function displayListTrip(data){
 			}
 		});
 	}
-favoriteFlagList=0;
-accountFlagList=0;
-console.log("after display list",accountCounter)
+	favoriteFlagList=0;
+	accountFlagList=0;
+	console.log("after display list",accountCounter)
 }
-$(document).on( "click", "#signOut", function() {
-	console.log("signOut")
-	gapi.auth.signOut();
-});	
 
+//******** event click to move to account page *********
 $(document).on('click','#showTrips',function(){
 	// accountFlag=1;
 	moveToAccountPage();
@@ -1547,6 +1534,7 @@ $(document).on('click','#showTrips',function(){
 		getUserTrip();
 	}
 });
+//******** query to get data account page *********
 function getUserTrip(){
 	$.ajax({
 		type : "get",
@@ -1562,6 +1550,8 @@ function getUserTrip(){
        }
    });
 }
+
+//******** try to create user or update in DB *********
 function create_user(user){
 	$.ajax({
 		type : "POST",
@@ -1579,6 +1569,8 @@ function create_user(user){
        }
    });
 }
+
+//******** moving from list pages to full trip *********
 
 $(document).on('click','.titelNameFavorite',function(){
 	
@@ -1734,8 +1726,9 @@ $(document).on('click','.moveToTrip',function(){
     });
 	moveToTripPage();
 });
+//********end functions moving from list pages to full trip *********
 
-
+//******** adding to schedule *********
 $(document).on('click', '.addToSchedule', function(){
 	var result = $(this).parent().attr('id');
 	$.ajax({

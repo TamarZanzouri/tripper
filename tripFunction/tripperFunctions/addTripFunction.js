@@ -1,3 +1,5 @@
+//******** add trip *********
+
 $(document).on('submit','#addform',function(e){
 	e.preventDefault();
 	var form = new FormData(this); 
@@ -51,6 +53,9 @@ $(document).on('submit','#addform',function(e){
 	}
 	console.log(form);
 	console.log("janers", tempJaners, "filter",tempFilter)
+
+	//******** add trip with images *********
+	
 	if(($(this).find('#imgUpload')[0].files.length) > 0){
 		console.log("uploading images")
 		if(editFromAccount){
@@ -75,6 +80,7 @@ $(document).on('submit','#addform',function(e){
 		moveToAccountPage();
 	}
 	else if(edit){
+		//********  edit trip from favorite *********
 		form.append("flag", "favorites");
 		$.ajax({
 			type: "post",
@@ -117,6 +123,7 @@ $(document).on('submit','#addform',function(e){
 	}
 	else{
 		if(editFromAccount){
+		//********  edit trip from my account *********		
 		form.append("tripId" , g_trip._id);
 		form.append("flag" , "account");
 		$.ajax({
@@ -181,7 +188,7 @@ $(document).on('submit','#addform',function(e){
 	}
 return true;
 })
-
+//********  geocomplete to sites name *********
 $(document).on('focus', '.siteName', function(){
 		$(this).geocomplete();
 });
@@ -190,6 +197,7 @@ $(document).on("click","addTrip",function(){
 	moveToAddPage()
 	addDataToAddPage();
 });
+//******** add data from DB *********
 function addDataFilters(){
 		$('#who_are_you_going_with div button .nameF').html(TRIPPER_DATA.who_are_you_going_with);
 		$('label[for="trip_with_animals"]').text(TRIPPER_DATA.trip_with_animals);
@@ -241,7 +249,7 @@ function addDataToAddPage(){
 		$('#preivateT').hide();
 	})
 }
-
+//******** present the trip on the add trip page - editing *********
 $(document).on('click','#editFavorite',function(){
 	console.log(g_trip)
 	edit=true;
@@ -316,6 +324,8 @@ $(document).on('click','#editFavorite',function(){
 	}
 
 });
+
+//******** present the trip on the add trip page - editing *********
 
 $(document).on('click','#editTripFromAccount',function(){
 	$('.addNewSite').click();
