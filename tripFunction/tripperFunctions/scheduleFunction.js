@@ -10,6 +10,7 @@ $(document).ready(function(){
 	});
 	$('#updateFriendsWithChanges').click(function(){
 		console.log(g_ListTrip)
+		console.log(date)
 		if(!(_.contains(shareScheduleWithFriends, User.email ))){
 			shareScheduleWithFriends.push(User.email)
 		}	
@@ -19,8 +20,8 @@ $(document).ready(function(){
 			console.log("sending email")
 			$.ajax({
 				type: "post",
-		        url: g_domain+"updateScheduleParticipents",// where you wanna post
-		        data:  {trips:g_ListTrip, sharedEmail:shareScheduleWithFriends, dateOfTrip : date},
+		        url: g_domain+"saveTimeSchedule",// where you wanna post
+		        data:  {userId : User.email, tripTime : date},
 		        dataType: 'json',
 		        error: function(jqXHR, textStatus, errorMessage) {
 		        	console.log(errorMessage)

@@ -237,8 +237,8 @@ exports.updateScheduleParticipents = function(req, res){
 		}
 		if(timeForTrip == null || typeof timeForTrip === undefined){
 			timeForTrip = {
-				checkInTime : null,
-				checkOutTime : null
+				checkInTime : '',
+				checkOutTime : ''
 			};
 			console.log("trip time is null")
 		}
@@ -352,12 +352,19 @@ exports.updateScheduleParticipents = function(req, res){
 // router.post('/saveTimeSchedule', function(req, res){
 exports.saveTimeSchedule = function(req, res){
 	try{
-		user = req.body.userId;
-		tripDate = req.body.tripTime;
+		var user = req.body.userId;
+		var tripDate = req.body.tripTime;
 		console.log("trip date" + tripDate.checkOutTime)
 	}
 	catch(err){
 		console.log("failed to get params " + err);
+	}
+	if(tripDate == null || typeof tripDate === undefined){
+		tripDate = {
+			checkInTime : '',
+			checkOutTime : ''
+		};
+		console.log("trip time is null")
 	}
 	db.model('users').findOneAndUpdate({email:user}, {tripScheduleTime : tripDate}, function(err, docs){
 		if(err){
@@ -365,10 +372,24 @@ exports.saveTimeSchedule = function(req, res){
 			res.json({status:0});
 			return console.error(err);
 		}
-		console.log("updated date")
-		res.json({status:1});
+		if(docs.tripPatners.length > 0){
+			tripParticipents = docs.tripPatners;
+			tripParticipents.splice(user, 1)
+			db.model('users').update({email : { $in : tripParticipents}},
+			{
+				tripScheduleTime : tripDate
+			},
+			{multi : true}, 
+			function(err, subdocs){
+				if(err){
+					console.error(err);
+				}
+				console.log(subdocs, " updated")
+			});
+		}
+	console.log("updated date", docs)
+	res.json({status:1});
 	});
-
 }
 
 // router.post('/updateFavoirte', function(req, res){
