@@ -1,6 +1,6 @@
 User={};
 
-g_domain="http://localhost:1337/";//"http://shenkartripper.herokuapp.com/";//
+g_domain="http://shenkartripper.herokuapp.com/";//"http://localhost:1337/";//
 
 
 
@@ -197,11 +197,7 @@ $(document).ready(function(){
 
 	})
 });
-	//  $('.modal-backdrop').css({"display":"none"})
-	// $(document).on('click','#buttonRadius',function(){
-	//  $('.modal-backdrop').css({"display":"none"})
 
-	// })
 //******** check if there is ohter filters *********
 function checkIfInArray(filterToCheck){
 	console.log(filterToCheck, filter)
