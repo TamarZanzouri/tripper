@@ -22,7 +22,9 @@ body.ui-mobile-viewport, div.ui-mobile-viewport{
 	margin: 0 auto;
 	  width: 90%;
 }
-
+.modal-backdrop.in {
+  display: none;
+}
 form{
    margin: 15px 9% 5px 9%;
     text-align: right;
@@ -1698,6 +1700,7 @@ display: block;
   }
   #us6-dialog{
   width: 100%;
+    z-index: 9999999;
   }
   #resultTitle{
 

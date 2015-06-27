@@ -1,6 +1,6 @@
 User={};
 
-g_domain="http://shenkartripper.herokuapp.com/";//"http://localhost:1337/";//
+g_domain="http://localhost:1337/";//"http://shenkartripper.herokuapp.com/";//
 
 
 
@@ -142,6 +142,7 @@ $(document).ready(function(){
     initMap(32.020593632526015,34.83983516693115);
     initDatepicker();
     //******** initialize radius for searching in mobile *********
+
 	$('#us3').locationpicker({
 		location: {latitude: 32.08973379436282,longitude: 34.80341009795666 },
 		radius: 3000,
@@ -196,7 +197,11 @@ $(document).ready(function(){
 
 	})
 });
+	//  $('.modal-backdrop').css({"display":"none"})
+	// $(document).on('click','#buttonRadius',function(){
+	//  $('.modal-backdrop').css({"display":"none"})
 
+	// })
 //******** check if there is ohter filters *********
 function checkIfInArray(filterToCheck){
 	console.log(filterToCheck, filter)
