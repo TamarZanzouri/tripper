@@ -51,6 +51,8 @@ shareScheduleWithFriends = [];
 var num =0;
 TRIPPER_DATA=[];
 
+//******** find user location *********
+
 navigator.geolocation.getCurrentPosition(function(position) {
 		//Get Latitude From Geolocation API
 		point1.lat = position.coords.latitude;
@@ -108,6 +110,9 @@ $(document).ready(function(){
 	}); 
 	
 	/******* end get data *******/
+
+	//******** check if desktop or mobile to initialize parameters *********//
+
 	if ($(window).width() < 767) {
 		console.log("in mobile")
 		$('#nav-panel').css("display" , "block");
@@ -118,7 +123,7 @@ $(document).ready(function(){
 		$('#filtermenu').css("display", "none !important");
 		$('#buttonRadius').css("display", "block")
 	}
-    //  1.tel_aviv 2. north 3. south 
+	//******** initialize the map after choosing *********//
     var locations={}
     $('input:radio[name=area]').click(function(){
     	var tempLocation = $(this).val();
@@ -136,7 +141,7 @@ $(document).ready(function(){
     });
     initMap(32.020593632526015,34.83983516693115);
     initDatepicker();
-
+    //******** initialize radius for searching in mobile *********
 	$('#us3').locationpicker({
 		location: {latitude: 32.08973379436282,longitude: 34.80341009795666 },
 		radius: 3000,
@@ -151,6 +156,7 @@ $(document).ready(function(){
 		$('#us3').locationpicker('autosize');
 	});
 
+	//******** recognition click on the filters in desktop *********
 	$('.option1 li').click(function(){
 		var i = $(this).parents('.select').attr('id');
 		var v = $(this).children().text();
@@ -190,6 +196,20 @@ $(document).ready(function(){
 
 	})
 });
+
+//******** check if there is ohter filters *********
+function checkIfInArray(filterToCheck){
+	console.log(filterToCheck, filter)
+	var found = jQuery.inArray(filterToCheck, filter);
+	if (found >= 0) {
+    // Element was found, remove it.
+    return
+	} else {
+	    // Element was not found, add it.
+	    filter.push(filterToCheck);
+	}
+}
+
 function checkTheList(){
 	var tempList= [];
 	var tempFil=1;
@@ -244,6 +264,8 @@ function checkTheList(){
 	displayListTrip(g_ListTrip);
 }
 
+//******** initialize map *********
+
 function initMap(l1,l2){
 	var mapOptions = {
 		center: new google.maps.LatLng(	l1, l2),
@@ -273,6 +295,7 @@ function initMap(l1,l2){
 	});
 }
 
+//******** present the filter that the user choice *********
 
 $(document).on('change', 'ul.dropdown-menu li input[type=checkbox]', function() {
     	console.log("changed")
@@ -280,6 +303,14 @@ $(document).on('change', 'ul.dropdown-menu li input[type=checkbox]', function() 
             var line_trip_kind = "";
             var line_trip_with_who = "";
             var line_janers = "";
+
+            // var parentOfThisFilters =$(this).parents("li");
+            // var parentOfThisJarenrs = parentOfThisFilters.parent("ul");
+           	// parentOfThisFilters=parentOfThisJarenrs.children("li");
+            // var appendTextToParentLabel = parentOfThisFilters.children().first("div").children();
+            // parentOfThisJarenrs = parentOfThisJarenrs.attr('id');
+            // parentOfThisFilters = parentOfThisFilters.attr("id");
+
             var parentOfThisFilters = $(this).parent().parent().parent().parent().parent().attr('id');
             var parentOfThisJarenrs = $(this).parent().parent().parent().parent().parent().parent().attr('id');
             var appendTextToParentLabel = $(this).parent().parent().parent().parent().children();
@@ -325,6 +356,8 @@ $(document).on('change', 'ul.dropdown-menu li input[type=checkbox]', function() 
 
 });
 
+//******** moving from the welcome to chose button *********//
+
 $(document).on('click', '#welcome > div', function(){
 		$('#welcome').hide();
 		$('#groupButton').show();
@@ -338,16 +371,6 @@ $(document).on('click','#addUser',function(){
 	$('#usersList').append(tempEmailUser+" ");
 });
 
-$("#home").on({
-	mouseenter: function () {
-		console.log("hover LI")
-        //stuff to do on mouse enter
-    },
-    mouseleave: function () {
-        //stuff to do on mouse leave
-    }
-});
-
 $(document).on('change', '#pickJanerul > li', function  () {
     var max = 2;
     var checkboxes = $('#pickJanerul > li > input[type=checkbox]');
@@ -358,33 +381,7 @@ $(document).on('change', '#pickJanerul > li', function  () {
     });
 });
 
-function checkIfHasTripKind(){
-	$('#trip_kind li').each(function(value) {
-		if($(this).is(':checked')){
-			checkIfInArray($(this).attr('id'));
-		}
-	});
-	console.log(filter)
-}
-
-function checkIfHasDificullty(){
-	
-var dificullty = $("#dificullty").children().hasClass('selected');
-	if(dificullty){
-		checkIfInArray(dificullty)
-	}
-	return
-	// console.log(dificullty)
-}
-
-function checkIfHasArea(){
-	var area = $("#area").children().hasClass('selected');
-	if(area){
-		console.log("area ", area)	
-	}
-	return
-}
-
+//******** menu li hover *********
 
 $(document).on('mouseenter',"#home", function(){
 	$("#home a img").attr("src", "images/search_hover.png");
@@ -422,17 +419,8 @@ $(document).on('mouseenter',"#logoImg", function(){
 $(document).on('mouseleave',"#logoImg", function(){
 	$("#logoImg").attr("src", "images/logo.png");
 });
-function checkIfInArray(filterToCheck){
-	console.log(filterToCheck, filter)
-	var found = jQuery.inArray(filterToCheck, filter);
-	if (found >= 0) {
-    // Element was found, remove it.
-    return
-	} else {
-	    // Element was not found, add it.
-	    filter.push(filterToCheck);
-	}
-}
+
+
 
 $(document).on('click','.btn-primary',function(){
 	r = $('#us3-radius').val();
@@ -456,6 +444,7 @@ $(document).on('click','.btn-primary',function(){
 	displayListTrip(tempList);
 	console.log(tempList);
 });
+//******** check if the trip iz in the raduis *********
 
 function distance(lat1,lon1,lat2,lon2) {
 	var R = 6371; // km (change this constant to get miles)
@@ -470,7 +459,7 @@ function distance(lat1,lon1,lat2,lon2) {
 	else if (d<=1) return Math.round(d*1000);
 	return d;
 }
-//********** date *************
+//********** pick date *************
 function initDatepicker(){
 	var nowTemp = new Date();
 	var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
@@ -499,73 +488,8 @@ function initDatepicker(){
 		date.checkOutTime=formatDate(checkout.viewDate,"MM d, y");
 		console.log(date);
 	}).data('datepicker');
-
-
 }
-var MONTH_NAMES=new Array('January','February','March','April','May','June','July','August','September','October','November','December','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
-var DAY_NAMES=new Array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sun','Mon','Tue','Wed','Thu','Fri','Sat');
-function LZ(x) {return(x<0||x>9?"":"0")+x}
-// ------------------------------------------------------------------
-// formatDate (date_object, format)
-// Returns a date in the output format specified.
-// The format string uses the same abbreviations as in getDateFromFormat()
-// ------------------------------------------------------------------
-function formatDate(date,format) {
-	format=format+"";
-	var result="";
-	var i_format=0;
-	var c="";
-	var token="";
-	var y=date.getYear()+"";
-	var M=date.getMonth()+1;
-	var d=date.getDate();
-	var E=date.getDay();
-	var H=date.getHours();
-	var m=date.getMinutes();
-	var s=date.getSeconds();
-	var yyyy,yy,MMM,MM,dd,hh,h,mm,ss,ampm,HH,H,KK,K,kk,k;
-	// Convert real date parts into formatted versions
-	var value=new Object();
-	if (y.length < 4) {y=""+(y-0+1900);}
-	value["y"]=""+y;
-	value["yyyy"]=y;
-	value["yy"]=y.substring(2,4);
-	value["M"]=M;
-	value["MM"]=LZ(M);
-	value["MMM"]=MONTH_NAMES[M-1];
-	value["NNN"]=MONTH_NAMES[M+11];
-	value["d"]=d;
-	value["dd"]=LZ(d);
-	value["E"]=DAY_NAMES[E+7];
-	value["EE"]=DAY_NAMES[E];
-	value["H"]=H;
-	value["HH"]=LZ(H);
-	if (H==0){value["h"]=12;}
-	else if (H>12){value["h"]=H-12;}
-	else {value["h"]=H;}
-	value["hh"]=LZ(value["h"]);
-	if (H>11){value["K"]=H-12;} else {value["K"]=H;}
-	value["k"]=H+1;
-	value["KK"]=LZ(value["K"]);
-	value["kk"]=LZ(value["k"]);
-	if (H > 11) { value["a"]="PM"; }
-	else { value["a"]="AM"; }
-	value["m"]=m;
-	value["mm"]=LZ(m);
-	value["s"]=s;
-	value["ss"]=LZ(s);
-	while (i_format < format.length) {
-		c=format.charAt(i_format);
-		token="";
-		while ((format.charAt(i_format)==c) && (i_format < format.length)) {
-			token += format.charAt(i_format++);
-		}
-		if (value[token] != null) { result=result + value[token]; }
-		else { result=result + token; }
-	}
-	return result;
-}
-
+//******** present the img that choose by the user *********
 function showMyImage(fileInput,x) {
 	var files = fileInput.files;
 	for (var i = 0; i < files.length; i++) {           

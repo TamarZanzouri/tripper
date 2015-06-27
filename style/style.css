@@ -766,6 +766,7 @@ body, input, select, textarea, button, .ui-btn{
 }
 #content{
 padding: 0 10% 0 10% !important;
+  overflow-y: hidden;
 }
 #groupButton{
   /*display: none;*/
@@ -1712,11 +1713,13 @@ display: block;
       font-size: 44px ;
   width: 100%;
     position: relative;
+      display: -webkit-inline-box;
   }
   .Trip >.divHead> ul {
       padding: 0 5px 0 0;
   position: relative;
     top: 10px;
+
   }
   .Trip > .divHead> ul >li{
   font-size: 23px;
@@ -1727,6 +1730,10 @@ display: block;
   }
   .Trip>article{
     width: 100%;
+  }
+  #editFavorite{
+      top: 10px;
+  position: relative;
   }
   .asideFilter{
 
@@ -1798,20 +1805,34 @@ display: block;
   width: 100%;
   }
   #welcome {
-     width: 96%;
+   width: 100%;
   padding: 5px 18px 10px 16px;
-  margin: 50px 0 0 0;
+  margin: 40px 0 0 0;
   }
   #welcome > h1{
-      font-size: 45px;
+   font-size: 36px;
   margin: 0 !important;
+  }
+  #welcome > p{
+      display: inline-table;
+  font-size: 14px;
+  line-height: 25px;
+  margin: 0 0 5px 0;
+  }
+  #welcome > div{
+      margin: 0 0 0 00!important;
+        padding: 5px 10px 5px 10px;
   }
   #welcome > div>img{
       width: 200px;
   height: auto;
   }
   #welcome > div>span{
-      font-size: 30px;
+  font-size: 25px;
+  }
+  #signinButton {
+  position: relative;
+  bottom: 7px;
   }
   .btnChar{
    margin: 7px 7px 7px 7px !important;
@@ -1835,7 +1856,6 @@ display: block;
   #editTripFromAccount{
     cursor: pointer;
     position: relative;
-    left: 50px;
   }
   #imgUploadMobile::before {
    visibility: hidden;
