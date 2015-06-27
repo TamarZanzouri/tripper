@@ -532,7 +532,7 @@ $.ajax({
 		console.log(data.imageUrl);
 		g_trip.imageUrl.push(data.imageUrl);
 		var imgFotorama = $("<li>").css("background-image","url("+data.imageUrl+")")
-		$('#menu').append(imgFotorama);
+		$('#menu').prepend(imgFotorama);
 		console.log("img uploaded")      	
 	}
 });

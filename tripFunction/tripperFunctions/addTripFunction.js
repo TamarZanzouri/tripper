@@ -213,6 +213,11 @@ function addDataFilters(){
 };
 var numOfSite=0;
 function addDataToAddPage(){
+	if(!User.email){
+		$('#isPrivate').hide();
+	}else{
+		$('#isPrivate').show();
+	}
 	$('#preivateT').hide();
 	addDataFilters();
 	$('#addTripTitle').html(TRIPPER_DATA.addTripTitle);
