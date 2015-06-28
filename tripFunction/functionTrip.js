@@ -1,8 +1,8 @@
 User={};
 
-g_domain="http://localhost:1337/";
+g_domain="http://shenkartripper.herokuapp.com/";//"http://localhost:1337/";//
 
-//"http://shenkartripper.herokuapp.com/";
+
 
 
 //hashtable for variables in english
@@ -358,7 +358,7 @@ $(document).on('change', 'ul.dropdown-menu li input[type=checkbox]', function() 
 	        		FilterIsActiveAndStringEmpty = 0;
         		}
           		appendTextToParentLabel.first('span.nameF').text(line_trip_kind);
-            }
+	            }
             else if(parentOfThisJarenrs === "pickJaner"){
             	console.log("pickJaner");
             	FilterIsActiveAndStringEmpty = 3;
@@ -555,7 +555,7 @@ $.ajax({
 	success: function(data) {
 		console.log(data.imageUrl);
 		g_trip.imageUrl.push(data.imageUrl);
-		var imgFotorama = $("<li>").css("background-image","url("+data.imageUrl+")")
+		var imgFotorama = $("<li>").css({"background-image":"url("+data.imageUrl+")","background-size": "100% 100%"})
 		$('#menu').prepend(imgFotorama);
 		console.log("img uploaded")      	
 	}
@@ -703,56 +703,60 @@ function displayFullTrip(data){
 	divArt.append(ulTags);
 	$('.Trip').append(divArt)
 
-	var ulImg =$ ('<ul>').addClass('ulImages');
-	var liImgF= $('<li>')
-	var liImgS= $('<li>')
-	var liImgL= $('<li>')
-	var imgL="";
-	if(g_trip.rate.userEmail.indexOf(User.email) >-1)
-	{
-		console.log(User.email,g_trip.rate.userEmail)
-		imgL= $('<img>')
-		imgL.attr('src', 'images/dislike.png').addClass("topImg selectedImg");
-	}
-	else{
-		imgL= $('<img>')
-		imgL.attr('src', 'images/like.png').addClass('topImg');
-	}
-	var spanLike = $('<span>').addClass('countLike').html(g_trip.rate.value)
-	var imgF="";
-	var imgS="";
-	var favorites= []
-	$.each(User.favorites, function(i,value){
-		favorites.push(value._id)
-	})
-	if (favorites.indexOf(g_trip._id) > -1)
-	{
-		imgF = $('<img>')
-		imgF.attr({'src':'images/remove_favorites.png'}).addClass('topImgStar selectedImgStar'); 
+	if(!jQuery.isEmptyObject(User)){
+		console.log("user registered")
+		var ulImg =$ ('<ul>').addClass('ulImages');
+		var liImgF= $('<li>')
+		var liImgS= $('<li>')
+		var liImgL= $('<li>')
+		var imgL="";
+		if(g_trip.rate.userEmail.indexOf(User.email) >-1)
+		{
+			console.log(User.email,g_trip.rate.userEmail)
+			imgL= $('<img>')
+			imgL.attr('src', 'images/dislike.png').addClass("topImg selectedImg");
+		}
+		else{
+			imgL= $('<img>')
+			imgL.attr('src', 'images/like.png').addClass('topImg');
+		}
+		var spanLike = $('<span>').addClass('countLike').html(g_trip.rate.value)
+		var imgF="";
+		var imgS="";
+		var favorites= []
+		$.each(User.favorites, function(i,value){
+			favorites.push(value._id)
+		})
+		if (favorites.indexOf(g_trip._id) > -1)
+		{
+			imgF = $('<img>')
+			imgF.attr({'src':'images/remove_favorites.png'}).addClass('topImgStar selectedImgStar'); 
+		}else{
+			imgF = $('<img>')
+			imgF.attr({'src':'images/add_favorites.png'}).addClass('topImgStar'); 
+		}
+		var schedules= []
+		$.each(User.schedule, function(i,value){
+			schedules.push(value._id)
+		})
+		if (schedules.indexOf(g_trip._id) > -1) {
+			imgS = $('<img>')
+			imgS.attr({'src':'images/remove_track.png'}).addClass('topImgSchedule selectedImgSchedule'); 
+		}else{
+			imgS = $('<img>')
+			imgS.attr({'src':'images/add_track.png'}).addClass('topImgSchedule'); 
+		}
+		liImgF.append(imgF);
+		liImgS.append(imgS);		
+		liImgL.append(imgL);
+		liImgL.append(spanLike);
+		ulImg.append(liImgF);
+		ulImg.append(liImgS);
+		ulImg.append(liImgL);
+		$('.Trip').append(ulImg);
 	}else{
-		imgF = $('<img>')
-		imgF.attr({'src':'images/add_favorites.png'}).addClass('topImgStar'); 
+		console.log("user not registered")
 	}
-	var schedules= []
-	$.each(User.schedule, function(i,value){
-		schedules.push(value._id)
-	})
-	if (schedules.indexOf(g_trip._id) > -1) {
-		imgS = $('<img>')
-		imgS.attr({'src':'images/remove_track.png'}).addClass('topImgSchedule selectedImgSchedule'); 
-	}else{
-		imgS = $('<img>')
-		imgS.attr({'src':'images/add_track.png'}).addClass('topImgSchedule'); 
-	}
-	liImgF.append(imgF);
-	liImgS.append(imgS);		
-	liImgL.append(imgL);
-	liImgL.append(spanLike);
-	ulImg.append(liImgF);
-	ulImg.append(liImgS);
-	ulImg.append(liImgL);
-	$('.Trip').append(ulImg);
-
 	//******** initialize Time-line wite the sites *********
 	if(g_trip.tripSites.length>0){
 		var timeline = $('<div>');
@@ -1155,6 +1159,17 @@ function updateScheduleFromList (bool, tripId){
 
 $( window ).hashchange(function() {
     var hash = location.hash;
+    filter=[];
+    var spanC = $('<span>').addClass('caret');
+    var span = $('<span>').html(TRIPPER_DATA.who_are_you_going_with)
+    $('#who_are_you_going_with div button').html(span);
+    $('#who_are_you_going_with div button').append(spanC);
+    var spanK = $('<span>').html(TRIPPER_DATA.trip_kind)
+    $('#trip_kind div button').html(spanK);
+    $('#trip_kind div button').append(spanC);
+    // $('#trip_kind div button').html(TRIPPER_DATA.trip_kind+"\/");
+    // line_trip_kind = TRIPPER_DATA.trip_kind;
+    // line_trip_with_who = TRIPPER_DATA.who_are_you_going_with;
     if (hash=="") {
     	appendTripCharachters();
     };

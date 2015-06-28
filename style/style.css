@@ -1510,8 +1510,13 @@ width: 46%;
   border-top: 1px solid #000000;
   margin: 0 0 20px 0;
 }
+.commentList > li:last-child{
+  margin: 20px 0 20px 0;
+}
 @media(max-width: 767px){
-
+#chatComment{
+    right: 220px;
+}
 #nav-panel{
   background-color: #22AF87;
   color: white;
@@ -1877,5 +1882,14 @@ display: block;
   }
   #imgUploadMobile:hover{
     background-image: url("images/add_pic_hover.png");  
+  }
+  #scheduleTimeLline{
+    height: 250px;
+  overflow: hidden;
+  margin: 0 0 82px 0;
+  }
+  #friendsemail {
+  top: 70px;
+  position: relative;
   }
 }
