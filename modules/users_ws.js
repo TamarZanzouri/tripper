@@ -242,10 +242,10 @@ exports.updateScheduleParticipents = function(req, res){
 			};
 			console.log("trip time is null")
 		}
-		console.log(timeForTrip, " " ,tripsInScheduleArray)
+		console.log(timeForTrip, " ");
 	}
 	catch(err){
-		console.log("failed to get params")
+		console.log("failed to get params" + err)
 	}
 	console.log("partners, ", tripParticipents, "trips, ", tripsInSchedule, "time, " ,timeForTrip );
 	db.model('users').findOne({email : checkIfUserExists}, function(err, docs){
