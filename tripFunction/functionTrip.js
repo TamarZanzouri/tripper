@@ -703,7 +703,7 @@ function displayFullTrip(data){
 	divArt.append(ulTags);
 	$('.Trip').append(divArt)
 
-	if(!User){
+	if(!jQuery.isEmptyObject(User)){
 		console.log("user registered")
 		var ulImg =$ ('<ul>').addClass('ulImages');
 		var liImgF= $('<li>')
