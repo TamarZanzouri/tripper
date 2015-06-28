@@ -1,8 +1,8 @@
 User={};
 
-g_domain="http://localhost:1337/";
+g_domain="http://shenkartripper.herokuapp.com/";//"http://localhost:1337/";
 
-//"http://shenkartripper.herokuapp.com/";
+
 
 
 //hashtable for variables in english
@@ -555,7 +555,7 @@ $.ajax({
 	success: function(data) {
 		console.log(data.imageUrl);
 		g_trip.imageUrl.push(data.imageUrl);
-		var imgFotorama = $("<li>").css("background-image","url("+data.imageUrl+")")
+		var imgFotorama = $("<li>").css({"background-image":"url("+data.imageUrl+")","background-size": "100% 100%"})
 		$('#menu').prepend(imgFotorama);
 		console.log("img uploaded")      	
 	}
