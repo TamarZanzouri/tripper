@@ -1776,11 +1776,13 @@ display: block;
   #groupButton > h2{}
   #sectionComment{
       position: relative;
-        top: 67px;
+      top: 67px;
+      margin: 0 0 67px 0;
   }
    #sectionChat{
       position: relative;
-        top: 67px;
+      top: 67px;
+      margin: 0 0 67px 0;
   }
   #submitComment{
       right: 168px;
