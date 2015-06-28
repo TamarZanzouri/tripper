@@ -110,7 +110,7 @@ exports.updateMySchedule = function(req, res){
 		// tripsInScheduleArray = docs.schedule;
 		// console.log("partners ", tripPatnersArray, "trips ", tripsInScheduleArray)
 		if( docs.tripPatners.length > 0 ){
-			tripPatnersArray.splice(user, 1)
+			tripPatnersArray.splice(tripParticipents.indexOf(user), 1)
 			console.log(tripPatnersArray)
 			console.log("in if")
 			tripPatnersArray.forEach(function(participent){
@@ -354,7 +354,7 @@ exports.saveTimeSchedule = function(req, res){
 	try{
 		var user = req.body.userId;
 		var tripDate = req.body.tripTime;
-		console.log("trip date" + tripDate.checkOutTime)
+		console.log("trip date" + tripDate.checkOutTime + "user " + user)
 	}
 	catch(err){
 		console.log("failed to get params " + err);
@@ -374,7 +374,9 @@ exports.saveTimeSchedule = function(req, res){
 		}
 		if(docs.tripPatners.length > 0){
 			tripParticipents = docs.tripPatners;
-			tripParticipents.splice(user, 1)
+			console.log("partners, " ,tripParticipents)
+			tripParticipents.splice(tripParticipents.indexOf(user), 1)
+			console.log("partners after splice, " ,tripParticipents)
 			db.model('users').update({email : { $in : tripParticipents}},
 			{
 				tripScheduleTime : tripDate

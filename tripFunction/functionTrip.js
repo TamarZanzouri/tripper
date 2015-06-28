@@ -1,7 +1,8 @@
 User={};
 
-g_domain="http://shenkartripper.herokuapp.com/";//"http://localhost:1337/";//
+g_domain="http://localhost:1337/";
 
+//"http://shenkartripper.herokuapp.com/";
 
 
 //hashtable for variables in english
@@ -50,6 +51,7 @@ var tripCharacters = [];
 shareScheduleWithFriends = [];
 var num =0;
 TRIPPER_DATA=[];
+FilterIsActiveAndStringEmpty = 0;
 
 //******** find user location *********
 
@@ -321,7 +323,9 @@ $(document).on('change', 'ul.dropdown-menu li input[type=checkbox]', function() 
             // console.log($("ul.dropdown-menu").parent().parent().attr("id"));
             if(parentOfThisFilters === "who_are_you_going_with"){
             	console.log("who");
+            	// if(line_trip_with_who === "")
             	$('#who_are_you_going_with input:checked').each(function() {
+            		FilterIsActiveAndStringEmpty = 1;
             	// var line = "";
             		console.log("checkbox")
                 // if($(this).is(":checked")) {
@@ -329,10 +333,17 @@ $(document).on('change', 'ul.dropdown-menu li input[type=checkbox]', function() 
                 // }
                 	console.log(line_trip_with_who)
             	});
+            	if(FilterIsActiveAndStringEmpty == 1 && line_trip_with_who === ""){
+            		console.log("line is empty ", line_trip_with_who ,"and flag is ", FilterIsActiveAndStringEmpty)
+            		line_trip_with_who = TRIPPER_DATA.who_are_you_going_with;
+            		console.log(line_trip_with_who);
+            		FilterIsActiveAndStringEmpty = 0;
+            	}
      	     	appendTextToParentLabel.first('span.nameF').text(line_trip_with_who);
             }
             else if(parentOfThisFilters === "trip_kind"){
             	console.log("else")
+            	FilterIsActiveAndStringEmpty = 2;
             	$('#trip_kind input:checked').each(function() {
             	// var line = "";
                 // if($(this).is(":checked")) {
@@ -340,19 +351,31 @@ $(document).on('change', 'ul.dropdown-menu li input[type=checkbox]', function() 
                 // }
                 console.log(line_trip_kind)
             });
-          	appendTextToParentLabel.first('span.nameF').text(line_trip_kind);
-
+        	 	if(FilterIsActiveAndStringEmpty == 2 && line_trip_kind === ""){
+	        		console.log("line is empty ", line_trip_kind ,"and flag is ", FilterIsActiveAndStringEmpty)
+	        		line_trip_kind = TRIPPER_DATA.trip_kind;
+	        		console.log(line_trip_kind);
+	        		FilterIsActiveAndStringEmpty = 0;
+        		}
+          		appendTextToParentLabel.first('span.nameF').text(line_trip_kind);
             }
             else if(parentOfThisJarenrs === "pickJaner"){
             	console.log("pickJaner");
+            	FilterIsActiveAndStringEmpty = 3;
             	$('#pickJaner input:checked').each(function() {
             	// var line = "";
                 // if($(this).is(":checked")) {
                 line_janers += $(this).prev('label').text() + "; ";
                 // }
-                console.log(line_janers)
+                console.log("add trip ", line_janers)
             });
-          	appendTextToParentLabel.first('span').text(line_janers);
+	            if(FilterIsActiveAndStringEmpty == 3 && line_janers === ""){
+	        		console.log("line is empty ", line_janers ,"and flag is ", FilterIsActiveAndStringEmpty)
+	        		line_janers = TRIPPER_DATA.chooseJaner;
+	        		console.log(line_janers);
+	        		FilterIsActiveAndStringEmpty = 0;
+	    		}
+          		appendTextToParentLabel.first('span').text(line_janers);
             }
 
 });
