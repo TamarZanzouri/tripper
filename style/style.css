@@ -1270,8 +1270,9 @@ width: 100%;
 }
 .commentList > li > h5{
   float: right;
-    font-size: 18px;
-      padding: 5px 20px 0 0;
+  font-size: 18px;
+  padding: 5px 10px 0 0;
+  width: 75%;
 }
 #submitComment{
   float: right;
