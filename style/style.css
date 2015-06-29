@@ -1247,6 +1247,14 @@ list-style: none;
   font-size: 20px;
   cursor: pointer;
 }
+#titleChat{
+  color: #22AF87 !important;
+  text-decoration: underline;
+  height: 50px;
+  line-height: 50px;
+  font-size: 20px;
+  cursor: pointer;
+}
 .commentList{
   position: relative;
   left: 33px;
