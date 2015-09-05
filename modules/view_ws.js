@@ -1,5 +1,5 @@
-// var express = require('express');
 
+// get all system data
 exports.getTripData =  function (req, res) {
 
 	console.log("in first function")

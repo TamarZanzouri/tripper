@@ -2,6 +2,7 @@ var fs = require('fs');
 var MongoClient = require('mongodb').MongoClient;
 var mongoose = require('mongoose');
 ObjectId = require('mongodb').ObjectID;
+// controlles all the requests
 var controller = require('./controller');
 
 var mongopath = 'mongodb://TripperDB:shenkar6196@ds041177.mongolab.com:41177/tripperbd';
