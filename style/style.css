@@ -1247,6 +1247,14 @@ list-style: none;
   font-size: 20px;
   cursor: pointer;
 }
+#titleChat{
+  color: #22AF87 !important;
+  text-decoration: underline;
+  height: 50px;
+  line-height: 50px;
+  font-size: 20px;
+  cursor: pointer;
+}
 .commentList{
   position: relative;
   left: 33px;
@@ -1262,8 +1270,9 @@ width: 100%;
 }
 .commentList > li > h5{
   float: right;
-    font-size: 18px;
-      padding: 5px 20px 0 0;
+  font-size: 18px;
+  padding: 5px 10px 0 0;
+  width: 75%;
 }
 #submitComment{
   float: right;
@@ -1508,7 +1517,7 @@ width: 46%;
   width: 100%;
   border-bottom: 1px solid #000000;
   border-top: 1px solid #000000;
-  margin: 0 0 20px 0;
+  margin: 20px 0 20px 0;
 }
 .commentList > li:last-child{
   margin: 20px 0 20px 0;

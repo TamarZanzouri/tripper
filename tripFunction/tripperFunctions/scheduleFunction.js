@@ -192,7 +192,7 @@ function displayListScheduleTrip(data){
 	});
 	var h3= $('<h3>').html(TRIPPER_DATA.chatWithFriend);
 	var img = $('<img>').attr({"src":User.image,"id":"myImg"});
-	var h4 = $('<h4>').html(TRIPPER_DATA.addNewComment).attr("id","titleComment");
+	var h4 = $('<h4>').html(TRIPPER_DATA.addNewComment).attr("id","titleChat");
 	var textarea = $('<textarea>').attr({"type":"text","name":"chat","id":"chat"}).css({"display":"none"})
 	var aSend= $('<a>').attr({"id":"chatComment"}).css({"display":"none"}).html("שלח")
 
@@ -202,7 +202,7 @@ function displayListScheduleTrip(data){
 	commentSection.append(textarea);
 	commentSection.append(aSend);
 	commentSection.append(ul)
-	$('#titleComment').click(function(){
+	$('#titleChat').click(function(){
 		$('#chat').show();
 		$('#chatComment').show();
 	});
